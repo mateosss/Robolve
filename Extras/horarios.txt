@@ -1,0 +1,4 @@
+Junio
+Do 5 - 7:30 hs
+  - setup de sprites basicos 4:15 hs
+  - programacion inicial de clase robot - 3:15 hs

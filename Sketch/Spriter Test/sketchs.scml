@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data generator_version="3.0" generator="krita" scml_version="1">
+    <folder id="15" name="arms1">
+        <file id="0" name="arms1/lArm.png" height="182.00" width="169.00"/>
+        <file id="1" name="arms1/lForearm.png" height="157.00" width="145.00"/>
+        <file id="2" name="arms1/lHand.png" height="162.00" width="135.00"/>
+        <file id="3" name="arms1/rArm.png" height="182.00" width="169.00"/>
+        <file id="4" name="arms1/rForearm.png" height="157.00" width="145.00"/>
+        <file id="5" name="arms1/rHand.png" height="162.00" width="135.00"/>
+    </folder>
+    <folder id="16" name="legs1">
+        <file id="0" name="legs1/lThigh.png" height="219.00" width="84.00"/>
+        <file id="1" name="legs1/lAncle.png" height="238.00" width="85.00"/>
+        <file id="2" name="legs1/lFoot.png" height="74.00" width="99.00"/>
+        <file id="3" name="legs1/rThigh.png" height="219.00" width="84.00"/>
+        <file id="4" name="legs1/rAncle.png" height="238.00" width="85.00"/>
+        <file id="5" name="legs1/rFoot.png" height="74.00" width="135.00"/>
+    </folder>
+    <folder id="17" name="Heads">
+        <file id="0" name="Heads/head2.png" height="240.00" width="243.00"/>
+    </folder>
+    <folder id="18" name="Middles">
+        <file id="0" name="Middles/middle3.png" height="303.00" width="269.00"/>
+    </folder>
+    <folder id="19" name="">
+        <file id="0" name="/White.png" height="1024.00" width="1024.00"/>
+    </folder>
+    <entity id="0" name="sketchs">
+        <animation id="0" name="default" looping="false" length="1000">
+            <mainline>
+                <key id="0">
+                    <object_ref timeline="0" id="0" key="0" z_index="0"/>
+                    <object_ref timeline="1" id="1" key="0" z_index="1"/>
+                    <object_ref timeline="2" id="2" key="0" z_index="2"/>
+                    <object_ref timeline="3" id="3" key="0" z_index="3"/>
+                    <object_ref timeline="4" id="4" key="0" z_index="4"/>
+                    <object_ref timeline="5" id="5" key="0" z_index="5"/>
+                    <object_ref timeline="6" id="6" key="0" z_index="6"/>
+                    <object_ref timeline="7" id="7" key="0" z_index="7"/>
+                    <object_ref timeline="8" id="8" key="0" z_index="8"/>
+                    <object_ref timeline="9" id="9" key="0" z_index="9"/>
+                    <object_ref timeline="10" id="10" key="0" z_index="10"/>
+                    <object_ref timeline="11" id="11" key="0" z_index="11"/>
+                    <object_ref timeline="12" id="12" key="0" z_index="12"/>
+                    <object_ref timeline="13" id="13" key="0" z_index="13"/>
+                    <object_ref timeline="14" id="14" key="0" z_index="14"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="object-White">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="0.00" y="0" pivot_y="1.00" scale_x="1.00" scale_y="1.00" file="0" folder="19" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="object-middle3">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-1.30" y="0" pivot_y="2.05" scale_x="1.00" scale_y="1.00" file="0" folder="18" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="object-head2">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-1.47" y="0" pivot_y="1.15" scale_x="1.00" scale_y="1.00" file="0" folder="17" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="object-rFoot">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-2.79" y="0" pivot_y="13.85" scale_x="1.00" scale_y="1.00" file="5" folder="16" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="4" name="object-rAncle">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-4.28" y="0" pivot_y="4.22" scale_x="1.00" scale_y="1.00" file="4" folder="16" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="5" name="object-rThigh">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-4.45" y="0" pivot_y="3.77" scale_x="1.00" scale_y="1.00" file="3" folder="16" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="6" name="object-lFoot">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-5.21" y="0" pivot_y="13.85" scale_x="1.00" scale_y="1.00" file="2" folder="16" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="7" name="object-lAncle">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-6.01" y="0" pivot_y="4.22" scale_x="1.00" scale_y="1.00" file="1" folder="16" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="8" name="object-lThigh">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-6.20" y="0" pivot_y="3.77" scale_x="1.00" scale_y="1.00" file="0" folder="16" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="9" name="object-rHand">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-0.06" y="0" pivot_y="4.23" scale_x="1.00" scale_y="1.00" file="5" folder="15" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="10" name="object-rForearm">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-0.56" y="0" pivot_y="3.64" scale_x="1.00" scale_y="1.00" file="4" folder="15" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="11" name="object-rArm">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-1.08" y="0" pivot_y="2.56" scale_x="1.00" scale_y="1.00" file="3" folder="15" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="12" name="object-lHand">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-6.14" y="0" pivot_y="4.31" scale_x="1.00" scale_y="1.00" file="2" folder="15" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="13" name="object-lForearm">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-5.12" y="0" pivot_y="3.72" scale_x="1.00" scale_y="1.00" file="1" folder="15" angle="0.00"/>
+                </key>
+            </timeline>
+            <timeline id="14" name="object-lArm">
+                <key id="0" spin="0">
+                    <object x="0" pivot_x="-3.66" y="0" pivot_y="2.63" scale_x="1.00" scale_y="1.00" file="0" folder="15" angle="0.00"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

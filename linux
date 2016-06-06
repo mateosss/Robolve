@@ -1,0 +1,6 @@
+pwd
+cocos compile -p linux
+RETVAL=$?
+[ $RETVAL -eq 0 ] && echo Success
+[ $RETVAL -ne 0 ] && echo Failure && exit
+cocos run -p linux

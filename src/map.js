@@ -1,0 +1,2 @@
+var spawn;
+var base;

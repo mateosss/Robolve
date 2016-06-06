@@ -1,0 +1,2 @@
+var deffese;
+var ammo;
