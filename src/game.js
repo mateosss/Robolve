@@ -1,4 +1,4 @@
-var GameLevel = cc.Node.extend({
+var GameLevel = cc.Scene.extend({
   onEnter:function () {
     this._super();
     var layer = new Level();
@@ -67,6 +67,7 @@ var Level = cc.Layer.extend({
       event: cc.EventListener.TOUCH_ONE_BY_ONE,
       onTouchBegan: function (touches, event) {
         cc.director.runScene(new MainMenu());
+        return true;
       },
     }, this);
     return true;
