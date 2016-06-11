@@ -3,6 +3,10 @@ var res = {
   map: "res/map.png",
   empty:"res/sprites/empty.png",
   invalidPart: "res/sprites/invalidPart.png",
+  maps:{
+    map1Sheet: "res/map/final132.png",
+    map1: "res/map/mapsketch.tmx",
+  },
   parts:{
     heads: {
       "waterWeak":"res/sprites/heads/waterWeak.png",
@@ -44,14 +48,22 @@ var res = {
 };
 
 var g_resources = [];
-for (var i in res) {
-  if (i != "parts") {
-    g_resources.push(res[i]);
-  }
-}
 
+// Charge robot parts
 for (var part in res.parts){
   for (var subpart in res.parts[part]) {
     g_resources.push(res.parts[part][subpart]);
+  }
+}
+
+// Charge maps sheets and tmx
+for (var map in res.maps){
+  g_resources.push(res.maps[map]);
+}
+
+// Charge everything else
+for (var i in res) {
+  if (i != "parts" && i != "maps") {
+    g_resources.push(res[i]);
   }
 }

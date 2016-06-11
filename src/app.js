@@ -1,4 +1,6 @@
-
+var director = cc.director;
+var winSize = cc.director.getWinSize();
+console.log("FALACIAINICIADA");
 var MainMenu = cc.Scene.extend({
   onEnter:function () {
     this._super();

@@ -2,3 +2,8 @@ Junio
 Do 5 - 7:30 hs
   - setup de sprites basicos 4:15 hs
   - programacion inicial de clase robot - 3:15 hs
+Vi 10 - 3:30 hs
+  - Tiled, intento de mapa - 3:30 hs
+Sa 11 - 6:30 hs
+  - Mapa funcional, zoom, smooth scroll - 5 hs
+  - Intento de limitar bordes - 1:30 hs
