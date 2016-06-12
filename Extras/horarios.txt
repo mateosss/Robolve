@@ -4,6 +4,10 @@ Do 5 - 7:30 hs
   - programacion inicial de clase robot - 3:15 hs
 Vi 10 - 3:30 hs
   - Tiled, intento de mapa - 3:30 hs
-Sa 11 - 6:30 hs
+Sa 11 - 8 hs
   - Mapa funcional, zoom, smooth scroll - 5 hs
   - Intento de limitar bordes - 1:30 hs
+  - Cabeza triangulo y arreglo de la estructura del blend 1:30 hs
+Do 12 - 6 hs
+  - Sin avances en zoom y limite del scroll - 4hs
+  - Limite scroll funcional - 2hs
