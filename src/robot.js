@@ -1,15 +1,15 @@
 var Robot = cc.Sprite.extend({
-  pointing: null,
-  parts: null,
+  pointing: null,//A donde esta mirando
+  animSpeed: 1.0,//Velocidad de reproduccion de la animacion
 
-  animSpeed: 1.0,
-
+  //Stats son int que quedan despues del random
   sLife: null,
   sSpeed: null,
   sDamage: null,
   // sRange: null,? TODO
   sAttackSpeed: null,
 
+  //Tipos seteados del robot
   life: null,
   element: null,
   range: null,
@@ -18,6 +18,7 @@ var Robot = cc.Sprite.extend({
   damage: null,
   attackSpeed: null,
 
+  //Las partes del robot objetos tipo Part()
   head: null,
   middle: null,
   armL: null,
@@ -93,13 +94,13 @@ var Robot = cc.Sprite.extend({
     switch (this.speed) {
       // TODO
       case -1:
-      speed = 99;
+      speed = 0.2;
       break;
       case 0:
-      speed = 99;
+      speed = 0.2;
       break;
       case 1:
-      speed = 99;
+      speed = 0.2;
       break;
       default:
       console.log("This speed value is incorrect");
@@ -141,6 +142,15 @@ var Robot = cc.Sprite.extend({
     this.addChild(this.armR,0);
     this.addChild(this.legL,0);
     this.addChild(this.legR,0);
+
+    this.scheduleUpdate();
+  },
+  walk: function(){
+    this.x -= this.sSpeed;
+    this.y -= this.sSpeed / 2;
+  },
+  update: function(){
+    this.walk();
   },
 });
 

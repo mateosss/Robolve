@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" renderorder="right-down" width="20" height="20" tilewidth="128" tileheight="64" nextobjectid="2">
+<map version="1.0" orientation="isometric" renderorder="right-down" width="20" height="20" tilewidth="128" tileheight="64" nextobjectid="47">
  <tileset firstgid="1" name="final132" tilewidth="132" tileheight="132" tilecount="42">
   <image source="final132.png" trans="000000" width="924" height="792"/>
  </tileset>
@@ -407,4 +407,8 @@
    <tile gid="23"/>
   </data>
  </layer>
+ <objectgroup name="Objects">
+  <object id="45" x="512" y="64"/>
+  <object id="46" name="SpawnPoint" x="512" y="0" width="64" height="64"/>
+ </objectgroup>
 </map>
