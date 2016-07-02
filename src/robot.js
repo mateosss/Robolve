@@ -1,15 +1,24 @@
 var Robot = cc.Sprite.extend({
   pointing: null,//A donde esta mirando
-  animSpeed: 1.0,//Velocidad de reproduccion de la animacion
+  animSpeed: 1.0,//Walk speed animation
+  animAttackSpeed: 1.0,//Walk speed animation
 
-  //Stats son int que quedan despues del random
+  //Possible (p) stats
+  pLife: {0: 300, 1: 400, 2: 500},
+  pRange: {0: 150, 1: 500},
+  pTerrain: {0: 'walk',1: 'fly'},
+  pSpeed: {0: 0.1, 1: 0.2, 2: 0.3},
+  pDamage: {0: 5, 1: 15, 2:20},
+  pAttackSpeed: {0: 0.5, 1: 1.0, 2: 1.5},
+
+  //Stats (s)
   sLife: null,
+  sRange: null,
   sSpeed: null,
   sDamage: null,
-  // sRange: null,? TODO
   sAttackSpeed: null,
 
-  //Tipos seteados del robot
+  //Initial values
   life: null,
   element: null,
   range: null,
@@ -25,12 +34,9 @@ var Robot = cc.Sprite.extend({
   armR: null,
   legL: null,
   legR: null,
+  
   ctor: function(life, element, range, terrain, speed, damage, attackSpeed){
     this._super(res.empty,0);
-    // var size = cc.winSize;
-    // this.x = size.width / 2;//TODO sacar
-    // this.y = size.height / 2;//TODO sacar
-    // this.scale = 0.2;//TODO sacar
 
     this.life = life;
     this.element = element;
@@ -40,100 +46,58 @@ var Robot = cc.Sprite.extend({
     this.damage = damage;
     this.attackSpeed = attackSpeed;
 
-    switch (this.life) {
-      // TODO Calcular el sLife, (con logica borrosa|fuzzy logic)
-      case -1:
-      middle = res.parts.middles.weak;
-      break;
-      case 0:
-      middle = res.parts.middles.normal;
-      break;
-      case 1:
-      middle = res.parts.middles.strong;
-      break;
-      default:
-      middle = res.invalidPart;
-      console.log("This life value is incorrect");
+    if (this.life in this.pLife){
+      this.middle = new Part(res.parts.middles[this.life]);
+      this.sLife = this.pLife[this.life];
+    } else {
+      this.middle = new Part(res.invalidPart);
+      this.sLife = this.pLife[0];
+      console.log("Life value incorrect, setting 0");
     }
-    this.middle = new Part(middle);
 
-    switch (this.range) {
-      case -1:
-      armL = res.parts.arms[this.element + "MeleL"];
-      armR = res.parts.arms[this.element + "MeleR"];
-      break;
-      case 1:
-      armL = res.parts.arms[this.element + "RangeL"];
-      armR = res.parts.arms[this.element + "RangeR"];
-      break;
-      default:
-      armL = res.invalidPart;
-      armR = res.invalidPart;
-      console.log("This range value is incorrect");
+    if (this.range in this.pRange) {
+      this.armL = new Part(res.parts.arms[this.element + this.range + "L"]);
+      this.armR = new Part(res.parts.arms[this.element + this.range + "R"]);
+      this.sRange = this.pRange[this.range];
+    } else {
+      this.armL = new Part(res.invalidPart);
+      this.armR = new Part(res.invalidPart);
+      this.sRange = this.pRange[0];
+      console.log("Range value incorrect, setting 0");
     }
-    this.armL = new Part(armL);
-    this.armR = new Part(armR);
 
-    switch (this.terrain) {
-      case -1:
-      legL = res.parts.legs.walkL;
-      legR = res.parts.legs.walkR;
-      break;
-      case 1:
-      legL = res.parts.legs.flyL;
-      legR = res.parts.legs.flyR;
-      break;
-      default:
-      legL = res.invalidPart;
-      legR = res.invalidPart;
-      console.log("This terrain value is incorrect");
+    if (this.terrain in this.pTerrain) {
+      this.legL = new Part(res.parts.legs[this.pTerrain[this.terrain] + 'L']);
+      this.legR = new Part(res.parts.legs[this.pTerrain[this.terrain] + 'R']);
+    } else {
+      this.legL = new Part(res.invalidPart);
+      this.legR = new Part(res.invalidPart);
+      console.log("Terrain value incorrect");
     }
-    this.legL = new Part(legL);
-    this.legR = new Part(legR);
 
-    switch (this.speed) {
-      // TODO
-      case -1:
-      speed = 0.2;
-      break;
-      case 0:
-      speed = 0.2;
-      break;
-      case 1:
-      speed = 0.2;
-      break;
-      default:
-      console.log("This speed value is incorrect");
+    if (this.speed in this.pSpeed) {
+      this.sSpeed = this.pSpeed[this.speed];
+      this.animSpeed = this.pSpeed[this.speed];
+    } else {
+      this.sSpeed = this.pSpeed[0];
+      this.animSpeed = this.pSpeed[0];
+      console.log("Speed value incorrect, setting 0");
     }
-    this.sSpeed = speed;
-    this.animSpeed = speed;
 
-    switch (this.damage) {
-      case -1:
-      head = res.parts.heads[this.element+"Weak"];
-      break;
-      case 0:
-      head = res.parts.heads[this.element+"Normal"];
-      break;
-      case 1:
-      head = res.parts.heads[this.element+"Strong"];
-      break;
-      default:
-      head = res.invalidPart;
-      console.log("This damage value is incorrect");
+    if (this.damage in this.pDamage) {
+      this.sDamage = this.pDamage[this.damage];
+      this.head = new Part(res.parts.heads[this.element + this.damage]);
+    } else {
+      this.sDamage = this.pDamage[0];
+      this.head = new Part(res.invalidPart);
+      console.log("Damage value is incorrect, setting 0");
     }
-    this.head = new Part(head);
 
-    switch (this.attackSpeed) {
-      // TODO
-      case -1:
-      break;
-      case 0:
-      break;
-      case 1:
-      break;
-      default:
-      console.log("This attackSpeed value is incorrect");
+    if (this.attackSpeed in this.pAttackSpeed) {
+      this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
+    } else {
+      this.sAttackSpeed = this.pAttackSpeed[0];
+      console.log("Attack Speed value incorrect, setting 0");
     }
 
     this.addChild(this.head,2);

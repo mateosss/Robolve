@@ -11,3 +11,9 @@ Sa 11 - 8 hs
 Do 12 - 6 hs
   - Sin avances en zoom y limite del scroll - 4hs
   - Limite scroll funcional - 2hs
+Ju 23 - 2 hs
+  - Spawnear robot
+
+Julio
+Sa 2 Obj: Calculate stats with fuzzy logic
+  - 1:40 | 20:40 -

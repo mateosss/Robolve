@@ -18,25 +18,15 @@ var Level = cc.Layer.extend({
     this.addChild(this.map, 1, TAG_TILE_MAP);
     var size = cc.winSize;
     var tapLabel = new cc.LabelTTF("Tap to Exit", "Arial", 38);
-    // tapLabel.x = size.width / 2;
-    // tapLabel.y = size.height / 2 + 200;
-    // this.addChild(tapLabel, 99);
-
-    // this.sprite = new cc.Sprite(res.map);
-    // this.sprite.attr({
-      // x: size.width / 2,
-      // y: size.height / 2
-    // });
-    // this.addChild(this.sprite, 0);
 
     //Add Robot
-    life = -1; //-1,0,1
+    life = 0; //0,1,2
+    range = 0;//0,1
     element = "water";//water,fire,electric
-    range = -1;//-1,1
-    terrain = -1;//-1,1
-    speed = 0;//-1,0,1
-    damage = -1;//-1,0,1
-    attackSpeed = 0;//-1,0,1
+    terrain = 0;//0,1
+    speed = 2;//0,1,2
+    damage = 0;//0,1,2
+    attackSpeed = 1;//0,1,2
 
     var customRobot = new Robot(life, element, range, terrain, speed, damage, attackSpeed);
     this.map.spawnRobot(customRobot, 6);
@@ -93,23 +83,6 @@ var Level = cc.Layer.extend({
         }
         this.map.positionTarget.x = newX;
         this.map.positionTarget.y = newY;
-
-        // if (this.map.x > maxBorderLeft){
-        //     this.map.positionTarget.x = maxBorderLeft;
-        // } else {
-        //   this.map.positionTarget += x;
-        // }
-
-        // if (targetX > -(this.map.width * this.map.scale)/2 + winSize.width - 50 &&
-        // targetX < (this.map.width * this.map.scale)/2 + 50) {
-        //
-        // }
-        // if (targetY > -(this.map.height * this.map.scale)/2 + winSize.height - 50 &&
-        // targetY < (this.map.height * this.map.scale)/2 + 50) {
-        //   // this.map.positionTarget.y += y;
-        // }
-        // this.map.positionTarget.x = targetX;
-        // this.map.positionTarget.y = targetY;
       },
       onMouseDown: function(event){
         this.pressed = event.getButton();
