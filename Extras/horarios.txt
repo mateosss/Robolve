@@ -15,5 +15,17 @@ Ju 23 - 2 hs
   - Spawnear robot
 
 Julio
-Sa 2 Obj: Calculate stats with fuzzy logic
-  - 1:40 | 20:40 -
+Sa 2 Obj - 2:40 hs
+  - Setear stats estaticos a los robots funcionando - 1:40 hs
+  - Diferenciar sprites con color - 1 hs
+
+Falta hacer para poder empezar a hacer GA - (24 hs):
+- Diferenciar sprites aunque sea con un color en 2d - 2hs
+- Hacer defensa
+  - Sprite - 2 hs
+  - Clase - 4 hs
+  - Spawnear - 1 hs
+- Balas
+  - Sprite - 1 hs
+  - Clase - 4 hs
+  - Hacer que disparen los robots y defensas segun rango - 10 hs
