@@ -3,6 +3,7 @@ var res = {
   map: "res/map.png",
   empty:"res/sprites/empty.png",
   invalidPart: "res/sprites/invalidPart.png",
+  deffense: "res/sprites/deffense.png",
   maps:{
     map1Sheet: "res/map/final132.png",
     map1: "res/map/mapsketch.tmx",

@@ -34,7 +34,7 @@ var Robot = cc.Sprite.extend({
   armR: null,
   legL: null,
   legR: null,
-  
+
   ctor: function(life, element, range, terrain, speed, damage, attackSpeed){
     this._super(res.empty,0);
 
@@ -109,6 +109,9 @@ var Robot = cc.Sprite.extend({
 
     this.scheduleUpdate();
   },
+  toString: function(){
+    return "Robot";
+  },
   walk: function(){
     this.x -= this.sSpeed;
     this.y -= this.sSpeed / 2;
@@ -121,5 +124,8 @@ var Robot = cc.Sprite.extend({
 var Part = cc.Sprite.extend({
   ctor:function(partImage) {
     this._super(partImage);
+  },
+  toString: function(){
+    return "Part";
   },
 });

@@ -16,8 +16,6 @@ var Level = cc.Layer.extend({
     this._super();
     this.map = new Map(res.maps.map1);
     this.addChild(this.map, 1, TAG_TILE_MAP);
-    var size = cc.winSize;
-    var tapLabel = new cc.LabelTTF("Tap to Exit", "Arial", 38);
 
     //Add Robot
     life = 0; //0,1,2
@@ -29,7 +27,9 @@ var Level = cc.Layer.extend({
     attackSpeed = 1;//0,1,2
 
     var customRobot = new Robot(life, element, range, terrain, speed, damage, attackSpeed);
-    this.map.spawnRobot(customRobot, 6);
+    this.map.spawn(customRobot, 6);
+    var customDeffense = new Deffense(res.deffense);
+    this.map.spawn(customDeffense, 5);
 
     // TODO Better zoom (zoom where the mouse is or where the touch is made)
     // TODO# ZOOM NOT WORKING WITH TOUCHSCREEN

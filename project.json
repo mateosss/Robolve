@@ -16,6 +16,7 @@
         "src/app.js",
         "src/game.js",
         "src/robot.js",
-        "src/map.js"
+        "src/map.js",
+        "src/deffense.js"
     ]
 }

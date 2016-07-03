@@ -15,16 +15,22 @@ Ju 23 - 2 hs
   - Spawnear robot
 
 Julio
-Sa 2 Obj - 2:40 hs
+Sa 2 - 2:40 hs
   - Setear stats estaticos a los robots funcionando - 1:40 hs
   - Diferenciar sprites con color - 1 hs
+Do 3
+  - Sprite y spawn de defensa - 1:05 hs
+  - 16:40
 
+
+
+--------
 Falta hacer para poder empezar a hacer GA - (24 hs):
-- Diferenciar sprites aunque sea con un color en 2d - 2hs
+- Diferenciar sprites aunque sea con un color en 2d - 2hs | 1 hs
 - Hacer defensa
-  - Sprite - 2 hs
+  - Sprite - 2 hs | 45 min
   - Clase - 4 hs
-  - Spawnear - 1 hs
+  - Spawnear - 1 hs | 20 min
 - Balas
   - Sprite - 1 hs
   - Clase - 4 hs

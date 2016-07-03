@@ -6,17 +6,22 @@ var Map = cc.TMXTiledMap.extend({
     this.setAnchorPoint(0.5, 0.5);
     this.scheduleUpdate();
   },
-  spawnRobot: function(child, layer, tag){
+  toString: function(){
+    return "Map";
+  },
+  spawn: function(child, layer, tag){ //TODO muy imprecisa esta funcion
     layer = layer || null;
     tag = tag || null;
     this.addChild(child, layer, tag);
     child.scale = 0.2;
-    p = this.getSpawnPoint();
-    child.setPosition(p.x, p.y+48);
+    p = this.getSpawnPoint(child);
+    child.setPosition(p.x, p.y+48);//TODO y+48? fijarse como hacer mejor los sprites
 
   },
-  getSpawnPoint: function(){
-    spawnPoint = this.getObjectGroup("Objects").getObject("SpawnPoint");
+  getSpawnPoint: function(child){
+    spawnPoint = this.getObjectGroup("Objects").getObject(
+      "Spawn" + child.toString()
+    );
     tileCoord = this.tileCoordFromObject(this, spawnPoint);
     mapLayer = this.getLayer("Background");
     p = mapLayer.getPositionAt(tileCoord);
