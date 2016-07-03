@@ -1,10 +1,16 @@
 var Robot = cc.Sprite.extend({
-  pointing: null,//A donde esta mirando
+  destroy: false,//If true level will delete this robot
+  pointing: null,//Looking direction TODO
   animSpeed: 1.0,//Walk speed animation
-  animAttackSpeed: 1.0,//Walk speed animation
-
+  animAttackSpeed: 1.0,//Attack speed animation
+  cLife: null, //Current Life
   //Possible (p) stats
   pLife: {0: 300, 1: 400, 2: 500},
+  pElement: {
+    "electric": cc.color(255, 231, 0 ,255),
+    "fire": cc.color(227, 43, 0, 255),
+    "water": cc.color(1, 179, 255, 255)
+  },
   pRange: {0: 150, 1: 500},
   pTerrain: {0: 'walk',1: 'fly'},
   pSpeed: {0: 0.1, 1: 0.2, 2: 0.3},
@@ -27,7 +33,7 @@ var Robot = cc.Sprite.extend({
   damage: null,
   attackSpeed: null,
 
-  //Las partes del robot objetos tipo Part()
+  //Part objects
   head: null,
   middle: null,
   armL: null,
@@ -49,9 +55,11 @@ var Robot = cc.Sprite.extend({
     if (this.life in this.pLife){
       this.middle = new Part(res.parts.middles[this.life]);
       this.sLife = this.pLife[this.life];
+      this.cLife = this.sLife;
     } else {
       this.middle = new Part(res.invalidPart);
       this.sLife = this.pLife[0];
+      this.cLife = this.sLife;
       console.log("Life value incorrect, setting 0");
     }
 
@@ -107,16 +115,52 @@ var Robot = cc.Sprite.extend({
     this.addChild(this.legL,0);
     this.addChild(this.legR,0);
 
+    this.createHealthBar();
+
     this.scheduleUpdate();
   },
   toString: function(){
     return "Robot";
   },
+  createHealthBar: function(){
+    var originB = cc.p(-100, 0);
+    var originF = cc.p(-95, 5);
+    var destinationB = cc.p(100, 50);
+    var destinationF = cc.p(95, 45);
+    var fillColorB = cc.color(0, 0, 0, 255);
+    var fillColorF = this.pElement[this.element];
+
+    var back = new cc.DrawNode();
+    var front = new cc.DrawNode();
+    back.drawRect(originB, destinationB, fillColorB);
+    front.drawRect(originF, destinationF, fillColorF);
+    front.setAnchorPoint(0.0, 0.0);
+    back.y += 500;
+    front.y += 500;
+    front.setName("hpbar");
+    this.addChild(back, 10);
+    this.addChild(front, 11);
+  },
+  updateHealthBar: function(){
+    var hpbar = this.getChildByName("hpbar");
+    hpbar.setScaleX(this.cLife / this.sLife);
+  },
   walk: function(){
     this.x -= this.sSpeed;
     this.y -= this.sSpeed / 2;
   },
-  update: function(){
+  die: function(){
+    this.destroy = true;
+  },
+  counter: 0.0,
+  update: function(delta){
+    if (this.counter < 0.5) {
+      this.counter += delta;
+    } else {
+      this.counter = 0.0;
+      this.cLife -= 20;
+    }
+    this.updateHealthBar();
     this.walk();
   },
 });

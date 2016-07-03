@@ -35,3 +35,4 @@ Falta hacer para poder empezar a hacer GA - (24 hs):
   - Sprite - 1 hs
   - Clase - 4 hs
   - Hacer que disparen los robots y defensas segun rango - 10 hs
+- balancear robots con lo de + y - de los stats

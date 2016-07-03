@@ -10,7 +10,7 @@ var GameLevel = cc.Scene.extend({
 
 var Hud; //TODO
 
-var Level = cc.Layer.extend({
+var Level = cc.Layer.extend({//TODO Definir array que guarde todos los robots y destruirlos si destroy==True
   map: null,
   ctor:function () {
     this._super();
@@ -25,10 +25,16 @@ var Level = cc.Layer.extend({
     speed = 2;//0,1,2
     damage = 0;//0,1,2
     attackSpeed = 1;//0,1,2
-
     var customRobot = new Robot(life, element, range, terrain, speed, damage, attackSpeed);
     this.map.spawn(customRobot, 6);
-    var customDeffense = new Deffense(res.deffense);
+
+    //Add Deffense
+    range = 0;//0,1
+    element = "water";//water,fire,electric
+    terrain = 0;//0,1
+    damage = 0;//0,1,2
+    attackSpeed = 1;//0,1,2
+    var customDeffense = new Deffense(range, element, terrain, damage, attackSpeed);
     this.map.spawn(customDeffense, 5);
 
     // TODO Better zoom (zoom where the mouse is or where the touch is made)

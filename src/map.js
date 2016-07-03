@@ -13,10 +13,9 @@ var Map = cc.TMXTiledMap.extend({
     layer = layer || null;
     tag = tag || null;
     this.addChild(child, layer, tag);
-    child.scale = 0.2;
+    child.scale = 0.2;//TODO escalado? asi se hace?
     p = this.getSpawnPoint(child);
     child.setPosition(p.x, p.y+48);//TODO y+48? fijarse como hacer mejor los sprites
-
   },
   getSpawnPoint: function(child){
     spawnPoint = this.getObjectGroup("Objects").getObject(
