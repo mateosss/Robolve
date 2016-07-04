@@ -131,6 +131,7 @@ var Robot = cc.Sprite.extend({
   createHealthBar: function(){
     //Creates two rectangles for representing the healtbar
     //TODO rotate 30 degrees and skewY to simulate perspective on hpbar
+    //TODO La healthbar se ve mal compilado para linux y android
     var originB = cc.p(-100, 0);
     var originF = cc.p(-95, 5);
     var destinationB = cc.p(100, 50);

@@ -11,6 +11,8 @@ var MainMenu = cc.Scene.extend({
 });
 
 var Menu = cc.Layer.extend({
+  //TODO pantalla de cargar y cargar todos los sprites de antes si no se tilda
+  //en celular cada vez que spawnea hasta que todos los sprites se cargan
   sprite:null,
   ctor:function () {
     this._super();
