@@ -22,9 +22,8 @@ Do 3 - 3:10 hs
   - Sprite y spawn de defensa - 1:05 hs
   - Health bar - 2:05 hs
 Lu 4
-  - 10:20
-
-
+  - Debug circle, inicio de logica para el rango y muerte - 2 hs
+  - Detectar enemigo en rango y seleccionar target - 2:30
 --------
 Falta hacer para poder empezar a hacer GA - (24 hs):
 - Diferenciar sprites aunque sea con un color en 2d - 2hs | 1 hs

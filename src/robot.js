@@ -5,7 +5,8 @@ var Robot = cc.Sprite.extend({
   animSpeed: 1.0,//Walk speed animation
   animAttackSpeed: 1.0,//Attack speed animation
   cLife: null, //Current Life
-  //Possible (p) stats
+
+  //Possible (p) stats //TODO definir valores reales //TODO apply fuzzy logic
   pLife: {0: 300, 1: 400, 2: 500},
   pElement: {
     "electric": cc.color(255, 231, 0 ,255),
@@ -14,7 +15,7 @@ var Robot = cc.Sprite.extend({
   },
   pRange: {0: 150, 1: 500},
   pTerrain: {0: 'walk',1: 'fly'},
-  pSpeed: {0: 0.1, 1: 0.2, 2: 0.3},
+  pSpeed: {0: 0.1, 1: 0.2, 2: 0.5},
   pDamage: {0: 5, 1: 15, 2:20},
   pAttackSpeed: {0: 0.5, 1: 1.0, 2: 1.5},
 
@@ -119,6 +120,8 @@ var Robot = cc.Sprite.extend({
 
     this.createHealthBar();
 
+    this.debug();
+
     this.scheduleUpdate();
   },
   toString: function(){
@@ -159,6 +162,32 @@ var Robot = cc.Sprite.extend({
   die: function(){
     //In the next frame the level will remove the robots with destroy==true
     this.destroy = true;
+  },
+  debug: function(){
+    //TODO make a parent class with debug methods like debugRange
+    //Repeating code in Deffense class
+    // this.debugRange();
+    this.debugCenter();
+  },
+  debugRange: function(){
+    //draws a circle from the deffense center to debug ranges
+    var pos = this.getAnchorPointInPoints();
+    var radius = this.sRange / this.level.map.scale;
+    var color = cc.color(1, 179, 255, 100);
+    var circle = new cc.DrawNode();
+    circle.drawDot(pos, radius, color);
+    circle.setName("debugRange");
+    this.addChild(circle, -1);
+  },
+  debugCenter: function(){
+    //draws a circle from the deffense center to debug ranges
+    var pos = this.getAnchorPointInPoints();
+    var radius = 10;
+    var color = cc.color(200, 0, 200, 255);
+    var circle = new cc.DrawNode();
+    circle.drawDot(pos, radius, color);
+    circle.setName("debugCenter");
+    this.addChild(circle, 999);
   },
   // counter: 0.0,
   update: function(delta){

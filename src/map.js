@@ -1,4 +1,5 @@
 var Map = cc.TMXTiledMap.extend({
+  CHILD_SCALE: 0.2,
   positionTarget: cc.p(winSize.width/2,winSize.height/2),
   ctor: function(tmxMap){
     this._super(tmxMap);
@@ -10,10 +11,11 @@ var Map = cc.TMXTiledMap.extend({
     return "Map";
   },
   spawn: function(child, layer, tag){ //TODO muy imprecisa esta funcion
+    //Spawn a robot or deffense in the map
     layer = layer || null;
     tag = tag || null;
     this.addChild(child, layer, tag);
-    child.scale = 0.2;//TODO escalado? asi se hace?
+    child.scale = this.CHILD_SCALE;//TODO escalado? asi se hace?
     p = this.getSpawnPoint(child);
     child.setPosition(p.x, p.y+48);//TODO y+48? fijarse como hacer mejor los sprites
   },
