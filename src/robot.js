@@ -1,4 +1,5 @@
 var Robot = cc.Sprite.extend({
+  level: null,//Level where this object is placed
   destroy: false,//If true level will delete this robot
   pointing: null,//Looking direction TODO
   animSpeed: 1.0,//Walk speed animation
@@ -41,8 +42,9 @@ var Robot = cc.Sprite.extend({
   legL: null,
   legR: null,
 
-  ctor: function(life, element, range, terrain, speed, damage, attackSpeed){
+  ctor: function(level, life, element, range, terrain, speed, damage, attackSpeed){
     this._super(res.empty,0);
+    this.level = level;
 
     this.life = life;
     this.element = element;
@@ -123,6 +125,8 @@ var Robot = cc.Sprite.extend({
     return "Robot";
   },
   createHealthBar: function(){
+    //Creates two rectangles for representing the healtbar
+    //TODO rotate 30 degrees and skewY to simulate perspective on hpbar
     var originB = cc.p(-100, 0);
     var originF = cc.p(-95, 5);
     var destinationB = cc.p(100, 50);
@@ -142,23 +146,31 @@ var Robot = cc.Sprite.extend({
     this.addChild(front, 11);
   },
   updateHealthBar: function(){
+    //updates the healthbar length with the sLife stat
     var hpbar = this.getChildByName("hpbar");
     hpbar.setScaleX(this.cLife / this.sLife);
   },
   walk: function(){
+    //moves the robot by the speed
+    //TODO move using this.pointing property
     this.x -= this.sSpeed;
     this.y -= this.sSpeed / 2;
   },
   die: function(){
+    //In the next frame the level will remove the robots with destroy==true
     this.destroy = true;
   },
-  counter: 0.0,
+  // counter: 0.0,
   update: function(delta){
     if (this.counter < 0.5) {
       this.counter += delta;
     } else {
       this.counter = 0.0;
       this.cLife -= 20;
+      if (this.cLife < 0) {
+        this.life = 0;
+        // this.die();
+      }
     }
     this.updateHealthBar();
     this.walk();

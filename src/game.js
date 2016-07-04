@@ -3,8 +3,8 @@ var TAG_TILE_MAP = 1;
 var GameLevel = cc.Scene.extend({
   onEnter:function () {
     this._super();
-    var layer = new Level();
-    this.addChild(layer);
+    var level = new Level();
+    this.addChild(level);
   }
 });
 
@@ -12,6 +12,8 @@ var Hud; //TODO
 
 var Level = cc.Layer.extend({//TODO Definir array que guarde todos los robots y destruirlos si destroy==True
   map: null,
+  robots: [],
+  deffenses: [],
   ctor:function () {
     this._super();
     this.map = new Map(res.maps.map1);
@@ -25,17 +27,16 @@ var Level = cc.Layer.extend({//TODO Definir array que guarde todos los robots y 
     speed = 2;//0,1,2
     damage = 0;//0,1,2
     attackSpeed = 1;//0,1,2
-    var customRobot = new Robot(life, element, range, terrain, speed, damage, attackSpeed);
-    this.map.spawn(customRobot, 6);
-
+    var customRobot = new Robot(this, life, element, range, terrain, speed, damage, attackSpeed);
+    this.addRobot(customRobot);
     //Add Deffense
     range = 0;//0,1
     element = "water";//water,fire,electric
     terrain = 0;//0,1
     damage = 0;//0,1,2
     attackSpeed = 1;//0,1,2
-    var customDeffense = new Deffense(range, element, terrain, damage, attackSpeed);
-    this.map.spawn(customDeffense, 5);
+    var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    this.addDeffense(customDeffense);
 
     // TODO Better zoom (zoom where the mouse is or where the touch is made)
     // TODO# ZOOM NOT WORKING WITH TOUCHSCREEN
@@ -112,8 +113,8 @@ var Level = cc.Layer.extend({//TODO Definir array que guarde todos los robots y 
             zoom = this.map.scale + zoomDelta;
             if (zoom >= 0.15 && zoom <= 1.0) {
               this.map.scale = zoom;
-              mapCenter = this.map.convertToWorldSpaceAR(this.map.getAnchorPoint());
-              difference = cc.pSub(mapCenter, this.clickLocation);
+              // mapCenter = this.map.convertToWorldSpaceAR(this.map.getAnchorPoint());
+              // difference = cc.pSub(mapCenter, this.clickLocation);
               // TODO para que funcione el zoom hacia algo
               // obtener la posicion en el mapa de mi click
               // setear esa posicion como el anchor point
@@ -128,7 +129,31 @@ var Level = cc.Layer.extend({//TODO Definir array que guarde todos los robots y 
         console.log("scroll");
       },
     }, this);
+    this.scheduleUpdate();
     return true;
   },
-
+  toString: function(){
+    return "Level";
+  },
+  addRobot: function(robot){
+    this.map.spawn(robot, 6);
+    this.robots.push(robot);
+  },
+  addDeffense: function(deffense){
+    this.map.spawn(deffense, 5);
+    this.deffenses.push(deffense);
+  },
+  update: function(){
+    var deletion = false;
+    for (var i = 0; i < this.robots.length; i++) {
+      if (this.robots[i].destroy) {
+        this.robots[i].removeFromParent();
+        delete this.robots[i];
+        deletion = true;
+      }
+    }
+    if (deletion) {
+      this.robots = this.robots.filter(function(robot){return robot !== undefined;});
+    }
+  },
 });

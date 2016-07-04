@@ -1,6 +1,7 @@
 var director = cc.director;
 var winSize = cc.director.getWinSize();
 console.log("Robolve Start");
+
 var MainMenu = cc.Scene.extend({
   onEnter:function () {
     this._super();

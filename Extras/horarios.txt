@@ -18,10 +18,11 @@ Julio
 Sa 2 - 2:40 hs
   - Setear stats estaticos a los robots funcionando - 1:40 hs
   - Diferenciar sprites con color - 1 hs
-Do 3
+Do 3 - 3:10 hs
   - Sprite y spawn de defensa - 1:05 hs
-  - 16:40
-
+  - Health bar - 2:05 hs
+Lu 4
+  - 10:20
 
 
 --------
