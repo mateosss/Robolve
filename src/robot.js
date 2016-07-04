@@ -15,7 +15,7 @@ var Robot = cc.Sprite.extend({
   },
   pRange: {0: 150, 1: 500},
   pTerrain: {0: 'walk',1: 'fly'},
-  pSpeed: {0: 0.1, 1: 0.2, 2: 0.5},
+  pSpeed: {0: 0.1, 1: 0.5, 2: 0.9},
   pDamage: {0: 5, 1: 15, 2:20},
   pAttackSpeed: {0: 0.5, 1: 1.0, 2: 1.5},
 
@@ -44,6 +44,7 @@ var Robot = cc.Sprite.extend({
   legR: null,
 
   ctor: function(level, life, element, range, terrain, speed, damage, attackSpeed){
+    //TODO que funcione el balanceo, poder hacer que un robot sea de tipo +1 y eso
     this._super(res.empty,0);
     this.level = level;
 
@@ -159,7 +160,18 @@ var Robot = cc.Sprite.extend({
     this.x -= this.sSpeed;
     this.y -= this.sSpeed / 2;
   },
-  die: function(){
+  hurt: function(deffense){
+    //This function calculates the total damage of the bullet depending on the
+    //Tower, and do some things in reaction
+    //TODO daño en funcion del elemento
+    this.cLife -= deffense.sDamage;
+    if (this.cLife <= 0) {
+      this.life = 0;
+      this.kill();
+    }
+    this.updateHealthBar();
+  },
+  kill: function(){
     //In the next frame the level will remove the robots with destroy==true
     this.destroy = true;
   },
@@ -191,17 +203,6 @@ var Robot = cc.Sprite.extend({
   },
   // counter: 0.0,
   update: function(delta){
-    if (this.counter < 0.5) {
-      this.counter += delta;
-    } else {
-      this.counter = 0.0;
-      this.cLife -= 20;
-      if (this.cLife < 0) {
-        this.life = 0;
-        // this.die();
-      }
-    }
-    this.updateHealthBar();
     this.walk();
   },
 });

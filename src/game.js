@@ -33,7 +33,7 @@ var Level = cc.Layer.extend({//TODO Definir array que guarde todos los robots y 
     range = 0;//0,1
     element = "water";//water,fire,electric
     terrain = 0;//0,1
-    damage = 0;//0,1,2
+    damage = 2;//0,1,2
     attackSpeed = 1;//0,1,2
     var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
     this.addDeffense(customDeffense);
@@ -135,6 +135,22 @@ var Level = cc.Layer.extend({//TODO Definir array que guarde todos los robots y 
   toString: function(){
     return "Level";
   },
+  addRandomRobot: function(){
+    //Add Robot
+    life = Math.floor((Math.random() * 3)); //0,1,2
+    range = Math.floor((Math.random() * 2));//0,1
+    elements = ['electric', 'water', 'fire'];
+    element = elements[Math.floor((Math.random() * 3))];//water,fire,electric
+    terrain = Math.floor((Math.random() * 2));
+    speed = Math.floor((Math.random() * 3));
+    damage = Math.floor((Math.random() * 3));
+    attackSpeed = Math.floor((Math.random() * 3));
+    var customRobot = new Robot(this, life, element, range, terrain, speed, damage, attackSpeed);
+    this.addRobot(customRobot);
+  },
+  addRandomDeffense: function(){
+    //TODO las defensas van a ser por partes?
+  },
   addRobot: function(robot){
     this.map.spawn(robot, 6);
     this.robots.push(robot);
@@ -143,6 +159,7 @@ var Level = cc.Layer.extend({//TODO Definir array que guarde todos los robots y 
     this.map.spawn(deffense, 5);
     this.deffenses.push(deffense);
   },
+  counter:0,
   update: function(){
     var deletion = false;
     for (var i = 0; i < this.robots.length; i++) {
@@ -154,6 +171,13 @@ var Level = cc.Layer.extend({//TODO Definir array que guarde todos los robots y 
     }
     if (deletion) {
       this.robots = this.robots.filter(function(robot){return robot !== undefined;});
+    }
+
+    if (this.counter >= 180) {//TODO sacar esto
+      this.counter = 0;
+      this.addRandomRobot();
+    } else {
+      this.counter += 1;
     }
   },
 });

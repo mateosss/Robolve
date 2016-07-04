@@ -24,6 +24,13 @@ Do 3 - 3:10 hs
 Lu 4
   - Debug circle, inicio de logica para el rango y muerte - 2 hs
   - Detectar enemigo en rango y seleccionar target - 2:30
+  - hacer que la vida empieze a bajar, y spawnRandomRobot - 40 min
+
+
+
+
+
+
 --------
 Falta hacer para poder empezar a hacer GA - (24 hs):
 - Diferenciar sprites aunque sea con un color en 2d - 2hs | 1 hs

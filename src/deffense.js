@@ -92,7 +92,10 @@ var Deffense = cc.Sprite.extend({
     return this.target;
   },
   fire: function(target){
-    console.log(target);
+    //TODO comprobar territorio
+    if (target) {
+      target.hurt(this);
+    }
   },
   debug: function(){
     //comment and uncomment this lines to debug or not
