@@ -45,7 +45,7 @@ var Robot = cc.Sprite.extend({
 
   ctor: function(level, life, element, range, terrain, speed, damage, attackSpeed){
     //TODO que funcione el balanceo, poder hacer que un robot sea de tipo +1 y eso
-    this._super(res.empty,0);
+    this._super(res.empty);
     this.level = level;
 
     this.life = life;
@@ -164,7 +164,7 @@ var Robot = cc.Sprite.extend({
   hurt: function(deffense){
     //This function calculates the total damage of the bullet depending on the
     //Tower, and do some things in reaction
-    //TODO daño en funcion del elemento
+    //#TODO daño en funcion del elemento
     this.cLife -= deffense.sDamage;
     if (this.cLife <= 0) {
       this.life = 0;
@@ -176,33 +176,19 @@ var Robot = cc.Sprite.extend({
     //In the next frame the level will remove the robots with destroy==true
     this.destroy = true;
   },
+  getScore: function(){
+    //#TODO definir que es lo que te da el score. cuanto vive solamente?
+    // o tambien cuanto daño hace, que tan cerca de la base llega,
+    //si todavia no murio cuanto va viviendo
+  },
   debug: function(){
-    //TODO make a parent class with debug methods like debugRange
-    //Repeating code in Deffense class
-    // this.debugRange();
-    this.debugCenter();
+    // Creates a debugger for verbose information directly on the canvas
+    this.debugger = new Debugger(this);
+    this.debugger.methods = [ // Modify this to add debug information
+      { method: this.debugger.debugAnchor },
+    ];
+    this.debugger.debug();
   },
-  debugRange: function(){
-    //draws a circle from the deffense center to debug ranges
-    var pos = this.getAnchorPointInPoints();
-    var radius = this.sRange / this.level.map.scale;
-    var color = cc.color(1, 179, 255, 100);
-    var circle = new cc.DrawNode();
-    circle.drawDot(pos, radius, color);
-    circle.setName("debugRange");
-    this.addChild(circle, -1);
-  },
-  debugCenter: function(){
-    //draws a circle from the deffense center to debug ranges
-    var pos = this.getAnchorPointInPoints();
-    var radius = 10;
-    var color = cc.color(200, 0, 200, 255);
-    var circle = new cc.DrawNode();
-    circle.drawDot(pos, radius, color);
-    circle.setName("debugCenter");
-    this.addChild(circle, 999);
-  },
-  // counter: 0.0,
   update: function(delta){
     this.walk();
   },

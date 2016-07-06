@@ -21,25 +21,32 @@ Sa 2 - 2:40 hs
 Do 3 - 3:10 hs
   - Sprite y spawn de defensa - 1:05 hs
   - Health bar - 2:05 hs
-Lu 4
+Lu 4 - 5:10 hs
   - Debug circle, inicio de logica para el rango y muerte - 2 hs
   - Detectar enemigo en rango y seleccionar target - 2:30
   - hacer que la vida empieze a bajar, y spawnRandomRobot - 40 min
-
-
-
-
-
-
---------
-Falta hacer para poder empezar a hacer GA - (24 hs):
-- Diferenciar sprites aunque sea con un color en 2d - 2hs | 1 hs
-- Hacer defensa
-  - Sprite - 2 hs | 45 min
-  - Clase - 4 hs
-  - Spawnear - 1 hs | 20 min
-- Balas
-  - Sprite - 1 hs
-  - Clase - 4 hs
-  - Hacer que disparen los robots y defensas segun rango - 10 hs
-- balancear robots con lo de + y - de los stats
+Ma 5 - Comienzo GA - 2 hs
+  - Zoom tactil previsorio y prediseño antes de empezar con el GA - 1 hs
+  - Planificacion y como seguir adelante - 1 hs
+Mi 6
+  - Clase Debugger - 4 hs
+  - Sprite de la Base - 30 min
+  - 18:30
+#spawnpoint y clase de nexo, sprite de nexo - 1:00
+#Crear clase padre para robot, defensa y ¿base? - 2:00
+#Cuando llega al spawn el robot comienza a pegar - 2:00
+#Definir oleadas - 1:00
+#calcular el fitscore en base a cercania a la base(o distancia recorrida),
+  daño a la base, y tiempo sobrevivido - 4:00
+#Funcion que te devuelve el robot resumido para poder archivarlos en el
+  historial de forma liviana - 0:30
+#Historial de hasta 10 oleadas para ir sacando informacion para comparar y sacar
+  muestras para el proximo crossover, mientras mas lejana la oleada archivada
+  menos individuos de esa oleada entran al crossover - 1:00
+#Roulete
+#Crossover
+#Mutacion
+#Acordarme de guardar los valores de mutacion, crossover rate, y el peso de cada
+factor del fitscore, por partida asi despues puedo comparar dos o tres partidas
+agarrarlas y cruzarlas para que me de unos nuevos valores de mutacion etc.
+(tambien podria hacerlo cada tantas oleadas al cambio para ver que onda)

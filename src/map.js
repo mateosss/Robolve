@@ -52,5 +52,3 @@ var Map = cc.TMXTiledMap.extend({
     this.y = (this.positionTarget.y - this.y) * deltaTime * 16 + this.y;
   },
 });
-
-var base;

@@ -61,6 +61,8 @@ cc.game.onStart = function(){
     cc.view.adjustViewPort(true);
     // Setup the resolution policy and design resolution size
     cc.view.setDesignResolutionSize(460, 800, cc.ResolutionPolicy.SHOW_ALL);
+    //TODO define the resolution of the screen, protrait or horizontal?
+    //TODO stop showing black bars
     // Instead of set design resolution, you can also set the real pixel resolution size
     // Uncomment the following line and delete the previous line.
     // cc.view.setRealPixelResolution(960, 640, cc.ResolutionPolicy.SHOW_ALL);

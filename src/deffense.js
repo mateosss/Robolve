@@ -98,30 +98,13 @@ var Deffense = cc.Sprite.extend({
     }
   },
   debug: function(){
-    //comment and uncomment this lines to debug or not
-    this.debugRange();
-    this.debugCenter();
-  },
-  debugRange: function(){
-    //draws a circle from the deffense center to debug ranges
-    // var pos = this.getAnchorPointInPoints();
-    var pos = this.getAnchorPointInPoints();
-    var radius = this.sRange / this.level.map.CHILD_SCALE;
-    var color = cc.color(1, 179, 255, 100);
-    var circle = new cc.DrawNode();
-    circle.drawDot(pos, radius, color);
-    circle.setName("debugCircle");
-    this.addChild(circle, -1);
-  },
-  debugCenter: function(){
-    //draws a circle from the deffense center to debug ranges
-    var pos = this.getAnchorPointInPoints();
-    var radius = 10;
-    var color = cc.color(200, 0, 200, 255);
-    var circle = new cc.DrawNode();
-    circle.drawDot(pos, radius, color);
-    circle.setName("debugCenter");
-    this.addChild(circle, 999);
+    // Creates a debugger for verbose information directly on the canvas
+    this.debugger = new Debugger(this);
+    this.debugger.methods = [ // Modify debug information on canvas
+      { method: this.debugger.debugAnchor },
+      { method: this.debugger.debugRange },
+    ];
+    this.debugger.debug();
   },
   counter: 0.0,
   update: function(delta){

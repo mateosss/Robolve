@@ -15,6 +15,7 @@
         "src/resource.js",
         "src/app.js",
         "src/game.js",
+        "src/debugger.js",
         "src/robot.js",
         "src/map.js",
         "src/deffense.js"
