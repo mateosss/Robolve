@@ -16,10 +16,14 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
   deffenses: [],
   ctor:function () {
     this._super();
-    this.map = new Map(res.maps.map1);
+    this.map = new TiledMap(res.maps.map1);
     this.addChild(this.map, 1, TAG_TILE_MAP);
 
-    //Add Robot
+    // Set base
+    var base = new Base(this);
+    this.setBase(base);
+
+    // Add Robot
     life = 0; //0,1,2
     range = 0;//0,1
     element = "water";//water,fire,electric
@@ -29,7 +33,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     attackSpeed = 1;//0,1,2
     var customRobot = new Robot(this, life, element, range, terrain, speed, damage, attackSpeed);
     this.addRobot(customRobot);
-    //Add Deffense
+    // Add Deffense
     range = 0;//0,1
     element = "water";//water,fire,electric
     terrain = 0;//0,1
@@ -159,11 +163,19 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     addRandomDeffense: function(){
       //TODO las defensas van a ser por partes?
     },
+    setBase: function(base){
+      this.map.spawn(base, 7);
+    },
     addRobot: function(robot){
       this.map.spawn(robot, 6);
       this.robots.push(robot);
     },
     addDeffense: function(deffense){
+      //TODO que las cosas se spameen no en un layer hardcodeado como 5
+      //si no que tenga relacion con el eje y en el que estan mientras mas alto
+      //menos se van a mostrar, para que de un sentido mas uniforme de volumen
+      //Tambien se puede buscar como hacer eso con isometric maps en cocos 2d
+      //Capaz que ya existe
       this.map.spawn(deffense, 5);
       this.deffenses.push(deffense);
     },
@@ -181,11 +193,11 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
         this.robots = this.robots.filter(function(robot){return robot !== undefined;});
       }
 
-      // if (this.counter >= 180) {//TODO sacar esto
-      //   this.counter = 0;
-      //   this.addRandomRobot();
-      // } else {
-      //   this.counter += 1;
-      // }
+      if (this.counter >= 180) {//TODO sacar esto
+        this.counter = 0;
+        this.addRandomRobot();
+      } else {
+        this.counter += 1;
+      }
     },
   });

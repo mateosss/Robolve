@@ -28,25 +28,43 @@ Lu 4 - 5:10 hs
 Ma 5 - Comienzo GA - 2 hs
   - Zoom tactil previsorio y prediseño antes de empezar con el GA - 1 hs
   - Planificacion y como seguir adelante - 1 hs
-Mi 6
+Mi 6 - 4:30 hs
   - Clase Debugger - 4 hs
   - Sprite de la Base - 30 min
-  - 18:30
-#spawnpoint y clase de nexo, sprite de nexo - 1:00
-#Crear clase padre para robot, defensa y ¿base? - 2:00
+Ju 7 - 1 hs
+  - Inicio de la clase base - 1 hs
+Vi 8 - 35 min
+  - algo relacionado a los tilemaps pero en definitiva nada - 35 min
+Sa 9
+  - Redimensionados los tiles del mapa a 132x132 - 1:30 hs
+  - Spawn points centrados - 2 hs
+  - Simular healthbar 3d - 0:20 hs
+
+VER COMO HACER PARA QUE NO APAREZCAN BORDES EN LOS TILES DEL MAPA
+USAR LA PREGUNA DE STACKOVERFLOW PARA UBICAR BIEN EN Z SEGUN X E Y
+
+|#spawnpoint y clase de nexo, sprite de nexo - 1:00 | 1:30
+|#Crear clase padre para robot, defensa y ¿base? - 2:00 | 4:00
 #Cuando llega al spawn el robot comienza a pegar - 2:00
-#Definir oleadas - 1:00
+#Pathfinding de los robots hacia el nexo -  8 hs
+#Arreglar el spawn de los sprites y entender bien como funcionan los sprites
+isometricos - 6 hs
+#Definir oleadas - 2:00
 #calcular el fitscore en base a cercania a la base(o distancia recorrida),
-  daño a la base, y tiempo sobrevivido - 4:00
+  daño a la base, y tiempo sobrevivido - 8:00
 #Funcion que te devuelve el robot resumido para poder archivarlos en el
-  historial de forma liviana - 0:30
+  historial de forma liviana - 2:00
 #Historial de hasta 10 oleadas para ir sacando informacion para comparar y sacar
   muestras para el proximo crossover, mientras mas lejana la oleada archivada
-  menos individuos de esa oleada entran al crossover - 1:00
+  menos individuos de esa oleada entran al crossover - 6:00 hs
 #Roulete
 #Crossover
 #Mutacion
 #Acordarme de guardar los valores de mutacion, crossover rate, y el peso de cada
-factor del fitscore, por partida asi despues puedo comparar dos o tres partidas
-agarrarlas y cruzarlas para que me de unos nuevos valores de mutacion etc.
-(tambien podria hacerlo cada tantas oleadas al cambio para ver que onda)
+  factor del fitscore, por partida asi despues puedo comparar dos o tres partidas
+  agarrarlas y cruzarlas para que me de unos nuevos valores de mutacion etc.
+  (tambien podria hacerlo cada tantas oleadas al cambio para ver que onda)
+#Revisar los sprites antes de hacerlos como los voy a spawnear, com centrarlos
+  en el tile del tilemap, y como saber cual es la profundidad, cual se tiene
+  que mostrar arriba del otro y esas cosas fijarse en el libro de dropbox
+  de cocos iphone.

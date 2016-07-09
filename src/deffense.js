@@ -37,6 +37,8 @@ var Deffense = cc.Sprite.extend({
     this.sDamage = this.pDamage[this.damage];
     this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
 
+    this.setAnchorPoint(0.5, 0.1);
+
     this.debug();
 
     this.scheduleUpdate();
@@ -45,11 +47,7 @@ var Deffense = cc.Sprite.extend({
     return "Deffense";
   },
   getTarget: function(){
-    //This function returns the robot to which this deffense has to attack
-    /*
-    detectar que robots estan en el rango de esta torre
-    TODO detectar que robot esta mas cerca de la base y en el rango
-    */
+    // This function returns the robot to which this deffense has to attack
 
     //Looks for robots in tower range
     inRange = [];

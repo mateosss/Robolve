@@ -4,9 +4,12 @@ var res = {
   empty:"res/sprites/empty.png",
   invalidPart: "res/sprites/invalidPart.png",
   deffense: "res/sprites/deffense.png",
+  base: "res/sprites/base.png",
   maps:{
-    map1Sheet: "res/map/final132.png",
-    map1: "res/map/mapsketch.tmx",
+    map1Sheet: "res/map/landscape1.png",
+    map1: "res/map/mapsketch1.tmx",
+    // map1Sheet: "res/map/final132.png",
+    // map1: "res/map/mapsketch.tmx",
   },
   parts:{
     heads: {

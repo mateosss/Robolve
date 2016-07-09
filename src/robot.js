@@ -46,6 +46,9 @@ var Robot = cc.Sprite.extend({
   ctor: function(level, life, element, range, terrain, speed, damage, attackSpeed){
     //TODO que funcione el balanceo, poder hacer que un robot sea de tipo +1 y eso
     this._super(res.empty);
+
+    this.setAnchorPoint(0.5, 0.0);
+
     this.level = level;
 
     this.life = life;
@@ -112,12 +115,12 @@ var Robot = cc.Sprite.extend({
       console.log("Attack Speed value incorrect, setting 0");
     }
 
-    this.addChild(this.head,2);
-    this.addChild(this.middle,1);
-    this.addChild(this.armL,3);
-    this.addChild(this.armR,0);
-    this.addChild(this.legL,0);
-    this.addChild(this.legR,0);
+    this.addChild(this.head, 2);
+    this.addChild(this.middle, 1);
+    this.addChild(this.armL, 3);
+    this.addChild(this.armR, 0);
+    this.addChild(this.legL, 0);
+    this.addChild(this.legR, 0);
 
     this.createHealthBar();
 
@@ -130,7 +133,6 @@ var Robot = cc.Sprite.extend({
   },
   createHealthBar: function(){
     //Creates two rectangles for representing the healtbar
-    //TODO rotate 30 degrees and skewY to simulate perspective on hpbar
     //TODO La healthbar se ve mal compilado para linux y android
     var originB = cc.p(-100, 0);
     var originF = cc.p(-95, 5);
@@ -144,8 +146,12 @@ var Robot = cc.Sprite.extend({
     back.drawRect(originB, destinationB, fillColorB);
     front.drawRect(originF, destinationF, fillColorF);
     front.setAnchorPoint(0.0, 0.0);
-    back.y += 500;
-    front.y += 500;
+    back.y += 900;
+    front.y += 900;
+    back.x += 30;
+    front.x += 30;
+    back.setRotationY(30);
+    front.setRotationY(30);
     front.setName("hpbar");
     this.addChild(back, 10);
     this.addChild(front, 11);
@@ -197,6 +203,7 @@ var Robot = cc.Sprite.extend({
 var Part = cc.Sprite.extend({
   ctor:function(partImage) {
     this._super(partImage);
+    this.setAnchorPoint(0.5, 0.1);
   },
   toString: function(){
     return "Part";
