@@ -16,7 +16,8 @@ var Robot = cc.Sprite.extend({
   },
   pRange: {0: 50, 1: 150},
   pTerrain: {0: 'walk',1: 'fly'},
-  pSpeed: {0: 0.1, 1: 0.5, 2: 0.9},
+  // pSpeed: {0: 0.1, 1: 0.5, 2: 0.5},
+  pSpeed: {0: 5, 1: 15, 2: 30},//TODO DELETE uncomment above
   pDamage: {0: 5, 1: 15, 2:20},
   pAttackSpeed: {0: 0.5, 1: 1.0, 2: 1.5},
 
@@ -181,15 +182,13 @@ var Robot = cc.Sprite.extend({
   },
   canTurn: function(){
     //Returns what direction the robot can turn if it can or false
-    var cTilePos = this.level.map.tileCoordFromChild(this);
-    // cTilePos = cc.p(9,1);
-    // this.debugger.debugPoint(this, {point: cTilePos, color:cc.color(0,0,255,255)});
-    var tile = this.level.map.getLayer("Background").getTileGIDAt(cTilePos);
+    var currTilePos = this.level.map.tileCoordFromChild(this);
+    var tile = this.level.map.getLayer("Background").getTileGIDAt(currTilePos);
     var tileProps = this.level.map.getPropertiesForGID(tile) || {};
     var turnable = tileProps.hasOwnProperty('turn');
     if (turnable) {
       var turnDirections = tileProps.turn.split(",");
-      if (turnDirections.length == 4) {
+      if (turnDirections instanceof Array) {
         return turnDirections.map(Number);
       }
     }
@@ -197,7 +196,8 @@ var Robot = cc.Sprite.extend({
   },
   turn: function(turnDirections){
     if (turnDirections) {
-      
+      newDirection = Math.floor((Math.random() * turnDirections.length));
+      this.pointing = turnDirections[newDirection];
     }
     return false;
   },
@@ -249,7 +249,6 @@ var Robot = cc.Sprite.extend({
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify this to add debug information
       { method: this.debugger.debugAnchor },
-      { method: this.debugger.debugRange },
     ];
     this.debugger.debug();
   },

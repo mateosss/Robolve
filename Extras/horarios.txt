@@ -47,6 +47,7 @@ Ma 12
   - Mejoras de spawn, debug point, entendimiento de isometric,
     problemas para conseguir un tile en la posicion actual del robot - 1:10 hs
   - canTurn funcionando - 1:20 hs
+  - 17:20
 
 |#spawnpoint y clase de nexo, sprite de nexo - 1:00 | 1:30
 |#Crear clase padre para robot, defensa y ¿base? - 2:00 | 4:00

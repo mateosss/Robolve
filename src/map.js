@@ -59,7 +59,7 @@ var TiledMap = cc.TMXTiledMap.extend({
   tileCoordFromChild: function(child){
     //Retruns the tile coordinates from a child of the map
     //Source: Learn iPhone and iPad cocos2d Game Development - Book
-    var halfMapWidth = this.getMapSize().width / 2;
+    var mapWidth = this.getMapSize().width;
     var mapHeight = this.getMapSize().height;
     var tileWidth = this.getTileSize().width;
     var tileHeight = this.getTileSize().height;
@@ -67,8 +67,13 @@ var TiledMap = cc.TMXTiledMap.extend({
     var tilePosDiv = cc.p(child.x / tileWidth, child.y / tileHeight);
     var inverseTileY = mapHeight - tilePosDiv.y;
     // Cast to int makes sure that result is in whole numbers
-    var posX = Math.floor(inverseTileY + tilePosDiv.x - halfMapWidth);
-    var posY = Math.floor(inverseTileY - tilePosDiv.x + halfMapWidth);
+    var posX = Math.floor(inverseTileY + tilePosDiv.x - mapWidth / 2);
+    var posY = Math.floor(inverseTileY - tilePosDiv.x + mapWidth / 2);
+
+    posX = Math.max(0, posX);
+    posX = Math.min(mapWidth - 1, posX);
+    posY = Math.max(0, posY);
+    posY = Math.min(mapHeight - 1, posY);
     return cc.p(posX, posY);
   },
   tileCoordFromLocation: function(loc){
