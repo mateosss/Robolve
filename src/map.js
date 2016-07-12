@@ -31,34 +31,48 @@ var TiledMap = cc.TMXTiledMap.extend({
     spawnPoint = this.getObjectGroup("Objects").getObject(
       "Spawn" + child.toString()
     );
-    tileCoord = this.tileCoordFromObject(this, spawnPoint);
+    tileCoord = this.tileCoordFromObject(spawnPoint);
     mapLayer = this.getLayer("Background");
     tileSize = this.getTileSize();
 
     p = mapLayer.getPositionAt(tileCoord);
 
-    p.y += tileSize.height + (0.25*tileSize.height);
-    p.x += tileSize.width / 2 - (0.25*tileSize.width / 2);
-    // p.y += tileSize.height;
-    // p.x += tileSize.width / 2;
+    debug = new Debugger();//TODO sacar despues las cosas de debug
+    debug.debugPoint(this, {point: p, color:cc.color(0,255,0,255)});
+
+    p.y += tileSize.height / 2;
     return p;
   },
-  tileCoordFromObject: function(tileMap, obj){
-    //Returns the cocos coordinates of an object in an isometric map
-    mapHeight = tileMap.getMapSize().height;
-    tileHeight = tileMap.getTileSize().height;
-    x = obj.x;
-    y = obj.y;
-    w = obj.width;
-    h = obj.height;
-
-    // height - object's height in # of tiles along axis
-    // objTileWidth = w / tileHeight - 1.0;
-    // objTileHeight = h / tileHeight - 1.0;
-    objTileX = x / tileHeight + 1;
-    // Cocos2d flips Y ("top left" corner becomes "bottom left", same with right)
-    objTileY = mapHeight - y / tileHeight - h / tileHeight + 1;
+  tileCoordFromObject: function(obj){
+    //Returns the tile coordinates from a tiled map object
+    //Source: http://discuss.cocos2d-x.org/t/isometric-map-is-returning-wrong-position-for-object/27100/7
+    var mapHeight = this.getMapSize().height;
+    var tileHeight = this.getTileSize().height;
+    var x = obj.x;
+    var y = obj.y;
+    var w = obj.width;
+    var h = obj.height;
+    var objTileX = Math.floor(x / tileHeight + 1);
+    var objTileY = Math.floor(mapHeight - y / tileHeight - h / tileHeight);
     return cc.p(objTileX, objTileY);
+  },
+  tileCoordFromChild: function(child){
+    //Retruns the tile coordinates from a child of the map
+    //Source: Learn iPhone and iPad cocos2d Game Development - Book
+    var halfMapWidth = this.getMapSize().width / 2;
+    var mapHeight = this.getMapSize().height;
+    var tileWidth = this.getTileSize().width;
+    var tileHeight = this.getTileSize().height;
+
+    var tilePosDiv = cc.p(child.x / tileWidth, child.y / tileHeight);
+    var inverseTileY = mapHeight - tilePosDiv.y;
+    // Cast to int makes sure that result is in whole numbers
+    var posX = Math.floor(inverseTileY + tilePosDiv.x - halfMapWidth);
+    var posY = Math.floor(inverseTileY - tilePosDiv.x + halfMapWidth);
+    return cc.p(posX, posY);
+  },
+  tileCoordFromLocation: function(loc){
+    //TODO returns the tile coord from a screen location if loc is inside map
   },
   update: function(deltaTime){
     this.x = (this.positionTarget.x - this.x) * deltaTime * 16 + this.x;
@@ -70,9 +84,11 @@ var TiledMap = cc.TMXTiledMap.extend({
 var Base = cc.Sprite.extend({
   level: null, // Level where this object is placed
   cLife: null, // Current life
-  ctor: function(level){
+  sLife: null, // Initial life
+  ctor: function(level, life){
     this._super(res.base);
     this.level = level;
+    this.sLife = this.cLife = life;
     this.setAnchorPoint(0.5, 0.1);
     this.createHealthBar();
     this.debug();

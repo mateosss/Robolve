@@ -35,18 +35,25 @@ Ju 7 - 1 hs
   - Inicio de la clase base - 1 hs
 Vi 8 - 35 min
   - algo relacionado a los tilemaps pero en definitiva nada - 35 min
-Sa 9
+Sa 9 - 4:15 hs
   - Redimensionados los tiles del mapa a 132x132 - 1:30 hs
   - Spawn points centrados - 2 hs
   - Simular healthbar 3d - 0:20 hs
-
-VER COMO HACER PARA QUE NO APAREZCAN BORDES EN LOS TILES DEL MAPA
-USAR LA PREGUNA DE STACKOVERFLOW PARA UBICAR BIEN EN Z SEGUN X E Y
+  - Cuando llega al spawn el robot comienza a pegar - 0:25 hs
+Do 10 - 1 hs
+  - ver como hacer lo de turn - 1 hs
+Ma 12
+  - inicio de turn, y mejora de tiles de mapa - 1:30 hs
+  - Mejoras de spawn, debug point, entendimiento de isometric,
+    problemas para conseguir un tile en la posicion actual del robot - 1:10 hs
+  - canTurn funcionando - 1:20 hs
 
 |#spawnpoint y clase de nexo, sprite de nexo - 1:00 | 1:30
 |#Crear clase padre para robot, defensa y ¿base? - 2:00 | 4:00
-#Cuando llega al spawn el robot comienza a pegar - 2:00
+|#Cuando llega al spawn el robot comienza a pegar - 2:00
 #Pathfinding de los robots hacia el nexo -  8 hs
+  Se me ocurrio que no haya pathfinding si no que sea un atributo "probabilidad
+  de giro"
 #Arreglar el spawn de los sprites y entender bien como funcionan los sprites
 isometricos - 6 hs
 #Definir oleadas - 2:00
@@ -68,3 +75,6 @@ isometricos - 6 hs
   en el tile del tilemap, y como saber cual es la profundidad, cual se tiene
   que mostrar arriba del otro y esas cosas fijarse en el libro de dropbox
   de cocos iphone.
+
+VER COMO HACER PARA QUE NO APAREZCAN BORDES EN LOS TILES DEL MAPA
+USAR LA PREGUNA DE STACKOVERFLOW PARA UBICAR BIEN EN Z SEGUN X E Y

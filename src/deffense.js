@@ -37,7 +37,7 @@ var Deffense = cc.Sprite.extend({
     this.sDamage = this.pDamage[this.damage];
     this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
 
-    this.setAnchorPoint(0.5, 0.1);
+this.setAnchorPoint(0.5, 0.1);
 
     this.debug();
 

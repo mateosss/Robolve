@@ -1,10 +1,11 @@
 var Robot = cc.Sprite.extend({
-  level: null,//Level where this object is placed
-  destroy: false,//If true level will delete this robot
-  pointing: null,//Looking direction TODO
-  animSpeed: 1.0,//Walk speed animation
-  animAttackSpeed: 1.0,//Attack speed animation
+  level: null, //Level where this object is placed
+  destroy: false, //If true level will delete this robot
+  pointing: 2, //Looking direction 0:North, 1:East, 2:South, 3:West
+  animSpeed: 1.0, //Walk speed animation
+  animAttackSpeed: 1.0, //Attack speed animation
   cLife: null, //Current Life
+  cTurn: 1, //Current probability of turning of the robot
 
   //Possible (p) stats //TODO definir valores reales //TODO apply fuzzy logic
   pLife: {0: 300, 1: 400, 2: 500},
@@ -13,7 +14,7 @@ var Robot = cc.Sprite.extend({
     "fire": cc.color(227, 43, 0, 255),
     "water": cc.color(1, 179, 255, 255)
   },
-  pRange: {0: 150, 1: 500},
+  pRange: {0: 50, 1: 150},
   pTerrain: {0: 'walk',1: 'fly'},
   pSpeed: {0: 0.1, 1: 0.5, 2: 0.9},
   pDamage: {0: 5, 1: 15, 2:20},
@@ -67,7 +68,7 @@ var Robot = cc.Sprite.extend({
       this.middle = new Part(res.invalidPart);
       this.sLife = this.pLife[0];
       this.cLife = this.sLife;
-      console.log("Life value incorrect, setting 0");
+      console.warn("Life value incorrect, setting 0");
     }
 
     if (this.range in this.pRange) {
@@ -78,7 +79,7 @@ var Robot = cc.Sprite.extend({
       this.armL = new Part(res.invalidPart);
       this.armR = new Part(res.invalidPart);
       this.sRange = this.pRange[0];
-      console.log("Range value incorrect, setting 0");
+      console.warn("Range value incorrect, setting 0");
     }
 
     if (this.terrain in this.pTerrain) {
@@ -87,7 +88,7 @@ var Robot = cc.Sprite.extend({
     } else {
       this.legL = new Part(res.invalidPart);
       this.legR = new Part(res.invalidPart);
-      console.log("Terrain value incorrect");
+      console.warn("Terrain value incorrect");
     }
 
     if (this.speed in this.pSpeed) {
@@ -96,7 +97,7 @@ var Robot = cc.Sprite.extend({
     } else {
       this.sSpeed = this.pSpeed[0];
       this.animSpeed = this.pSpeed[0];
-      console.log("Speed value incorrect, setting 0");
+      console.warn("Speed value incorrect, setting 0");
     }
 
     if (this.damage in this.pDamage) {
@@ -105,14 +106,14 @@ var Robot = cc.Sprite.extend({
     } else {
       this.sDamage = this.pDamage[0];
       this.head = new Part(res.invalidPart);
-      console.log("Damage value is incorrect, setting 0");
+      console.warn("Damage value is incorrect, setting 0");
     }
 
     if (this.attackSpeed in this.pAttackSpeed) {
       this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
     } else {
       this.sAttackSpeed = this.pAttackSpeed[0];
-      console.log("Attack Speed value incorrect, setting 0");
+      console.warn("Attack Speed value incorrect, setting 0");
     }
 
     this.addChild(this.head, 2);
@@ -161,11 +162,67 @@ var Robot = cc.Sprite.extend({
     var hpbar = this.getChildByName("hpbar");
     hpbar.setScaleX(this.cLife / this.sLife);
   },
+  fire: function(target){//TODO repetido en defensa hacer buena clase padre
+    if (target) {
+      target.hurt(this);
+    }
+  },
+  getTarget: function(){//TODO otra vez se repite en defensa
+    var robotCenter = this.getAnchorPointInPoints();
+    robotCenter = this.convertToWorldSpace(robotCenter);
+    robotCenter = this.level.map.convertToNodeSpace(robotCenter);
+    var baseCenter = this.level.base.getPosition();
+    var distance = cc.pDistance(robotCenter, baseCenter);
+    if (distance <= this.sRange) {
+      return this.level.base;
+    } else {
+      return false;
+    }
+  },
+  canTurn: function(){
+    //Returns what direction the robot can turn if it can or false
+    var cTilePos = this.level.map.tileCoordFromChild(this);
+    // cTilePos = cc.p(9,1);
+    // this.debugger.debugPoint(this, {point: cTilePos, color:cc.color(0,0,255,255)});
+    var tile = this.level.map.getLayer("Background").getTileGIDAt(cTilePos);
+    var tileProps = this.level.map.getPropertiesForGID(tile) || {};
+    var turnable = tileProps.hasOwnProperty('turn');
+    if (turnable) {
+      var turnDirections = tileProps.turn.split(",");
+      if (turnDirections.length == 4) {
+        return turnDirections.map(Number);
+      }
+    }
+    return false;
+  },
+  turn: function(turnDirections){
+    if (turnDirections) {
+      
+    }
+    return false;
+  },
   walk: function(){
-    //moves the robot by the speed
+    //moves the robot by the speed in a direction
     //TODO move using this.pointing property
-    this.x -= this.sSpeed;
-    this.y -= this.sSpeed / 2;
+    if (this.pointing === 0) {
+      xDirection = 1;
+      yDirection = 1;
+    } else if (this.pointing == 1) {
+      xDirection = 1;
+      yDirection = -1;
+    } else if (this.pointing == 2) {
+      xDirection = -1;
+      yDirection = -1;
+    } else if (this.pointing == 3) {
+      xDirection = -1;
+      yDirection = 1;
+    } else {
+      xDirection = 1;
+      yDirection = 1;
+      console.warn("Bad robot orientation, setting 0");
+    }
+    this.x += this.sSpeed * xDirection;
+    this.y += (this.sSpeed / 2) * yDirection;
   },
   hurt: function(deffense){
     //This function calculates the total damage of the bullet depending on the
@@ -192,11 +249,25 @@ var Robot = cc.Sprite.extend({
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify this to add debug information
       { method: this.debugger.debugAnchor },
+      { method: this.debugger.debugRange },
     ];
     this.debugger.debug();
   },
+  counter: 0.0,
   update: function(delta){
-    this.walk();
+    var base = this.getTarget();
+    if (this.counter < this.sAttackSpeed) {
+      this.counter += delta;
+    } else {
+      this.counter = 0.0;
+      this.fire(base);
+    }
+
+    this.turn(this.canTurn());
+
+    if (!base) {
+      this.walk();
+    }
   },
 });
 

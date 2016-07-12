@@ -12,6 +12,7 @@ var Hud; //TODO
 
 var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
   map: null,
+  base: null,
   robots: [],
   deffenses: [],
   ctor:function () {
@@ -20,11 +21,11 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     this.addChild(this.map, 1, TAG_TILE_MAP);
 
     // Set base
-    var base = new Base(this);
+    var base = new Base(this, 500);
     this.setBase(base);
 
     // Add Robot
-    life = 0; //0,1,2
+    life = 2; //0,1,2
     range = 0;//0,1
     element = "water";//water,fire,electric
     terrain = 0;//0,1
@@ -165,6 +166,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     },
     setBase: function(base){
       this.map.spawn(base, 7);
+      this.base = base;
     },
     addRobot: function(robot){
       this.map.spawn(robot, 6);
@@ -193,11 +195,11 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
         this.robots = this.robots.filter(function(robot){return robot !== undefined;});
       }
 
-      if (this.counter >= 180) {//TODO sacar esto
-        this.counter = 0;
-        this.addRandomRobot();
-      } else {
-        this.counter += 1;
-      }
+      // if (this.counter >= 180) {//TODO sacar esto
+      //   this.counter = 0;
+      //   this.addRandomRobot();
+      // } else {
+      //   this.counter += 1;
+      // }
     },
   });
