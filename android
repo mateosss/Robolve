@@ -1,10 +1,13 @@
 #adb tcpip 5555 &
-cocos compile -p android
+sh Extras/copyfiles.sh
+cd $HOME/Escritorio/Robolve/
+adb connect 192.168.0.14
+cocos run -p android
 RETVAL=$?
 [ $RETVAL -eq 0 ] && echo Success
 [ $RETVAL -ne 0 ] && echo Failure && exit
-adb connect 192.168.0.14
-cocos run -p android
+adb logcat | grep "D/cocos"
+
 # adb install -rs SimpleGame-debug.apk
 # adb shell monkey -p org.cocos2dx.SimpleGame -c android.intent.category.LAUNCHER 1
 ##$$$###./adb-run.sh SimpleGame-debug.apk

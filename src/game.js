@@ -25,6 +25,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     this.setBase(base);
 
     // Add Robot
+    turnProb = 0.5; //0.0 - 1.0
     life = 2; //0,1,2
     range = 0;//0,1
     element = "water";//water,fire,electric
@@ -32,8 +33,9 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     speed = 2;//0,1,2
     damage = 0;//0,1,2
     attackSpeed = 1;//0,1,2
-    var customRobot = new Robot(this, life, element, range, terrain, speed, damage, attackSpeed);
+    var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
     this.addRobot(customRobot);
+
     // Add Deffense
     range = 0;//0,1
     element = "water";//water,fire,electric
@@ -139,7 +141,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
           }
         },
         onMouseScroll: function(event) {
-          console.log("scroll");
+          console.info("scroll");
         },
       }, this);}
       this.scheduleUpdate();
@@ -150,6 +152,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     },
     addRandomRobot: function(){
       //Add Robot
+      turnProb = Math.random(); //0.0 - 1.0
       life = Math.floor((Math.random() * 3)); //0,1,2
       range = Math.floor((Math.random() * 2));//0,1
       elements = ['electric', 'water', 'fire'];
@@ -158,7 +161,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
       speed = Math.floor((Math.random() * 3));
       damage = Math.floor((Math.random() * 3));
       attackSpeed = Math.floor((Math.random() * 3));
-      var customRobot = new Robot(this, life, element, range, terrain, speed, damage, attackSpeed);
+      var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
       this.addRobot(customRobot);
     },
     addRandomDeffense: function(){

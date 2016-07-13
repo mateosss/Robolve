@@ -38,7 +38,12 @@ var TiledMap = cc.TMXTiledMap.extend({
     p = mapLayer.getPositionAt(tileCoord);
 
     debug = new Debugger();//TODO sacar despues las cosas de debug
+    var punto = cc.p(0,0);
+    var punto1 = cc.p(19,19);
     debug.debugPoint(this, {point: p, color:cc.color(0,255,0,255)});
+    debug.debugPoint(this, {point: this.getMidPointFromTile(punto), color:cc.color(0,0,255,255)});
+    debug.debugRect(this, {rect:this.rectFromTile(punto)});
+    debug.debugRect(this, {rect:this.rectFromTile(punto1)});
 
     p.y += tileSize.height / 2;
     return p;
@@ -78,6 +83,19 @@ var TiledMap = cc.TMXTiledMap.extend({
   },
   tileCoordFromLocation: function(loc){
     //TODO returns the tile coord from a screen location if loc is inside map
+  },
+  rectFromTile: function(tileCoord){//TODO no esta andando todavia
+    //Returns the rect of a tile expressed in tilemap coords
+    tile = this.getLayer("Background").getTileAt(tileCoord);
+    var rect = cc.rect(
+      tile.x, tile.y,
+      tile.width, tile.height
+    );
+    return rect;
+  },
+  getMidPointFromTile: function(tileCoord){//TODO no esta andando como debe
+    var tile = this.rectFromTile(tileCoord);
+    return cc.p(cc.rectGetMidX(tile), cc.rectGetMidY(tile));
   },
   update: function(deltaTime){
     this.x = (this.positionTarget.x - this.x) * deltaTime * 16 + this.x;
@@ -151,6 +169,6 @@ var Base = cc.Sprite.extend({
   },
   kill: function(){
     //In the next frame the level will remove the robots with destroy==true
-    console.log("GAME OVER");
+    console.info("GAME OVER");
   },
 });

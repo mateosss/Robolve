@@ -1,7 +1,8 @@
 var res = {
   HelloWorld_png : "res/HelloWorld.png",
   map: "res/map.png",
-  empty:"res/sprites/empty.png",
+  empty: "res/sprites/empty.png",
+  point: "res/sprites/point.png",
   invalidPart: "res/sprites/invalidPart.png",
   deffense: "res/sprites/deffense.png",
   base: "res/sprites/base.png",

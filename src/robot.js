@@ -5,7 +5,7 @@ var Robot = cc.Sprite.extend({
   animSpeed: 1.0, //Walk speed animation
   animAttackSpeed: 1.0, //Attack speed animation
   cLife: null, //Current Life
-  cTurn: 1, //Current probability of turning of the robot
+  cTileGID: null, //Current tile of the robot
 
   //Possible (p) stats //TODO definir valores reales //TODO apply fuzzy logic
   pLife: {0: 300, 1: 400, 2: 500},
@@ -16,8 +16,7 @@ var Robot = cc.Sprite.extend({
   },
   pRange: {0: 50, 1: 150},
   pTerrain: {0: 'walk',1: 'fly'},
-  // pSpeed: {0: 0.1, 1: 0.5, 2: 0.5},
-  pSpeed: {0: 5, 1: 15, 2: 30},//TODO DELETE uncomment above
+  pSpeed: {0: 0.1, 1: 0.5, 2: 0.9},
   pDamage: {0: 5, 1: 15, 2:20},
   pAttackSpeed: {0: 0.5, 1: 1.0, 2: 1.5},
 
@@ -29,6 +28,7 @@ var Robot = cc.Sprite.extend({
   sAttackSpeed: null,
 
   //Initial values
+  turnProb: null, //Probability of turning of the robot
   life: null,
   element: null,
   range: null,
@@ -45,7 +45,7 @@ var Robot = cc.Sprite.extend({
   legL: null,
   legR: null,
 
-  ctor: function(level, life, element, range, terrain, speed, damage, attackSpeed){
+  ctor: function(level, turnProb, life, element, range, terrain, speed, damage, attackSpeed){
     //TODO que funcione el balanceo, poder hacer que un robot sea de tipo +1 y eso
     this._super(res.empty);
 
@@ -53,6 +53,7 @@ var Robot = cc.Sprite.extend({
 
     this.level = level;
 
+    this.turnProb = turnProb;
     this.life = life;
     this.element = element;
     this.range = range;
@@ -180,11 +181,21 @@ var Robot = cc.Sprite.extend({
       return false;
     }
   },
-  canTurn: function(){
-    //Returns what direction the robot can turn if it can or false
+  checkNewTile: function(){
     var currTilePos = this.level.map.tileCoordFromChild(this);
     var tile = this.level.map.getLayer("Background").getTileGIDAt(currTilePos);
-    var tileProps = this.level.map.getPropertiesForGID(tile) || {};
+    if (tile != this.cTileGID) {
+      this.cTileGID = tile;
+      return true;
+    }
+    return false;
+  },
+  canTurn: function(){
+    //TODO only check in the middle of the tile
+    //Returns what direction the robot can turn if it can or false
+    // var currTilePos = this.level.map.tileCoordFromChild(this);
+    // var tile = this.level.map.getLayer("Background").getTileGIDAt(currTilePos);
+    var tileProps = this.level.map.getPropertiesForGID(this.cTileGID) || {};
     var turnable = tileProps.hasOwnProperty('turn');
     if (turnable) {
       var turnDirections = tileProps.turn.split(",");
@@ -196,14 +207,48 @@ var Robot = cc.Sprite.extend({
   },
   turn: function(turnDirections){
     if (turnDirections) {
-      newDirection = Math.floor((Math.random() * turnDirections.length));
-      this.pointing = turnDirections[newDirection];
+      var self = this;
+      var back = this.pointing + (this.pointing < 2 ? 2 : -2);
+      var canBack = turnDirections.indexOf(back) != -1;
+      var possibleTurn = turnDirections.filter(function(dir){
+        return dir != self.pointing && dir != back;
+      });
+      //TODO eliminar estos logs
+      // console.log("turnDirections: " + turnDirections);
+      // console.log("pointing: " + this.pointing);
+      // console.log("back: " + back);
+      // console.log("canBack: " + canBack);
+      // console.log("possibleTurn: " + possibleTurn);
+      var newDirection = null;
+      //si this.pointing esta en la turnTile
+      if (turnDirections.indexOf(this.pointing) != -1) {
+        //si hay un lugar al que doblar y mi random dice que doble
+        if (possibleTurn.length > 0 && Math.random() < this.turnProb) {
+          //doblar a alguno de esos lugares al azar
+          newDirection = possibleTurn[
+            Math.floor((Math.random() * possibleTurn.length))
+          ];
+        } else {
+          newDirection = this.pointing;
+        }
+        //si this.pointing no esta en las turnDirections
+      } else {
+        //si hay un lugar al que doblar
+        if (possibleTurn.length > 0) {
+          //doblar a alguno de esos lugares al azar
+          newDirection = possibleTurn[
+            Math.floor((Math.random() * possibleTurn.length))
+          ];
+        } else {
+          //volver por donde vine si puedo si no seguir derecho
+          newDirection = canBack ? back : this.pointing;
+        }
+      }
+      this.pointing = newDirection;
     }
-    return false;
   },
   walk: function(){
-    //moves the robot by the speed in a direction
-    //TODO move using this.pointing property
+    //moves the robot by the speed in a pointin direction
     if (this.pointing === 0) {
       xDirection = 1;
       yDirection = 1;
@@ -219,7 +264,7 @@ var Robot = cc.Sprite.extend({
     } else {
       xDirection = 1;
       yDirection = 1;
-      console.warn("Bad robot orientation, setting 0");
+      console.warn("Bad robot pointing, setting 0");
     }
     this.x += this.sSpeed * xDirection;
     this.y += (this.sSpeed / 2) * yDirection;
@@ -262,7 +307,9 @@ var Robot = cc.Sprite.extend({
       this.fire(base);
     }
 
-    this.turn(this.canTurn());
+    if (this.checkNewTile()) {
+      this.turn(this.canTurn());
+    }
 
     if (!base) {
       this.walk();
