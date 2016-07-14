@@ -5,7 +5,8 @@ var Robot = cc.Sprite.extend({
   animSpeed: 1.0, //Walk speed animation
   animAttackSpeed: 1.0, //Attack speed animation
   cLife: null, //Current Life
-  cTileGID: null, //Current tile of the robot
+  cTileGID: null, //Current tile GID of the robot
+  cTilePos: null, //Current tile Position of the robot
 
   //Possible (p) stats //TODO definir valores reales //TODO apply fuzzy logic
   pLife: {0: 300, 1: 400, 2: 500},
@@ -184,8 +185,9 @@ var Robot = cc.Sprite.extend({
   checkNewTile: function(){
     var currTilePos = this.level.map.tileCoordFromChild(this);
     var tile = this.level.map.getLayer("Background").getTileGIDAt(currTilePos);
-    if (tile != this.cTileGID) {
+    if (!cc.pointEqualToPoint(currTilePos, this.cTilePos)) {
       this.cTileGID = tile;
+      this.cTilePos = currTilePos;
       return true;
     }
     return false;
@@ -308,6 +310,8 @@ var Robot = cc.Sprite.extend({
     }
 
     if (this.checkNewTile()) {
+      this.debugger.debugTile(this.level.map, {stop: true});
+      this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
       this.turn(this.canTurn());
     }
 

@@ -37,13 +37,12 @@ var TiledMap = cc.TMXTiledMap.extend({
 
     p = mapLayer.getPositionAt(tileCoord);
 
-    debug = new Debugger();//TODO sacar despues las cosas de debug
-    var punto = cc.p(0,0);
-    var punto1 = cc.p(19,19);
-    debug.debugPoint(this, {point: p, color:cc.color(0,255,0,255)});
-    debug.debugPoint(this, {point: this.getMidPointFromTile(punto), color:cc.color(0,0,255,255)});
-    debug.debugRect(this, {rect:this.rectFromTile(punto)});
-    debug.debugRect(this, {rect:this.rectFromTile(punto1)});
+    // debug = new Debugger();//TODO sacar despues las cosas de debug
+    // var punto = cc.p(0,0);
+    // debug.debugPoint(this, {point: p, color:cc.color(0,255,0,255)});
+    // debug.debugPoint(this, {point: this.getMidPointFromTile(punto), color:cc.color(0,0,255,255)});
+    // debug.debugRect(this, {rect:this.rectFromTile(punto)});
+    // debug.debugTile(this, {tile:this.rectFromTile(punto)});
 
     p.y += tileSize.height / 2;
     return p;
@@ -57,8 +56,8 @@ var TiledMap = cc.TMXTiledMap.extend({
     var y = obj.y;
     var w = obj.width;
     var h = obj.height;
-    var objTileX = Math.floor(x / tileHeight + 1);
-    var objTileY = Math.floor(mapHeight - y / tileHeight - h / tileHeight);
+    var objTileX = Math.floor(x / tileHeight);
+    var objTileY = Math.floor(mapHeight - y / tileHeight - h / tileHeight) - 1;
     return cc.p(objTileX, objTileY);
   },
   tileCoordFromChild: function(child){

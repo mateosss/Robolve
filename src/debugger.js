@@ -53,7 +53,7 @@ var Debugger = cc.Class.extend({
   debugPoint: function(object, options){
     // Draws a point in the given options.pos
     debugName = arguments.callee.name;
-    stop = options.stop || false;
+    stop = options.stop || false;//TODO stop doesn't work because many repeated  names
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var pos = options.point || null;
@@ -84,5 +84,40 @@ var Debugger = cc.Class.extend({
       square.setName(debugName);
       object.addChild(square, 100);//TODO poner niveles z diferentes
     }
-  }
+  },
+  debugPoly: function(object, options){
+    // Draws a polygon from vertexes in options.verts or the object's limits
+    debugName = arguments.callee.name;
+    stop = options.stop || false;
+    if (stop) {object.removeChild(object.getChildByName(debugName));}
+    else {
+      var polygon = new cc.DrawNode();
+      var verts = options.verts ||[
+        cc.p(object.x, object.y),
+        cc.p(object.x + object.width, object.y),
+        cc.p(object.x + object.width, object.y + object.height),
+        cc.p(object.x, object.y + object.height),
+      ];
+      var fillColor = options.fillColor || cc.color(0, 200, 100, 50);
+      var lineWidth = options.lineWidth || 1;
+      var lineColor = options.lineColor || cc.color(0, 0, 0, 255);
+      polygon.drawPoly(verts, fillColor, lineWidth, lineColor);
+      polygon.setName(debugName);
+      object.addChild(polygon,200);
+    }
+  },
+  debugTile: function(object, options){
+    // Draws a romboid polygon based on the rect of a tile to show the tile
+    if (options.tile) {
+      var tile = options.tile;
+      var verts = [
+        cc.p(tile.x, tile.y + tile.height / 4),
+        cc.p(tile.x + tile.width / 2, tile.y + tile.height / 2),
+        cc.p(tile.x + tile.width, tile.y + tile.height / 4),//
+        cc.p(tile.x + tile.width / 2, tile.y),
+      ];
+      options.verts = verts;
+    }
+    this.debugPoly(object, options);
+  },
 });
