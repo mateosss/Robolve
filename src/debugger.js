@@ -27,11 +27,11 @@ var Debugger = cc.Class.extend({
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var pos = object.getAnchorPointInPoints();
-      var radius = object.sRange / object.level.map.CHILD_SCALE;
+      var radius = object.sRange / object.level.map.CHILD_SCALE || 2000;
       var color = options.color || cc.color(1, 179, 255, 100);
       var circle = new cc.DrawNode();
-      circle.drawDot(pos, radius, color);//TODO esta linea da error compilando para linux, esta repetida 3 veces en debugger
-      circle.setName(debugName);//TODO el nombre da invalid name ya que se repite y debe ser unico
+      circle.drawDot(pos, radius, color);
+      circle.setName(debugName);
       object.addChild(circle, -1);
     }
   },

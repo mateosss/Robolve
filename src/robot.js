@@ -297,7 +297,7 @@ var Robot = cc.Sprite.extend({
     // Creates a debugger for verbose information directly on the canvas
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify this to add debug information
-      // { method: this.debugger.debugAnchor },
+      { method: this.debugger.debugAnchor },
     ];
     this.debugger.debug();
   },

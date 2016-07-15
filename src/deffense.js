@@ -100,8 +100,8 @@ this.setAnchorPoint(0.5, 0.1);
     // Creates a debugger for verbose information directly on the canvas
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify debug information on canvas
-      // { method: this.debugger.debugAnchor },
-      // { method: this.debugger.debugRange },
+      { method: this.debugger.debugAnchor },
+      { method: this.debugger.debugRange },
     ];
     this.debugger.debug();
   },

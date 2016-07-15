@@ -131,7 +131,7 @@ var Base = cc.Sprite.extend({
     // Creates a debugger for verbose information directly on the canvas
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify debug information on canvas
-      // { method: this.debugger.debugAnchor },
+      { method: this.debugger.debugAnchor },
       // { method: this.debugger.debugRange },
     ];
     this.debugger.debug();
