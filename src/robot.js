@@ -185,10 +185,7 @@ var Robot = cc.Sprite.extend({
   checkNewTile: function(){
     var currTilePos = this.level.map.tileCoordFromChild(this);
     var tile = this.level.map.getLayer("Background").getTileGIDAt(currTilePos);
-    // console.log(this.level.map.getMidPointFromTile(cc.p(19,19)).y);
-    if (!cc.pointEqualToPoint(currTilePos, this.cTilePos) &&
-    this.y >= this.level.map.getMidPointFromTile(currTilePos).y ) {
-      console.log(this.y, this.level.map.getMidPointFromTile(currTilePos).y);
+    if (!cc.pointEqualToPoint(currTilePos, this.cTilePos)) {
       this.cTileGID = tile;
       this.cTilePos = currTilePos;
       return true;
