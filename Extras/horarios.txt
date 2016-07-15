@@ -54,27 +54,21 @@ Mi 13 - 6:05 hs
   - Inicio: Detectar entrada y salida del turntile - 1:15 hs
   - Debug rect on tile, y mid point de tile - 2:15 hs
   - Debug tile, Debug polygon, next to finish the turntile problem - 1:20 hs
-Ju 14
+Ju 14 - 5:55 hs
   - Nada en particular, probando cosas con el mapa - 1:30 hs
   - spriteRectFromTile y mas pruebas - 1 hs
   - turn al fin funcionando de forma negra pero funcional - 1:10 hs
   - Invalid name error solved - 0:15 hs
-
-Bugs prioritarios:
-"Invalid name error"
-draw circle error compilando a linux y android
-health bar fondo blanco en linux android
-
+  - Intentando poder debugear android con firefox para resolver bugs - 2 hs
+Vi 15
+  - ver foro y point 2 error resuelto - 35
+  - 13:35
 
 
-|#spawnpoint y clase de nexo, sprite de nexo - 1:00 | 1:30
-|#Crear clase padre para robot, defensa y ¿base? - 2:00 | 4:00
-|#Cuando llega al spawn el robot comienza a pegar - 2:00 | 0:25
-|#Pathfinding de los robots hacia el nexo -  8 hs | 15:55 hs
-  Se me ocurrio que no haya pathfinding si no que sea un atributo "probabilidad
-  de giro"
-|#Arreglar el spawn de los sprites y entender bien como funcionan los sprites
-isometricos - 6 hs
+Bugs de compilación:
+draw dot error compilando
+health bar fondo blanco compilando
+
 #Definir oleadas - 2:00
 #calcular el fitscore en base a cercania a la base(o distancia recorrida),
   daño a la base, y tiempo sobrevivido - 8:00

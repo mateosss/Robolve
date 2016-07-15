@@ -24,7 +24,6 @@ var TiledMap = cc.TMXTiledMap.extend({
     this.addChild(child, layer, tag);
     child.scale = this.CHILD_SCALE;//TODO escalado? asi se hace?
     p = this.getSpawnPoint(child);
-
     child.setPosition(p);
   },
   getSpawnPoint: function(child){
@@ -116,6 +115,7 @@ var Base = cc.Sprite.extend({
   level: null, // Level where this object is placed
   cLife: null, // Current life
   sLife: null, // Initial life
+  cTilePos: null, // Current Tile Position
   ctor: function(level, life){
     this._super(res.base);
     this.level = level;
@@ -131,8 +131,8 @@ var Base = cc.Sprite.extend({
     // Creates a debugger for verbose information directly on the canvas
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify debug information on canvas
-      { method: this.debugger.debugAnchor },
-      { method: this.debugger.debugRange },
+      // { method: this.debugger.debugAnchor },
+      // { method: this.debugger.debugRange },
     ];
     this.debugger.debug();
   },

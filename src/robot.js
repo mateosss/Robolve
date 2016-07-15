@@ -5,7 +5,7 @@ var Robot = cc.Sprite.extend({
   animSpeed: 1.0, //Walk speed animation
   animAttackSpeed: 1.0, //Attack speed animation
   cLife: null, //Current Life
-  cTilePos: null, //Current tile Position of the robot
+  cTilePos: cc.p(0, 0), //Current tile Position of the robot
 
   //Possible (p) stats //TODO definir valores reales //TODO apply fuzzy logic
   pLife: {0: 300, 1: 400, 2: 500},
@@ -184,7 +184,7 @@ var Robot = cc.Sprite.extend({
   checkNewTile: function(){
     //TODO esto es horrible alguien haga algo al respecto!!!!
     var currTilePos = this.level.map.tileCoordFromChild(this);
-    if (!cc.pointEqualToPoint(currTilePos, this.cTilePos)) {
+    if (this.cTilePos && !cc.pointEqualToPoint(currTilePos, this.cTilePos)) {
       if (!(this.canTurn(currTilePos) !== false &&
       [0,3].indexOf(this.pointing) != -1) ||
       this.y >= this.level.map.getMidPointFromTile(currTilePos).y + (this.level.map.getTileSize().height / 2) - this.pSpeed[2]) {//TODO no habia una solucion menos horrible?
@@ -297,7 +297,7 @@ var Robot = cc.Sprite.extend({
     // Creates a debugger for verbose information directly on the canvas
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify this to add debug information
-      { method: this.debugger.debugAnchor },
+      // { method: this.debugger.debugAnchor },
     ];
     this.debugger.debug();
   },
@@ -313,7 +313,7 @@ var Robot = cc.Sprite.extend({
 
     if (this.checkNewTile()) {
       // this.debugger.debugTile(this.level.map, {stop: true});
-      // this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
+      this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
       this.turn(this.canTurn(this.cTilePos));
     }
 

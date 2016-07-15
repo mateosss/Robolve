@@ -1,21 +1,22 @@
 var Deffense = cc.Sprite.extend({
-  level: null,//Level where this object is placed
-  target: null,//Target robot to fire
-  pointing: null,//Looking direction TODO
-  animAttackSpeed: 1.0,//Attack speed animation
+  level: null,// Level where this object is placed
+  target: null,// Target robot to fire
+  pointing: null,// Looking direction TODO
+  animAttackSpeed: 1.0,// Attack speed animation
+  cTilePos: null, // Current tile position
 
-  //Possible (p) stats
+  // Possible (p) stats
   pRange: {0: 100, 1: 2000},
   pTerrain: {0: 'walk',1: 'fly'},
   pDamage: {0: 25, 1: 50, 2:75},
   pAttackSpeed: {0: 0.5, 1: 1.0, 2: 1.5},
 
-  //Stats (s)
+  // Stats (s)
   sRange: null,
   sDamage: null,
   sAttackSpeed: null,
 
-  //Initial values
+  // Initial values
   element: null,
   range: null,
   terrain: null,
@@ -23,7 +24,7 @@ var Deffense = cc.Sprite.extend({
   attackSpeed: null,
 
   ctor:function(level, element, range, terrain, damage, attackSpeed) {
-    //Defines the initial values and stats by searching on possible stats
+    // Defines the initial values and stats by searching on possible stats
     this._super(res.deffense);
     this.level = level;
 
@@ -99,8 +100,8 @@ this.setAnchorPoint(0.5, 0.1);
     // Creates a debugger for verbose information directly on the canvas
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify debug information on canvas
-      { method: this.debugger.debugAnchor },
-      { method: this.debugger.debugRange },
+      // { method: this.debugger.debugAnchor },
+      // { method: this.debugger.debugRange },
     ];
     this.debugger.debug();
   },
