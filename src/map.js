@@ -37,12 +37,12 @@ var TiledMap = cc.TMXTiledMap.extend({
 
     p = mapLayer.getPositionAt(tileCoord);
 
-    debug = new Debugger();//TODO sacar despues las cosas de debug
-    var punto = cc.p(0,0);
+    // debug = new Debugger();//TODO sacar despues las cosas de debug
+    // var punto = cc.p(1,1);
     // debug.debugPoint(this, {point: p, color:cc.color(0,255,0,255)});
-    debug.debugPoint(this, {point: this.getMidPointFromTile(punto), color:cc.color(0,0,255,255)});
-    debug.debugRect(this, {rect:this.spriteRectFromTile(punto)});
-    debug.debugTile(this, {tile:this.rectFromTile(punto)});
+    // debug.debugPoint(this, {point: this.getMidPointFromTile(punto), color:cc.color(0,0,255,255)});
+    // debug.debugRect(this, {rect:this.spriteRectFromTile(punto)});
+    // debug.debugTile(this, {tile:this.rectFromTile(punto)});
 
     p.y += tileSize.height / 2;
     return p;

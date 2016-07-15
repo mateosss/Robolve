@@ -57,10 +57,11 @@ Mi 13
 Ju 14
   - Nada en particular, probando cosas con el mapa - 1:30 hs
   - spriteRectFromTile y mas pruebas - 1 hs
-  - 21:15
-  QUE EL TURN SE EJECUTE SOLAMENTE EN EL CENTRO DEL TILE(detectar cuando entro
-  al turn tile, cuando paso el medio del tile y cuando salgo)
-
+  - turn al fin funcionando de forma negra pero funcional - 1:10 hs
+  - 22:45
+Bugs prioritarios:
+"Invalid name error"
+draw circle error compilando a linux y android
 
 
 |#spawnpoint y clase de nexo, sprite de nexo - 1:00 | 1:30

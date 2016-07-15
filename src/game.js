@@ -25,7 +25,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     this.setBase(base);
 
     // Add Robot
-    turnProb = 0.5; //0.0 - 1.0
+    turnProb = 0.0; //0.0 - 1.0
     life = 2; //0,1,2
     range = 0;//0,1
     element = "water";//water,fire,electric
@@ -198,11 +198,11 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
         this.robots = this.robots.filter(function(robot){return robot !== undefined;});
       }
 
-      // if (this.counter >= 180) {//TODO sacar esto
-      //   this.counter = 0;
-      //   this.addRandomRobot();
-      // } else {
-      //   this.counter += 1;
-      // }
+      if (this.counter >= 180) {//TODO sacar esto
+        this.counter = 0;
+        this.addRandomRobot();
+      } else {
+        this.counter += 1;
+      }
     },
   });

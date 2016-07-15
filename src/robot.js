@@ -1,11 +1,10 @@
 var Robot = cc.Sprite.extend({
   level: null, //Level where this object is placed
   destroy: false, //If true level will delete this robot
-  pointing: 2, //Looking direction 0:North, 1:East, 2:South, 3:West
+  pointing: 3, //Looking direction 0:North, 1:East, 2:South, 3:West
   animSpeed: 1.0, //Walk speed animation
   animAttackSpeed: 1.0, //Attack speed animation
   cLife: null, //Current Life
-  cTileGID: null, //Current tile GID of the robot
   cTilePos: null, //Current tile Position of the robot
 
   //Possible (p) stats //TODO definir valores reales //TODO apply fuzzy logic
@@ -183,21 +182,24 @@ var Robot = cc.Sprite.extend({
     }
   },
   checkNewTile: function(){
+    //TODO esto es horrible alguien haga algo al respecto!!!!
     var currTilePos = this.level.map.tileCoordFromChild(this);
-    var tile = this.level.map.getLayer("Background").getTileGIDAt(currTilePos);
     if (!cc.pointEqualToPoint(currTilePos, this.cTilePos)) {
-      this.cTileGID = tile;
-      this.cTilePos = currTilePos;
-      return true;
+      if (!(this.canTurn(currTilePos) !== false &&
+      [0,3].indexOf(this.pointing) != -1) ||
+      this.y >= this.level.map.getMidPointFromTile(currTilePos).y + (this.level.map.getTileSize().height / 2) - this.pSpeed[2]) {//TODO no habia una solucion menos horrible?
+        this.cTilePos = currTilePos;
+        return true;
+      }
     }
     return false;
   },
-  canTurn: function(){
+  canTurn: function(tilePos){
     //TODO only check in the middle of the tile
     //Returns what direction the robot can turn if it can or false
     // var currTilePos = this.level.map.tileCoordFromChild(this);
-    // var tile = this.level.map.getLayer("Background").getTileGIDAt(currTilePos);
-    var tileProps = this.level.map.getPropertiesForGID(this.cTileGID) || {};
+    var tile = this.level.map.getLayer("Background").getTileGIDAt(tilePos);
+    var tileProps = this.level.map.getPropertiesForGID(tile) || {};
     var turnable = tileProps.hasOwnProperty('turn');
     if (turnable) {
       var turnDirections = tileProps.turn.split(",");
@@ -311,8 +313,8 @@ var Robot = cc.Sprite.extend({
 
     if (this.checkNewTile()) {
       // this.debugger.debugTile(this.level.map, {stop: true});
-      this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
-      this.turn(this.canTurn());
+      // this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
+      this.turn(this.canTurn(this.cTilePos));
     }
 
     if (!base) {
