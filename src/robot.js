@@ -136,7 +136,6 @@ var Robot = cc.Sprite.extend({
   },
   createHealthBar: function(){
     //Creates two rectangles for representing the healtbar
-    //TODO La healthbar se ve mal compilado para linux y android
     var originB = cc.p(-100, 0);
     var originF = cc.p(-95, 5);
     var destinationB = cc.p(100, 50);
@@ -146,8 +145,8 @@ var Robot = cc.Sprite.extend({
 
     var back = new cc.DrawNode();
     var front = new cc.DrawNode();
-    back.drawRect(originB, destinationB, fillColorB);
-    front.drawRect(originF, destinationF, fillColorF);
+    back.drawRect(originB, destinationB, fillColorB, 0, fillColorB);
+    front.drawRect(originF, destinationF, fillColorF, 0, fillColorF);
     front.setAnchorPoint(0.0, 0.0);
     back.y += 900;
     front.y += 900;

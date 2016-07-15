@@ -62,12 +62,8 @@ Ju 14 - 5:55 hs
   - Intentando poder debugear android con firefox para resolver bugs - 2 hs
 Vi 15
   - ver foro y point 2 error resuelto - 0:35 hs
-  - Error draw dot (la base no tenia range jeje) 0:15 hs
-  - 13:50
-
-
-Bugs de compilación:
-health bar fondo blanco compilando
+  - Error draw dot (la base no tenia range jeje) - 0:15 hs
+  - Error hpbar titilante linux (habia que especificar lineColor) - 0:10 hs
 
 #Definir oleadas - 2:00
 #calcular el fitscore en base a cercania a la base(o distancia recorrida),

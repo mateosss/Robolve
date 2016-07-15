@@ -148,8 +148,8 @@ var Base = cc.Sprite.extend({
 
     var back = new cc.DrawNode();
     var front = new cc.DrawNode();
-    back.drawRect(originB, destinationB, fillColorB);
-    front.drawRect(originF, destinationF, fillColorF);
+    back.drawRect(originB, destinationB, fillColorB, 0, fillColorB);
+    front.drawRect(originF, destinationF, fillColorF, 0, fillColorF);
     front.setAnchorPoint(0.0, 0.0);
     front.setPosition(this.getAnchorPointInPoints());
     back.setPosition(this.getAnchorPointInPoints());
