@@ -49,7 +49,7 @@ Ma 12 - 5:10 hs
   - canTurn funcionando - 1:20 hs
   - turn funcionando  - 50 min
   - diseñando logica mejorada de turn - 20 min
-Mi 13
+Mi 13 - 6:05 hs
   - nueva funcion turn con logica mejorada - 1:15 hs
   - Inicio: Detectar entrada y salida del turntile - 1:15 hs
   - Debug rect on tile, y mid point de tile - 2:15 hs
@@ -58,16 +58,19 @@ Ju 14
   - Nada en particular, probando cosas con el mapa - 1:30 hs
   - spriteRectFromTile y mas pruebas - 1 hs
   - turn al fin funcionando de forma negra pero funcional - 1:10 hs
-  - 22:45
+  - Invalid name error solved - 0:15 hs
+
 Bugs prioritarios:
 "Invalid name error"
 draw circle error compilando a linux y android
+health bar fondo blanco en linux android
+
 
 
 |#spawnpoint y clase de nexo, sprite de nexo - 1:00 | 1:30
 |#Crear clase padre para robot, defensa y ¿base? - 2:00 | 4:00
-|#Cuando llega al spawn el robot comienza a pegar - 2:00
-#Pathfinding de los robots hacia el nexo -  8 hs
+|#Cuando llega al spawn el robot comienza a pegar - 2:00 | 0:25
+|#Pathfinding de los robots hacia el nexo -  8 hs | 15:55 hs
   Se me ocurrio que no haya pathfinding si no que sea un atributo "probabilidad
   de giro"
 |#Arreglar el spawn de los sprites y entender bien como funcionan los sprites

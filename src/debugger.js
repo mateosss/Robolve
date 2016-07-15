@@ -12,7 +12,7 @@ var Debugger = cc.Class.extend({
   },
   debugLine: function(object, options){
     //TODO Draw a line from object to target with distance label in pixels
-    debugName = arguments.callee.name;
+    debugName = "debugLine";
     stop = options.stop || false;
     if(stop) {object.removeChild(object.getChildByName(debugName));}
     else {
@@ -22,7 +22,7 @@ var Debugger = cc.Class.extend({
   },
   debugRange: function(object, options){
     // Draws a circle from the center with radius sRange
-    debugName = arguments.callee.name;
+    debugName = "debugRange";
     stop = options.stop || false;
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
@@ -31,13 +31,13 @@ var Debugger = cc.Class.extend({
       var color = options.color || cc.color(1, 179, 255, 100);
       var circle = new cc.DrawNode();
       circle.drawDot(pos, radius, color);//TODO esta linea da error compilando para linux, esta repetida 3 veces en debugger
-      circle.setName(debugName);
+      circle.setName(debugName);//TODO el nombre da invalid name ya que se repite y debe ser unico
       object.addChild(circle, -1);
     }
   },
   debugAnchor: function(object, options){//TODO Unir esta funcion con debugPoint
     // Draws a circle in the object's anchor point
-    debugName = arguments.callee.name;
+    debugName = "debugAnchor";
     stop = options.stop || false;
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
@@ -52,7 +52,7 @@ var Debugger = cc.Class.extend({
   },
   debugPoint: function(object, options){
     // Draws a point in the given options.pos
-    debugName = arguments.callee.name;
+    debugName = "debugPoint";
     stop = options.stop || false;//TODO stop doesn't work because many repeated  names
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
@@ -67,7 +67,7 @@ var Debugger = cc.Class.extend({
   },
   debugRect: function(object, options){
     //Draws options.rect, or the object's rect
-    debugName = arguments.callee.name;
+    debugName = "debugRect";
     stop = options.stop || false;
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
@@ -87,7 +87,7 @@ var Debugger = cc.Class.extend({
   },
   debugPoly: function(object, options){
     // Draws a polygon from vertexes in options.verts or the object's limits
-    debugName = arguments.callee.name;
+    debugName = "debugPoly";
     stop = options.stop || false;
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
