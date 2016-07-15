@@ -111,9 +111,9 @@ var Debugger = cc.Class.extend({
     if (options.tile) {
       var tile = options.tile;
       var verts = [
-        cc.p(tile.x, tile.y + tile.height / 4),
-        cc.p(tile.x + tile.width / 2, tile.y + tile.height / 2),
-        cc.p(tile.x + tile.width, tile.y + tile.height / 4),//
+        cc.p(tile.x, tile.y + tile.height / 2),
+        cc.p(tile.x + tile.width / 2, tile.y + tile.height),
+        cc.p(tile.x + tile.width, tile.y + tile.height / 2),//
         cc.p(tile.x + tile.width / 2, tile.y),
       ];
       options.verts = verts;

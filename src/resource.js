@@ -9,8 +9,6 @@ var res = {
   maps:{
     map1Sheet: "res/map/landscape2.png",
     map1: "res/map/mapsketch2.tmx",
-    // map1Sheet: "res/map/final132.png",
-    // map1: "res/map/mapsketch.tmx",
   },
   parts:{
     heads: {

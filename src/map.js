@@ -37,12 +37,12 @@ var TiledMap = cc.TMXTiledMap.extend({
 
     p = mapLayer.getPositionAt(tileCoord);
 
-    // debug = new Debugger();//TODO sacar despues las cosas de debug
-    // var punto = cc.p(0,0);
+    debug = new Debugger();//TODO sacar despues las cosas de debug
+    var punto = cc.p(0,0);
     // debug.debugPoint(this, {point: p, color:cc.color(0,255,0,255)});
-    // debug.debugPoint(this, {point: this.getMidPointFromTile(punto), color:cc.color(0,0,255,255)});
-    // debug.debugRect(this, {rect:this.rectFromTile(punto)});
-    // debug.debugTile(this, {tile:this.rectFromTile(punto)});
+    debug.debugPoint(this, {point: this.getMidPointFromTile(punto), color:cc.color(0,0,255,255)});
+    debug.debugRect(this, {rect:this.spriteRectFromTile(punto)});
+    debug.debugTile(this, {tile:this.rectFromTile(punto)});
 
     p.y += tileSize.height / 2;
     return p;
@@ -83,8 +83,8 @@ var TiledMap = cc.TMXTiledMap.extend({
   tileCoordFromLocation: function(loc){
     //TODO returns the tile coord from a screen location if loc is inside map
   },
-  rectFromTile: function(tileCoord){//TODO no esta andando todavia
-    //Returns the rect of a tile expressed in tilemap coords
+  spriteRectFromTile: function(tileCoord){
+    //Returns the rect, of a sprite, of a tile (expressed in tilemap coords)
     tile = this.getLayer("Background").getTileAt(tileCoord);
     var rect = cc.rect(
       tile.x, tile.y,
@@ -92,7 +92,16 @@ var TiledMap = cc.TMXTiledMap.extend({
     );
     return rect;
   },
-  getMidPointFromTile: function(tileCoord){//TODO no esta andando como debe
+  rectFromTile: function(tileCoord){
+    //Returns the rect of a tile expressed in tilemap coords
+    tile = this.getLayer("Background").getTileAt(tileCoord);
+    var rect = cc.rect(
+      tile.x, tile.y,
+      this.getTileSize().width, this.getTileSize().height
+    );
+    return rect;
+  },
+  getMidPointFromTile: function(tileCoord){
     var tile = this.rectFromTile(tileCoord);
     return cc.p(cc.rectGetMidX(tile), cc.rectGetMidY(tile));
   },
