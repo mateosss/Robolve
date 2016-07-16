@@ -53,9 +53,10 @@ this.setAnchorPoint(0.5, 0.1);
     //Looks for robots in tower range
     inRange = [];
     for (var i = 0; i < this.level.robots.length; i++) {
-      var deffenseCenter = this.getAnchorPointInPoints();
-      deffenseCenter = this.convertToWorldSpace(deffenseCenter);
-      deffenseCenter = this.level.map.convertToNodeSpace(deffenseCenter);
+      // var deffenseCenter = this.getAnchorPointInPoints();
+      // deffenseCenter = this.convertToWorldSpace(deffenseCenter);
+      // deffenseCenter = this.level.map.convertToNodeSpace(deffenseCenter);
+      var deffenseCenter = this.getPosition();
       var robotCenter = this.level.robots[i].getPosition();
       var distance = cc.pDistance(deffenseCenter, robotCenter);
       if (distance <= this.sRange) {

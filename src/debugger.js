@@ -7,7 +7,33 @@ var Debugger = cc.Class.extend({
   debug: function (){
     for (var debugMethod in this.methods) {
       this.methods[debugMethod].method(this.object, {stop: true});
-      this.methods[debugMethod].method(this.object, debugMethod.options || {});
+      this.methods[debugMethod].method(
+        this.object, this.methods[debugMethod].options || {}
+      );
+    }
+  },
+  debugText: function(object, options){
+    debugName = "debugText";
+    stop = options.stop || false;
+    if(stop) {object.removeChild(object.getChildByName(debugName));}
+    else {
+      var updateLabel = object.getChildByName(debugName);
+      if (updateLabel) {
+        updateLabel.string = options.text || "";
+      } else {
+        var text = options.text || "debugText";
+        var fontName = options.fontName || "Arial";
+        var fontSize = options.fontSize || 32;
+        var dimensions = options.dimensions || cc.size(object.width, object.height);
+        var hAlignment = options.hAlignment || cc.TEXT_ALIGNMENT_LEFT;
+        var vAlignment = options.vAlignment || cc.VERTICAL_TEXT_ALIGNMENT_TOP;
+        var position = options.position || object.getAnchorPointInPoints();
+        var label = new cc.LabelTTF(text, fontName, fontSize, dimensions, hAlignment, vAlignment);
+        label.fillStyle = options.fillStyle || cc.color(255, 255, 255, 255);
+        label.setName(debugName);
+        label.setPosition(position);
+        object.addChild(label, 10000);
+      }
     }
   },
   debugLine: function(object, options){
@@ -68,7 +94,7 @@ var Debugger = cc.Class.extend({
   debugRect: function(object, options){
     //Draws options.rect, or the object's rect
     debugName = "debugRect";
-    stop = options.stop || false;
+    stop = options.stop || false;//TODO check in all debug functions if stop works
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var square = new cc.DrawNode();

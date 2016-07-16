@@ -17,7 +17,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
   deffenses: [],
   ctor:function () {
     this._super();
-    this.map = new TiledMap(res.maps.map1);
+    this.map = new TiledMap(this, res.maps.map1);
     this.addChild(this.map, 1, TAG_TILE_MAP);
 
     // Set base
@@ -174,6 +174,9 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     addRobot: function(robot){
       this.map.spawn(robot, 6);
       this.robots.push(robot);
+
+      debug = new Debugger();//TODO sacar despues las cosas de debug
+      debug.debugText(this, {text: "Robots Count: " + this.robots.length});
     },
     addDeffense: function(deffense){
       //TODO que las cosas se spameen no en un layer hardcodeado como 5
@@ -198,11 +201,11 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
         this.robots = this.robots.filter(function(robot){return robot !== undefined;});
       }
 
-      if (this.counter >= 180) {//TODO sacar esto
-        this.counter = 0;
-        this.addRandomRobot();
-      } else {
-        this.counter += 1;
-      }
+      // if (this.counter >= 180) {//TODO sacar esto
+      //   this.counter = 0;
+      //   this.addRandomRobot();
+      // } else {
+      //   this.counter += 1;
+      // }
     },
   });

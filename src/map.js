@@ -1,7 +1,9 @@
 var TiledMap = cc.TMXTiledMap.extend({
+  level: null,
   CHILD_SCALE: 0.2,
   positionTarget: cc.p(winSize.width/2,winSize.height/2),
-  ctor: function(tmxMap){
+  ctor: function(level, tmxMap){
+    this.level = level;
     this._super(tmxMap);
     this.scale = 0.15;
     this.setAnchorPoint(0.5, 0.5);
@@ -42,7 +44,7 @@ var TiledMap = cc.TMXTiledMap.extend({
     // debug.debugPoint(this, {point: this.getMidPointFromTile(punto), color:cc.color(0,0,255,255)});
     // debug.debugRect(this, {rect:this.spriteRectFromTile(punto)});
     // debug.debugTile(this, {tile:this.rectFromTile(punto)});
-
+    // debug.debugText(this, {text: "Robots Count: " + this.level.robots.length});
     p.y += tileSize.height / 2;
     return p;
   },

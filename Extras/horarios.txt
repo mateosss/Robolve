@@ -25,7 +25,7 @@ Lu 4 - 5:10 hs
   - Debug circle, inicio de logica para el rango y muerte - 2 hs
   - Detectar enemigo en rango y seleccionar target - 2:30
   - hacer que la vida empieze a bajar, y spawnRandomRobot - 40 min
-Ma 5 - Comienzo GA - 2 hs
+Ma 5 - Comienzo GA (AL FINAL COMENZO EL 15) - 2 hs
   - Zoom tactil previsorio y prediseño antes de empezar con el GA - 1 hs
   - Planificacion y como seguir adelante - 1 hs
 Mi 6 - 4:30 hs
@@ -60,10 +60,14 @@ Ju 14 - 5:55 hs
   - turn al fin funcionando de forma negra pero funcional - 1:10 hs
   - Invalid name error solved - 0:15 hs
   - Intentando poder debugear android con firefox para resolver bugs - 2 hs
-Vi 15
+Vi 15 - 2:50 hs
   - ver foro y point 2 error resuelto - 0:35 hs
   - Error draw dot (la base no tenia range jeje) - 0:15 hs
   - Error hpbar titilante linux (habia que especificar lineColor) - 0:10 hs
+  - debug text - 1:50 hs
+
+Poner velocidad rapido y dejar mucho tiempo andando en una de las vueltas un robot
+se fue en (0,10)w
 
 #Definir oleadas - 2:00
 #calcular el fitscore en base a cercania a la base(o distancia recorrida),

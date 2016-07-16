@@ -1,11 +1,12 @@
 var Robot = cc.Sprite.extend({
   level: null, //Level where this object is placed
   destroy: false, //If true level will delete this robot
-  pointing: 3, //Looking direction 0:North, 1:East, 2:South, 3:West
+  pointing: 2, //Looking direction 0:North, 1:East, 2:South, 3:West
   animSpeed: 1.0, //Walk speed animation
   animAttackSpeed: 1.0, //Attack speed animation
   cLife: null, //Current Life
   cTilePos: cc.p(0, 0), //Current tile Position of the robot
+  creationTime: null,
 
   //Possible (p) stats //TODO definir valores reales //TODO apply fuzzy logic
   pLife: {0: 300, 1: 400, 2: 500},
@@ -14,9 +15,9 @@ var Robot = cc.Sprite.extend({
     "fire": cc.color(227, 43, 0, 255),
     "water": cc.color(1, 179, 255, 255)
   },
-  pRange: {0: 50, 1: 150},
+  pRange: {0: 75, 1: 150},
   pTerrain: {0: 'walk',1: 'fly'},
-  pSpeed: {0: 0.1, 1: 0.5, 2: 0.9},
+  pSpeed: {0: 0.1, 1: 0.5, 2: 5},
   pDamage: {0: 5, 1: 15, 2:20},
   pAttackSpeed: {0: 0.5, 1: 1.0, 2: 1.5},
 
@@ -52,6 +53,7 @@ var Robot = cc.Sprite.extend({
     this.setAnchorPoint(0.5, 0.0);
 
     this.level = level;
+    this.creationTime = new Date().getTime();
 
     this.turnProb = turnProb;
     this.life = life;
@@ -169,16 +171,18 @@ var Robot = cc.Sprite.extend({
     }
   },
   getTarget: function(){//TODO otra vez se repite en defensa
-    var robotCenter = this.getAnchorPointInPoints();
-    robotCenter = this.convertToWorldSpace(robotCenter);
-    robotCenter = this.level.map.convertToNodeSpace(robotCenter);
-    var baseCenter = this.level.base.getPosition();
-    var distance = cc.pDistance(robotCenter, baseCenter);
+    var distance = this.getDistanceTo(this.level.base);
     if (distance <= this.sRange) {
       return this.level.base;
     } else {
       return false;
     }
+  },
+  getDistanceTo: function(target) {
+    var robotCenter = this.getPosition();
+    var targetCenter = target.getPosition();
+    var distance = cc.pDistance(robotCenter, targetCenter);
+    return distance;
   },
   checkNewTile: function(){
     //TODO esto es horrible alguien haga algo al respecto!!!!
@@ -186,7 +190,7 @@ var Robot = cc.Sprite.extend({
     if (this.cTilePos && !cc.pointEqualToPoint(currTilePos, this.cTilePos)) {
       if (!(this.canTurn(currTilePos) !== false &&
       [0,3].indexOf(this.pointing) != -1) ||
-      this.y >= this.level.map.getMidPointFromTile(currTilePos).y + (this.level.map.getTileSize().height / 2) - this.pSpeed[2]) {//TODO no habia una solucion menos horrible?
+      this.y >= this.level.map.getMidPointFromTile(currTilePos).y + (this.level.map.getTileSize().height / 2) - this.pSpeed[this.speed]) {//TODO no habia una solucion menos horrible?
         this.cTilePos = currTilePos;
         return true;
       }
@@ -287,16 +291,36 @@ var Robot = cc.Sprite.extend({
     //In the next frame the level will remove the robots with destroy==true
     this.destroy = true;
   },
+  livedTimeScore: function() {
+    var score = new Date().getTime() - this.creationTime;
+    return score;
+  },
+  infligedDamageScore: function() {
+    return 0;
+  },
+  distanceToBaseScore: function() {
+    return 0;
+  },
   getScore: function(){
-    //#TODO definir que es lo que te da el score. cuanto vive solamente?
-    // o tambien cuanto daño hace, que tan cerca de la base llega,
-    //si todavia no murio cuanto va viviendo
+    var livedTimeScore = this.livedTimeScore();
+    var infligedDamageScore = this.infligedDamageScore();
+    var distanceToBaseScore = this.distanceToBaseScore();
+    var score = livedTimeScore + infligedDamageScore + distanceToBaseScore;
+    return score;
   },
   debug: function(){
     // Creates a debugger for verbose information directly on the canvas
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify this to add debug information
       { method: this.debugger.debugAnchor },
+      { method: this.debugger.debugRange },
+      { method: this.debugger.debugText, options: {
+        text: JSON.stringify(this.cTilePos),
+        dimensions: cc.size(1024, 1024),
+        fontSize: 96,
+        hAlignment: cc.TEXT_ALIGNMENT_LEFT,
+        position: cc.p(this.getAnchorPointInPoints().x, this.getAnchorPointInPoints().y + 512)
+      } },
     ];
     this.debugger.debug();
   },
@@ -306,6 +330,7 @@ var Robot = cc.Sprite.extend({
     if (this.counter < this.sAttackSpeed) {
       this.counter += delta;
     } else {
+      this.debugger.debugText(this, {text: JSON.stringify(this.cTilePos)});
       this.counter = 0.0;
       this.fire(base);
     }
