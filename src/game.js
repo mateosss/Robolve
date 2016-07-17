@@ -13,28 +13,39 @@ var Hud; //TODO
 var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
   map: null,
   base: null,
-  robots: [],
-  deffenses: [],
+  robots: [], // Current robots in map
+  deffenses: [], // Current deffenses in map
+  wavesCounts: [], // Defined by the map, amount of robots per wave
+  wavesIntervals: [], // Defined by the map, amount of time between waves
+  waveQuery: [], // Robots in this array, has to spawn in this wave
+  waveDelay: null, // Delay before a new wave is spawned
+  SPAWN_TIME: 0.8, // Seconds between spawns
+  lastWave: false, // True if the game is on the last wave
+  cWave: null, // Current wave position
   ctor:function () {
     this._super();
     this.map = new TiledMap(this, res.maps.map1);
     this.addChild(this.map, 1, TAG_TILE_MAP);
+    this.wavesCounts =  this.map.getProperties().wavesCounts.split(",").map(Number);
+    this.wavesIntervals = this.map.getProperties().wavesIntervals.split(",").map(Number);
+    this.prepareNextWave();
+    //Cuando la cantida de Robots del waveQuery llegue a 0, inmediatamente cambiar a la siguiente cWave y repetir
 
     // Set base
     var base = new Base(this, 500);
     this.setBase(base);
 
     // Add Robot
-    turnProb = 0.5; //0.0 - 1.0
-    life = 2; //0,1,2
-    range = 0;//0,1
-    element = "water";//water,fire,electric
-    terrain = 0;//0,1
-    speed = 2;//0,1,2
-    damage = 0;//0,1,2
-    attackSpeed = 1;//0,1,2
-    var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
-    this.addRobot(customRobot);
+    // turnProb = 0.5; //0.0 - 1.0
+    // life = 2; //0,1,2
+    // range = 0;//0,1
+    // element = "water";//water,fire,electric
+    // terrain = 0;//0,1
+    // speed = 2;//0,1,2
+    // damage = 0;//0,1,2
+    // attackSpeed = 1;//0,1,2
+    // var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
+    // this.addRobot(customRobot);
 
     // Add Deffense
     range = 0;//0,1
@@ -52,7 +63,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     // TODO Add parallax background to the map
     // TODO pasar update y movemap a map
     // TODO cc.ScrollView fijarse si eso puede facilitar el tema del scroll
-    if ('touches' in cc.sys.capabilities){
+    if ('touches' in cc.sys.capabilities) {
       cc.eventManager.addListener({
         event: cc.EventListener.TOUCH_ALL_AT_ONCE,
         onTouchesMoved: function (touches, event) {
@@ -72,7 +83,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
           }
         }
       }, this);
-    } else if ('mouse' in cc.sys.capabilities){
+    } else if ('mouse' in cc.sys.capabilities) {
       cc.eventManager.addListener({
         event: cc.EventListener.MOUSE,
         moveButton: cc.EventMouse.BUTTON_LEFT,
@@ -106,24 +117,24 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
           this.map.positionTarget.x = newX;
           this.map.positionTarget.y = newY;
         },
-        onMouseDown: function(event){
+        onMouseDown: function(event) {
           this.pressed = event.getButton();
           this.clickLocation = event.getLocation();
 
         },
-        onMouseUp: function(event){
+        onMouseUp: function(event) {
           this.pressed = -1;
         },
-        onMouseMove: function(event){
+        onMouseMove: function(event) {
           if (this.pressed != -1) {
             this.map = event.getCurrentTarget().getChildByTag(TAG_TILE_MAP);
-            if(this.pressed == this.moveButton){
+            if(this.pressed == this.moveButton) {
               delta = event.getDelta();
               // targetX = this.map.positionTarget.x + delta.x;
               // targetY = this.map.positionTarget.y + delta.y;
               this.moveMap(delta.x, delta.y);
             }
-            else if(this.pressed == this.zoomButton){
+            else if(this.pressed == this.zoomButton) {
               zoomDelta = event.getDeltaY()*0.001;
               zoom = this.map.scale + zoomDelta;
               if (zoom >= 0.15 && zoom <= 1.0) {
@@ -147,10 +158,10 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
       this.scheduleUpdate();
       return true;
     },
-    toString: function(){
+    toString: function() {
       return "Level";
     },
-    addRandomRobot: function(){
+    getRandomRobot: function() {
       //Add Robot
       turnProb = Math.random(); //0.0 - 1.0
       life = Math.floor((Math.random() * 3)); //0,1,2
@@ -162,23 +173,23 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
       damage = Math.floor((Math.random() * 3));
       attackSpeed = Math.floor((Math.random() * 3));
       var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
-      this.addRobot(customRobot);
+      return customRobot;
     },
-    addRandomDeffense: function(){
+    getRandomDeffense: function() {
       //TODO las defensas van a ser por partes?
     },
-    setBase: function(base){
+    setBase: function(base) {
       this.map.spawn(base, 7);
       this.base = base;
     },
-    addRobot: function(robot){
+    addRobot: function(robot) {
       this.map.spawn(robot, 6);
       this.robots.push(robot);
 
       debug = new Debugger();//TODO sacar despues las cosas de debug
       debug.debugText(this, {text: "Robots Count: " + this.robots.length});
     },
-    addDeffense: function(deffense){
+    addDeffense: function(deffense) {
       //TODO que las cosas se spameen no en un layer hardcodeado como 5
       //si no que tenga relacion con el eje y en el que estan mientras mas alto
       //menos se van a mostrar, para que de un sentido mas uniforme de volumen
@@ -188,10 +199,28 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
       this.map.spawn(deffense, 5);
       this.deffenses.push(deffense);
     },
+    prepareNextWave: function() { //TODO llenarlo con robotsw random? no serian robots pensados mejor?=
+      if (this.cWave === null) {
+        this.cWave = 0;
+      } else {
+        if (this.cWave < this.wavesCounts.length - 1) {
+          this.cWave += 1;
+        } else {
+          this.lastWave = true;
+          return;
+        }
+      }
+      var robotsAmount = this.wavesCounts[this.cWave];
+      for (var i = 0; i < robotsAmount; i++) {
+        this.waveQuery.push(this.getRandomRobot());
+      }
+      this.waveDelay = this.wavesIntervals[this.cWave];
+    },
     counter:0,
-    update: function(){
+    update: function(delta) {
+      //Check for robot death
       var deletion = false;
-      for (var i = 0; i < this.robots.length; i++) {
+      for (var i = 0; i < this.robots.length; i++) {//TODO hacer de esto una funcion que el robot llame cuando se muere para mejorar rendimiento
         if (this.robots[i].destroy) {
           this.robots[i].removeFromParent();
           delete this.robots[i];
@@ -199,14 +228,28 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
         }
       }
       if (deletion) {
-        this.robots = this.robots.filter(function(robot){return robot !== undefined;});
+        this.robots = this.robots.filter(function(robot) {return robot !== undefined;});
+        deletion = false;
       }
 
-      // if (this.counter >= 120) {//TODO sacar esto
-      //   this.counter = 0;
-      //   this.addRandomRobot();
-      // } else {
-      //   this.counter += 1;
-      // }
+      // Controls the delay between spawns
+      if (this.counter >= this.waveDelay) {
+        if (this.waveDelay != this.SPAWN_TIME) {
+          this.waveDelay = this.SPAWN_TIME;
+        }
+        this.counter = 0;
+        if (this.waveQuery.length > 0) {
+          this.addRobot(this.waveQuery[this.waveQuery.length - 1]);
+          this.waveQuery.pop();
+        } else {
+          this.prepareNextWave();
+        }
+      } else {
+        this.counter += delta;
+      }
+
+      if (this.lastWave && this.robots.length === 0) {
+        console.info("YOU WIN");
+      }
     },
   });
