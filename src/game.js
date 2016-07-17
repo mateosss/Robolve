@@ -25,7 +25,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     this.setBase(base);
 
     // Add Robot
-    turnProb = 0.0; //0.0 - 1.0
+    turnProb = 0.5; //0.0 - 1.0
     life = 2; //0,1,2
     range = 0;//0,1
     element = "water";//water,fire,electric
@@ -41,7 +41,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     element = "water";//water,fire,electric
     terrain = 0;//0,1
     damage = 2;//0,1,2
-    attackSpeed = 1;//0,1,2
+    attackSpeed = 2;//0,1,2
     var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
     this.addDeffense(customDeffense);
 
@@ -183,7 +183,8 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
       //si no que tenga relacion con el eje y en el que estan mientras mas alto
       //menos se van a mostrar, para que de un sentido mas uniforme de volumen
       //Tambien se puede buscar como hacer eso con isometric maps en cocos 2d
-      //Capaz que ya existe
+      //Capaz que ya existe | si existe pregunta de stackoverflow en algunlado
+      //del codigo
       this.map.spawn(deffense, 5);
       this.deffenses.push(deffense);
     },
@@ -201,7 +202,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
         this.robots = this.robots.filter(function(robot){return robot !== undefined;});
       }
 
-      // if (this.counter >= 180) {//TODO sacar esto
+      // if (this.counter >= 120) {//TODO sacar esto
       //   this.counter = 0;
       //   this.addRandomRobot();
       // } else {

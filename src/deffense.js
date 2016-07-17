@@ -9,7 +9,7 @@ var Deffense = cc.Sprite.extend({
   pRange: {0: 100, 1: 2000},
   pTerrain: {0: 'walk',1: 'fly'},
   pDamage: {0: 25, 1: 50, 2:75},
-  pAttackSpeed: {0: 0.5, 1: 1.0, 2: 1.5},
+  pAttackSpeed: {0: 1.5, 1: 1.0, 2: 0.5},
 
   // Stats (s)
   sRange: null,
@@ -53,9 +53,6 @@ this.setAnchorPoint(0.5, 0.1);
     //Looks for robots in tower range
     inRange = [];
     for (var i = 0; i < this.level.robots.length; i++) {
-      // var deffenseCenter = this.getAnchorPointInPoints();
-      // deffenseCenter = this.convertToWorldSpace(deffenseCenter);
-      // deffenseCenter = this.level.map.convertToNodeSpace(deffenseCenter);
       var deffenseCenter = this.getPosition();
       var robotCenter = this.level.robots[i].getPosition();
       var distance = cc.pDistance(deffenseCenter, robotCenter);

@@ -170,12 +170,14 @@ var Base = cc.Sprite.extend({
   hurt: function(robot){
     //This function calculates the total damage of the bullet depending on the
     //Robot, and do some things in reaction
-    this.cLife -= robot.sDamage;
+    var totalDamage = robot.sDamage;//TODO calcular diferencias por defensa y esas cosas
+    this.cLife -= totalDamage;
     if (this.cLife <= 0) {
       this.life = 0;
       this.kill();
     }
     this.updateHealthBar();
+    return totalDamage;
   },
   kill: function(){
     //In the next frame the level will remove the robots with destroy==true

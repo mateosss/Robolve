@@ -65,13 +65,22 @@ Vi 15 - 2:50 hs
   - Error draw dot (la base no tenia range jeje) - 0:15 hs
   - Error hpbar titilante linux (habia que especificar lineColor) - 0:10 hs
   - debug text - 1:50 hs
+Sa 16
+  - Mejorado el get target de robot y defensa - 0:25 hs
+  - Encontrado el problema del bug 0,10, no resuelto - 0:35 hs
+  - Bug (0,10) parcheado, pSpeed entre 0.88 y 0.93 hacen ese bug - 0:30 hs
+  - empezando fit score - 0:30 hs
+  - fit score - 1:15 hs
 
-Poner velocidad rapido y dejar mucho tiempo andando en una de las vueltas un robot
-se fue en (0,10)w
+PARCHED Sa16/Julio|BUGS CONOCIDOS :
+hay un bug que en ocasiones al llegar al turntile (1,10) el robot dobla hacia (0,10)
+saliendose del mapa - reproducir: posicionar spawnrobot en (3,10) por ejemplo,
+this.pointing = 3, lo que pasa es que toma las tiles un lugar mas arriba de las
+que son, estoy obligado a spawnear en una esquina.
 
-#Definir oleadas - 2:00
 #calcular el fitscore en base a cercania a la base(o distancia recorrida),
-  daño a la base, y tiempo sobrevivido - 8:00
+daño a la base, y tiempo sobrevivido - 8:00
+#Definir oleadas - 2:00
 #Funcion que te devuelve el robot resumido para poder archivarlos en el
   historial de forma liviana - 2:00
 #Historial de hasta 10 oleadas para ir sacando informacion para comparar y sacar
