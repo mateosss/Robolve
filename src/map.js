@@ -1,6 +1,6 @@
 var TiledMap = cc.TMXTiledMap.extend({
   level: null,
-  CHILD_SCALE: 0.2,
+  CHILD_SCALE: 0.8,
   positionTarget: cc.p(winSize.width/2,winSize.height/2),
   ctor: function(level, tmxMap){
     this.level = level;
@@ -22,7 +22,6 @@ var TiledMap = cc.TMXTiledMap.extend({
     // int z = (TILEMAP_WIDTH - tmpCastle->getPositionX()) + (TILEMAP_HEIGHT
     // - tmpCastle->getPositionY());
     // tmpCastle->setZOrder(z);
-
     this.addChild(child, layer, tag);
     child.scale = this.CHILD_SCALE;//TODO escalado? asi se hace?
     p = this.getSpawnPoint(child);
@@ -141,10 +140,10 @@ var Base = cc.Sprite.extend({
   createHealthBar: function(){
     //TODO Repeating from robot, maybe has to go in debugger
     //Creates two rectangles for representing the healtbar
-    var originB = cc.p(-200, 0);
-    var originF = cc.p(-195, 5);
-    var destinationB = cc.p(200, 100);
-    var destinationF = cc.p(195, 95);
+    var originB = cc.p(-60, 0);
+    var originF = cc.p(-56, 4);
+    var destinationB = cc.p(60, 30);
+    var destinationF = cc.p(56, 26);
     var fillColorB = cc.color(0, 0, 0, 255);
     var fillColorF = cc.color(0, 200, 100, 255);
 
@@ -155,9 +154,10 @@ var Base = cc.Sprite.extend({
     front.setAnchorPoint(0.0, 0.0);
     front.setPosition(this.getAnchorPointInPoints());
     back.setPosition(this.getAnchorPointInPoints());
-    //TODO como centrar los sprites en el tile?
-    back.y += 500;
-    front.y += 500;
+    back.setRotationY(30);
+    front.setRotationY(30);
+    back.y += 112;
+    front.y += 112;
     front.setName("hpbar");
     this.addChild(back, 10);
     this.addChild(front, 11);
@@ -181,6 +181,6 @@ var Base = cc.Sprite.extend({
   },
   kill: function(){
     //In the next frame the level will remove the robots with destroy==true
-    console.info("GAME OVER");
+    console.log("GAME OVER");
   },
 });

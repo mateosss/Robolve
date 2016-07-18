@@ -212,7 +212,9 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
       }
       var robotsAmount = this.wavesCounts[this.cWave];
       for (var i = 0; i < robotsAmount; i++) {
-        this.waveQuery.push(this.getRandomRobot());
+        var toBornRobot = this.getRandomRobot();
+        toBornRobot.retain();
+        this.waveQuery.push(toBornRobot);
       }
       this.waveDelay = this.wavesIntervals[this.cWave];
     },
@@ -222,6 +224,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
       var deletion = false;
       for (var i = 0; i < this.robots.length; i++) {//TODO hacer de esto una funcion que el robot llame cuando se muere para mejorar rendimiento
         if (this.robots[i].destroy) {
+          this.robots[i].release();
           this.robots[i].removeFromParent();
           delete this.robots[i];
           deletion = true;
@@ -229,7 +232,7 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
       }
       if (deletion) {
         this.robots = this.robots.filter(function(robot) {return robot !== undefined;});
-        deletion = false;
+        debug.debugText(this, {text: "Robots Count: " + this.robots.length});
       }
 
       // Controls the delay between spawns

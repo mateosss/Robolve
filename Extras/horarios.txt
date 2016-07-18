@@ -12,7 +12,7 @@ Do 12 - 6 hs
   - Sin avances en zoom y limite del scroll - 4hs
   - Limite scroll funcional - 2hs
 Ju 23 - 2 hs
-  - Spawnear robot
+  - Spawnear robot - 2 hs
 
 Julio
 Sa 2 - 2:40 hs
@@ -65,14 +65,20 @@ Vi 15 - 2:50 hs
   - Error draw dot (la base no tenia range jeje) - 0:15 hs
   - Error hpbar titilante linux (habia que especificar lineColor) - 0:10 hs
   - debug text - 1:50 hs
-Sa 16
+Sa 16 -  3:15
   - Mejorado el get target de robot y defensa - 0:25 hs
   - Encontrado el problema del bug 0,10, no resuelto - 0:35 hs
   - Bug (0,10) parcheado, pSpeed entre 0.88 y 0.93 hacen ese bug - 0:30 hs
   - empezando fit score - 0:30 hs
   - fit score - 1:15 hs
+Do 17 - 3:10 hs
   - Definiendo funcionamiento de oleadas - 1 hs
   - Oleadas definidas - 1 hs
+  - fix compile issue for linux and android and sprites minified - 1:10 hs
+Lu 18
+  - 13:40
+
+BUG en android similar a (0,10) en (0,1) con pointing 3, y velocidad 0.1
 
 #Funcion que te devuelve el robot resumido para poder archivarlos en el
   historial de forma liviana - 2:00

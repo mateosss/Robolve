@@ -68,7 +68,7 @@ var Debugger = cc.Class.extend({
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var pos = object.getAnchorPointInPoints();
-      var radius = options.radius || 10;
+      var radius = options.radius || 5;
       var color = options.color || cc.color(200, 0, 200, 255);
       var circle = new cc.DrawNode();
       circle.drawDot(pos, radius, color);

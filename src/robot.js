@@ -77,7 +77,7 @@ var Robot = cc.Sprite.extend({
       this.middle = new Part(res.invalidPart);
       this.sLife = this.pLife[0];
       this.cLife = this.sLife;
-      console.warn("Life value incorrect, setting 0");
+      cc.log("Life value incorrect, setting 0");
     }
 
     if (this.range in this.pRange) {
@@ -88,7 +88,7 @@ var Robot = cc.Sprite.extend({
       this.armL = new Part(res.invalidPart);
       this.armR = new Part(res.invalidPart);
       this.sRange = this.pRange[0];
-      console.warn("Range value incorrect, setting 0");
+      cc.log("Range value incorrect, setting 0");
     }
 
     if (this.terrain in this.pTerrain) {
@@ -97,7 +97,7 @@ var Robot = cc.Sprite.extend({
     } else {
       this.legL = new Part(res.invalidPart);
       this.legR = new Part(res.invalidPart);
-      console.warn("Terrain value incorrect");
+      cc.log("Terrain value incorrect");
     }
 
     if (this.speed in this.pSpeed) {
@@ -106,7 +106,7 @@ var Robot = cc.Sprite.extend({
     } else {
       this.sSpeed = this.pSpeed[0];
       this.animSpeed = this.pSpeed[0];
-      console.warn("Speed value incorrect, setting 0");
+      cc.log("Speed value incorrect, setting 0");
     }
 
     if (this.damage in this.pDamage) {
@@ -115,14 +115,14 @@ var Robot = cc.Sprite.extend({
     } else {
       this.sDamage = this.pDamage[0];
       this.head = new Part(res.invalidPart);
-      console.warn("Damage value is incorrect, setting 0");
+      cc.log("Damage value is incorrect, setting 0");
     }
 
     if (this.attackSpeed in this.pAttackSpeed) {
       this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
     } else {
       this.sAttackSpeed = this.pAttackSpeed[0];
-      console.warn("Attack Speed value incorrect, setting 0");
+      cc.log("Attack Speed value incorrect, setting 0");
     }
 
     this.addChild(this.head, 2);
@@ -143,10 +143,10 @@ var Robot = cc.Sprite.extend({
   },
   createHealthBar: function(){
     //Creates two rectangles for representing the healtbar
-    var originB = cc.p(-100, 0);
-    var originF = cc.p(-95, 5);
-    var destinationB = cc.p(100, 50);
-    var destinationF = cc.p(95, 45);
+    var originB = cc.p(-30, 0);
+    var originF = cc.p(-28, 2);
+    var destinationB = cc.p(30, 15);
+    var destinationF = cc.p(28, 13);
     var fillColorB = cc.color(0, 0, 0, 255);
     var fillColorF = this.pElement[this.element];
 
@@ -154,11 +154,10 @@ var Robot = cc.Sprite.extend({
     var front = new cc.DrawNode();
     back.drawRect(originB, destinationB, fillColorB, 0, fillColorB);
     front.drawRect(originF, destinationF, fillColorF, 0, fillColorF);
-    front.setAnchorPoint(0.0, 0.0);
-    back.y += 900;
-    front.y += 900;
-    back.x += 30;
-    front.x += 30;
+    back.y += 224;
+    front.y += 224;
+    back.x += 15;
+    front.x += 15;
     back.setRotationY(30);
     front.setRotationY(30);
     front.setName("hpbar");
@@ -275,7 +274,7 @@ var Robot = cc.Sprite.extend({
     } else {
       xDirection = 1;
       yDirection = 1;
-      console.warn("Bad robot pointing, setting 0");
+      cc.log("Bad robot pointing, setting 0");
     }
     this.x += this.sSpeed * xDirection;
     this.y += (this.sSpeed / 2) * yDirection;
@@ -338,14 +337,14 @@ var Robot = cc.Sprite.extend({
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify this to add debug information
       { method: this.debugger.debugAnchor },
-      { method: this.debugger.debugRange },
-      { method: this.debugger.debugText, options: {
-        text: JSON.stringify(this.cTilePos),
-        dimensions: cc.size(1024, 1024),
-        fontSize: 96,
-        hAlignment: cc.TEXT_ALIGNMENT_LEFT,
-        position: cc.p(this.getAnchorPointInPoints().x, this.getAnchorPointInPoints().y + 512)
-      } },
+      // { method: this.debugger.debugRange },
+      // { method: this.debugger.debugText, options: {
+      //   text: JSON.stringify(this.cTilePos),
+      //   dimensions: cc.size(1024, 1024),
+      //   fontSize: 96,
+      //   hAlignment: cc.TEXT_ALIGNMENT_LEFT,
+      //   position: cc.p(this.getAnchorPointInPoints().x, this.getAnchorPointInPoints().y + 512)
+      // } },
     ];
     this.debugger.debug();
   },
@@ -362,13 +361,13 @@ var Robot = cc.Sprite.extend({
 
     if (this.checkNewTile()) {
       // this.debugger.debugTile(this.level.map, {stop: true});// TODO stop doesn't work
-      this.debugger.debugText(this, {
-        text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
-        "damage: " + this.infligedDamageScore().toFixed(4) + "\n" +
-        "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
-        "score: " + this.getScore().toFixed(4) + "\n"
-      });
-      this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
+      // this.debugger.debugText(this, {
+      //   text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
+      //   "damage: " + this.infligedDamageScore().toFixed(4) + "\n" +
+      //   "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
+      //   "score: " + this.getScore().toFixed(4) + "\n"
+      // });
+      // this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
       this.turn(this.canTurn(this.cTilePos));
     }
 
