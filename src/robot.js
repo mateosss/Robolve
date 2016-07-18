@@ -18,7 +18,7 @@ var Robot = cc.Sprite.extend({
   },
   pRange: {0: 50, 1: 150},
   pTerrain: {0: 'walk',1: 'fly'},
-  pSpeed: {0: 0.1, 1: 0.5, 2: 1.0}, //TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug (0,10)
+  pSpeed: {0: 0.2, 1: 0.5, 2: 1.0}, //TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug (0,10) Y velocidad 0.1, hace que para linux y android no funcione, pero el javascript si.
   pDamage: {0: 5, 1: 15, 2:20},
   pAttackSpeed: {0: 0.5, 1: 1.0, 2: 1.5},
 
@@ -47,7 +47,7 @@ var Robot = cc.Sprite.extend({
   legL: null,
   legR: null,
 
-  ctor: function(level, turnProb, life, element, range, terrain, speed, damage, attackSpeed){
+  ctor: function(level, turnProb, life, element, range, terrain, speed, damage, attackSpeed) {
     // The constructor sets the level, creationTime, and all the initial stats,
     // after that it determines which sprites corresponds to every robot part and
     // it assembles the robot sprite by sprite. It also sets the real stats based
@@ -69,7 +69,7 @@ var Robot = cc.Sprite.extend({
     this.damage = damage;
     this.attackSpeed = attackSpeed;
 
-    if (this.life in this.pLife){
+    if (this.life in this.pLife) {
       this.middle = new Part(res.parts.middles[this.life]);
       this.sLife = this.pLife[this.life];
       this.cLife = this.sLife;
@@ -138,10 +138,23 @@ var Robot = cc.Sprite.extend({
 
     this.scheduleUpdate();
   },
-  toString: function(){
+  toString: function() {
     return "Robot";
   },
-  createHealthBar: function(){
+  getDNA: function() {
+    var dna = [
+      this.turnProb,
+      this.life,
+      this.element,
+      this.range,
+      this.terrain,
+      this.speed,
+      this.damage,
+      this.attackSpeed,
+    ];
+    return dna;
+  },
+  createHealthBar: function() {
     //Creates two rectangles for representing the healtbar
     var originB = cc.p(-30, 0);
     var originF = cc.p(-28, 2);
@@ -164,18 +177,18 @@ var Robot = cc.Sprite.extend({
     this.addChild(back, 10);
     this.addChild(front, 11);
   },
-  updateHealthBar: function(){
+  updateHealthBar: function() {
     // Updates the healthbar length with the sLife stat
     var hpbar = this.getChildByName("hpbar");
     hpbar.setScaleX(this.cLife / this.sLife);
   },
-  fire: function(target){//TODO repetido en defensa hacer buena clase padre
+  fire: function(target) {//TODO repetido en defensa hacer buena clase padre
     // This funcitons is executed when the robot attacks something
     if (target) {
       this.infligedDamage += target.hurt(this);
     }
   },
-  getTarget: function(){//TODO otra vez se repite en defensa
+  getTarget: function() {//TODO otra vez se repite en defensa
     // This function returns if there is a target to attack in the robot range
     var distance = this.getDistanceTo(this.level.base);
     if (distance <= this.sRange) {
@@ -191,7 +204,7 @@ var Robot = cc.Sprite.extend({
     var distance = cc.pDistance(robotCenter, targetCenter);
     return distance;
   },
-  checkNewTile: function(){
+  checkNewTile: function() {
     // This function is executed every frame to check if the robot is on a new
     // tile, and refresh this.cTilePos to represent it.
     //TODO esto es horrible alguien haga algo al respecto!!!!
@@ -206,7 +219,7 @@ var Robot = cc.Sprite.extend({
     }
     return false;
   },
-  canTurn: function(tilePos){
+  canTurn: function(tilePos) {
     //TODO only check in the middle of the tile
     // Returns what direction the robot can turn if it can or false
     var tile = this.level.map.getLayer("Background").getTileGIDAt(tilePos);
@@ -220,13 +233,13 @@ var Robot = cc.Sprite.extend({
     }
     return false;
   },
-  turn: function(turnDirections){
+  turn: function(turnDirections) {
     // Changes the direction with the presented logic in account
     if (turnDirections) {
       var self = this;
       var back = this.pointing + (this.pointing < 2 ? 2 : -2);
       var canBack = turnDirections.indexOf(back) != -1;
-      var possibleTurn = turnDirections.filter(function(dir){
+      var possibleTurn = turnDirections.filter(function(dir) {
         return dir != self.pointing && dir != back;
       });
       var newDirection = null;
@@ -257,7 +270,7 @@ var Robot = cc.Sprite.extend({
       this.pointing = newDirection;
     }
   },
-  walk: function(){
+  walk: function() {
     // Moves the robot by its speed in a pointing direction
     if (this.pointing === 0) {
       xDirection = 1;
@@ -290,7 +303,7 @@ var Robot = cc.Sprite.extend({
     }
     this.updateHealthBar();
   },
-  kill: function(){
+  kill: function() {
     // In the next frame the level will remove the robots with destroy==true
     this.destroy = true;
   },
@@ -337,14 +350,14 @@ var Robot = cc.Sprite.extend({
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify this to add debug information
       { method: this.debugger.debugAnchor },
-      // { method: this.debugger.debugRange },
-      // { method: this.debugger.debugText, options: {
-      //   text: JSON.stringify(this.cTilePos),
-      //   dimensions: cc.size(1024, 1024),
-      //   fontSize: 96,
-      //   hAlignment: cc.TEXT_ALIGNMENT_LEFT,
-      //   position: cc.p(this.getAnchorPointInPoints().x, this.getAnchorPointInPoints().y + 512)
-      // } },
+      { method: this.debugger.debugRange },
+      { method: this.debugger.debugText, options: {
+        text: JSON.stringify(this.cTilePos),
+        dimensions: cc.size(256, 256),
+        fontSize: 24,
+        hAlignment: cc.TEXT_ALIGNMENT_LEFT,
+        position: cc.p(this.getAnchorPointInPoints().x, this.getAnchorPointInPoints().y + 128)
+      } },
     ];
     this.debugger.debug();
   },
@@ -361,13 +374,13 @@ var Robot = cc.Sprite.extend({
 
     if (this.checkNewTile()) {
       // this.debugger.debugTile(this.level.map, {stop: true});// TODO stop doesn't work
-      // this.debugger.debugText(this, {
-      //   text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
-      //   "damage: " + this.infligedDamageScore().toFixed(4) + "\n" +
-      //   "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
-      //   "score: " + this.getScore().toFixed(4) + "\n"
-      // });
-      // this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
+      this.debugger.debugText(this, {
+        text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
+        "damage: " + this.infligedDamageScore().toFixed(4) + "\n" +
+        "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
+        "score: " + this.getScore().toFixed(4) + "\n"
+      });
+      this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
       this.turn(this.canTurn(this.cTilePos));
     }
 
@@ -382,7 +395,7 @@ var Part = cc.Sprite.extend({
     this._super(partImage);
     this.setAnchorPoint(0.5, 0.1);
   },
-  toString: function(){
+  toString: function() {
     return "Part";
   },
 });

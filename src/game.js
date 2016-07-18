@@ -29,23 +29,22 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     this.wavesCounts =  this.map.getProperties().wavesCounts.split(",").map(Number);
     this.wavesIntervals = this.map.getProperties().wavesIntervals.split(",").map(Number);
     this.prepareNextWave();
-    //Cuando la cantida de Robots del waveQuery llegue a 0, inmediatamente cambiar a la siguiente cWave y repetir
-
+    
     // Set base
     var base = new Base(this, 500);
     this.setBase(base);
 
     // Add Robot
-    // turnProb = 0.5; //0.0 - 1.0
-    // life = 2; //0,1,2
-    // range = 0;//0,1
-    // element = "water";//water,fire,electric
-    // terrain = 0;//0,1
-    // speed = 2;//0,1,2
-    // damage = 0;//0,1,2
-    // attackSpeed = 1;//0,1,2
-    // var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
-    // this.addRobot(customRobot);
+    turnProb = 0.5; //0.0 - 1.0
+    life = 2; //0,1,2
+    range = 0;//0,1
+    element = "water";//water,fire,electric
+    terrain = 0;//0,1
+    speed = 2;//0,1,2
+    damage = 0;//0,1,2
+    attackSpeed = 1;//0,1,2
+    var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
+    this.addRobot(customRobot);
 
     // Add Deffense
     range = 0;//0,1

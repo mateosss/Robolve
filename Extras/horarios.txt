@@ -76,12 +76,10 @@ Do 17 - 3:10 hs
   - Oleadas definidas - 1 hs
   - fix compile issue for linux and android and sprites minified - 1:10 hs
 Lu 18
-  - 13:40
+  - Achicadas las healthbar y anchorpoints despues del escalado - 0:30 hs
+  - bug (0,1) parcheado (pasa con velocidad 0.1 solo en compilado)- 0:05 hs
+  - getDNA - 0:25 hs
 
-BUG en android similar a (0,10) en (0,1) con pointing 3, y velocidad 0.1
-
-#Funcion que te devuelve el robot resumido para poder archivarlos en el
-  historial de forma liviana - 2:00
 #Historial de hasta 10 oleadas para ir sacando informacion para comparar y sacar
   muestras para el proximo crossover, mientras mas lejana la oleada archivada
   menos individuos de esa oleada entran al crossover - 6:00 hs
