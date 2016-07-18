@@ -10,6 +10,7 @@ var Robot = cc.Sprite.extend({
   infligedDamage: 0,
 
   //Possible (p) stats //TODO definir valores reales //TODO apply fuzzy logic
+  pTurnProb: {0: 0.25, 1: 0.5, 2: 0.9},
   pLife: {0: 300, 1: 400, 2: 500},
   pElement: {
     "electric": cc.color(255, 231, 0 ,255),
@@ -18,11 +19,12 @@ var Robot = cc.Sprite.extend({
   },
   pRange: {0: 50, 1: 150},
   pTerrain: {0: 'walk',1: 'fly'},
-  pSpeed: {0: 0.2, 1: 0.5, 2: 1.0}, //TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug (0,10) Y velocidad 0.1, hace que para linux y android no funcione, pero el javascript si.
+  pSpeed: {0: 0.2, 1: 0.5, 2: 1.0}, //TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug (0,10) Y velocidad 0.1, hace que para linux y android tengan tambien el bug, pero el javascript si.
   pDamage: {0: 5, 1: 15, 2:20},
   pAttackSpeed: {0: 0.5, 1: 1.0, 2: 1.5},
 
   //Stats (s)
+  sTurnProb: null,
   sLife: null,
   sRange: null,
   sSpeed: null,
@@ -30,7 +32,7 @@ var Robot = cc.Sprite.extend({
   sAttackSpeed: null,
 
   //Initial values
-  turnProb: null, //Probability of turning of the robot
+  turnProb: null,
   life: null,
   element: null,
   range: null,
@@ -68,6 +70,13 @@ var Robot = cc.Sprite.extend({
     this.speed = speed;
     this.damage = damage;
     this.attackSpeed = attackSpeed;
+
+    if (this.turnProb in this.pTurnProb) {
+      this.sTurnProb = this.pTurnProb[this.turnProb];
+    } else {
+      this.sTurnProb = this.pTurnProb[0];
+      cc.log("Attack Speed value incorrect, setting 0");
+    }
 
     if (this.life in this.pLife) {
       this.middle = new Part(res.parts.middles[this.life]);
@@ -246,7 +255,7 @@ var Robot = cc.Sprite.extend({
       //si this.pointing esta en la turnTile
       if (turnDirections.indexOf(this.pointing) != -1) {
         //si hay un lugar al que doblar y mi random dice que doble
-        if (possibleTurn.length > 0 && Math.random() < this.turnProb) {
+        if (possibleTurn.length > 0 && Math.random() < this.sTurnProb) {
           //doblar a alguno de esos lugares al azar
           newDirection = possibleTurn[
             Math.floor((Math.random() * possibleTurn.length))

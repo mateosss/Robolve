@@ -10,11 +10,16 @@ var GameLevel = cc.Scene.extend({
 
 var Hud; //TODO
 
-var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
+var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
   map: null,
   base: null,
+
+  crossoverRate: 0.7, //the influence of the strongest parent to let its genes
+  mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox.
+
   robots: [], // Current robots in map
   deffenses: [], // Current deffenses in map
+
   wavesCounts: [], // Defined by the map, amount of robots per wave
   wavesIntervals: [], // Defined by the map, amount of time between waves
   waveQuery: [], // Robots in this array, has to spawn in this wave
@@ -29,13 +34,13 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
     this.wavesCounts =  this.map.getProperties().wavesCounts.split(",").map(Number);
     this.wavesIntervals = this.map.getProperties().wavesIntervals.split(",").map(Number);
     this.prepareNextWave();
-    
+
     // Set base
     var base = new Base(this, 500);
     this.setBase(base);
 
     // Add Robot
-    turnProb = 0.5; //0.0 - 1.0
+    turnProb = 1; //0,1,2
     life = 2; //0,1,2
     range = 0;//0,1
     element = "water";//water,fire,electric
@@ -153,105 +158,140 @@ var Level = cc.Layer.extend({//TODO Ir archivando historial de oleadas
         onMouseScroll: function(event) {
           console.info("scroll");
         },
-      }, this);}
-      this.scheduleUpdate();
-      return true;
-    },
-    toString: function() {
-      return "Level";
-    },
-    getRandomRobot: function() {
-      //Add Robot
-      turnProb = Math.random(); //0.0 - 1.0
-      life = Math.floor((Math.random() * 3)); //0,1,2
-      range = Math.floor((Math.random() * 2));//0,1
-      elements = ['electric', 'water', 'fire'];
-      element = elements[Math.floor((Math.random() * 3))];//water,fire,electric
-      terrain = Math.floor((Math.random() * 2));
-      speed = Math.floor((Math.random() * 3));
-      damage = Math.floor((Math.random() * 3));
-      attackSpeed = Math.floor((Math.random() * 3));
-      var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
-      return customRobot;
-    },
-    getRandomDeffense: function() {
-      //TODO las defensas van a ser por partes?
-    },
-    setBase: function(base) {
-      this.map.spawn(base, 7);
-      this.base = base;
-    },
-    addRobot: function(robot) {
-      this.map.spawn(robot, 6);
-      this.robots.push(robot);
+      }, this);
+    }
+    this.scheduleUpdate();
+    return true;
+  },
+  toString: function() {
+    return "Level";
+  },
+  getRandomRobot: function() {
+    //Add Robot
+    turnProb = Math.floor((Math.random() * 3)); //0,1,2
+    life = Math.floor((Math.random() * 3)); //0,1,2
+    range = Math.floor((Math.random() * 2));//0,1
+    elements = ['electric', 'water', 'fire'];
+    element = elements[Math.floor((Math.random() * 3))];//water,fire,electric
+    terrain = Math.floor((Math.random() * 2));
+    speed = Math.floor((Math.random() * 3));
+    damage = Math.floor((Math.random() * 3));
+    attackSpeed = Math.floor((Math.random() * 3));
+    var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
+    return customRobot;
+  },
+  getRandomDeffense: function() {
+    //TODO las defensas van a ser por partes?
+  },
+  setBase: function(base) {
+    this.map.spawn(base, 7);
+    this.base = base;
+  },
+  addRobot: function(robot) {
+    this.map.spawn(robot, 6);
+    this.robots.push(robot);
 
-      debug = new Debugger();//TODO sacar despues las cosas de debug
+    debug = new Debugger();//TODO sacar despues las cosas de debug
+    debug.debugText(this, {text: "Robots Count: " + this.robots.length});
+  },
+  addDeffense: function(deffense) {
+    //TODO que las cosas se spameen no en un layer hardcodeado como 5
+    //si no que tenga relacion con el eje y en el que estan mientras mas alto
+    //menos se van a mostrar, para que de un sentido mas uniforme de volumen
+    //Tambien se puede buscar como hacer eso con isometric maps en cocos 2d
+    //Capaz que ya existe | si existe pregunta de stackoverflow en algunlado
+    //del codigo
+    this.map.spawn(deffense, 5);
+    this.deffenses.push(deffense);
+  },
+  prepareNextWave: function() { //TODO llenarlo con robotsw random? no serian robots pensados mejor?=
+    if (this.cWave === null) {
+      this.cWave = 0;
+    } else {
+      if (this.cWave < this.wavesCounts.length - 1) {
+        this.cWave += 1;
+      } else {
+        this.lastWave = true;
+        return;
+      }
+    }
+    var robotsAmount = this.wavesCounts[this.cWave];
+    for (var i = 0; i < robotsAmount; i++) {
+      var toBornRobot = this.getRandomRobot();
+      toBornRobot.retain();
+      this.waveQuery.push(toBornRobot);
+    }
+    this.waveDelay = this.wavesIntervals[this.cWave];
+  },
+  crossover: function(p1, p2, sonsCount) { //TODO implementar mutacion, y que el robot sea equilibrado
+    // Crossovers two DNAs from robot.getDNA(), p1 is the stronget parent
+    sonsCount = sonsCount || 2;
+    sons = [];
+    for (var j = 0; j < sonsCount; j++) {
+      var sonBorn = false;
+      while (!sonBorn) {
+        var son = [];
+        for (var i = 0; i < p1.length; i++) {
+            var gen;
+            if (Math.random() < this.crossoverRate) { // p1 wins the gen
+              gen = p1[i];
+            } else { // p2 wins the gen
+              gen = p2[i];
+            }
+            son.push(gen);
+        }
+        equalToP1 = son.join() == p1.join();
+        equalToP2 = son.join() == p2.join();
+        equalToSon = false;
+        for (var k = 0; k < sons.length; k++) {
+          if (son.join() == sons[k].join()) {
+            equalToSon = true;
+            break;
+          }
+        }
+        if (!(equalToP1 || equalToP2 || equalToSon)) {
+          sonBorn = true;
+          sons.push(son);
+        }
+      }
+    }
+    return [p1, p2, sons];
+  },
+  counter:0,
+  update: function(delta) {
+    //Check for robot death
+    var deletion = false;
+    for (var i = 0; i < this.robots.length; i++) {//TODO hacer de esto una funcion que el robot llame cuando se muere para mejorar rendimiento
+      if (this.robots[i].destroy) {
+        this.robots[i].release();
+        this.robots[i].removeFromParent();
+        delete this.robots[i];
+        deletion = true;
+      }
+    }
+    if (deletion) {
+      this.robots = this.robots.filter(function(robot) {return robot !== undefined;});
       debug.debugText(this, {text: "Robots Count: " + this.robots.length});
-    },
-    addDeffense: function(deffense) {
-      //TODO que las cosas se spameen no en un layer hardcodeado como 5
-      //si no que tenga relacion con el eje y en el que estan mientras mas alto
-      //menos se van a mostrar, para que de un sentido mas uniforme de volumen
-      //Tambien se puede buscar como hacer eso con isometric maps en cocos 2d
-      //Capaz que ya existe | si existe pregunta de stackoverflow en algunlado
-      //del codigo
-      this.map.spawn(deffense, 5);
-      this.deffenses.push(deffense);
-    },
-    prepareNextWave: function() { //TODO llenarlo con robotsw random? no serian robots pensados mejor?=
-      if (this.cWave === null) {
-        this.cWave = 0;
-      } else {
-        if (this.cWave < this.wavesCounts.length - 1) {
-          this.cWave += 1;
-        } else {
-          this.lastWave = true;
-          return;
-        }
-      }
-      var robotsAmount = this.wavesCounts[this.cWave];
-      for (var i = 0; i < robotsAmount; i++) {
-        var toBornRobot = this.getRandomRobot();
-        toBornRobot.retain();
-        this.waveQuery.push(toBornRobot);
-      }
-      this.waveDelay = this.wavesIntervals[this.cWave];
-    },
-    counter:0,
-    update: function(delta) {
-      //Check for robot death
-      var deletion = false;
-      for (var i = 0; i < this.robots.length; i++) {//TODO hacer de esto una funcion que el robot llame cuando se muere para mejorar rendimiento
-        if (this.robots[i].destroy) {
-          this.robots[i].release();
-          this.robots[i].removeFromParent();
-          delete this.robots[i];
-          deletion = true;
-        }
-      }
-      if (deletion) {
-        this.robots = this.robots.filter(function(robot) {return robot !== undefined;});
-        debug.debugText(this, {text: "Robots Count: " + this.robots.length});
-      }
+    }
 
-      // Controls the delay between spawns
-      if (this.counter >= this.waveDelay) {
-        if (this.waveDelay != this.SPAWN_TIME) {
-          this.waveDelay = this.SPAWN_TIME;
-        }
-        this.counter = 0;
-        if (this.waveQuery.length > 0) {
-          this.addRobot(this.waveQuery[this.waveQuery.length - 1]);
-          this.waveQuery.pop();
-        } else {
-          this.prepareNextWave();
-        }
+    // Controls the delay between spawns
+    if (this.counter >= this.waveDelay) {
+      if (this.waveDelay != this.SPAWN_TIME) {
+        this.waveDelay = this.SPAWN_TIME;
+      }
+      this.counter = 0;
+      if (this.waveQuery.length > 0) {
+        this.addRobot(this.waveQuery[this.waveQuery.length - 1]);
+        this.waveQuery.pop();
       } else {
-        this.counter += delta;
+        this.prepareNextWave();
       }
+    } else {
+      this.counter += delta;
+    }
 
-      if (this.lastWave && this.robots.length === 0) {
-        console.info("YOU WIN");
-      }
-    },
-  });
+    if (this.lastWave && this.robots.length === 0) {
+      console.info("YOU WIN");
+    }
+  },
+});

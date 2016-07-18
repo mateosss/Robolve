@@ -79,6 +79,7 @@ Lu 18
   - Achicadas las healthbar y anchorpoints despues del escalado - 0:30 hs
   - bug (0,1) parcheado (pasa con velocidad 0.1 solo en compilado)- 0:05 hs
   - getDNA - 0:25 hs
+  - revisando el geneticString e inicio de crossover - 2:10 hs
 
 #Historial de hasta 10 oleadas para ir sacando informacion para comparar y sacar
   muestras para el proximo crossover, mientras mas lejana la oleada archivada
