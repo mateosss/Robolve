@@ -12,8 +12,9 @@ var TiledMap = cc.TMXTiledMap.extend({
   toString: function(){
     return "Map";
   },
-  spawn: function(child, layer, tag){
+  spawn: function(child, position, layer, tag){
     //Spawn a robot, deffense or base in the map
+    position = position || null;
     layer = layer || null;
     tag = tag || null;
     //TODO calcular que sprite spawneado tiene mas prioridad en el eje z con esto
@@ -24,7 +25,7 @@ var TiledMap = cc.TMXTiledMap.extend({
     // tmpCastle->setZOrder(z);
     this.addChild(child, layer, tag);
     child.scale = this.CHILD_SCALE;//TODO escalado? asi se hace?
-    p = this.getSpawnPoint(child);
+    p = position || this.getSpawnPoint(child);
     child.setPosition(p);
   },
   getSpawnPoint: function(child){

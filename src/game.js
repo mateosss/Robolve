@@ -19,6 +19,7 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
 
   robots: [], // Current robots in map
   deffenses: [], // Current deffenses in map
+  prevWaveRobots: [], // [DNA, score] of the previous wave robots
 
   wavesCounts: [], // Defined by the map, amount of robots per wave
   wavesIntervals: [], // Defined by the map, amount of time between waves
@@ -40,25 +41,160 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     this.setBase(base);
 
     // Add Robot
-    turnProb = 1; //0,1,2
-    life = 2; //0,1,2
-    range = 0;//0,1
-    element = "water";//water,fire,electric
-    terrain = 0;//0,1
-    speed = 2;//0,1,2
-    damage = 0;//0,1,2
-    attackSpeed = 1;//0,1,2
-    var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
-    this.addRobot(customRobot);
+    // turnProb = 1; //0,1,2
+    // life = 2; //0,1,2
+    // element = "water";//water,fire,electric
+    // range = 0;//0,1
+    // terrain = 0;//0,1
+    // speed = 1;//0,1,2
+    // damage = 0;//0,1,2
+    // attackSpeed = 1;//0,1,2
+    // var customRobot = new Robot(this, false, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
 
-    // Add Deffense
-    range = 0;//0,1
-    element = "water";//water,fire,electric
+    // Add Robot by DNA
+    // var dna = [2, 2, "water", 0, 0, 2, 0, 1];
+    // var customRobot = new Robot(this, dna);
+    // this.addRobot(customRobot);
+
+    ///TODO TRASH CODE
+
+    //0,0 walk
+    range = 1;//0,1,2
+    element = "electric";//water,fire,electric
     terrain = 0;//0,1
     damage = 2;//0,1,2
     attackSpeed = 2;//0,1,2
     var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    this.addDeffense(customDeffense);
+    mapLayer = this.map.getLayer("Background");
+    p = mapLayer.getPositionAt(cc.p(0,0));
+    tileSize = this.map.getTileSize();
+    p.y += tileSize.height / 2;
+    this.map.spawn(customDeffense, p, 5);
+    this.deffenses.push(customDeffense);
+
+    //0,9 fly
+    range = 2;//0,1,2
+    element = "electric";//water,fire,electric
+    terrain = 1;//0,1
+    damage = 2;//0,1,2
+    attackSpeed = 2;//0,1,2
+    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    mapLayer = this.map.getLayer("Background");
+    p = mapLayer.getPositionAt(cc.p(0,9));
+    tileSize = this.map.getTileSize();
+    p.y += tileSize.height / 2;
+    this.map.spawn(customDeffense, p, 5);
+    this.deffenses.push(customDeffense);
+
+    //0,19 walk
+    range = 1;//0,1,2
+    element = "electric";//water,fire,electric
+    terrain = 0;//0,1
+    damage = 2;//0,1,2
+    attackSpeed = 2;//0,1,2
+    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    mapLayer = this.map.getLayer("Background");
+    p = mapLayer.getPositionAt(cc.p(0,19));
+    tileSize = this.map.getTileSize();
+    p.y += tileSize.height / 2;
+    this.map.spawn(customDeffense, p, 5);
+    this.deffenses.push(customDeffense);
+
+    //9,0 fly
+    range = 2;//0,1,2
+    element = "electric";//water,fire,electric
+    terrain = 1;//0,1
+    damage = 2;//0,1,2
+    attackSpeed = 2;//0,1,2
+    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    mapLayer = this.map.getLayer("Background");
+    p = mapLayer.getPositionAt(cc.p(9,0));
+    tileSize = this.map.getTileSize();
+    p.y += tileSize.height / 2;
+    this.map.spawn(customDeffense, p, 5);
+    this.deffenses.push(customDeffense);
+
+    //9,9 walk
+    range = 1;//0,1,2
+    element = "electric";//water,fire,electric
+    terrain = 0;//0,1
+    damage = 2;//0,1,2
+    attackSpeed = 2;//0,1,2
+    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    mapLayer = this.map.getLayer("Background");
+    p = mapLayer.getPositionAt(cc.p(9,9));
+    tileSize = this.map.getTileSize();
+    p.y += tileSize.height / 2;
+    this.map.spawn(customDeffense, p, 5);
+    this.deffenses.push(customDeffense);
+
+    //9,19 fly
+    range = 2;//0,1,2
+    element = "electric";//water,fire,electric
+    terrain = 1;//0,1
+    damage = 2;//0,1,2
+    attackSpeed = 2;//0,1,2
+    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    mapLayer = this.map.getLayer("Background");
+    p = mapLayer.getPositionAt(cc.p(9,19));
+    tileSize = this.map.getTileSize();
+    p.y += tileSize.height / 2;
+    this.map.spawn(customDeffense, p, 5);
+    this.deffenses.push(customDeffense);
+
+    //19,0 walk
+    range = 1;//0,1,2
+    element = "electric";//water,fire,electric
+    terrain = 0;//0,1
+    damage = 2;//0,1,2
+    attackSpeed = 2;//0,1,2
+    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    mapLayer = this.map.getLayer("Background");
+    p = mapLayer.getPositionAt(cc.p(19,0));
+    tileSize = this.map.getTileSize();
+    p.y += tileSize.height / 2;
+    this.map.spawn(customDeffense, p, 5);
+    this.deffenses.push(customDeffense);
+
+    //19,9 fly
+    range = 2;//0,1,2
+    element = "electric";//water,fire,electric
+    terrain = 1;//0,1
+    damage = 2;//0,1,2
+    attackSpeed = 2;//0,1,2
+    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    mapLayer = this.map.getLayer("Background");
+    p = mapLayer.getPositionAt(cc.p(19,9));
+    tileSize = this.map.getTileSize();
+    p.y += tileSize.height / 2;
+    this.map.spawn(customDeffense, p, 5);
+    this.deffenses.push(customDeffense);
+
+    //19,19 walk
+    range = 1;//0,1,2
+    element = "electric";//water,fire,electric
+    terrain = 0;//0,1
+    damage = 2;//0,1,2
+    attackSpeed = 2;//0,1,2
+    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    mapLayer = this.map.getLayer("Background");
+    p = mapLayer.getPositionAt(cc.p(19,19));
+    tileSize = this.map.getTileSize();
+    p.y += tileSize.height / 2;
+    this.map.spawn(customDeffense, p, 5);
+    this.deffenses.push(customDeffense);
+
+    ///TODO TRASH CODE
+
+
+    // Add Deffense
+    // range = 0;//0,1,2
+    // element = "electric";//water,fire,electric
+    // terrain = 0;//0,1
+    // damage = 2;//0,1,2
+    // attackSpeed = 2;//0,1,2
+    // customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    // this.addDeffense(customDeffense);
 
     // TODO mejorar el sistema en general que sea mas prolijo y DRY
     // TODO Better zoom (zoom where the mouse is or where the touch is made)
@@ -170,25 +306,25 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     //Add Robot
     turnProb = Math.floor((Math.random() * 3)); //0,1,2
     life = Math.floor((Math.random() * 3)); //0,1,2
-    range = Math.floor((Math.random() * 2));//0,1
     elements = ['electric', 'water', 'fire'];
+    range = Math.floor((Math.random() * 2));//0,1
     element = elements[Math.floor((Math.random() * 3))];//water,fire,electric
     terrain = Math.floor((Math.random() * 2));
     speed = Math.floor((Math.random() * 3));
     damage = Math.floor((Math.random() * 3));
     attackSpeed = Math.floor((Math.random() * 3));
-    var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
+    var customRobot = new Robot(this, false, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
     return customRobot;
   },
   getRandomDeffense: function() {
     //TODO las defensas van a ser por partes?
   },
   setBase: function(base) {
-    this.map.spawn(base, 7);
+    this.map.spawn(base, null, 7);
     this.base = base;
   },
   addRobot: function(robot) {
-    this.map.spawn(robot, 6);
+    this.map.spawn(robot, null, 6);
     this.robots.push(robot);
 
     debug = new Debugger();//TODO sacar despues las cosas de debug
@@ -201,44 +337,91 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     //Tambien se puede buscar como hacer eso con isometric maps en cocos 2d
     //Capaz que ya existe | si existe pregunta de stackoverflow en algunlado
     //del codigo
-    this.map.spawn(deffense, 5);
+    this.map.spawn(deffense, null, 5);
     this.deffenses.push(deffense);
   },
-  prepareNextWave: function() { //TODO llenarlo con robotsw random? no serian robots pensados mejor?=
-    if (this.cWave === null) {
+  prepareNextWave: function() {// TODO no estoy teniendo en cuenta el orden en el que salen
+    if (this.cWave === null) { // First random wave
       this.cWave = 0;
-    } else {
+      robotsAmount = this.wavesCounts[this.cWave];
+      for (var i = 0; i < robotsAmount; i++) {
+        var toBornRobot = this.getRandomRobot();
+        toBornRobot.retain(); // Cocos 2d hack
+        this.waveQuery.push(toBornRobot);
+      }
+    } else { // GA Based next wave
       if (this.cWave < this.wavesCounts.length - 1) {
         this.cWave += 1;
+        robotsAmount = this.wavesCounts[this.cWave];
+        //Agarrar 1/4 + 1 de los mejores prevWaveRobots
+        this.prevWaveRobots.sort(function(a, b) {return b[1] - a[1];});
+
+        //Debugear avg score
+        total = 0;
+        count = 0;
+        this.prevWaveRobots.forEach(function(e){total+=e[1];count+=1;});
+        console.log("Average fitScore prev wave: " + total/count);
+
+        //crear array dnaWaveQuery con esos agarrados
+        var dnaWaveQuery = this.prevWaveRobots.slice(0, Math.ceil((robotsAmount / 4) + 1));
+        // bucle agarrando dos al azar de ese cuarto+1 segun su score
+        var toAdd = [];
+        rouleteSorting = function(dna){return [dna[0], dna[1] * Math.random()];};
+        while (dnaWaveQuery.length + toAdd.length < robotsAmount) {
+          var randomised = dnaWaveQuery.map(rouleteSorting);
+          randomised.sort(function(a, b) {return b[1] - a[1];});
+          // hacerles crossover para que den un hijo
+          var son = this.crossover(randomised[0][0], randomised[1][0], 1)[2][0];
+          // agregar ese hijo a la dnawavequery
+          toAdd.push(son);
+          // cortar el bucle cuando se alcance el robotsAumount
+        }
+        dnaWaveQuery = dnaWaveQuery.map(function(a) {return a[0];});
+        dnaWaveQuery = dnaWaveQuery.concat(toAdd);
+        var auxWaveQuery = [];
+        for (var j = 0; j < dnaWaveQuery.length; j++) {
+          // console.log("DNA");
+          // console.log(dnaWaveQuery[j][0]);
+          auxWaveQuery.push(new Robot(this, dnaWaveQuery[j]));
+        }
+        this.waveQuery = auxWaveQuery;
+        this.prevWaveRobots = [];
       } else {
         this.lastWave = true;
         return;
       }
     }
-    var robotsAmount = this.wavesCounts[this.cWave];
-    for (var i = 0; i < robotsAmount; i++) {
-      var toBornRobot = this.getRandomRobot();
-      toBornRobot.retain();
-      this.waveQuery.push(toBornRobot);
-    }
     this.waveDelay = this.wavesIntervals[this.cWave];
   },
-  crossover: function(p1, p2, sonsCount) { //TODO implementar mutacion, y que el robot sea equilibrado
-    // Crossovers two DNAs from robot.getDNA(), p1 is the stronget parent
+  crossover: function(p1, p2, sonsCount) { //TODO GA que el robot sea equilibrado
+    // Crossovers two DNAs from robot.getDNA(), p1 is the strongest parent
     sonsCount = sonsCount || 2;
+    var possible = [
+      [0, 1, 2], //pTurnProb
+      [0, 1, 2], //pLife
+      ["electric", "fire", "water"], //pElement
+      [0, 1], //pRange
+      [0, 1], //pTerrain
+      [0, 1, 2], //pSpeed
+      [0, 1, 2], //pDamage
+      [0, 1, 2], //pAttackSpeed
+    ];
     sons = [];
     for (var j = 0; j < sonsCount; j++) {
       var sonBorn = false;
       while (!sonBorn) {
         var son = [];
         for (var i = 0; i < p1.length; i++) {
-            var gen;
-            if (Math.random() < this.crossoverRate) { // p1 wins the gen
-              gen = p1[i];
-            } else { // p2 wins the gen
-              gen = p2[i];
-            }
-            son.push(gen);
+          var gen;
+          if (Math.random() < this.crossoverRate) { // p1 wins the gen
+            gen = p1[i];
+          } else { // p2 wins the gen
+            gen = p2[i];
+          }
+          if (Math.random() <= this.mutationRate) { // check mutation
+            gen = this.mutate(gen, possible[i]);
+          }
+          son.push(gen);
         }
         equalToP1 = son.join() == p1.join();
         equalToP2 = son.join() == p2.join();
@@ -257,23 +440,30 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     }
     return [p1, p2, sons];
   },
-  counter:0,
-  update: function(delta) {
-    //Check for robot death
+  mutate: function(gen, possibles) {
+    // Mutates a gen within the possibles array
+    var leftPossibles = possibles.filter(function(a) {return a != gen;});
+    var mutatedGen = leftPossibles[Math.floor((Math.random() * leftPossibles.length))];
+    return mutatedGen;
+  },
+  kill: function(robot) {
+    // Kills a robot
     var deletion = false;
-    for (var i = 0; i < this.robots.length; i++) {//TODO hacer de esto una funcion que el robot llame cuando se muere para mejorar rendimiento
-      if (this.robots[i].destroy) {
-        this.robots[i].release();
-        this.robots[i].removeFromParent();
-        delete this.robots[i];
-        deletion = true;
-      }
+    var i = this.robots.indexOf(robot);
+    if (i != -1) {
+      this.prevWaveRobots.push([robot.getDNA(), robot.getScore()]);
+      this.robots[i].release();
+      this.robots[i].removeFromParent();
+      this.robots.splice(i, 1);
+      deletion = true;
     }
     if (deletion) {
-      this.robots = this.robots.filter(function(robot) {return robot !== undefined;});
       debug.debugText(this, {text: "Robots Count: " + this.robots.length});
     }
-
+    return deletion;
+  },
+  counter:0,
+  update: function(delta) {// TODO buscar todos los updates del juego y tratar de simplificarlos al maximo, fijarse de usar custom schedulers
     // Controls the delay between spawns
     if (this.counter >= this.waveDelay) {
       if (this.waveDelay != this.SPAWN_TIME) {
@@ -283,7 +473,7 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
       if (this.waveQuery.length > 0) {
         this.addRobot(this.waveQuery[this.waveQuery.length - 1]);
         this.waveQuery.pop();
-      } else {
+      } else if (!this.lastWave && this.robots.length === 0) {
         this.prepareNextWave();
       }
     } else {

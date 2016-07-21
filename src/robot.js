@@ -1,6 +1,5 @@
 var Robot = cc.Sprite.extend({
   level: null, //Level where this object is placed
-  destroy: false, //If true level will delete this robot
   pointing: 3, //Looking direction 0:North, 1:East, 2:South, 3:West
   animSpeed: 1.0, //Walk speed animation
   animAttackSpeed: 1.0, //Attack speed animation
@@ -49,7 +48,7 @@ var Robot = cc.Sprite.extend({
   legL: null,
   legR: null,
 
-  ctor: function(level, turnProb, life, element, range, terrain, speed, damage, attackSpeed) {
+  ctor: function(level, dna, turnProb, life, element, range, terrain, speed, damage, attackSpeed) {
     // The constructor sets the level, creationTime, and all the initial stats,
     // after that it determines which sprites corresponds to every robot part and
     // it assembles the robot sprite by sprite. It also sets the real stats based
@@ -62,20 +61,32 @@ var Robot = cc.Sprite.extend({
     this.level = level;
     this.creationTime = new Date().getTime();
 
-    this.turnProb = turnProb;
-    this.life = life;
-    this.element = element;
-    this.range = range;
-    this.terrain = terrain;
-    this.speed = speed;
-    this.damage = damage;
-    this.attackSpeed = attackSpeed;
+    dna = dna || false;
+    if (dna) {
+      this.turnProb = dna[0];
+      this.life = dna[1];
+      this.element = dna[2];
+      this.range = dna[3];
+      this.terrain = dna[4];
+      this.speed = dna[5];
+      this.damage = dna[6];
+      this.attackSpeed = dna[7];
+    } else {
+      this.turnProb = turnProb;
+      this.life = life;
+      this.element = element;
+      this.range = range;
+      this.terrain = terrain;
+      this.speed = speed;
+      this.damage = damage;
+      this.attackSpeed = attackSpeed;
+    }
 
     if (this.turnProb in this.pTurnProb) {
       this.sTurnProb = this.pTurnProb[this.turnProb];
     } else {
       this.sTurnProb = this.pTurnProb[0];
-      cc.log("Attack Speed value incorrect, setting 0");
+      cc.log("Turn Probability value incorrect, setting 0");
     }
 
     if (this.life in this.pLife) {
@@ -163,7 +174,7 @@ var Robot = cc.Sprite.extend({
     ];
     return dna;
   },
-  createHealthBar: function() {
+  createHealthBar: function() { //TODO crear una buena health bar que sea independiente del tamaño del sprie
     //Creates two rectangles for representing the healtbar
     var originB = cc.p(-30, 0);
     var originF = cc.p(-28, 2);
@@ -303,18 +314,35 @@ var Robot = cc.Sprite.extend({
   },
   hurt: function(deffense) {
     // This function calculates the total damage of the received attack depending
-    // on the deffense, and do some things in reaction
+    // on the deffense properties, and do some things in reaction
     //#TODO daño en funcion del elemento
-    this.cLife -= deffense.sDamage;
+    var elementMod = 1;
+    if (this.element == "electric") {
+      if (deffense.element == "electric") {elementMod = 1;}
+      else if (deffense.element == "fire") {elementMod = 2;}
+      else if (deffense.element == "water") {elementMod = 0.5;}
+    }
+    else if (this.element == "fire") {
+      if (deffense.element == "electric") {elementMod = 0.5;}
+      else if (deffense.element == "fire") {elementMod = 1;}
+      else if (deffense.element == "water") {elementMod = 2;}
+    }
+    else if (this.element == "water") {
+      if (deffense.element == "electric") {elementMod = 2;}
+      else if (deffense.element == "fire") {elementMod = 0.5;}
+      else if (deffense.element == "water") {elementMod = 1;}
+    }
+
+    this.cLife -= deffense.sDamage * elementMod;
     if (this.cLife <= 0) {
       this.life = 0;
-      this.kill();
+      this.die();
     }
     this.updateHealthBar();
   },
-  kill: function() {
-    // In the next frame the level will remove the robots with destroy==true
-    this.destroy = true;
+  die: function() {
+    // Call the level kill function to kill this robot
+    this.level.kill(this);
   },
   livedTimeScore: function() {
     // Returns a float, being 0.0 == 0 ms, 1.0 lived more or equal ms to maxTime

@@ -6,11 +6,15 @@ var Deffense = cc.Sprite.extend({
   cTilePos: null, // Current tile position
 
   // Possible (p) stats
-  pRange: {0: 100, 1: 2000},
+  pElement: {
+    "electric": cc.color(255, 231, 0 ,255),
+    "fire": cc.color(227, 43, 0, 255),
+    "water": cc.color(1, 179, 255, 255)
+  },
+  pRange: {0: 100, 1: 300, 2:500},
   pTerrain: {0: 'walk',1: 'fly'},
   pDamage: {0: 25, 1: 50, 2:75},
   pAttackSpeed: {0: 1.5, 1: 1.0, 2: 0.5},
-
   // Stats (s)
   sRange: null,
   sDamage: null,
@@ -38,7 +42,7 @@ var Deffense = cc.Sprite.extend({
     this.sDamage = this.pDamage[this.damage];
     this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
 
-this.setAnchorPoint(0.5, 0.1);
+    this.setAnchorPoint(0.5, 0.1);
 
     this.debug();
 
@@ -56,7 +60,7 @@ this.setAnchorPoint(0.5, 0.1);
       var deffenseCenter = this.getPosition();
       var robotCenter = this.level.robots[i].getPosition();
       var distance = cc.pDistance(deffenseCenter, robotCenter);
-      if (distance <= this.sRange) {
+      if (distance <= this.sRange && this.level.robots[i].terrain == this.terrain) {
         inRange.push(this.level.robots[i]);
       }
     }

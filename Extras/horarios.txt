@@ -75,18 +75,33 @@ Do 17 - 3:10 hs
   - Definiendo funcionamiento de oleadas - 1 hs
   - Oleadas definidas - 1 hs
   - fix compile issue for linux and android and sprites minified - 1:10 hs
-Lu 18
+Lu 18 - 3:10 hs
   - Achicadas las healthbar y anchorpoints despues del escalado - 0:30 hs
   - bug (0,1) parcheado (pasa con velocidad 0.1 solo en compilado)- 0:05 hs
   - getDNA - 0:25 hs
   - revisando el geneticString e inicio de crossover - 2:10 hs
+Ma 19
+  - mutate, crear robot con dna, se dejo planteado como hacer roulete - 1:40 hs
+Mi 20
+  - roulete, calculo de daño, y otras cositas - 2:20 hs
+Ju 21
+  - GA inicial terminado momento de tweakear y rehacer cosas - 1 hs
+
+Problemas conocidos del GA:
+- No estoy teniendo en cuenta el orden en el que salen los robots que afectaria
+  mucho el score de cada uno
+- Si hago las siguientes robotAmount de waves: 10,10,1,10, en el 1, toda la informacion
+  que habian ganado de las generaciones anteriores se va a perder casi por completo,
+  la ultima 10, va a ser como empezar la partida de vuelta, esto hace que todos los mapas
+  si o si tengan que tener un numero similar o mayor en waves sucesivas
+    en resumen: Si tengo una wave de 1 solo robot va a haber errores en prepareNextWave por que
+  no hay dos padres para crossover
 
 #Historial de hasta 10 oleadas para ir sacando informacion para comparar y sacar
   muestras para el proximo crossover, mientras mas lejana la oleada archivada
   menos individuos de esa oleada entran al crossover - 6:00 hs
 #Roulete
 #Crossover
-#Mutacion
 #Acordarme de guardar los valores de mutacion, crossover rate, y el peso de cada
   factor del fitscore, por partida asi despues puedo comparar dos o tres partidas
   agarrarlas y cruzarlas para que me de unos nuevos valores de mutacion etc.
