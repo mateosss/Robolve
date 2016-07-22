@@ -337,8 +337,9 @@ var Robot = cc.Sprite.extend({
     if (this.cLife <= 0) {
       this.cLife = 0;
       this.die();
+    } else {
+      this.updateHealthBar();      
     }
-    this.updateHealthBar();
   },
   die: function() {
     // Call the level kill function to kill this robot

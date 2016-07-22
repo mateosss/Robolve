@@ -54,6 +54,7 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     // Add Robot by DNA
     var dna = [2, 2, "water", 0, 0, 2, 0, 1];
     var customRobot = new Robot(this, dna);
+    customRobot.retain();
     this.addRobot(customRobot);
 
     ///TODO TRASH CODE
@@ -381,7 +382,9 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
         for (var j = 0; j < dnaWaveQuery.length; j++) {
           // console.log("DNA");
           // console.log(dnaWaveQuery[j][0]);
-          auxWaveQuery.push(new Robot(this, dnaWaveQuery[j]));
+          dnaRobot = new Robot(this, dnaWaveQuery[j]);
+          dnaRobot.retain();
+          auxWaveQuery.push(dnaRobot);
         }
         this.waveQuery = auxWaveQuery;
         this.prevWaveRobots = [];
