@@ -21,7 +21,7 @@ var Robot = cc.Sprite.extend({
   pTerrain: {0: 'walk',1: 'fly'},
   pSpeed: {0: 0.2, 1: 0.5, 2: 1.0}, //TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug (0,10) Y velocidad 0.1, hace que para linux y android tengan tambien el bug, pero el javascript si.
   pDamage: {0: 5, 1: 15, 2:20},
-  pAttackSpeed: {0: 0.5, 1: 1.0, 2: 1.5},
+  pAttackSpeed: {0: 0.5, 1: 1.0, 2: 2.0},
 
   //Stats (s)
   sTurnProb: null,
@@ -55,11 +55,17 @@ var Robot = cc.Sprite.extend({
     // it assembles the robot sprite by sprite. It also sets the real stats based
     // on the initial parameters
     //TODO que funcione el balanceo, poder hacer que un robot sea de tipo +1 y eso
+    if (arguments.length === 0) {
+      return;
+    }
+
     this._super(res.empty);
 
     this.setAnchorPoint(0.5, 0.0);
     this.level = level;
     this.creationTime = new Date().getTime();
+
+
     dna = dna || false;
     if (dna) {
       this.turnProb = dna[0];
@@ -338,7 +344,7 @@ var Robot = cc.Sprite.extend({
       this.cLife = 0;
       this.die();
     } else {
-      this.updateHealthBar();      
+      this.updateHealthBar();
     }
   },
   die: function() {
@@ -415,7 +421,7 @@ var Robot = cc.Sprite.extend({
   update: function(delta) {
     // Executed every frame
     var base = this.getTarget();
-    if (this.counter < this.sAttackSpeed) {
+    if (this.counter < 1 / this.sAttackSpeed) {
       this.counter += delta;
     } else {
       this.counter = 0.0;

@@ -13,7 +13,7 @@ var Hud; //TODO
 var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
   map: null,
   base: null,
-
+  SPEED: 1,
   crossoverRate: 0.7, //the influence of the strongest parent to let its genes
   mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox.
 
@@ -35,6 +35,22 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     this.wavesCounts =  this.map.getProperties().wavesCounts.split(",").map(Number);
     this.wavesIntervals = this.map.getProperties().wavesIntervals.split(",").map(Number);
     this.prepareNextWave();
+
+
+    // Set level speed
+    this.SPAWN_TIME = this.SPAWN_TIME / this.SPEED;
+    for (var i = 0; i < this.wavesIntervals.length; i++) {
+      this.wavesIntervals[i] = this.wavesIntervals[i] / this.SPEED;
+    }
+    rob = new Robot();
+    for (var value in rob.pSpeed) {
+      rob.pSpeed[value] = rob.pSpeed[value] * this.SPEED;
+      rob.pAttackSpeed[value] = rob.pAttackSpeed[value] * this.SPEED;
+    }
+    def = new Deffense();
+    for (value in def.pAttackSpeed) {
+      def.pAttackSpeed[value] = def.pAttackSpeed[value] * this.SPEED;
+    }
 
     // Set base
     var base = new Base(this, 500);

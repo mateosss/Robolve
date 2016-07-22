@@ -14,7 +14,7 @@ var Deffense = cc.Sprite.extend({
   pRange: {0: 100, 1: 300, 2:500},
   pTerrain: {0: 'walk',1: 'fly'},
   pDamage: {0: 25, 1: 50, 2:75},
-  pAttackSpeed: {0: 1.5, 1: 1.0, 2: 0.5},
+  pAttackSpeed: {0: 0.5, 1: 1.0, 2: 2.0},
   // Stats (s)
   sRange: null,
   sDamage: null,
@@ -112,7 +112,7 @@ var Deffense = cc.Sprite.extend({
   },
   counter: 0.0,
   update: function(delta){
-    if (this.counter < this.sAttackSpeed) {
+    if (this.counter < 1 / this.sAttackSpeed) {
       this.counter += delta;
     } else {
       this.counter = 0.0;

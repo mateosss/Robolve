@@ -88,7 +88,8 @@ Ju 21
   - GA inicial terminado momento de tweakear y rehacer cosas - 1 hs
 Vi 22
   - GA mejorado bug de life 0 arreglado - 1:15
-  18:30
+  - Arreglado bug de hpbar compilado - 0:35 min
+  - 19:05
 
 Problemas conocidos del GA:
 - No estoy teniendo en cuenta el orden en el que salen los robots que afectaria
