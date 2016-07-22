@@ -86,6 +86,8 @@ Mi 20
   - roulete, calculo de daño, y otras cositas - 2:20 hs
 Ju 21
   - GA inicial terminado momento de tweakear y rehacer cosas - 1 hs
+Vi 22
+  - 9:15
 
 Problemas conocidos del GA:
 - No estoy teniendo en cuenta el orden en el que salen los robots que afectaria

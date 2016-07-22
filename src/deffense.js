@@ -28,6 +28,9 @@ var Deffense = cc.Sprite.extend({
   attackSpeed: null,
 
   ctor:function(level, element, range, terrain, damage, attackSpeed) {
+    if (arguments.length === 0) {
+      return;
+    }
     // Defines the initial values and stats by searching on possible stats
     this._super(res.deffense);
     this.level = level;

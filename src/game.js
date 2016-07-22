@@ -52,9 +52,9 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     // var customRobot = new Robot(this, false, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
 
     // Add Robot by DNA
-    // var dna = [2, 2, "water", 0, 0, 2, 0, 1];
-    // var customRobot = new Robot(this, dna);
-    // this.addRobot(customRobot);
+    var dna = [2, 2, "water", 0, 0, 2, 0, 1];
+    var customRobot = new Robot(this, dna);
+    this.addRobot(customRobot);
 
     ///TODO TRASH CODE
 
@@ -361,7 +361,6 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
         count = 0;
         this.prevWaveRobots.forEach(function(e){total+=e[1];count+=1;});
         console.log("Average fitScore prev wave: " + total/count);
-
         //crear array dnaWaveQuery con esos agarrados
         var dnaWaveQuery = this.prevWaveRobots.slice(0, Math.ceil((robotsAmount / 4) + 1));
         // bucle agarrando dos al azar de ese cuarto+1 segun su score
@@ -433,6 +432,10 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
           }
         }
         if (!(equalToP1 || equalToP2 || equalToSon)) {
+          sonBorn = true;
+          sons.push(son);
+        }
+        if (!(equalToSon)) { //TODO esto es un test
           sonBorn = true;
           sons.push(son);
         }

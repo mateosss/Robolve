@@ -6,6 +6,7 @@ var Robot = cc.Sprite.extend({
   cLife: null, //Current Life
   cTilePos: cc.p(0, 0), //Current tile Position of the robot //TODO estoy hardcodeando esto
   creationTime: null,
+  hitsReceived: 0,
   infligedDamage: 0,
 
   //Possible (p) stats //TODO definir valores reales //TODO apply fuzzy logic
@@ -16,7 +17,7 @@ var Robot = cc.Sprite.extend({
     "fire": cc.color(227, 43, 0, 255),
     "water": cc.color(1, 179, 255, 255)
   },
-  pRange: {0: 50, 1: 150},
+  pRange: {0: 75, 1: 150},
   pTerrain: {0: 'walk',1: 'fly'},
   pSpeed: {0: 0.2, 1: 0.5, 2: 1.0}, //TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug (0,10) Y velocidad 0.1, hace que para linux y android tengan tambien el bug, pero el javascript si.
   pDamage: {0: 5, 1: 15, 2:20},
@@ -57,10 +58,8 @@ var Robot = cc.Sprite.extend({
     this._super(res.empty);
 
     this.setAnchorPoint(0.5, 0.0);
-
     this.level = level;
     this.creationTime = new Date().getTime();
-
     dna = dna || false;
     if (dna) {
       this.turnProb = dna[0];
@@ -316,6 +315,7 @@ var Robot = cc.Sprite.extend({
     // This function calculates the total damage of the received attack depending
     // on the deffense properties, and do some things in reaction
     //#TODO daño en funcion del elemento
+    this.hitsReceived += 1;
     var elementMod = 1;
     if (this.element == "electric") {
       if (deffense.element == "electric") {elementMod = 1;}
@@ -335,7 +335,7 @@ var Robot = cc.Sprite.extend({
 
     this.cLife -= deffense.sDamage * elementMod;
     if (this.cLife <= 0) {
-      this.life = 0;
+      this.cLife = 0;
       this.die();
     }
     this.updateHealthBar();
@@ -352,6 +352,14 @@ var Robot = cc.Sprite.extend({
       return 1;
     }
     var score =  lived / maxTime;
+    return score;
+  },
+  hitsReceivedScore: function() {
+    // Returns a float, being 0.0 == 0 ms, 1.0 lived more or equal ms to maxTime
+    var maxHits = this.pLife[2] / (new Deffense().pDamage[0] * 0.5);
+    var score = 0;
+    var hitsReceived = this.hitsReceived;
+    score =  hitsReceived / maxHits;
     return score;
   },
   infligedDamageScore: function() {
@@ -376,10 +384,14 @@ var Robot = cc.Sprite.extend({
   },
   getScore: function() {
     // Returns the fit score for the GA, represents how good the robots fits
-    var livedTimeScore = this.livedTimeScore() * 0.10;
-    var infligedDamageScore = this.infligedDamageScore() * 0.70;
-    var distanceToBaseScore = this.distanceToBaseScore() * 0.20;
-    var score = livedTimeScore + infligedDamageScore + distanceToBaseScore;
+    // var livedTimeScore = this.livedTimeScore() * 0.10;
+    // var firstHurtTimeScore = this.firstHurtTimeScore() * 0.25;
+    var hitsReceivedScore = this.hitsReceivedScore() * 0.25;
+    var infligedDamageScore = this.infligedDamageScore() * 0.5;
+    var distanceToBaseScore = this.distanceToBaseScore() * 0.25;
+    // var score = livedTimeScore + infligedDamageScore + distanceToBaseScore;
+    // var score = firstHurtTimeScore + infligedDamageScore + distanceToBaseScore;
+    var score = hitsReceivedScore + infligedDamageScore + distanceToBaseScore;
     return score;
   },
   debug: function() {
@@ -412,7 +424,9 @@ var Robot = cc.Sprite.extend({
     if (this.checkNewTile()) {
       // this.debugger.debugTile(this.level.map, {stop: true});// TODO stop doesn't work
       this.debugger.debugText(this, {
-        text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
+        // text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
+        // text: "time: " + this.firstHurtTimeScore().toFixed(4) + "\n" +
+        text: "time: " + this.hitsReceivedScore().toFixed(4) + "\n" +
         "damage: " + this.infligedDamageScore().toFixed(4) + "\n" +
         "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
         "score: " + this.getScore().toFixed(4) + "\n"
