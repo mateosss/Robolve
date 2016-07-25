@@ -80,42 +80,53 @@ Lu 18 - 3:10 hs
   - bug (0,1) parcheado (pasa con velocidad 0.1 solo en compilado)- 0:05 hs
   - getDNA - 0:25 hs
   - revisando el geneticString e inicio de crossover - 2:10 hs
-Ma 19
+Ma 19 - 1:40 hs
   - mutate, crear robot con dna, se dejo planteado como hacer roulete - 1:40 hs
-Mi 20
+Mi 20 - 2:20 hs
   - roulete, calculo de daño, y otras cositas - 2:20 hs
-Ju 21
+Ju 21 - 1 hs
   - GA inicial terminado momento de tweakear y rehacer cosas - 1 hs
-Vi 22
+Vi 22 - 3:40 hs
   - GA mejorado bug de life 0 arreglado - 1:15
   - Arreglado bug de hpbar compilado - 0:35 min
-  - 19:05
+  - Ajuste de velocidad inicial - 1:00 hs
+  - intentando mejorar ga 100Tiradas - 0.5973701589423649 - 0:50 hs
+Sa 23 - 2 hs
+  - Setup de armature del robot en blender - 2 hs
+Do 24 - 4:20 hs
+  - pruebas de rendimiento en android - 0:40 hs
+  - Preparado Animations.blend - 1:45 hs
+  - Iniciando script de animacion - 1:55 hs
+Lu 25
+  - Decidiendo que hacer con animaciones: NO HACERLAS hasta el final - 1:05 hs
+  - 19:20
 
-Problemas conocidos del GA:
-- No estoy teniendo en cuenta el orden en el que salen los robots que afectaria
-  mucho el score de cada uno
-- Si hago las siguientes robotAmount de waves: 10,10,1,10, en el 1, toda la informacion
-  que habian ganado de las generaciones anteriores se va a perder casi por completo,
-  la ultima 10, va a ser como empezar la partida de vuelta, esto hace que todos los mapas
-  si o si tengan que tener un numero similar o mayor en waves sucesivas
-    en resumen: Si tengo una wave de 1 solo robot va a haber errores en prepareNextWave por que
-  no hay dos padres para crossover
+# Balas
+  - Torretas a robots
+  - Robots a nexo
+# HUD
+  - Tiempo para fin de partida#
+  - Puntaje
+  - Pausa
+  - Tiempo para la proxima oleada#
+  - Oro#
+  - Poder comprar torres#
+  - Posicionar torres en el mapa#
 
-#Historial de hasta 10 oleadas para ir sacando informacion para comparar y sacar
-  muestras para el proximo crossover, mientras mas lejana la oleada archivada
-  menos individuos de esa oleada entran al crossover - 6:00 hs
-#Roulete
-#Crossover
-#Acordarme de guardar los valores de mutacion, crossover rate, y el peso de cada
-  factor del fitscore, por partida asi despues puedo comparar dos o tres partidas
-  agarrarlas y cruzarlas para que me de unos nuevos valores de mutacion etc.
-  (tambien podria hacerlo cada tantas oleadas al cambio para ver que onda)
-#Revisar los sprites antes de hacerlos como los voy a spawnear, com centrarlos
-  en el tile del tilemap, y como saber cual es la profundidad, cual se tiene
-  que mostrar arriba del otro y esas cosas fijarse en el libro de dropbox
-  de cocos iphone.
 
-USAR LA PREGUNA DE STACKOVERFLOW PARA UBICAR BIEN EN Z SEGUN X E Y
+
+# Cosas que estoy posponiendo
+ - Animación
+ - "TODOS" en el codigo
+ - GA - Problemas conocidos:
+   - No estoy teniendo en cuenta el orden en el que salen los robots que afectaria
+     mucho el score de cada uno
+   - Si hago las siguientes robotAmount de waves: 10,10,1,10, en el 1, toda la informacion
+     que habian ganado de las generaciones anteriores se va a perder casi por completo,
+     la ultima 10, va a ser como empezar la partida de vuelta, esto hace que todos los mapas
+     si o si tengan que tener un numero similar o mayor en waves sucesivas
+       en resumen: Si tengo una wave de 1 solo robot va a haber errores en prepareNextWave por que
+     no hay dos padres para crossover
 
 
 ###BOLUDEO desarmar el piso
@@ -127,34 +138,3 @@ for (var i = 0; i < 10; i++) {
   moveBy = cc.moveBy(2, cc.p(0, randomZ));
   tile2.runAction(moveBy);
 }
-
-###Logica del turn (como decide el robot cuando girar y cuando no)
-DONE- IDEA: No poder volver hacia atras a menos que sea el unico camino
-(
-  Tener lista con las direcciones contrarias
-  0 : 2
-  1 : 3
-  2 : 0
-  3 : 1
-  si estoy yendo por 2 y entro a un turn tile (0,1,2,3)
-    no puedo volver por 0 (0 es contrario de 2)
-    tirar random, si es mas chico que mi turnProb significa que tengo que doblar
-    puedo doblar en las posiciones 1 y 3, (ni la actual ni el contrario)
-    si no, seguir por 2
-  si estoy yendo por 2 y entro a un turn tile (0,1,2)
-    mismo procedimiento que arriba
-  si estoy yendo por 2 y entro a un turn tile (0,1)
-    como 2 (actual pointing) no aparece en la lista estoy obligado a ir por 1
-  si estoy yendo por 2 y entro a un turn tile (0)
-    ahora si estoy obligado a volver por donde vine
-
-  ENTONCES:
-    si this.pointing esta en la turnTile
-      si hay un lugar al que doblar y mi random dice que doble
-        doblar a alguno de esos lugares al azar
-    si this.pointing no esta en la turnTile
-      si hay un lugar al que doblar
-        doblar a alguno de esos lugares al azar
-      si no
-        volver por donde vine
-)

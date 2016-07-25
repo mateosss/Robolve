@@ -1,6 +1,6 @@
 var Robot = cc.Sprite.extend({
   level: null, //Level where this object is placed
-  pointing: 3, //Looking direction 0:North, 1:East, 2:South, 3:West
+  pointing: 2, //Looking direction 0:North, 1:East, 2:South, 3:West
   animSpeed: 1.0, //Walk speed animation
   animAttackSpeed: 1.0, //Attack speed animation
   cLife: null, //Current Life
@@ -320,7 +320,6 @@ var Robot = cc.Sprite.extend({
   hurt: function(deffense) {
     // This function calculates the total damage of the received attack depending
     // on the deffense properties, and do some things in reaction
-    //#TODO daño en funcion del elemento
     this.hitsReceived += 1;
     var elementMod = 1;
     if (this.element == "electric") {
@@ -338,14 +337,15 @@ var Robot = cc.Sprite.extend({
       else if (deffense.element == "fire") {elementMod = 0.5;}
       else if (deffense.element == "water") {elementMod = 1;}
     }
-
-    this.cLife -= deffense.sDamage * elementMod;
+    var totalDamage = deffense.sDamage * elementMod;
+    this.cLife -= totalDamage;
     if (this.cLife <= 0) {
       this.cLife = 0;
       this.die();
     } else {
       this.updateHealthBar();
     }
+    return totalDamage;
   },
   die: function() {
     // Call the level kill function to kill this robot
@@ -438,7 +438,7 @@ var Robot = cc.Sprite.extend({
         "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
         "score: " + this.getScore().toFixed(4) + "\n"
       });
-      this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
+      // this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
       this.turn(this.canTurn(this.cTilePos));
     }
 

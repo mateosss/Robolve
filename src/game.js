@@ -13,9 +13,9 @@ var Hud; //TODO
 var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
   map: null,
   base: null,
-  SPEED: 1,
+  SPEED: 50,
   crossoverRate: 0.7, //the influence of the strongest parent to let its genes
-  mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox.
+  mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox. TODO, make the 8 not hardcoded
 
   robots: [], // Current robots in map
   deffenses: [], // Current deffenses in map
@@ -32,10 +32,6 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     this._super();
     this.map = new TiledMap(this, res.maps.map1);
     this.addChild(this.map, 1, TAG_TILE_MAP);
-    this.wavesCounts =  this.map.getProperties().wavesCounts.split(",").map(Number);
-    this.wavesIntervals = this.map.getProperties().wavesIntervals.split(",").map(Number);
-    this.prepareNextWave();
-
 
     // Set level speed
     this.SPAWN_TIME = this.SPAWN_TIME / this.SPEED;
@@ -51,6 +47,13 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     for (value in def.pAttackSpeed) {
       def.pAttackSpeed[value] = def.pAttackSpeed[value] * this.SPEED;
     }
+
+    //Prepare wave info
+    this.wavesCounts =  this.map.getProperties().wavesCounts.split(",").map(Number);
+    this.wavesIntervals = this.map.getProperties().wavesIntervals.split(",").map(Number);
+    this.prepareNextWave();
+
+
 
     // Set base
     var base = new Base(this, 500);
@@ -154,6 +157,20 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
     mapLayer = this.map.getLayer("Background");
     p = mapLayer.getPositionAt(cc.p(9,19));
+    tileSize = this.map.getTileSize();
+    p.y += tileSize.height / 2;
+    this.map.spawn(customDeffense, p, 5);
+    this.deffenses.push(customDeffense);
+
+    //9,18 walk
+    range = 0;//0,1,2
+    element = "electric";//water,fire,electric
+    terrain = 0;//0,1
+    damage = 2;//0,1,2
+    attackSpeed = 2;//0,1,2
+    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    mapLayer = this.map.getLayer("Background");
+    p = mapLayer.getPositionAt(cc.p(9,18));
     tileSize = this.map.getTileSize();
     p.y += tileSize.height / 2;
     this.map.spawn(customDeffense, p, 5);

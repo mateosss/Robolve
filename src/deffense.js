@@ -11,7 +11,7 @@ var Deffense = cc.Sprite.extend({
     "fire": cc.color(227, 43, 0, 255),
     "water": cc.color(1, 179, 255, 255)
   },
-  pRange: {0: 100, 1: 300, 2:500},
+  pRange: {0: 200, 1: 300, 2:500},
   pTerrain: {0: 'walk',1: 'fly'},
   pDamage: {0: 25, 1: 50, 2:75},
   pAttackSpeed: {0: 0.5, 1: 1.0, 2: 2.0},
