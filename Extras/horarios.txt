@@ -108,6 +108,8 @@ Do 14
   - Sprites de botones en inkscape - 0:30 hs
   - Barra ListView deffenseSelector sin funcionalidad - 1:40 hs
   - Tratando de arreglar ccui bug compilando a linux - 2 hs
+Ju 18
+  - empezando a hacer que las defensas puedan tocarse para mejorarse - 1:00 hs
 
 Que hacer para la entrega del fin de mes
 - decidir que hacer con las torretas, como voy a generar una torreta? hardcodeada?
@@ -120,6 +122,7 @@ Que hacer para la entrega del fin de mes
   - Descripcion
   - Puede colocarse o no?
   - Botones de okay o cancel
+- Poder destruir torres.
 - menu simple, game over, y win screen
 - arreglar zoom con dos dedos
 

@@ -19,6 +19,7 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
 
   robots: [], // Current robots in map
   deffenses: [], // Current deffenses in map
+  purchableDeffenses: [], // TODO hardcoded deffenses declared in deffenses.js
   prevWaveRobots: [], // [DNA, score] of the previous wave robots
 
   wavesCounts: [], // Defined by the map, amount of robots per wave
@@ -53,8 +54,6 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     this.wavesIntervals = this.map.getProperties().wavesIntervals.split(",").map(Number);
     this.prepareNextWave();
 
-
-
     // Set base
     var base = new Base(this, 500);
     this.setBase(base);
@@ -71,164 +70,33 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     // var customRobot = new Robot(this, false, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
 
     // Add Robot by DNA
-    var dna = [2, 2, "water", 0, 0, 2, 0, 1];
-    var customRobot = new Robot(this, dna);
-    customRobot.retain();
-    this.addRobot(customRobot);
+    // var dna = [2, 2, "water", 0, 0, 2, 0, 1];
+    // var customRobot = new Robot(this, dna);
+    // customRobot.retain();
+    // this.addRobot(customRobot);
 
-    ///TODO TRASH CODE
+    //deffense 0,0 walk
+    // range = 1;//0,1,2
+    // element = "electric";//water,fire,electric
+    // terrain = 0;//0,1
+    // damage = 2;//0,1,2
+    // attackSpeed = 2;//0,1,2
+    // var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    // mapLayer = this.map.getLayer("Background");
+    // p = mapLayer.getPositionAt(cc.p(0,0));
+    // tileSize = this.map.getTileSize();
+    // p.y += tileSize.height / 2;
+    // this.map.spawn(customDeffense, p, 5);
+    // this.deffenses.push(customDeffense);
 
-    //0,0 walk
-    range = 1;//0,1,2
-    element = "electric";//water,fire,electric
-    terrain = 0;//0,1
-    damage = 2;//0,1,2
-    attackSpeed = 2;//0,1,2
-    var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    mapLayer = this.map.getLayer("Background");
-    p = mapLayer.getPositionAt(cc.p(0,0));
-    tileSize = this.map.getTileSize();
-    p.y += tileSize.height / 2;
-    this.map.spawn(customDeffense, p, 5);
-    this.deffenses.push(customDeffense);
-
-    //0,9 fly
-    range = 2;//0,1,2
-    element = "electric";//water,fire,electric
-    terrain = 1;//0,1
-    damage = 2;//0,1,2
-    attackSpeed = 2;//0,1,2
-    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    mapLayer = this.map.getLayer("Background");
-    p = mapLayer.getPositionAt(cc.p(0,9));
-    tileSize = this.map.getTileSize();
-    p.y += tileSize.height / 2;
-    this.map.spawn(customDeffense, p, 5);
-    this.deffenses.push(customDeffense);
-
-    //0,19 walk
-    range = 1;//0,1,2
-    element = "electric";//water,fire,electric
-    terrain = 0;//0,1
-    damage = 2;//0,1,2
-    attackSpeed = 2;//0,1,2
-    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    mapLayer = this.map.getLayer("Background");
-    p = mapLayer.getPositionAt(cc.p(0,19));
-    tileSize = this.map.getTileSize();
-    p.y += tileSize.height / 2;
-    this.map.spawn(customDeffense, p, 5);
-    this.deffenses.push(customDeffense);
-
-    //9,0 fly
-    range = 2;//0,1,2
-    element = "electric";//water,fire,electric
-    terrain = 1;//0,1
-    damage = 2;//0,1,2
-    attackSpeed = 2;//0,1,2
-    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    mapLayer = this.map.getLayer("Background");
-    p = mapLayer.getPositionAt(cc.p(9,0));
-    tileSize = this.map.getTileSize();
-    p.y += tileSize.height / 2;
-    this.map.spawn(customDeffense, p, 5);
-    this.deffenses.push(customDeffense);
-
-    //9,9 walk
-    range = 1;//0,1,2
-    element = "electric";//water,fire,electric
-    terrain = 0;//0,1
-    damage = 2;//0,1,2
-    attackSpeed = 2;//0,1,2
-    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    mapLayer = this.map.getLayer("Background");
-    p = mapLayer.getPositionAt(cc.p(9,9));
-    tileSize = this.map.getTileSize();
-    p.y += tileSize.height / 2;
-    this.map.spawn(customDeffense, p, 5);
-    this.deffenses.push(customDeffense);
-
-    //9,19 fly
-    range = 2;//0,1,2
-    element = "electric";//water,fire,electric
-    terrain = 1;//0,1
-    damage = 2;//0,1,2
-    attackSpeed = 2;//0,1,2
-    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    mapLayer = this.map.getLayer("Background");
-    p = mapLayer.getPositionAt(cc.p(9,19));
-    tileSize = this.map.getTileSize();
-    p.y += tileSize.height / 2;
-    this.map.spawn(customDeffense, p, 5);
-    this.deffenses.push(customDeffense);
-
-    //9,18 walk
+    // Add Deffense
     range = 0;//0,1,2
     element = "electric";//water,fire,electric
     terrain = 0;//0,1
     damage = 2;//0,1,2
     attackSpeed = 2;//0,1,2
     customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    mapLayer = this.map.getLayer("Background");
-    p = mapLayer.getPositionAt(cc.p(9,18));
-    tileSize = this.map.getTileSize();
-    p.y += tileSize.height / 2;
-    this.map.spawn(customDeffense, p, 5);
-    this.deffenses.push(customDeffense);
-
-    //19,0 walk
-    range = 1;//0,1,2
-    element = "electric";//water,fire,electric
-    terrain = 0;//0,1
-    damage = 2;//0,1,2
-    attackSpeed = 2;//0,1,2
-    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    mapLayer = this.map.getLayer("Background");
-    p = mapLayer.getPositionAt(cc.p(19,0));
-    tileSize = this.map.getTileSize();
-    p.y += tileSize.height / 2;
-    this.map.spawn(customDeffense, p, 5);
-    this.deffenses.push(customDeffense);
-
-    //19,9 fly
-    range = 2;//0,1,2
-    element = "electric";//water,fire,electric
-    terrain = 1;//0,1
-    damage = 2;//0,1,2
-    attackSpeed = 2;//0,1,2
-    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    mapLayer = this.map.getLayer("Background");
-    p = mapLayer.getPositionAt(cc.p(19,9));
-    tileSize = this.map.getTileSize();
-    p.y += tileSize.height / 2;
-    this.map.spawn(customDeffense, p, 5);
-    this.deffenses.push(customDeffense);
-
-    //19,19 walk
-    range = 1;//0,1,2
-    element = "electric";//water,fire,electric
-    terrain = 0;//0,1
-    damage = 2;//0,1,2
-    attackSpeed = 2;//0,1,2
-    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    mapLayer = this.map.getLayer("Background");
-    p = mapLayer.getPositionAt(cc.p(19,19));
-    tileSize = this.map.getTileSize();
-    p.y += tileSize.height / 2;
-    this.map.spawn(customDeffense, p, 5);
-    this.deffenses.push(customDeffense);
-
-    ///TODO TRASH CODE
-
-
-    // Add Deffense
-    // range = 0;//0,1,2
-    // element = "electric";//water,fire,electric
-    // terrain = 0;//0,1
-    // damage = 2;//0,1,2
-    // attackSpeed = 2;//0,1,2
-    // customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    // this.addDeffense(customDeffense);
+    this.addDeffense(customDeffense);
 
     // TODO mejorar el sistema en general que sea mas prolijo y DRY
     // TODO Better zoom (zoom where the mouse is or where the touch is made)
