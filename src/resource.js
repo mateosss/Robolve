@@ -10,6 +10,16 @@ var res = {
     map1Sheet: "res/map/landscape2.png",
     map1: "res/map/mapsketch2.tmx",
   },
+  ui:{
+    blueBtn: "res/sprites/ui/blueBtn.png",
+    blueBtnS: "res/sprites/ui/blueBtnS.png",
+    cancelBtn: "res/sprites/ui/cancelBtn.png",
+    greenBtn: "res/sprites/ui/greenBtn.png",
+    greenBtnS: "res/sprites/ui/greenBtnS.png",
+    okBtn: "res/sprites/ui/okBtn.png",
+    redBtn: "res/sprites/ui/redBtn.png",
+    redBtnS: "res/sprites/ui/redBtnS.png",
+  },
   parts:{
     heads: {
       "water0":"res/sprites/heads/waterWeak.png",
@@ -64,9 +74,14 @@ for (var map in res.maps){
   g_resources.push(res.maps[map]);
 }
 
+// Charge ui images
+for (var ui in res.ui){
+  g_resources.push(res.ui[ui]);
+}
+
 // Charge everything else
 for (var i in res) {
-  if (i != "parts" && i != "maps") {
+  if (typeof res[i] != "object") {
     g_resources.push(res[i]);
   }
 }

@@ -4,16 +4,16 @@ var GameLevel = cc.Scene.extend({
   onEnter:function () {
     this._super();
     var level = new Level();
+    var hud = new Hud();
     this.addChild(level);
+    this.addChild(hud);
   }
 });
-
-var Hud; //TODO
 
 var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
   map: null,
   base: null,
-  SPEED: 50,
+  SPEED: 1,
   crossoverRate: 0.7, //the influence of the strongest parent to let its genes
   mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox. TODO, make the 8 not hardcoded
 

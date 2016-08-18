@@ -6,6 +6,8 @@ var MainMenu = cc.Scene.extend({
   onEnter:function () {
     this._super();
     var layer = new Menu();
+    var hud = new Hud();
+    this.addChild(hud);
     this.addChild(layer);
   }
 });

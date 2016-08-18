@@ -1,4 +1,4 @@
-Junio
+Junio - 27 hs
 Do 5 - 7:30 hs
   - setup de sprites basicos 4:15 hs
   - programacion inicial de clase robot - 3:15 hs
@@ -61,7 +61,7 @@ Ju 14 - 5:55 hs
   - Invalid name error solved - 0:15 hs
   - Intentando poder debugear android con firefox para resolver bugs - 2 hs
 Vi 15 - 2:50 hs
-  - ver foro y point 2 error resuelto - 0:35 hs
+  - ver foro y point2 error resuelto - 0:35 hs
   - Error draw dot (la base no tenia range jeje) - 0:15 hs
   - Error hpbar titilante linux (habia que especificar lineColor) - 0:10 hs
   - debug text - 1:50 hs
@@ -99,42 +99,41 @@ Do 24 - 4:20 hs
   - Iniciando script de animacion - 1:55 hs
 Lu 25
   - Decidiendo que hacer con animaciones: NO HACERLAS hasta el final - 1:05 hs
-  - 19:20
+  - Que hacer ahora? planificacion|hud|balas - 0:50 hs
 
-# Balas
-  - Torretas a robots
-  - Robots a nexo
-# HUD
-  - Tiempo para fin de partida#
-  - Puntaje
-  - Pausa
-  - Tiempo para la proxima oleada#
-  - Oro#
-  - Poder comprar torres#
-  - Posicionar torres en el mapa#
+Agosto
+Ma 9
+  - Agregar clase hud basica - 1 hs
+Do 14
+  - Sprites de botones en inkscape - 0:30 hs
+  - Barra ListView deffenseSelector sin funcionalidad - 1:40 hs
+  - Tratando de arreglar ccui bug compilando a linux - 2 hs
 
+Que hacer para la entrega del fin de mes
+- decidir que hacer con las torretas, como voy a generar una torreta? hardcodeada?
+- Tiempo para fin de partida
+- Puntaje
+- Tiempo para la proxima oleada
+- Oro
+- Poder comprar torres
+  - Posicionar torres en el mapa
+  - Descripcion
+  - Puede colocarse o no?
+  - Botones de okay o cancel
+- menu simple, game over, y win screen
+- arreglar zoom con dos dedos
 
 
 # Cosas que estoy posponiendo
- - Animación
- - "TODOS" en el codigo
- - GA - Problemas conocidos:
-   - No estoy teniendo en cuenta el orden en el que salen los robots que afectaria
-     mucho el score de cada uno
-   - Si hago las siguientes robotAmount de waves: 10,10,1,10, en el 1, toda la informacion
-     que habian ganado de las generaciones anteriores se va a perder casi por completo,
-     la ultima 10, va a ser como empezar la partida de vuelta, esto hace que todos los mapas
-     si o si tengan que tener un numero similar o mayor en waves sucesivas
-       en resumen: Si tengo una wave de 1 solo robot va a haber errores en prepareNextWave por que
-     no hay dos padres para crossover
-
-
-###BOLUDEO desarmar el piso
-for (var i = 0; i < 10; i++) {
-  randomX = Math.floor(Math.random()*20);
-  randomY = Math.floor(Math.random()*20);
-  randomZ = Math.floor(Math.random()*100);
-  tile2 = this.getLayer("Background").getTileAt(cc.p(randomX,randomY));
-  moveBy = cc.moveBy(2, cc.p(0, randomZ));
-  tile2.runAction(moveBy);
-}
+  - Menu
+  - Animación
+  - "TODOS" en el codigo
+  - GA - Problemas conocidos:
+    - No estoy teniendo en cuenta el orden en el que salen los robots que afectaria
+      mucho el score de cada uno
+      - Si hago las siguientes robotAmount de waves: 10,10,1,10, en el 1, toda la informacion
+      que habian ganado de las generaciones anteriores se va a perder casi por completo,
+      la ultima 10, va a ser como empezar la partida de vuelta, esto hace que todos los mapas
+      si o si tengan que tener un numero similar o mayor en waves sucesivas
+        en resumen: Si tengo una wave de 1 solo robot va a haber errores en prepareNextWave por que
+        no hay dos padres para crossover
