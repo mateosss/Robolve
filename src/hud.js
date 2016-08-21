@@ -10,6 +10,11 @@ var Hud = cc.Layer.extend({
 
     var s = cc.winSize;
     var center = cc.p(s.width / 2, s.height / 2); // Screen center
+
+    // Deffense Status
+    // TODO
+    // Deffense Selector
+
     var dsSize = cc.size(s.width, 128); // deffenseSelector Height
     var dsPos = cc.p(0, 0); // deffenseSelector Position
 

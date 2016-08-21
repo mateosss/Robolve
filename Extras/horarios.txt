@@ -110,21 +110,34 @@ Do 14
   - Tratando de arreglar ccui bug compilando a linux - 2 hs
 Ju 18
   - empezando a hacer que las defensas puedan tocarse para mejorarse - 1:00 hs
+Do 21
+  - defensa reacciona a click - 1:00 hs
+
 
 Que hacer para la entrega del fin de mes
-- decidir que hacer con las torretas, como voy a generar una torreta? hardcodeada?
+- status torreta
+  - nodo
+  - boton mejorar, que funcione
+  - boton destruir, que funcione
+  - Imagen de fondo
+- Seleccion de torreta
+  - torre fuego (las imagenes con la descripcion y el precio por ahora)
+  - torre rayo
+  - torre agua
+  - boton ok
+  - boton cancelar
+  - cuando selecciono una que aprezcan los botones de ok/cancel y se ponga la pantalla mas oscura
+  - tocar en un tile y que aparezca la torreta seleccionada tinteada roja o verde segun si se puede poner
+  - al tocar ok que la torreta se ponga
+- Oro
+  - agregar propiedad
+  - que se sume cuando mato un robot
+  - que se baje cuando mejoro una torreta
+- menu simple, game over, y win screen, con explicacion del juego y mini tutorial dentro del menu
+- arreglar zoom con dos dedos
 - Tiempo para fin de partida
 - Puntaje
 - Tiempo para la proxima oleada
-- Oro
-- Poder comprar torres
-  - Posicionar torres en el mapa
-  - Descripcion
-  - Puede colocarse o no?
-  - Botones de okay o cancel
-- Poder destruir torres.
-- menu simple, game over, y win screen
-- arreglar zoom con dos dedos
 
 
 # Cosas que estoy posponiendo

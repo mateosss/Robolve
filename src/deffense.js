@@ -49,46 +49,27 @@ var Deffense = cc.Sprite.extend({
 
     this.debug();
 
-    cc.eventManager.addListener({
-      event: cc.EventListener.TOUCH_ONE_BY_ONE,
-      onTouchBegan: function(touch, event) {
-        console.log("BEGAN");
-        console.log(touch);
-        console.log(event);
-      },
-      onTouchEnded: function(touch, event) {
-        console.log("PATO");
-        // get the location of the touch on screen
-        var location = touch.getLocation();
-        // get the location of the touch relative to your button
-        var nodeSpaceLocation = this.getParent().convertToNodeSpace(location);
-        // check if touch is inside node's bounding box
-        if (cc.rectContainsPoint(this.getBoundingBox(), nodeSpaceLocation)) {
-        }
-
-        return true;
-      },
-    }, this);
-
+    this.selectDeffense = function(location) {
+      var deffense = this._node;
+      if (cc.rectContainsPoint(deffense.getBoundingBoxToWorld(),
+      cc.p(location._x, location._y))){
+        var increase = new cc.ScaleBy(0.1, 1.2);
+        var decrease = new cc.ScaleBy(0.1, 1 / 1.2);
+        deffense.runAction(new cc.Sequence(increase, decrease));
+      }
+      return true;
+    };
     if ('touches' in cc.sys.capabilities) {
       cc.eventManager.addListener({
         event: cc.EventListener.TOUCH_ALL_AT_ONCE,
-        onTouchesMoved: function (touches, event) {
-        }
+        onTouchBegan: function(touch, event) {},
+        onTouchEnded: this.selectDeffense,
       }, this);
     } else if ('mouse' in cc.sys.capabilities) {
       cc.eventManager.addListener({
         event: cc.EventListener.MOUSE,
-        onMouseDown: function(event) {
-          this.pressed = event.getButton();
-          this.clickLocation = event.getLocation();
-        },
-        onMouseUp: function(event) {
-        },
-        onMouseMove: function(event) {
-        },
-        onMouseScroll: function(event) {
-        },
+        onMouseDown: function(event) {},
+        onMouseUp: this.selectDeffense,
       }, this);
     }
 
