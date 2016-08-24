@@ -114,19 +114,24 @@ Do 21
   - defensa reacciona a click - 1:00 hs
 Ma 23
   - Hud, deffense details y nuevos botones - 6 hs
+Mi 24
+  - 1 hs
+  - 2 hs
+  - 0:30 hs
+  - 1:30 hs
 
 Que hacer para la entrega del fin de mes
 - status torreta
   - #nodo
   - #boton mejorar
-    - que funcione
-  - #boton destruir
+    - #que funcione
+  - boton destruir
     - que funcione
   - #Imagen de fondo
 - Seleccion de torreta
-  - #torre fuego (las imagenes con la descripcion y el precio por ahora)
-  - #torre rayo
-  - #torre agua
+  - torre fuego (las imagenes con la descripcion y el precio por ahora)
+  - torre rayo
+  - torre agua
   - #Imagen de fondo
   - boton ok
   - boton cancelar
@@ -134,9 +139,9 @@ Que hacer para la entrega del fin de mes
   - tocar en un tile y que aparezca la torreta seleccionada tinteada roja o verde segun si se puede poner
   - al tocar ok que la torreta se ponga
 - Oro
-  - agregar propiedad
+  - #agregar propiedad
   - que se sume cuando mato un robot
-  - que se baje cuando mejoro una torreta
+  - #que se baje cuando mejoro una torreta
   - HUD
 - Hacer mas niveles todos los posibles, pedir ayuda si hiciera falta
 - menu simple, game over, y win screen, con explicacion del juego y mini tutorial dentro del menu, y seleccion de niveles

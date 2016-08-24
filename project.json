@@ -20,6 +20,7 @@
         "src/map.js",
         "src/deffense.js",
         "src/base.js",
-        "src/hud.js"
+        "src/hud.js",
+        "src/easyEvents.js"
     ]
 }

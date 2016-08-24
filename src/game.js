@@ -5,12 +5,14 @@ var GameLevel = cc.Scene.extend({
     this._super();
     var level = new Level();
     var hud = new Hud(level);
+    level.hud = hud;
     this.addChild(level);
     this.addChild(hud);
   }
 });
 
 var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
+  hud: null,
   map: null,
   base: null,
   SPEED: 1,

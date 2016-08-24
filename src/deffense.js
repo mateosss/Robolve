@@ -7,9 +7,12 @@ var Deffense = cc.Sprite.extend({
 
   // Possible (p) stats
   pElement: {
-    "electric": cc.color(255, 231, 0 ,255),
-    "fire": cc.color(227, 43, 0, 255),
-    "water": cc.color(1, 179, 255, 255)
+    "electric": "Electro",
+    "fire": "Fire",
+    "water": "Water"
+    // "electric": res.ui.yellowBtnDS,
+    // "fire": res.ui.redBtnDS,
+    // "water": res.ui.blueBtnDS
   },
   pRange: {0: 200, 1: 300, 2:500},
   pTerrain: {0: 'walk',1: 'fly'},
@@ -49,32 +52,14 @@ var Deffense = cc.Sprite.extend({
 
     this.debug();
 
-    this.selectDeffense = function(location) {
-      // console.log(JSON.stringify(this));
-      var deffense = this._node;
+    easyTouchEnded(this, function(deffense) {
       if (deffense.getNumberOfRunningActions() === 0) {
-        if (cc.rectContainsPoint(deffense.getBoundingBoxToWorld(),
-        cc.p(location._x, location._y))){
-          var increase = new cc.ScaleBy(0.1, 1.2);
-          var decrease = new cc.ScaleBy(0.1, 1 / 1.2);
-          deffense.runAction(new cc.Sequence(increase, decrease));
-        }
+        var increase = new cc.ScaleBy(0.1, 1.2);
+        var decrease = new cc.ScaleBy(0.1, 1 / 1.2);
+        deffense.runAction(new cc.Sequence(increase, decrease));
+        deffense.level.hud.dd.show(deffense);
       }
-      return true;
-    };
-    if ('touches' in cc.sys.capabilities) {
-      cc.eventManager.addListener({
-        event: cc.EventListener.TOUCH_ALL_AT_ONCE,
-        onTouchBegan: function(touch, event) {},
-        onTouchEnded: this.selectDeffense,
-      }, this);
-    } else if ('mouse' in cc.sys.capabilities) {
-      cc.eventManager.addListener({
-        event: cc.EventListener.MOUSE,
-        onMouseDown: function(event) {},
-        onMouseUp: this.selectDeffense,
-      }, this);
-    }
+    });
 
     this.scheduleUpdate();
   },
