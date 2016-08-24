@@ -11,14 +11,17 @@ var res = {
     map1: "res/map/mapsketch2.tmx",
   },
   ui:{
-    blueBtn: "res/sprites/ui/blueBtn.png",
-    blueBtnS: "res/sprites/ui/blueBtnS.png",
-    cancelBtn: "res/sprites/ui/cancelBtn.png",
-    greenBtn: "res/sprites/ui/greenBtn.png",
-    greenBtnS: "res/sprites/ui/greenBtnS.png",
-    okBtn: "res/sprites/ui/okBtn.png",
-    redBtn: "res/sprites/ui/redBtn.png",
-    redBtnS: "res/sprites/ui/redBtnS.png",
+    ddBackground: "res/sprites/ui/ddBackground.jpg",
+    buttons: [
+      "blue",
+      "green",
+      "red",
+      "yellow",
+      "cancel",
+      "ok",
+      "minus",
+      "plus",
+    ],
   },
   parts:{
     heads: {
@@ -76,7 +79,25 @@ for (var map in res.maps){
 
 // Charge ui images
 for (var ui in res.ui){
-  g_resources.push(res.ui[ui]);
+  if (typeof res.ui[ui] === 'string') {
+    g_resources.push(res.ui[ui]);
+  }
+  if (ui == 'buttons') {
+    for (var btn in res.ui.buttons) {
+      res.ui[res.ui.buttons[btn] + "BtnL"] = "res/sprites/ui/largeButtons/" + res.ui.buttons[btn] + "BtnL.png";
+      res.ui[res.ui.buttons[btn] + "BtnDL"] = "res/sprites/ui/largeButtons/" + res.ui.buttons[btn] + "BtnDL.png";
+      res.ui[res.ui.buttons[btn] + "BtnM"] = "res/sprites/ui/mediumButtons/" + res.ui.buttons[btn] + "BtnM.png";
+      res.ui[res.ui.buttons[btn] + "BtnDM"] = "res/sprites/ui/mediumButtons/" + res.ui.buttons[btn] + "BtnDM.png";
+      res.ui[res.ui.buttons[btn] + "BtnS"] = "res/sprites/ui/smallButtons/" + res.ui.buttons[btn] + "BtnS.png";
+      res.ui[res.ui.buttons[btn] + "BtnDS"] = "res/sprites/ui/smallButtons/" + res.ui.buttons[btn] + "BtnDS.png";
+      g_resources.push(res.ui[res.ui.buttons[btn] + "BtnL"]);
+      g_resources.push(res.ui[res.ui.buttons[btn] + "BtnDL"]);
+      g_resources.push(res.ui[res.ui.buttons[btn] + "BtnM"]);
+      g_resources.push(res.ui[res.ui.buttons[btn] + "BtnDM"]);
+      g_resources.push(res.ui[res.ui.buttons[btn] + "BtnS"]);
+      g_resources.push(res.ui[res.ui.buttons[btn] + "BtnDS"]);
+    }
+  }
 }
 
 // Charge everything else

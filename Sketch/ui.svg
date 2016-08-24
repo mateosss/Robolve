@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="329.15839"
-     inkscape:cy="471.69704"
+     inkscape:zoom="0.24748737"
+     inkscape:cx="-29.064425"
+     inkscape:cy="528.74781"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -41,7 +41,8 @@
      fit-margin-top="0"
      fit-margin-left="0"
      fit-margin-right="0"
-     fit-margin-bottom="0" />
+     fit-margin-bottom="0"
+     showguides="false" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -50,7 +51,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -60,68 +61,6 @@
      id="layer1"
      transform="translate(45.428574,-257.5051)">
     <rect
-       style="fill:#00ff00;fill-opacity:0.21463414"
-       id="rect4198"
-       width="256"
-       height="256"
-       x="-512"
-       y="257.5051"
-       ry="0"
-       transform="scale(-1,1)"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       ry="49.23077"
-       y="257.5051"
-       x="256"
-       height="256"
-       width="256"
-       id="rect4188"
-       style="fill:#000000;fill-opacity:1" />
-    <rect
-       style="fill:#15d492;fill-opacity:1"
-       id="rect4190"
-       width="240"
-       height="240"
-       x="256"
-       y="273.5051"
-       ry="46.153847" />
-    <rect
-       ry="0"
-       y="257.5051"
-       x="564.57141"
-       height="256"
-       width="256"
-       id="rect4210"
-       style="fill:#00ff00;fill-opacity:0.21463414"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       style="fill:#000000;fill-opacity:1"
-       id="rect4200"
-       width="256"
-       height="256"
-       x="564.57141"
-       y="257.5051"
-       ry="49.23077" />
-    <rect
-       ry="46.153847"
-       y="273.5051"
-       x="564.57141"
-       height="240"
-       width="240"
-       id="rect4202"
-       style="fill:#ff605b;fill-opacity:1" />
-    <rect
-       transform="scale(-1,1)"
-       ry="0"
-       y="857.24554"
-       x="-210.57143"
-       height="256"
-       width="256"
-       id="rect4341"
-       style="fill:#00ff00;fill-opacity:0.21463414" />
-    <rect
        transform="scale(-1,1)"
        ry="0"
        y="257.5051"
@@ -129,130 +68,414 @@
        height="256"
        width="256"
        id="rect4254"
-       style="fill:#00ff00;fill-opacity:0.21463414"
+       style="fill:#0a586a;fill-opacity:1"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#15b2d6;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.70588237"
+       d="m -39.713724,257.5051 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.16571 2.54913,5.71484 5.71485,5.71484 l 244.570314,0 c 3.16571,0 5.71484,-2.54913 5.71484,-5.71484 l 0,-244.57031 c 0,-3.16572 -2.54913,-5.71485 -5.71484,-5.71485 l -244.570314,0 z m 14.33007,15 215.910164,0 c 2.79473,0 5.04492,2.25019 5.04492,5.04493 l 0,215.91015 c 0,2.79473 -2.25019,5.04492 -5.04492,5.04492 l -215.910164,0 c -2.79473,0 -5.04492,-2.25019 -5.04492,-5.04492 l 0,-215.91015 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       id="rect4256-3"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mateo/Escritorio/blueBtnL.png"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-ydpi="88.242043" />
     <rect
-       style="fill:#000000;fill-opacity:1"
-       id="rect4256"
-       width="256"
-       height="256"
-       x="-45.42857"
-       y="257.5051"
-       ry="49.23077" />
-    <rect
-       ry="46.153847"
-       y="273.5051"
-       x="-45.42857"
-       height="240"
-       width="240"
-       id="rect4258"
-       style="fill:#15b2d6;fill-opacity:1" />
-    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
        transform="scale(-1,1)"
        ry="0"
-       y="570.36224"
+       y="-655.67279"
        x="-512"
        height="256"
        width="256"
-       id="rect4260"
-       style="fill:#00ff00;fill-opacity:0.21463414"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       id="rect4182"
+       style="fill:#00ff00;fill-opacity:0.21463414" />
     <rect
        style="fill:#000000;fill-opacity:1"
-       id="rect4262"
+       id="rect4184"
        width="256"
        height="256"
        x="256"
-       y="570.36224"
+       y="-655.67279"
        ry="49.23077" />
     <rect
        ry="46.153847"
-       y="586.36224"
+       y="-639.67279"
        x="256"
        height="240"
        width="240"
-       id="rect4264"
-       style="fill:#0a6646;fill-opacity:1" />
+       id="rect4186"
+       style="fill:#15d492;fill-opacity:1" />
     <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
        style="fill:#00ff00;fill-opacity:0.21463414"
-       id="rect4266"
+       id="rect4189"
        width="256"
        height="256"
        x="564.57141"
-       y="570.36224"
-       ry="0"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       y="-655.67279"
+       ry="0" />
     <rect
        ry="49.23077"
-       y="570.36224"
+       y="-655.67279"
        x="564.57141"
        height="256"
        width="256"
-       id="rect4268"
+       id="rect4191"
        style="fill:#000000;fill-opacity:1" />
     <rect
-       style="fill:#e20700;fill-opacity:1"
-       id="rect4270"
+       style="fill:#ff605b;fill-opacity:1"
+       id="rect4193"
        width="240"
        height="240"
        x="564.57141"
-       y="586.36224"
+       y="-639.67279"
        ry="46.153847" />
     <rect
        style="fill:#00ff00;fill-opacity:0.21463414"
-       id="rect4272"
+       id="rect4195"
        width="256"
        height="256"
        x="-210.57143"
-       y="570.36224"
+       y="-55.932358"
        ry="0"
-       transform="scale(-1,1)"
+       transform="scale(-1,1)" />
+    <rect
+       inkscape:export-ydpi="90"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       style="fill:#00ff00;fill-opacity:0.21463414"
+       id="rect4197"
+       width="256"
+       height="256"
+       x="-210.57143"
+       y="-655.67279"
+       ry="0"
+       transform="scale(-1,1)" />
     <rect
        ry="49.23077"
-       y="570.36224"
+       y="-655.67279"
        x="-45.42857"
        height="256"
        width="256"
-       id="rect4274"
+       id="rect4199"
        style="fill:#000000;fill-opacity:1" />
     <rect
-       style="fill:#0a586a;fill-opacity:1"
-       id="rect4276"
+       style="fill:#15b2d6;fill-opacity:1"
+       id="rect4201"
        width="240"
        height="240"
        x="-45.42857"
-       y="586.36224"
+       y="-639.67279"
        ry="46.153847" />
     <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
        style="fill:#00ff00;fill-opacity:0.21463414"
-       id="rect4351"
+       id="rect4203"
        width="256"
        height="256"
        x="-512"
-       y="857.24554"
+       y="-342.81564"
        ry="0"
+       transform="scale(-1,1)" />
+    <rect
+       ry="49.23077"
+       y="-342.81564"
+       x="256"
+       height="256"
+       width="256"
+       id="rect4205"
+       style="fill:#000000;fill-opacity:1" />
+    <rect
+       style="fill:#0a6646;fill-opacity:1"
+       id="rect4207"
+       width="240"
+       height="240"
+       x="256"
+       y="-326.81564"
+       ry="46.153847" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       ry="0"
+       y="-342.81564"
+       x="564.57141"
+       height="256"
+       width="256"
+       id="rect4209"
+       style="fill:#00ff00;fill-opacity:0.21463414" />
+    <rect
+       style="fill:#000000;fill-opacity:1"
+       id="rect4211"
+       width="256"
+       height="256"
+       x="564.57141"
+       y="-342.81564"
+       ry="49.23077" />
+    <rect
+       ry="46.153847"
+       y="-326.81564"
+       x="564.57141"
+       height="240"
+       width="240"
+       id="rect4213"
+       style="fill:#e20700;fill-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
        transform="scale(-1,1)"
+       ry="0"
+       y="-342.81564"
+       x="-210.57143"
+       height="256"
+       width="256"
+       id="rect4215"
+       style="fill:#00ff00;fill-opacity:0.21463414" />
+    <rect
+       style="fill:#000000;fill-opacity:1"
+       id="rect4217"
+       width="256"
+       height="256"
+       x="-45.42857"
+       y="-342.81564"
+       ry="49.23077" />
+    <rect
+       ry="46.153847"
+       y="-326.81564"
+       x="-45.42857"
+       height="240"
+       width="240"
+       id="rect4219"
+       style="fill:#0a586a;fill-opacity:1" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       transform="scale(-1,1)"
+       ry="0"
+       y="-55.932358"
+       x="-512"
+       height="256"
+       width="256"
+       id="rect4221"
+       style="fill:#00ff00;fill-opacity:0.21463414" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       style="fill:#00ff00;fill-opacity:0.21463414"
+       id="rect4229"
+       width="256"
+       height="256"
+       x="564.57141"
+       y="-55.932358"
+       ry="0" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       style="fill:#15b2d6;fill-opacity:1"
+       id="rect4237"
+       width="256"
+       height="256"
+       x="-210.57143"
+       y="558.53058"
+       ry="0"
+       transform="scale(-1,1)" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4239"
+       d="m -39.713724,558.53056 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.16571 2.54913,5.71484 5.71485,5.71484 l 244.570314,0 c 3.16571,0 5.71484,-2.54913 5.71484,-5.71484 l 0,-244.57031 c 0,-3.16572 -2.54913,-5.71485 -5.71484,-5.71485 l -244.570314,0 z m 14.33007,15 215.910164,0 c 2.79473,0 5.04492,2.25019 5.04492,5.04493 l 0,215.91015 c 0,2.79473 -2.25019,5.04492 -5.04492,5.04492 l -215.910164,0 c -2.79473,0 -5.04492,-2.25019 -5.04492,-5.04492 l 0,-215.91015 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       style="fill:#000000;fill-opacity:1;stroke:#15b2d6;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.70588235"
+       inkscape:export-filename="/home/mateo/Escritorio/blueBtnDL.png"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-ydpi="88.242043" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       style="fill:#084d2d;fill-opacity:1"
+       id="rect4265"
+       width="256"
+       height="256"
+       x="-519.6781"
+       y="257.5051"
+       ry="0"
+       transform="scale(-1,1)" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4267"
+       d="m 269.39295,257.5051 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.16571 2.54913,5.71484 5.71485,5.71484 l 244.57032,0 c 3.16571,0 5.71484,-2.54913 5.71484,-5.71484 l 0,-244.57031 c 0,-3.16572 -2.54913,-5.71485 -5.71484,-5.71485 l -244.57032,0 z m 14.33007,15 215.91017,0 c 2.79473,0 5.04492,2.25019 5.04492,5.04493 l 0,215.91015 c 0,2.79473 -2.25019,5.04492 -5.04492,5.04492 l -215.91017,0 c -2.79473,0 -5.04492,-2.25019 -5.04492,-5.04492 l 0,-215.91015 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       style="fill:#000000;fill-opacity:1;stroke:#15d492;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/mateo/Escritorio/greenBtnL.png"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-ydpi="88.242043" />
+    <rect
+       transform="scale(-1,1)"
+       ry="0"
+       y="558.53058"
+       x="-519.6781"
+       height="256"
+       width="256"
+       id="rect4269"
+       style="fill:#15d492;fill-opacity:1"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#15d492;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 269.39295,558.53056 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.16571 2.54913,5.71484 5.71485,5.71484 l 244.57032,0 c 3.16571,0 5.71484,-2.54913 5.71484,-5.71484 l 0,-244.57031 c 0,-3.16572 -2.54913,-5.71485 -5.71484,-5.71485 l -244.57032,0 z m 14.33007,15 215.91017,0 c 2.79473,0 5.04492,2.25019 5.04492,5.04493 l 0,215.91015 c 0,2.79473 -2.25019,5.04492 -5.04492,5.04492 l -215.91017,0 c -2.79473,0 -5.04492,-2.25019 -5.04492,-5.04492 l 0,-215.91015 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       id="path4271"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mateo/Escritorio/greenBtnDL.png"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-ydpi="88.242043" />
+    <rect
+       transform="scale(-1,1)"
+       ry="0"
+       y="257.5051"
+       x="-820.70355"
+       height="256"
+       width="256"
+       id="rect4273"
+       style="fill:#e20700;fill-opacity:1"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ff605b;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 570.41841,257.5051 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.16571 2.54913,5.71484 5.71485,5.71484 l 244.57032,0 c 3.16571,0 5.71484,-2.54913 5.71484,-5.71484 l 0,-244.57031 c 0,-3.16572 -2.54913,-5.71485 -5.71484,-5.71485 l -244.57032,0 z m 14.33007,15 215.91017,0 c 2.79473,0 5.04492,2.25019 5.04492,5.04493 l 0,215.91015 c 0,2.79473 -2.25019,5.04492 -5.04492,5.04492 l -215.91017,0 c -2.79473,0 -5.04492,-2.25019 -5.04492,-5.04492 l 0,-215.91015 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       id="path4275"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mateo/Escritorio/redBtnL.png"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-ydpi="88.242043" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       style="fill:#ff605b;fill-opacity:1"
+       id="rect4277"
+       width="256"
+       height="256"
+       x="-820.70355"
+       y="558.53058"
+       ry="0"
+       transform="scale(-1,1)" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4279"
+       d="m 570.41841,558.53056 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.16571 2.54913,5.71484 5.71485,5.71484 l 244.57032,0 c 3.16571,0 5.71484,-2.54913 5.71484,-5.71484 l 0,-244.57031 c 0,-3.16572 -2.54913,-5.71485 -5.71484,-5.71485 l -244.57032,0 z m 14.33007,15 215.91017,0 c 2.79473,0 5.04492,2.25019 5.04492,5.04493 l 0,215.91015 c 0,2.79473 -2.25019,5.04492 -5.04492,5.04492 l -215.91017,0 c -2.79473,0 -5.04492,-2.25019 -5.04492,-5.04492 l 0,-215.91015 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       style="fill:#000000;fill-opacity:1;stroke:#ff605b;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/mateo/Escritorio/redBtnDL.png"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-ydpi="88.242043" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       style="fill:#cdaf00;fill-opacity:1"
+       id="rect4281"
+       width="256"
+       height="256"
+       x="-1115.6681"
+       y="257.5051"
+       ry="0"
+       transform="scale(-1,1)" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4283"
+       d="m 865.38295,257.5051 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.16571 2.54913,5.71484 5.71485,5.71484 l 244.57035,0 c 3.1657,0 5.7148,-2.54913 5.7148,-5.71484 l 0,-244.57031 c 0,-3.16572 -2.5491,-5.71485 -5.7148,-5.71485 l -244.57035,0 z m 14.33007,15 215.91018,0 c 2.7947,0 5.0449,2.25019 5.0449,5.04493 l 0,215.91015 c 0,2.79473 -2.2502,5.04492 -5.0449,5.04492 l -215.91018,0 c -2.79473,0 -5.04492,-2.25019 -5.04492,-5.04492 l 0,-215.91015 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       style="fill:#000000;fill-opacity:1;stroke:#ffe54b;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/mateo/Escritorio/yellowBtnL.png"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-ydpi="88.242043" />
+    <rect
+       transform="scale(-1,1)"
+       ry="0"
+       y="558.53058"
+       x="-1115.6681"
+       height="256"
+       width="256"
+       id="rect4285"
+       style="fill:#ffe54b;fill-opacity:1"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ffe54b;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 865.38295,558.53056 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.16571 2.54913,5.71484 5.71485,5.71484 l 244.57035,0 c 3.1657,0 5.7148,-2.54913 5.7148,-5.71484 l 0,-244.57031 c 0,-3.16572 -2.5491,-5.71485 -5.7148,-5.71485 l -244.57035,0 z m 14.33007,15 215.91018,0 c 2.7947,0 5.0449,2.25019 5.0449,5.04493 l 0,215.91015 c 0,2.79473 -2.2502,5.04492 -5.0449,5.04492 l -215.91018,0 c -2.79473,0 -5.04492,-2.25019 -5.04492,-5.04492 l 0,-215.91015 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       id="path4287"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mateo/Escritorio/yellowBtnDL.png"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-ydpi="88.242043" />
+    <rect
+       transform="scale(-1,1)"
+       ry="0"
+       y="257.5051"
+       x="128.89333"
+       height="256"
+       width="256"
+       id="rect4289"
+       style="fill:#084d2d;fill-opacity:1"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#15d492;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -379.17848,257.5051 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.16571 2.54913,5.71484 5.71485,5.71484 l 244.57032,0 c 3.16571,0 5.71484,-2.54913 5.71484,-5.71484 l 0,-244.57031 c 0,-3.16572 -2.54913,-5.71485 -5.71484,-5.71485 l -244.57032,0 z m 14.33007,15 215.91017,0 c 2.79473,0 5.04492,2.25019 5.04492,5.04493 l 0,215.91015 c 0,2.79473 -2.25019,5.04492 -5.04492,5.04492 l -215.91017,0 c -2.79473,0 -5.04492,-2.25019 -5.04492,-5.04492 l 0,-215.91015 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       id="path4291"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mateo/Escritorio/okBtnL.png"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-ydpi="88.242043" />
     <g
-       transform="translate(-42.682765,4.981184)"
-       id="g4353">
+       id="g4223"
+       transform="translate(-675.57609,-602.75923)"
+       style="fill:#8df2c3;fill-opacity:1">
+      <path
+         sodipodi:nodetypes="sssssss"
+         inkscape:connector-curvature="0"
+         id="path4225"
+         d="m 931.84873,439.15134 82.81537,5 c 11.3038,0.68247 20.4412,9.11677 20.4412,20.4412 0,11.32442 -9.1374,21.12367 -20.4412,20.4412 l -82.81537,-5 c -11.30385,-0.68247 -20.4412,-9.11678 -20.4412,-20.4412 0,-11.32443 9.13735,-21.12367 20.4412,-20.4412 z"
+         style="fill:#8df2c3;fill-opacity:1"
+         transform="matrix(0.70710678,0.70710678,-0.70710678,0.70710678,0,0)" />
+      <rect
+         ry="20.4412"
+         y="-1034.1527"
+         x="281.57434"
+         height="40.882401"
+         width="204.41202"
+         id="rect4227"
+         style="fill:#8df2c3;fill-opacity:1"
+         transform="matrix(-0.70710678,0.70710678,-0.70710678,-0.70710678,0,0)" />
+    </g>
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       style="fill:#15d492;fill-opacity:1"
+       id="rect4293"
+       width="256"
+       height="256"
+       x="128.89333"
+       y="558.53058"
+       ry="0"
+       transform="scale(-1,1)" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4295"
+       d="m -379.17848,558.53056 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.16571 2.54913,5.71484 5.71485,5.71484 l 244.57032,0 c 3.16571,0 5.71484,-2.54913 5.71484,-5.71484 l 0,-244.57031 c 0,-3.16572 -2.54913,-5.71485 -5.71484,-5.71485 l -244.57032,0 z m 14.33007,15 215.91017,0 c 2.79473,0 5.04492,2.25019 5.04492,5.04493 l 0,215.91015 c 0,2.79473 -2.25019,5.04492 -5.04492,5.04492 l -215.91017,0 c -2.79473,0 -5.04492,-2.25019 -5.04492,-5.04492 l 0,-215.91015 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       style="fill:#000000;fill-opacity:1;stroke:#15d492;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/mateo/Escritorio/okBtnDL.png"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-ydpi="88.242043" />
+    <g
+       style="fill:#084a2c;fill-opacity:1"
+       transform="translate(-675.57609,-301.73377)"
+       id="g4303">
       <path
          transform="matrix(0.70710678,0.70710678,-0.70710678,0.70710678,0,0)"
-         style="fill:#000000;fill-opacity:1"
+         style="fill:#084a2c;fill-opacity:1"
          d="m 931.84873,439.15134 82.81537,5 c 11.3038,0.68247 20.4412,9.11677 20.4412,20.4412 0,11.32442 -9.1374,21.12367 -20.4412,20.4412 l -82.81537,-5 c -11.30385,-0.68247 -20.4412,-9.11678 -20.4412,-20.4412 0,-11.32443 9.13735,-21.12367 20.4412,-20.4412 z"
-         id="path4355"
+         id="path4305"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="sssssss" />
       <rect
          transform="matrix(-0.70710678,0.70710678,-0.70710678,-0.70710678,0,0)"
-         style="fill:#000000;fill-opacity:1"
-         id="rect4357"
+         style="fill:#084a2c;fill-opacity:1"
+         id="rect4307"
          width="204.41202"
          height="40.882401"
          x="281.57434"
@@ -260,22 +483,72 @@
          ry="20.4412" />
     </g>
     <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       style="fill:#e20700;fill-opacity:1"
+       id="rect4309"
+       width="256"
+       height="256"
+       x="484.41354"
+       y="257.5051"
        ry="0"
-       y="857.24554"
-       x="564.57141"
+       transform="scale(-1,1)" />
+    <path
+       inkscape:connector-curvature="0"
+       id="path4311"
+       d="m -734.69868,257.5051 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.16571 2.54913,5.71484 5.71485,5.71484 l 244.57032,0 c 3.16571,0 5.71484,-2.54913 5.71484,-5.71484 l 0,-244.57031 c 0,-3.16572 -2.54913,-5.71485 -5.71484,-5.71485 l -244.57032,0 z m 14.33007,15 215.91017,0 c 2.79473,0 5.04492,2.25019 5.04492,5.04493 l 0,215.91015 c 0,2.79473 -2.25019,5.04492 -5.04492,5.04492 l -215.91017,0 c -2.79473,0 -5.04492,-2.25019 -5.04492,-5.04492 l 0,-215.91015 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       style="fill:#000000;fill-opacity:1;stroke:#ff605b;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="/home/mateo/Escritorio/cancelBtnL.png"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-ydpi="88.242043" />
+    <g
+       id="g4231"
+       transform="matrix(1.0117878,1.0117878,-1.0117878,1.0117878,-484.99542,-369.22145)"
+       style="fill:#ffd1cf;fill-opacity:1">
+      <rect
+         ry="14.285714"
+         y="421.64792"
+         x="238.57143"
+         height="28.571428"
+         width="142.85715"
+         id="rect4233"
+         style="fill:#ffd1cf;fill-opacity:1" />
+      <rect
+         transform="matrix(0,1,-1,0,0,0)"
+         style="fill:#ffd1cf;fill-opacity:1"
+         id="rect4235"
+         width="142.85715"
+         height="28.571428"
+         x="364.50507"
+         y="-324.28571"
+         ry="14.285714" />
+    </g>
+    <rect
+       transform="scale(-1,1)"
+       ry="0"
+       y="558.53058"
+       x="484.41354"
        height="256"
        width="256"
-       id="rect4359"
-       style="fill:#00ff00;fill-opacity:0.21463414"
+       id="rect4313"
+       style="fill:#ff605b;fill-opacity:1"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:#ff605b;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -734.69868,558.53056 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.16571 2.54913,5.71484 5.71485,5.71484 l 244.57032,0 c 3.16571,0 5.71484,-2.54913 5.71484,-5.71484 l 0,-244.57031 c 0,-3.16572 -2.54913,-5.71485 -5.71484,-5.71485 l -244.57032,0 z m 14.33007,15 215.91017,0 c 2.79473,0 5.04492,2.25019 5.04492,5.04493 l 0,215.91015 c 0,2.79473 -2.25019,5.04492 -5.04492,5.04492 l -215.91017,0 c -2.79473,0 -5.04492,-2.25019 -5.04492,-5.04492 l 0,-215.91015 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       id="path4315"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="/home/mateo/Escritorio/cancelBtnDL.png"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-ydpi="88.242043" />
     <g
-       style="fill:#000000;fill-opacity:1"
-       transform="matrix(1.0117878,1.0117878,-1.0117878,1.0117878,811.98953,238.51902)"
-       id="g4361">
+       style="fill:#320200;fill-opacity:1"
+       transform="matrix(1.0117878,1.0117878,-1.0117878,1.0117878,-484.9954,-68.195988)"
+       id="g4317">
       <rect
-         style="fill:#000000;fill-opacity:1"
-         id="rect4363"
+         style="fill:#320200;fill-opacity:1"
+         id="rect4319"
          width="142.85715"
          height="28.571428"
          x="238.57143"
@@ -287,9 +560,157 @@
          x="364.50507"
          height="28.571428"
          width="142.85715"
-         id="rect4365"
-         style="fill:#000000;fill-opacity:1"
+         id="rect4321"
+         style="fill:#320200;fill-opacity:1"
          transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       style="fill:#084d2d;fill-opacity:1"
+       id="rect4190"
+       width="256"
+       height="256"
+       x="128.89333"
+       y="866.07654"
+       ry="0"
+       transform="scale(-1,1)" />
+    <path
+       inkscape:export-ydpi="88.242043"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-filename="/home/mateo/Escritorio/okBtnL.png"
+       inkscape:connector-curvature="0"
+       id="path4192"
+       d="m -379.17848,866.07654 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57031 c 0,3.1657 2.54913,5.7148 5.71485,5.7148 l 244.57032,0 c 3.16571,0 5.71484,-2.5491 5.71484,-5.7148 l 0,-244.57031 c 0,-3.16572 -2.54913,-5.71485 -5.71484,-5.71485 l -244.57032,0 z m 14.33007,15 215.91017,0 c 2.79473,0 5.04492,2.25019 5.04492,5.04493 l 0,215.91013 c 0,2.7947 -2.25019,5.0449 -5.04492,5.0449 l -215.91017,0 c -2.79473,0 -5.04492,-2.2502 -5.04492,-5.0449 l 0,-215.91013 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       style="fill:#000000;fill-opacity:1;stroke:#15d492;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       transform="scale(-1,1)"
+       ry="0"
+       y="1167.1021"
+       x="128.89333"
+       height="256"
+       width="256"
+       id="rect4200"
+       style="fill:#15d492;fill-opacity:1"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:export-ydpi="88.242043"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-filename="/home/mateo/Escritorio/okBtnDL.png"
+       style="fill:#000000;fill-opacity:1;stroke:#15d492;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -379.17848,1167.102 c -3.16572,0 -5.71485,2.5491 -5.71485,5.7148 l 0,244.5704 c 0,3.1657 2.54913,5.7148 5.71485,5.7148 l 244.57032,0 c 3.16571,0 5.71484,-2.5491 5.71484,-5.7148 l 0,-244.5704 c 0,-3.1657 -2.54913,-5.7148 -5.71484,-5.7148 l -244.57032,0 z m 14.33007,15 215.91017,0 c 2.79473,0 5.04492,2.2502 5.04492,5.0449 l 0,215.9102 c 0,2.7947 -2.25019,5.0449 -5.04492,5.0449 l -215.91017,0 c -2.79473,0 -5.04492,-2.2502 -5.04492,-5.0449 l 0,-215.9102 c 0,-2.7947 2.25019,-5.0449 5.04492,-5.0449 z"
+       id="path4202"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g4216"
+       transform="matrix(0,1.3177469,-1.3177469,0,317.55688,585.575)"
+       style="fill:#8df2c3;fill-opacity:1">
+      <rect
+         ry="14.285714"
+         y="421.64792"
+         x="238.57143"
+         height="28.571428"
+         width="142.85715"
+         id="rect4218"
+         style="fill:#8df2c3;fill-opacity:1" />
+      <rect
+         transform="matrix(0,1,-1,0,0,0)"
+         style="fill:#8df2c3;fill-opacity:1"
+         id="rect4220"
+         width="142.85715"
+         height="28.571428"
+         x="364.50507"
+         y="-324.28571"
+         ry="14.285714" />
+    </g>
+    <g
+       style="fill:#084a2c;fill-opacity:1"
+       transform="matrix(0,1.3177469,-1.3177469,0,317.55688,886.60046)"
+       id="g4222">
+      <rect
+         style="fill:#084a2c;fill-opacity:1"
+         id="rect4224"
+         width="142.85715"
+         height="28.571428"
+         x="238.57143"
+         y="421.64792"
+         ry="14.285714" />
+      <rect
+         ry="14.285714"
+         y="-324.28571"
+         x="364.50507"
+         height="28.571428"
+         width="142.85715"
+         id="rect4226"
+         style="fill:#084a2c;fill-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <rect
+       transform="scale(-1,1)"
+       ry="0"
+       y="866.07654"
+       x="484.41354"
+       height="256"
+       width="256"
+       id="rect4248"
+       style="fill:#e20700;fill-opacity:1"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:export-ydpi="88.242043"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-filename="/home/mateo/Escritorio/cancelBtnL.png"
+       style="fill:#000000;fill-opacity:1;stroke:#ff605b;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -734.69868,866.07651 c -3.16572,0 -5.71485,2.54913 -5.71485,5.71485 l 0,244.57024 c 0,3.1657 2.54913,5.7149 5.71485,5.7149 l 244.57032,0 c 3.16571,0 5.71484,-2.5492 5.71484,-5.7149 l 0,-244.57024 c 0,-3.16572 -2.54913,-5.71485 -5.71484,-5.71485 l -244.57032,0 z m 14.33007,15 215.91017,0 c 2.79473,0 5.04492,2.25019 5.04492,5.04493 l 0,215.91016 c 0,2.7947 -2.25019,5.0449 -5.04492,5.0449 l -215.91017,0 c -2.79473,0 -5.04492,-2.2502 -5.04492,-5.0449 l 0,-215.91016 c 0,-2.79474 2.25019,-5.04493 5.04492,-5.04493 z"
+       id="path4250"
+       inkscape:connector-curvature="0" />
+    <rect
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       style="fill:#ff605b;fill-opacity:1"
+       id="rect4259"
+       width="256"
+       height="256"
+       x="484.41354"
+       y="1167.1021"
+       ry="0"
+       transform="scale(-1,1)" />
+    <path
+       inkscape:export-ydpi="88.242043"
+       inkscape:export-xdpi="88.242043"
+       inkscape:export-filename="/home/mateo/Escritorio/cancelBtnDL.png"
+       inkscape:connector-curvature="0"
+       id="path4261"
+       d="m -734.69868,1167.102 c -3.16572,0 -5.71485,2.5492 -5.71485,5.7149 l 0,244.5703 c 0,3.1657 2.54913,5.7148 5.71485,5.7148 l 244.57032,0 c 3.16571,0 5.71484,-2.5491 5.71484,-5.7148 l 0,-244.5703 c 0,-3.1657 -2.54913,-5.7149 -5.71484,-5.7149 l -244.57032,0 z m 14.33007,15 215.91017,0 c 2.79473,0 5.04492,2.2502 5.04492,5.045 l 0,215.9101 c 0,2.7947 -2.25019,5.0449 -5.04492,5.0449 l -215.91017,0 c -2.79473,0 -5.04492,-2.2502 -5.04492,-5.0449 l 0,-215.9101 c 0,-2.7948 2.25019,-5.045 5.04492,-5.045 z"
+       style="fill:#000000;fill-opacity:1;stroke:#ff605b;stroke-width:5.0999999;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <g
+       style="fill:#ffd1cf;fill-opacity:1"
+       transform="matrix(0,1.3177469,-1.1314727,0,-119.1665,585.57497)"
+       id="g4270">
+      <rect
+         ry="14.285714"
+         y="-324.28571"
+         x="364.50507"
+         height="28.571428"
+         width="142.85715"
+         id="rect4274"
+         style="fill:#ffd1cf;fill-opacity:1"
+         transform="matrix(0,1,-1,0,0,0)" />
+    </g>
+    <g
+       id="g4276"
+       transform="matrix(0,1.3177469,-1.1314727,0,-119.1665,886.60052)"
+       style="fill:#320200;fill-opacity:1">
+      <rect
+         transform="matrix(0,1,-1,0,0,0)"
+         style="fill:#320200;fill-opacity:1"
+         id="rect4278"
+         width="142.85715"
+         height="28.571428"
+         x="364.50507"
+         y="-324.28571"
+         ry="14.285714" />
     </g>
   </g>
 </svg>

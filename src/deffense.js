@@ -50,12 +50,15 @@ var Deffense = cc.Sprite.extend({
     this.debug();
 
     this.selectDeffense = function(location) {
+      // console.log(JSON.stringify(this));
       var deffense = this._node;
-      if (cc.rectContainsPoint(deffense.getBoundingBoxToWorld(),
-      cc.p(location._x, location._y))){
-        var increase = new cc.ScaleBy(0.1, 1.2);
-        var decrease = new cc.ScaleBy(0.1, 1 / 1.2);
-        deffense.runAction(new cc.Sequence(increase, decrease));
+      if (deffense.getNumberOfRunningActions() === 0) {
+        if (cc.rectContainsPoint(deffense.getBoundingBoxToWorld(),
+        cc.p(location._x, location._y))){
+          var increase = new cc.ScaleBy(0.1, 1.2);
+          var decrease = new cc.ScaleBy(0.1, 1 / 1.2);
+          deffense.runAction(new cc.Sequence(increase, decrease));
+        }
       }
       return true;
     };

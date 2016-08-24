@@ -59,6 +59,7 @@ var Debugger = cc.Class.extend({
       circle.drawDot(pos, radius, color);
       circle.setName(debugName);
       object.addChild(circle, -1);
+      return circle;
     }
   },
   debugAnchor: function(object, options){//TODO Unir esta funcion con debugPoint
@@ -74,6 +75,7 @@ var Debugger = cc.Class.extend({
       circle.drawDot(pos, radius, color);
       circle.setName(debugName);
       object.addChild(circle, 999);
+      return circle;
     }
   },
   debugPoint: function(object, options){
@@ -89,6 +91,7 @@ var Debugger = cc.Class.extend({
       circle.drawDot(pos, radius, color);
       circle.setName(debugName);
       object.addChild(circle, 1000);//TODO hacer nivel z opcional tambien
+      return circle;
     }
   },
   debugRect: function(object, options){
@@ -109,6 +112,7 @@ var Debugger = cc.Class.extend({
       square.drawRect(origin, destination, fillColor, lineWidth, lineColor);
       square.setName(debugName);
       object.addChild(square, 100);//TODO poner niveles z diferentes
+      return square;
     }
   },
   debugPoly: function(object, options){
@@ -130,6 +134,7 @@ var Debugger = cc.Class.extend({
       polygon.drawPoly(verts, fillColor, lineWidth, lineColor);
       polygon.setName(debugName);
       object.addChild(polygon,200);
+      return polygon;
     }
   },
   debugTile: function(object, options){
@@ -144,6 +149,7 @@ var Debugger = cc.Class.extend({
       ];
       options.verts = verts;
     }
-    this.debugPoly(object, options);
+    return this.debugPoly(object, options);
+
   },
 });

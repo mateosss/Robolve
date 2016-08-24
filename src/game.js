@@ -4,7 +4,7 @@ var GameLevel = cc.Scene.extend({
   onEnter:function () {
     this._super();
     var level = new Level();
-    var hud = new Hud();
+    var hud = new Hud(level);
     this.addChild(level);
     this.addChild(hud);
   }
@@ -90,7 +90,7 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     // this.deffenses.push(customDeffense);
 
     // Add Deffense
-    range = 0;//0,1,2
+    range = 1;//0,1,2
     element = "electric";//water,fire,electric
     terrain = 0;//0,1
     damage = 2;//0,1,2
@@ -388,7 +388,7 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     }
 
     if (this.lastWave && this.robots.length === 0) {
-      console.info("YOU WIN");
+      // TODO console.info("YOU WIN");
     }
   },
 });
