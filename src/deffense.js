@@ -51,7 +51,6 @@ var Deffense = cc.Sprite.extend({
     this.setAnchorPoint(0.5, 0.1);
 
     this.debug();
-
     easyTouchEnded(this, function(deffense) {
       if (deffense.getNumberOfRunningActions() === 0) {
         var increase = new cc.ScaleBy(0.1, 1.2);
@@ -112,6 +111,10 @@ var Deffense = cc.Sprite.extend({
     if (target) {
       target.hurt(this);
     }
+  },
+  die: function() {
+    // Call the level kill function to kill this deffense
+    this.level.killDeffense(this);
   },
   debug: function(){
     // Creates a debugger for verbose information directly on the canvas

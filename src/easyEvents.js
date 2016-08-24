@@ -1,9 +1,8 @@
 var easyTouchEnded = function(pressObj, exec, invertedArea) {
   invertedArea = invertedArea || false;
-  var reaction = function (location){
-    var pressObj = this._node;
-    var touchInArea = cc.rectContainsPoint(pressObj.getBoundingBoxToWorld(),
-    cc.p(location._x, location._y));
+  var reaction = function (event){
+    var location = event.getLocation();
+    var touchInArea = cc.rectContainsPoint(pressObj.getBoundingBoxToWorld(), cc.p(location.x, location.y));
     if (touchInArea == invertedArea){
     } else {
       exec(pressObj);

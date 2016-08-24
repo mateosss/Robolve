@@ -119,15 +119,11 @@ Mi 24
   - 2 hs
   - 0:30 hs
   - 1:30 hs
-
+  - 19:25
 Que hacer para la entrega del fin de mes
-- status torreta
-  - #nodo
-  - #boton mejorar
-    - #que funcione
-  - boton destruir
-    - que funcione
-  - #Imagen de fondo
+- #status torreta
+  - Que el DD funcione cada vez que toco una torre, genere todas las columnas
+  - scrollview remover scrollbar de version android
 - Seleccion de torreta
   - torre fuego (las imagenes con la descripcion y el precio por ahora)
   - torre rayo

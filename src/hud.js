@@ -57,7 +57,7 @@ var Hud = cc.Layer.extend({
       var delay = new cc.DelayTime(3);
       var disappear = new cc.FadeOut(0.2);
       var actArray = [changeText, appear, delay, disappear];
-      this.runAction(new cc.Sequence(actArray), this, false);
+      this.runAction(new cc.Sequence(actArray));
     };
     this.addChild(this.it, 101);
 
@@ -84,6 +84,7 @@ var Hud = cc.Layer.extend({
     this.dd.dismiss = function() {
       if (this.inScreen) {
         this.runAction(new cc.MoveBy(0.1, cc.p(-s.width,0)));
+        this.getParent().ddDestroySure = false;
         this.inScreen = false;
       }
     };
@@ -92,11 +93,6 @@ var Hud = cc.Layer.extend({
     }, true);
     this.addChild(this.dd);
 
-    // pElement
-    // pRange
-    // pTerrain
-    // pDamage
-    // pAttackSpeed
     this.ddDeffense = this.level.deffenses[0]; // TODO que no sea una defensa estatica
     this.ddRange = new PropertySelector(this.dd, this.ddDeffense, 'element');
     this.dd.pushBackCustomItem(this.ddRange);
@@ -112,15 +108,13 @@ var Hud = cc.Layer.extend({
     this.ddDestroy.pressedActionEnabled = true;
     this.dd.pushBackCustomItem(this.ddDestroy);
     easyTouchEnded(this.ddDestroy, function(btn){
-      var hud = btn._parent._parent._parent;
+      var hud = btn.getParent().getParent().getParent();
       if (hud.ddDestroySure) {
-        var sink = new cc.MoveBy(0.2, cc.p(800, 400));
-        //TODO NOW HACER METODO KILL en level como el de robot pero para torretas y usarlo aca
-        var message = new cc.CallFunc(function(deffense, hud){
-          console.log(hud);
-          hud.it.message("Turret distroyed");
-        }, this, hud);
-        var actArray = [sink, message];
+        var burn = new cc.TintTo(0.2, 0, 0, 0);
+        var disappear = new cc.FadeOut(0.2);
+        var message = new cc.CallFunc(function(deffense){hud.it.message("Turret destroyed");}, this, hud);
+        var destroy = new cc.CallFunc(function(deffense){deffense.die();}, this);
+        var actArray = [burn, disappear, message, destroy];
         hud.ddDeffense.runAction(new cc.Sequence(actArray));
         hud.ddDestroySure = false;
       } else {
@@ -159,13 +153,6 @@ var PropertySelector = ccui.Layout.extend({
     background.setPosition(this.width / 2 - background.width / 2, 8);
     this.addChild(background);
 
-    //Que el boton mas y menos reaccionen, se fijen si se puede y tiene oro suficiente subir, o de lo contrario que no, y que
-    // saquen el oro ese,
-    // que el DD se vaya cuando toco un click afuera del DD
-    // Que el DD funcione cada vez que toco una torre, genere todas las columnas
-    // on todas las propiedades de la defensa correspondiente
-    // scrollview remove scrollbar
-
     var pName = this.property[0].toUpperCase() + this.property.slice(1);
     var pNameLabel = new ccui.Text(pName, "Arial", background.width / 3);
     pNameLabel.setAnchorPoint(0, 0);
@@ -184,8 +171,8 @@ var PropertySelector = ccui.Layout.extend({
     downBtn.pressedActionEnabled = true;
     downBtn.setContentSize(cc.size(this.width, this.width));
     easyTouchEnded(downBtn, function(downBtn){
-      var d = upBtn._parent.deffense; //Deffense
-      var p = upBtn._parent.property;  //Property name
+      var d = upBtn.getParent().deffense; //Deffense
+      var p = upBtn.getParent().property;  //Property name
       var pProp = d['p' + p[0].toUpperCase() + p.slice(1)]; // possible stats(properties)
       var prop = d[p];
       var sProp = pProp[prop];
@@ -199,7 +186,7 @@ var PropertySelector = ccui.Layout.extend({
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) - 1];
           d[p] = parseInt(improvement) || improvement;
           d.level.base.money -= cost;
-          upBtn._parent.refresh();
+          upBtn.getParent().refresh();
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
         } else {
           d.level.hud.it.message("You don't have 50 bucks");
@@ -207,7 +194,6 @@ var PropertySelector = ccui.Layout.extend({
       } else {
         d.level.hud.it.message("You only can go up for $50");
       }
-      console.log("BotonMenos");
     });
     this.addChild(downBtn);
 
@@ -217,8 +203,8 @@ var PropertySelector = ccui.Layout.extend({
     upBtn.pressedActionEnabled = true;
     upBtn.setContentSize(cc.size(this.width, this.width));
     easyTouchEnded(upBtn, function(upBtn){
-      var d = upBtn._parent.deffense; //Deffense
-      var p = upBtn._parent.property;  //Property name
+      var d = upBtn.getParent().deffense; //Deffense
+      var p = upBtn.getParent().property;  //Property name
       var pProp = d['p' + p[0].toUpperCase() + p.slice(1)]; // possible stats(properties)
       var prop = d[p];
       var sProp = pProp[prop];
@@ -232,7 +218,7 @@ var PropertySelector = ccui.Layout.extend({
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) + 1];
           d[p] = parseInt(improvement) || improvement;
           d.level.base.money -= cost;
-          upBtn._parent.refresh();
+          upBtn.getParent().refresh();
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
         } else {
           d.level.hud.it.message("You don't have 50 bucks");

@@ -283,8 +283,6 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
         dnaWaveQuery = dnaWaveQuery.concat(toAdd);
         var auxWaveQuery = [];
         for (var j = 0; j < dnaWaveQuery.length; j++) {
-          // console.log("DNA");
-          // console.log(dnaWaveQuery[j][0]);
           dnaRobot = new Robot(this, dnaWaveQuery[j]);
           dnaRobot.retain();
           auxWaveQuery.push(dnaRobot);
@@ -368,6 +366,18 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     }
     if (deletion) {
       debug.debugText(this, {text: "Robots Count: " + this.robots.length});
+    }
+    return deletion;
+  },
+  killDeffense: function(deffense) {
+    // Kills a deffense
+    var deletion = false;
+    var i = this.deffenses.indexOf(deffense);
+    if (i != -1) {
+      this.deffenses[i].removeAllChildren();
+      this.deffenses[i].removeFromParent();
+      this.deffenses.splice(i, 1);
+      deletion = true;
     }
     return deletion;
   },
