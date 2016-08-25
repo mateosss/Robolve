@@ -77,19 +77,19 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     // customRobot.retain();
     // this.addRobot(customRobot);
 
-    //deffense 0,0 walk
-    // range = 1;//0,1,2
-    // element = "electric";//water,fire,electric
-    // terrain = 0;//0,1
-    // damage = 2;//0,1,2
-    // attackSpeed = 2;//0,1,2
-    // var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    // mapLayer = this.map.getLayer("Background");
-    // p = mapLayer.getPositionAt(cc.p(0,0));
-    // tileSize = this.map.getTileSize();
-    // p.y += tileSize.height / 2;
-    // this.map.spawn(customDeffense, p, 5);
-    // this.deffenses.push(customDeffense);
+    // deffense 0,0 walk
+    range = 0;//0,1,2
+    element = "fire";//water,fire,electric
+    terrain = 1;//0,1
+    damage = 0;//0,1,2
+    attackSpeed = 0;//0,1,2
+    var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    mapLayer = this.map.getLayer("Background");
+    p = mapLayer.getPositionAt(cc.p(0,0));
+    tileSize = this.map.getTileSize();
+    p.y += tileSize.height / 2;
+    this.map.spawn(customDeffense, p, 5);
+    this.deffenses.push(customDeffense);
 
     // Add Deffense
     range = 1;//0,1,2

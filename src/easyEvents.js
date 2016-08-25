@@ -11,8 +11,8 @@ var easyTouchEnded = function(pressObj, exec, invertedArea) {
   };
   if ('touches' in cc.sys.capabilities) {
     cc.eventManager.addListener({
-      event: cc.EventListener.TOUCH_ALL_AT_ONCE,
-      onTouchBegan: function(touch, event) {},
+      event: cc.EventListener.TOUCH_ONE_BY_ONE,
+      onTouchBegan: function(touch, event) {return true;},
       onTouchEnded: reaction,
     }, pressObj);
   } else if ('mouse' in cc.sys.capabilities) {

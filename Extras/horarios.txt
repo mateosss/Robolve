@@ -122,8 +122,7 @@ Mi 24
   - 19:25
 Que hacer para la entrega del fin de mes
 - #status torreta
-  - Que el DD funcione cada vez que toco una torre, genere todas las columnas
-  - scrollview remover scrollbar de version android
+  - BUG: Solo en android, pasa que la ultima torre no se puede eliminar: Deja de ejcutarse el evento del boton destruir
 - Seleccion de torreta
   - torre fuego (las imagenes con la descripcion y el precio por ahora)
   - torre rayo

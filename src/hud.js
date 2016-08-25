@@ -70,6 +70,7 @@ var Hud = cc.Layer.extend({
     this.dd.setBounceEnabled(true);
     this.dd.setContentSize(ddSize);
     this.dd.setPosition(ddPos);
+    this.dd.setScrollBarEnabled(false);
     this.dd.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
     this.dd.setBackGroundColor(new cc.color(10, 10, 40));
     this.dd.setBackGroundColorOpacity(80);
@@ -77,7 +78,8 @@ var Hud = cc.Layer.extend({
     this.dd.show = function(deffense) {
       if (!this.inScreen && deffense) {
         this.runAction(new cc.MoveBy(0.1, cc.p(s.width,0)));
-        this.ddDeffense = deffense;
+        this.getParent().ddDeffense = deffense;
+        this.getParent().ddRefresh();
         this.inScreen = true;
       }
     };
@@ -94,16 +96,16 @@ var Hud = cc.Layer.extend({
     this.addChild(this.dd);
 
     this.ddDeffense = this.level.deffenses[0]; // TODO que no sea una defensa estatica
-    this.ddRange = new PropertySelector(this.dd, this.ddDeffense, 'element');
-    this.dd.pushBackCustomItem(this.ddRange);
+    this.ddElement = new PropertySelector(this.dd, this.ddDeffense, 'element');
+    this.dd.pushBackCustomItem(this.ddElement);
     this.ddRange = new PropertySelector(this.dd, this.ddDeffense, 'range');
     this.dd.pushBackCustomItem(this.ddRange);
-    this.ddRange = new PropertySelector(this.dd, this.ddDeffense, 'terrain');
-    this.dd.pushBackCustomItem(this.ddRange);
-    this.ddRange = new PropertySelector(this.dd, this.ddDeffense, 'damage');
-    this.dd.pushBackCustomItem(this.ddRange);
-    this.ddRange = new PropertySelector(this.dd, this.ddDeffense, 'attackSpeed');
-    this.dd.pushBackCustomItem(this.ddRange);
+    this.ddTerrain = new PropertySelector(this.dd, this.ddDeffense, 'terrain');
+    this.dd.pushBackCustomItem(this.ddTerrain);
+    this.ddDamage = new PropertySelector(this.dd, this.ddDeffense, 'damage');
+    this.dd.pushBackCustomItem(this.ddDamage);
+    this.ddAttackSpeed = new PropertySelector(this.dd, this.ddDeffense, 'attackSpeed');
+    this.dd.pushBackCustomItem(this.ddAttackSpeed);
     this.ddDestroy = new ccui.Button(res.ui.cancelBtnM, res.ui.cancelBtnDM);
     this.ddDestroy.pressedActionEnabled = true;
     this.dd.pushBackCustomItem(this.ddDestroy);
@@ -125,16 +127,21 @@ var Hud = cc.Layer.extend({
 
     return true;
   },
+  ddRefresh: function() {
+    this.ddElement.refresh();
+    this.ddRange.refresh();
+    this.ddTerrain.refresh();
+    this.ddDamage.refresh();
+    this.ddAttackSpeed.refresh();
+  },
 });
 
 var PropertySelector = ccui.Layout.extend({
-  deffense: null,
   property: null,
   pValueLabel: null,
   ctor: function(parent, deffense, property) {
     // TODO HARDCODE EVERYWHERE
     this._super();
-    this.deffense = deffense;
     this.property = property;
     pProperty = 'p' + property[0].toUpperCase() + property.slice(1);
     sProperty = 's' + property[0].toUpperCase() + property.slice(1);
@@ -159,7 +166,7 @@ var PropertySelector = ccui.Layout.extend({
     pNameLabel.setPosition(0, background.height);
     background.addChild(pNameLabel, 99);
 
-    var pValue = this.deffense[pProperty][this.deffense[this.property]];
+    var pValue = deffense[pProperty][deffense[this.property]];
     this.pValueLabel = new ccui.Text(pValue, "Arial", background.width / 2);
     this.pValueLabel.setAnchorPoint(0, 0);
     this.pValueLabel.setPosition(4, background.height / 2 - this.pValueLabel.height / 2); // TODO 4 hardcodeado
@@ -171,7 +178,7 @@ var PropertySelector = ccui.Layout.extend({
     downBtn.pressedActionEnabled = true;
     downBtn.setContentSize(cc.size(this.width, this.width));
     easyTouchEnded(downBtn, function(downBtn){
-      var d = upBtn.getParent().deffense; //Deffense
+      var d = upBtn.getParent().getParent().getParent().getParent().ddDeffense; //Deffense
       var p = upBtn.getParent().property;  //Property name
       var pProp = d['p' + p[0].toUpperCase() + p.slice(1)]; // possible stats(properties)
       var prop = d[p];
@@ -203,7 +210,7 @@ var PropertySelector = ccui.Layout.extend({
     upBtn.pressedActionEnabled = true;
     upBtn.setContentSize(cc.size(this.width, this.width));
     easyTouchEnded(upBtn, function(upBtn){
-      var d = upBtn.getParent().deffense; //Deffense
+      var d = upBtn.getParent().getParent().getParent().getParent().ddDeffense; //Deffense
       var p = upBtn.getParent().property;  //Property name
       var pProp = d['p' + p[0].toUpperCase() + p.slice(1)]; // possible stats(properties)
       var prop = d[p];
@@ -230,8 +237,9 @@ var PropertySelector = ccui.Layout.extend({
     this.addChild(upBtn);
   },
   refresh: function() {
+    var deffense = this.getParent().getParent().getParent().ddDeffense;
     var pProperty = 'p' + this.property[0].toUpperCase() + this.property.slice(1);
-    var pValue = this.deffense[pProperty][this.deffense[this.property]];
+    var pValue = deffense[pProperty][deffense[this.property]];
     this.pValueLabel.setString(pValue);
   },
 
