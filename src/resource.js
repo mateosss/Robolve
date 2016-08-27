@@ -5,6 +5,12 @@ var res = {
   point: "res/sprites/point.png",
   invalidPart: "res/sprites/invalidPart.png",
   deffense: "res/sprites/deffense.png",
+  electricDeffense: "res/sprites/electricDeffense.png",
+  fireDeffense: "res/sprites/fireDeffense.png",
+  waterDeffense: "res/sprites/waterDeffense.png",
+  edBtn: "res/sprites/edBtn.png",
+  fdBtn: "res/sprites/fdBtn.png",
+  wdBtn: "res/sprites/wdBtn.png",
   base: "res/sprites/base.png",
   maps:{
     map1Sheet: "res/map/landscape2.png",

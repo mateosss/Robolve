@@ -35,13 +35,19 @@ var Hud = cc.Layer.extend({
     this.ds.setPosition((this.ds.width - 3 * 96) / 2, 0); // TODO TOO MUCH HARDCODE
     this.addChild(this.ds);
     var buttons = [
+      new ccui.Button(res.ui.yellowBtnM, res.ui.yellowBtnDM),
       new ccui.Button(res.ui.redBtnM, res.ui.redBtnDM),
-      new ccui.Button(res.ui.blueBtnM, res.ui.blueBtnDM),
-      new ccui.Button(res.ui.yellowBtnM, res.ui.yellowBtnDM)
+      new ccui.Button(res.ui.blueBtnM, res.ui.blueBtnDM)
+    ];
+    var defImages = [
+      new cc.Sprite(res.edBtn),
+      new cc.Sprite(res.fdBtn),
+      new cc.Sprite(res.wdBtn),
     ];
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].pressedActionEnabled = true;
-      buttons[i].setPosition(cc.p(0,300));
+      buttons[i].addChild(defImages[i]);
+      defImages[i].setPosition(buttons[i].width / 2, buttons[i].height / 2);
       this.ds.addChild(buttons[i]);
     }
 
