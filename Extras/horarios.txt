@@ -14,7 +14,7 @@ Do 12 - 6 hs
 Ju 23 - 2 hs
   - Spawnear robot - 2 hs
 
-Julio
+Julio -  70:10
 Sa 2 - 2:40 hs
   - Setear stats estaticos a los robots funcionando - 1:40 hs
   - Diferenciar sprites con color - 1 hs
@@ -113,34 +113,32 @@ Ju 18
 Do 21
   - defensa reacciona a click - 1:00 hs
 Ma 23
-  - Hud, deffense details y nuevos botones - 6 hs
+  - Hud, deffense details y nuevos botones - 6:00 hs
 Mi 24
-  - 1 hs
-  - 2 hs
-  - 0:30 hs
-  - 1:30 hs
-  - 19:25
+  - terminar defense details -  7:00 hs
+Sa 27
+  - Modelos de las tres torres - 1:50
+  - 18:50
+
 Que hacer para la entrega del fin de mes
-- #status torreta
-  - BUG: Solo en android, pasa que la ultima torre no se puede eliminar: Deja de ejcutarse el evento del boton destruir
 - Seleccion de torreta
   - torre fuego (las imagenes con la descripcion y el precio por ahora)
   - torre rayo
   - torre agua
-  - #Imagen de fondo
+  - res: btn negro, icono oro
   - boton ok
   - boton cancelar
   - cuando selecciono una que aprezcan los botones de ok/cancel y se ponga la pantalla mas oscura
   - tocar en un tile y que aparezca la torreta seleccionada tinteada roja o verde segun si se puede poner
   - al tocar ok que la torreta se ponga
 - Oro
-  - #agregar propiedad
   - que se sume cuando mato un robot
-  - #que se baje cuando mejoro una torreta
-  - HUD
+  - Que aparezca en el hud
 - Hacer mas niveles todos los posibles, pedir ayuda si hiciera falta
 - menu simple, game over, y win screen, con explicacion del juego y mini tutorial dentro del menu, y seleccion de niveles
 - arreglar zoom con dos dedos
+- #status torreta
+  - BUG: Solo en android, pasa que la ultima torre no se puede eliminar: Deja de ejcutarse el evento del boton destruir
 ___________
 - Tiempo para fin de partida
 - Puntaje

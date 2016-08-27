@@ -70,7 +70,9 @@ var Hud = cc.Layer.extend({
     this.dd.setBounceEnabled(true);
     this.dd.setContentSize(ddSize);
     this.dd.setPosition(ddPos);
-    this.dd.setScrollBarEnabled(false);
+    if (cc.sys.os) { // In JS this line throws an error so we look if we are running natively
+      this.dd.setScrollBarEnabled(false);
+    }
     this.dd.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
     this.dd.setBackGroundColor(new cc.color(10, 10, 40));
     this.dd.setBackGroundColorOpacity(80);
