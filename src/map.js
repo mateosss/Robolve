@@ -12,6 +12,20 @@ var TiledMap = cc.TMXTiledMap.extend({
   toString: function(){
     return "Map";
   },
+  placeOnTile: function(sprite, tile) {
+    mapLayer = this.getLayer("Background");
+    p = mapLayer.getPositionAt(tile);
+    tileSize = this.getTileSize();
+    p.y += tileSize.height / 2;
+    this.spawn(sprite, p);
+  },
+  moveToTile: function(sprite, tile) {
+    mapLayer = this.getLayer("Background");
+    p = mapLayer.getPositionAt(tile);
+    tileSize = this.getTileSize();
+    p.y += tileSize.height / 2;
+    sprite.setPosition(p);
+  },
   spawn: function(child, position, layer, tag){
     //Spawn a robot, deffense or base in the map
     position = position || null;

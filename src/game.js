@@ -15,12 +15,13 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
   hud: null,
   map: null,
   base: null,
-  SPEED: 1,
+  SPEED: 10,
   crossoverRate: 0.7, //the influence of the strongest parent to let its genes
   mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox. TODO, make the 8 not hardcoded
 
   robots: [], // Current robots in map
   deffenses: [], // Current deffenses in map
+  dummyDeffense: null,
   purchableDeffenses: [], // TODO hardcoded deffenses declared in deffenses.js
   prevWaveRobots: [], // [DNA, score] of the previous wave robots
 
@@ -84,11 +85,7 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     damage = 0;//0,1,2
     attackSpeed = 0;//0,1,2
     var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    mapLayer = this.map.getLayer("Background");
-    p = mapLayer.getPositionAt(cc.p(0,0));
-    tileSize = this.map.getTileSize();
-    p.y += tileSize.height / 2;
-    this.map.spawn(customDeffense, p, 5);
+    this.map.placeOnTile(customDeffense, cc.p(0,5));
     this.deffenses.push(customDeffense);
 
     // Add Deffense
@@ -243,6 +240,24 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     //del codigo
     this.map.spawn(deffense, null, 5);
     this.deffenses.push(deffense);
+  },
+  showDummyDeffense: function(deffense) {
+    this.dummyDeffense = deffense;
+    var ms = this.map.getMapSize();
+    var auxPoint = cc.p(Math.floor((Math.random() * 20)), Math.floor((Math.random() * 20)));
+    // this.map.placeOnTile(this.dummyDeffense, cc.p(ms.width / 2, ms.height / 2));
+    this.map.placeOnTile(this.dummyDeffense, auxPoint);
+    //TODO lo que hay que hacer ahora
+    // que la torre aparezca tinteada de rojo o verde, si puede ponerse
+    //    (tener en cuenta dinero y posicion), y que aparezca un mensaje si se puso
+    //    o si no se puede poner, el por qué.
+    // que el tile sobre el que esta la torreta este coloreado
+    // que se cambie de modo y cuando toques un tile, el tile se coloree, y la torreta
+    //    se vaya a ese tile
+    // que aparezca un mensaje de POSICIONAR TORRETA
+    // que aparezcan los botones de aceptar y de cancelar
+    // que cuando canceles, la dummydeffense desaparezca, y que no haya pasado nada
+    // que cuando aceptes, la dummy deffense se coloque, y gaste dinero.
   },
   prepareNextWave: function() {// TODO no estoy teniendo en cuenta el orden en el que salen
     if (this.cWave === null) { // First random wave

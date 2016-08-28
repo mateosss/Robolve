@@ -38,28 +38,37 @@ var Hud = cc.Layer.extend({
       {
         button: new ccui.Button(res.ui.yellowBtnM, res.ui.yellowBtnDM),
         image: new cc.Sprite(res.edBtn),
-        name: "Electric"
+        type: "electric"
       },
       {
         button: new ccui.Button(res.ui.redBtnM, res.ui.redBtnDM),
         image: new cc.Sprite(res.fdBtn),
-        name: "Fire"
+        type: "fire"
       },
       {
         button: new ccui.Button(res.ui.blueBtnM, res.ui.blueBtnDM),
         image: new cc.Sprite(res.wdBtn),
-        name: "Water"
+        type: "water"
       }
     ];
+    var dsEvent = function(btn, level, type) {
+      btn.getParent().getParent().getParent().it.message(type[0].toUpperCase() + type.slice(1) + " Tower costs $300");
+      var range = 0;//0,1,2
+      var element = type;//water,fire,electric
+      var terrain = 0;//0,1
+      var damage = 0;//0,1,2
+      var attackSpeed = 0;//0,1,2
+      var customDeffense = new Deffense(level, element, range, terrain, damage, attackSpeed);
+      level.showDummyDeffense(customDeffense);
+    };
     for (var i = 0; i < buttons.length; i++) {
       var btn = buttons[i].button;
       var img = buttons[i].image;
+      var type = buttons[i].type;
       btn.pressedActionEnabled = true;
       btn.addChild(img);
       img.setPosition(btn.width / 2, btn.height / 2);
-      easyTouchEnded(btn, function(btn, pato) {
-        btn.getParent().getParent().getParent().it.message("PAATA");
-      });
+      easyTouchEnded(btn, dsEvent, this.level, type);
 
       this.ds.addChild(btn);
     }

@@ -35,7 +35,6 @@ var Deffense = cc.Sprite.extend({
       return;
     }
     // Defines the initial values and stats by searching on possible stats
-    this._super(res.deffense);
     this.level = level;
 
     this.element = element;
@@ -47,6 +46,14 @@ var Deffense = cc.Sprite.extend({
     this.sRange = this.pRange[this.range];
     this.sDamage = this.pDamage[this.damage];
     this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
+
+    if (this.element == 'electric') {
+      this._super(res.electricDeffense);
+    } else if (this.element == 'fire') {
+      this._super(res.fireDeffense);
+    } else if (this.element == 'water') {
+      this._super(res.waterDeffense);
+    }
 
     this.setAnchorPoint(0.5, 0.1);
 
@@ -115,6 +122,7 @@ var Deffense = cc.Sprite.extend({
   die: function() {
     // Call the level kill function to kill this deffense
     this.level.killDeffense(this);
+    this.removeFromParent();
   },
   debug: function(){
     // Creates a debugger for verbose information directly on the canvas

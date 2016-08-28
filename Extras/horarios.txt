@@ -119,12 +119,10 @@ Mi 24
 Sa 27
   - Modelos de las tres torres - 1:50 hs
   - Botones con imagenes en el DS - 0:30 hs
-  - 20|19:55
+  - easyTouchEnded mejorado para aceptar parametros - 1:35 hs
+  - aparece una torre random en el mapa con el deffense selector - 0:50 hs
 Que hacer para la entrega del fin de mes
 - Seleccion de torreta
-  - torre fuego (las imagenes con la descripcion y el precio por ahora)
-  - torre rayo
-  - torre agua
   - res: btn negro, icono oro
   - boton ok
   - boton cancelar
