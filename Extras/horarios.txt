@@ -117,9 +117,9 @@ Ma 23
 Mi 24
   - terminar defense details -  7:00 hs
 Sa 27
-  - Modelos de las tres torres - 1:50
-  - 18:50
-
+  - Modelos de las tres torres - 1:50 hs
+  - Botones con imagenes en el DS - 0:30 hs
+  - 20|19:55
 Que hacer para la entrega del fin de mes
 - Seleccion de torreta
   - torre fuego (las imagenes con la descripcion y el precio por ahora)

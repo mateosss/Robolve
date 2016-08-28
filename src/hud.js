@@ -35,20 +35,33 @@ var Hud = cc.Layer.extend({
     this.ds.setPosition((this.ds.width - 3 * 96) / 2, 0); // TODO TOO MUCH HARDCODE
     this.addChild(this.ds);
     var buttons = [
-      new ccui.Button(res.ui.yellowBtnM, res.ui.yellowBtnDM),
-      new ccui.Button(res.ui.redBtnM, res.ui.redBtnDM),
-      new ccui.Button(res.ui.blueBtnM, res.ui.blueBtnDM)
-    ];
-    var defImages = [
-      new cc.Sprite(res.edBtn),
-      new cc.Sprite(res.fdBtn),
-      new cc.Sprite(res.wdBtn),
+      {
+        button: new ccui.Button(res.ui.yellowBtnM, res.ui.yellowBtnDM),
+        image: new cc.Sprite(res.edBtn),
+        name: "Electric"
+      },
+      {
+        button: new ccui.Button(res.ui.redBtnM, res.ui.redBtnDM),
+        image: new cc.Sprite(res.fdBtn),
+        name: "Fire"
+      },
+      {
+        button: new ccui.Button(res.ui.blueBtnM, res.ui.blueBtnDM),
+        image: new cc.Sprite(res.wdBtn),
+        name: "Water"
+      }
     ];
     for (var i = 0; i < buttons.length; i++) {
-      buttons[i].pressedActionEnabled = true;
-      buttons[i].addChild(defImages[i]);
-      defImages[i].setPosition(buttons[i].width / 2, buttons[i].height / 2);
-      this.ds.addChild(buttons[i]);
+      var btn = buttons[i].button;
+      var img = buttons[i].image;
+      btn.pressedActionEnabled = true;
+      btn.addChild(img);
+      img.setPosition(btn.width / 2, btn.height / 2);
+      easyTouchEnded(btn, function(btn, pato) {
+        btn.getParent().getParent().getParent().it.message("PAATA");
+      });
+
+      this.ds.addChild(btn);
     }
 
     // Info Text
@@ -100,7 +113,7 @@ var Hud = cc.Layer.extend({
     };
     easyTouchEnded(this.dd, function(dd){
       dd.dismiss();
-    }, true);
+    }, {options:{invertedArea:true}});
     this.addChild(this.dd);
 
     this.ddDeffense = this.level.deffenses[0]; // TODO que no sea una defensa estatica
