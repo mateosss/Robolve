@@ -15,7 +15,7 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
   hud: null,
   map: null,
   base: null,
-  SPEED: 10,
+  SPEED: 1, // Keep speed on 1 for normal speed, increase for accelerate
   crossoverRate: 0.7, //the influence of the strongest parent to let its genes
   mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox. TODO, make the 8 not hardcoded
 
@@ -228,8 +228,8 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     this.map.spawn(robot, null, 6);
     this.robots.push(robot);
 
-    debug = new Debugger();//TODO sacar despues las cosas de debug
-    debug.debugText(this, {text: "Robots Count: " + this.robots.length});
+    // debug = new Debugger();//TODO sacar despues las cosas de debug
+    // debug.debugText(this, {text: "Robots Count: " + this.robots.length});
   },
   addDeffense: function(deffense) {
     //TODO que las cosas se spameen no en un layer hardcodeado como 5
@@ -242,22 +242,30 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     this.deffenses.push(deffense);
   },
   showDummyDeffense: function(deffense) {
+    if (this.dummyDeffense) {
+      this.dummyDeffense.removeFromParent();
+      this.dummyDeffense = null;
+    }
     this.dummyDeffense = deffense;
     var ms = this.map.getMapSize();
-    var auxPoint = cc.p(Math.floor((Math.random() * 20)), Math.floor((Math.random() * 20)));
-    // this.map.placeOnTile(this.dummyDeffense, cc.p(ms.width / 2, ms.height / 2));
-    this.map.placeOnTile(this.dummyDeffense, auxPoint);
+    var pos = cc.p(ms.width / 2, ms.height / 2);
+    this.map.placeOnTile(this.dummyDeffense, pos);
+    var color;
+    var tint;
+
+    if (this.dummyDeffense.canBePlacedOn(pos) && this.base.money >= 300) { //TODO 300 deffense price hardcoded TODO
+      color = cc.color(0, 255, 100, 50);
+    } else {
+      color = cc.color(255, 50, 50, 50);
+    }
+    tint = new cc.TintTo(0.2, color.r, color.g, color.b);
+    this.dummyDeffense.runAction(tint);
+    this.map.selectTile(pos, color);
     //TODO lo que hay que hacer ahora
-    // que la torre aparezca tinteada de rojo o verde, si puede ponerse
-    //    (tener en cuenta dinero y posicion), y que aparezca un mensaje si se puso
-    //    o si no se puede poner, el por qué.
-    // que el tile sobre el que esta la torreta este coloreado
-    // que se cambie de modo y cuando toques un tile, el tile se coloree, y la torreta
-    //    se vaya a ese tile
-    // que aparezca un mensaje de POSICIONAR TORRETA
-    // que aparezcan los botones de aceptar y de cancelar
+    // que aparezcan los botones de aceptar y de cancelar solo cuando seleccionas torreta
     // que cuando canceles, la dummydeffense desaparezca, y que no haya pasado nada
     // que cuando aceptes, la dummy deffense se coloque, y gaste dinero.
+      // que aparezca un mensaje de por que puede o no ponerse cuando toques OK
   },
   prepareNextWave: function() {// TODO no estoy teniendo en cuenta el orden en el que salen
     if (this.cWave === null) { // First random wave
@@ -379,9 +387,9 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
       this.robots.splice(i, 1);
       deletion = true;
     }
-    if (deletion) {
-      debug.debugText(this, {text: "Robots Count: " + this.robots.length});
-    }
+    // if (deletion) {
+    //   debug.debugText(this, {text: "Robots Count: " + this.robots.length});
+    // }
     return deletion;
   },
   killDeffense: function(deffense) {

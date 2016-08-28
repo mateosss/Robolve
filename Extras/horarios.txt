@@ -102,39 +102,41 @@ Lu 25
   - Que hacer ahora? planificacion|hud|balas - 0:50 hs
 
 Agosto
-Ma 9
+Ma 9 - 1:00 hs
   - Agregar clase hud basica - 1 hs
-Do 14
+Do 14 - 4:10 hs
   - Sprites de botones en inkscape - 0:30 hs
   - Barra ListView deffenseSelector sin funcionalidad - 1:40 hs
   - Tratando de arreglar ccui bug compilando a linux - 2 hs
-Ju 18
+Ju 18 - 1:00 hs
   - empezando a hacer que las defensas puedan tocarse para mejorarse - 1:00 hs
-Do 21
+Do 21 - 1:00 hs
   - defensa reacciona a click - 1:00 hs
-Ma 23
+Ma 23 - 6:00 hs
   - Hud, deffense details y nuevos botones - 6:00 hs
-Mi 24
+Mi 24 - 7:00 hs
   - terminar defense details -  7:00 hs
-Sa 27
+Sa 27 - 4:45 hs
   - Modelos de las tres torres - 1:50 hs
   - Botones con imagenes en el DS - 0:30 hs
   - easyTouchEnded mejorado para aceptar parametros - 1:35 hs
   - aparece una torre random en el mapa con el deffense selector - 0:50 hs
-Que hacer para la entrega del fin de mes
+Sa 28
+  - turret canBePlacedOn - 0:45 hs
+  - Deffense selector work - 3 hs
+
+# Que hacer para la entrega del fin de mes
 - Seleccion de torreta
-  - res: btn negro, icono oro
   - boton ok
   - boton cancelar
   - cuando selecciono una que aprezcan los botones de ok/cancel y se ponga la pantalla mas oscura
-  - tocar en un tile y que aparezca la torreta seleccionada tinteada roja o verde segun si se puede poner
   - al tocar ok que la torreta se ponga
 - Oro
   - que se sume cuando mato un robot
   - Que aparezca en el hud
+- arreglar zoom con dos dedos
 - Hacer mas niveles todos los posibles, pedir ayuda si hiciera falta
 - menu simple, game over, y win screen, con explicacion del juego y mini tutorial dentro del menu, y seleccion de niveles
-- arreglar zoom con dos dedos
 - #status torreta
   - BUG: Solo en android, pasa que la ultima torre no se puede eliminar: Deja de ejcutarse el evento del boton destruir
 ___________

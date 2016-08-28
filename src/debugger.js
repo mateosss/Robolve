@@ -54,7 +54,7 @@ var Debugger = cc.Class.extend({
     else {
       var pos = object.getAnchorPointInPoints();
       var radius = object.sRange / object.level.map.CHILD_SCALE || 2000;
-      var color = options.color || cc.color(1, 179, 255, 100);
+      var color = options.color || cc.color(1, 179, 255, 20);
       var circle = new cc.DrawNode();
       circle.drawDot(pos, radius, color);
       circle.setName(debugName);
@@ -101,6 +101,7 @@ var Debugger = cc.Class.extend({
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var square = new cc.DrawNode();
+      var z = options.z || 100;
       var rect = options.rect ||
       cc.rect(object.x, object.y, object.width, object.height);
       var origin = options.origin || cc.p(rect.x, rect.y);
@@ -111,7 +112,7 @@ var Debugger = cc.Class.extend({
       var lineColor = options.lineColor || cc.color(0, 0, 0, 255);
       square.drawRect(origin, destination, fillColor, lineWidth, lineColor);
       square.setName(debugName);
-      object.addChild(square, 100);//TODO poner niveles z diferentes
+      object.addChild(square, z);//TODO poner niveles z diferentes
       return square;
     }
   },
@@ -122,7 +123,8 @@ var Debugger = cc.Class.extend({
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var polygon = new cc.DrawNode();
-      var verts = options.verts ||[
+      var z = options.z || 200;
+      var verts = options.verts || [
         cc.p(object.x, object.y),
         cc.p(object.x + object.width, object.y),
         cc.p(object.x + object.width, object.y + object.height),
@@ -133,7 +135,7 @@ var Debugger = cc.Class.extend({
       var lineColor = options.lineColor || cc.color(0, 0, 0, 255);
       polygon.drawPoly(verts, fillColor, lineWidth, lineColor);
       polygon.setName(debugName);
-      object.addChild(polygon,200);
+      object.addChild(polygon, z);
       return polygon;
     }
   },

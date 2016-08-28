@@ -1,4 +1,6 @@
 var Hud = cc.Layer.extend({
+  // TODO El hud es muy inestable, hay mucho hardcode de numeros en pixeles, hay que
+  // buscar un buen metodo para hacer menues mas estables y con mas logica
   level: null,
 
   dd: null, // Deffense Details
@@ -34,6 +36,19 @@ var Hud = cc.Layer.extend({
     this.ds.setContentSize(dsSize);
     this.ds.setPosition((this.ds.width - 3 * 96) / 2, 0); // TODO TOO MUCH HARDCODE
     this.addChild(this.ds);
+
+    this.dsBtnOk = new ccui.Button(res.ui.okBtnM, res.ui.okBtnDM);
+    this.dsBtnOk.setAnchorPoint(0, 0);
+    dsBtnOkPos = cc.p(0, dsSize.height + dsPos.y); // Information text position
+    this.dsBtnOk.setPosition(dsBtnOkPos);
+    this.addChild(this.dsBtnOk);
+
+    this.dsBtnCancel = new ccui.Button(res.ui.cancelBtnM, res.ui.cancelBtnDM);
+    this.dsBtnCancel.setAnchorPoint(0, 0);
+    dsBtnCancelPos = cc.p(s.width - this.dsBtnCancel.width, dsSize.height + dsPos.y); // Information text position
+    this.dsBtnCancel.setPosition(dsBtnCancelPos);
+    this.addChild(this.dsBtnCancel);
+
     var buttons = [
       {
         button: new ccui.Button(res.ui.yellowBtnM, res.ui.yellowBtnDM),
@@ -52,13 +67,14 @@ var Hud = cc.Layer.extend({
       }
     ];
     var dsEvent = function(btn, level, type) {
-      btn.getParent().getParent().getParent().it.message(type[0].toUpperCase() + type.slice(1) + " Tower costs $300");
+      btn.getParent().getParent().getParent().it.message("Place" + type[0].toUpperCase() + type.slice(1) + " Tower - $300");
       var range = 0;//0,1,2
       var element = type;//water,fire,electric
       var terrain = 0;//0,1
       var damage = 0;//0,1,2
       var attackSpeed = 0;//0,1,2
       var customDeffense = new Deffense(level, element, range, terrain, damage, attackSpeed);
+      customDeffense.isDummy = true;
       level.showDummyDeffense(customDeffense);
     };
     for (var i = 0; i < buttons.length; i++) {
@@ -78,11 +94,12 @@ var Hud = cc.Layer.extend({
     var itPos = cc.p(0, dsSize.height + dsPos.y); // Information text position
     this.it.setAnchorPoint(0, 0);
     this.it.setPosition(itPos);
-    this.it.message = function (message) {
+    this.it.message = function (message, duration) {
       this.setOpacity(0);
+      duration = duration || 3;
       var changeText = new cc.CallFunc(function(it, msg){it.setString(msg);}, this, message);
       var appear = new cc.FadeIn(0.2);
-      var delay = new cc.DelayTime(3);
+      var delay = new cc.DelayTime(duration);
       var disappear = new cc.FadeOut(0.2);
       var actArray = [changeText, appear, delay, disappear];
       this.runAction(new cc.Sequence(actArray));

@@ -4,6 +4,7 @@ var Deffense = cc.Sprite.extend({
   pointing: null,// Looking direction TODO
   animAttackSpeed: 1.0,// Attack speed animation
   cTilePos: null, // Current tile position
+  isDummy: false, // If it is a dummy deffense, (a.k.a. a deffense preview in the map)
 
   // Possible (p) stats
   pElement: {
@@ -57,13 +58,15 @@ var Deffense = cc.Sprite.extend({
 
     this.setAnchorPoint(0.5, 0.1);
 
-    this.debug();
+    // this.debug();
     easyTouchEnded(this, function(deffense) {
       if (deffense.getNumberOfRunningActions() === 0) {
-        var increase = new cc.ScaleBy(0.1, 1.2);
-        var decrease = new cc.ScaleBy(0.1, 1 / 1.2);
-        deffense.runAction(new cc.Sequence(increase, decrease));
-        deffense.level.hud.dd.show(deffense);
+        if (!deffense.level.dummyDeffense && !deffense.isDummy) {
+          var increase = new cc.ScaleBy(0.1, 1.2);
+          var decrease = new cc.ScaleBy(0.1, 1 / 1.2);
+          deffense.runAction(new cc.Sequence(increase, decrease));
+          deffense.level.hud.dd.show(deffense);
+        }
       }
     });
 
@@ -133,13 +136,36 @@ var Deffense = cc.Sprite.extend({
     ];
     this.debugger.debug();
   },
+  canBePlacedOn: function(tilePos) {
+    var tile = this.level.map.getLayer("Background").getTileGIDAt(tilePos);
+    var tileProps = this.level.map.getPropertiesForGID(tile) || {};
+    var isRoad = tileProps.hasOwnProperty('road');
+    if (isRoad && tileProps.road == "1") {
+      return false; // Can't place on a road
+    } else {
+      for (var i = 0; i < this.level.deffenses.length; i++) {
+        if (cc.pointEqualToPoint(
+          this.level.map.tileCoordFromObject(this.level.deffenses[i]),
+          tilePos
+        )) {
+          return false; // There is already a tower there
+        }
+      }
+      return true; // Can be placed
+    }
+  },
   counter: 0.0,
   update: function(delta){
-    if (this.counter < 1 / this.sAttackSpeed) {
-      this.counter += delta;
+    if (this.isDummy) {
+      // if the deffense is not a real one, just a preview
     } else {
-      this.counter = 0.0;
-      this.fire(this.getTarget());
+      if (this.counter < 1 / this.sAttackSpeed) {
+        this.counter += delta;
+      } else {
+        this.counter = 0.0;
+        this.fire(this.getTarget());
+      }
     }
+
   }
 });

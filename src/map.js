@@ -8,23 +8,52 @@ var TiledMap = cc.TMXTiledMap.extend({
     this.scale = 0.15;
     this.setAnchorPoint(0.5, 0.5);
     this.scheduleUpdate();
+
+    easyTouchEnded(this, function(map, event) {
+      if (map.level.dummyDeffense && map.level.dummyDeffense.visible === true) {
+        var tile = map.tileCoordFromLocation(event);
+        map.moveToTile(map.level.dummyDeffense, tile, true, 0.3);
+
+        ///////TODO ALL THIS CODE IS REPEATED FROM GAME.JS
+        var color;
+        var tint;
+
+        if (map.level.dummyDeffense.canBePlacedOn(tile) && map.level.base.money >= 300) { //TODO 300 deffense price hardcoded TODO
+          color = cc.color(0, 255, 100, 50);
+        } else {
+          color = cc.color(255, 50, 50, 50);
+        }
+        tint = new cc.TintTo(0.2, color.r, color.g, color.b);
+        map.level.dummyDeffense.runAction(tint);
+        /////////////
+        map.selectTile(tile, color);
+      }
+    }, {options: {passEvent: true}});
   },
   toString: function(){
     return "Map";
   },
   placeOnTile: function(sprite, tile) {
     mapLayer = this.getLayer("Background");
-    p = mapLayer.getPositionAt(tile);
+    // var p = mapLayer.getPositionAt(tile);
+    var p = this.getMidPointFromTile(tile);
     tileSize = this.getTileSize();
     p.y += tileSize.height / 2;
     this.spawn(sprite, p);
   },
-  moveToTile: function(sprite, tile) {
+  moveToTile: function(sprite, tile, withAnimations, animDuration) {
     mapLayer = this.getLayer("Background");
-    p = mapLayer.getPositionAt(tile);
+    // var p = mapLayer.getPositionAt(tile);
+    var p = this.getMidPointFromTile(tile);
     tileSize = this.getTileSize();
-    p.y += tileSize.height / 2;
-    sprite.setPosition(p);
+    p.y += tileSize.height / 2; //TODO esto deberia existir? aparece en muchas pates
+    if (!withAnimations) {
+      sprite.setPosition(p);
+    } else {
+      animDuration = animDuration || 1;
+      var move = new cc.MoveTo(animDuration, p);
+      sprite.runAction(move);
+    }
   },
   spawn: function(child, position, layer, tag){
     //Spawn a robot, deffense or base in the map
@@ -96,10 +125,13 @@ var TiledMap = cc.TMXTiledMap.extend({
     return cc.p(posX, posY);
   },
   tileCoordFromLocation: function(loc){
-    //TODO returns the tile coord from a screen location if loc is inside map
+    // Returns the tile coord from a screen location or event if loc is inside map
+    var mapLoc = this.convertTouchToNodeSpace(loc);
+    var tilePos = this.tileCoordFromChild(mapLoc);
+    return tilePos;
   },
   spriteRectFromTile: function(tileCoord){
-    //Returns the rect, of a sprite, of a tile (expressed in tilemap coords)
+    //Returns the rect of a tile's sprite (expressed in tilemap coords)
     tile = this.getLayer("Background").getTileAt(tileCoord);
     var rect = cc.rect(
       tile.x, tile.y,
@@ -119,6 +151,21 @@ var TiledMap = cc.TMXTiledMap.extend({
   getMidPointFromTile: function(tileCoord){
     var tile = this.rectFromTile(tileCoord);
     return cc.p(cc.rectGetMidX(tile), cc.rectGetMidY(tile));
+  },
+  selectTile: function(tilePos, color, isNotTileCoord) {
+    isNotTileCoord = isNotTileCoord || false;
+    if (isNotTileCoord) {
+      tilePos = this.tileCoordFromObject(tilePos);
+    }
+    if (!this.debugger) {//TODO debugger is a dependency
+      this.debugger = new Debugger(this);
+    }
+    this.debugger.debugTile(this, {stop: true});
+    this.debugger.debugTile(this.level.map, {
+      tile:this.rectFromTile(tilePos),
+      fillColor: color,
+      z: 1
+    });
   },
   update: function(deltaTime){
     this.x = (this.positionTarget.x - this.x) * deltaTime * 16 + this.x;

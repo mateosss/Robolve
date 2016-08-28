@@ -8,6 +8,7 @@ var easyTouchEnded = function(pressObj, exec) {
   - params: the params to pass to the function, can be many.
   - {options:{}}: it has to be the last parameter, and inside options:{}, you put the next options
     - invertedArea: boolean, true if you want to detect the touch when anything is touched except the pressObj
+    - passEvent: boolean, true if you want the touch event to be passed as the second argument of the function
   */
   var optionsPos = Array.prototype.findIndex.call(arguments, function(arg){
     if (typeof arg == 'object' && Object.keys(arg)[0] == 'options' && Object.keys(arg).length === 1) {
@@ -17,6 +18,7 @@ var easyTouchEnded = function(pressObj, exec) {
 
   var options = optionsPos > -1 ? arguments[optionsPos].options : {};
   var invertedArea = options.invertedArea || false;
+  var passEvent = options.passEvent || false;
   var params = Array.prototype.slice.call(arguments, 2);
   var reaction = function (event){
     var location = event.getLocation();
@@ -25,6 +27,9 @@ var easyTouchEnded = function(pressObj, exec) {
     } else {
       var context = pressObj;
       var parameters = [pressObj];
+      if (passEvent) {
+        parameters.push(event);
+      }
       parameters = parameters.concat(params);
       exec.apply(context, parameters);
       // exec(pressObj);

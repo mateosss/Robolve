@@ -159,7 +159,7 @@ var Robot = cc.Sprite.extend({
 
     this.createHealthBar();
 
-    this.debug();
+    // this.debug();
 
     this.scheduleUpdate();
   },
@@ -430,14 +430,14 @@ var Robot = cc.Sprite.extend({
 
     if (this.checkNewTile()) {
       // this.debugger.debugTile(this.level.map, {stop: true});// TODO stop doesn't work
-      this.debugger.debugText(this, {
-        // text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
-        // text: "time: " + this.firstHurtTimeScore().toFixed(4) + "\n" +
-        text: "time: " + this.hitsReceivedScore().toFixed(4) + "\n" +
-        "damage: " + this.infligedDamageScore().toFixed(4) + "\n" +
-        "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
-        "score: " + this.getScore().toFixed(4) + "\n"
-      });
+      // this.debugger.debugText(this, {
+      //   // text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
+      //   // text: "time: " + this.firstHurtTimeScore().toFixed(4) + "\n" +
+      //   text: "time: " + this.hitsReceivedScore().toFixed(4) + "\n" +
+      //   "damage: " + this.infligedDamageScore().toFixed(4) + "\n" +
+      //   "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
+      //   "score: " + this.getScore().toFixed(4) + "\n"
+      // });
       // this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
       this.turn(this.canTurn(this.cTilePos));
     }
