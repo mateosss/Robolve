@@ -253,7 +253,7 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     var color;
     var tint;
 
-    if (this.dummyDeffense.canBePlacedOn(pos) && this.base.money >= 300) { //TODO 300 deffense price hardcoded TODO
+    if (this.dummyDeffense.canBePlacedOn(pos).result && this.base.money >= 300) { //TODO 300 deffense price hardcoded TODO
       color = cc.color(0, 255, 100, 50);
     } else {
       color = cc.color(255, 50, 50, 50);
@@ -261,11 +261,6 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     tint = new cc.TintTo(0.2, color.r, color.g, color.b);
     this.dummyDeffense.runAction(tint);
     this.map.selectTile(pos, color);
-    //TODO lo que hay que hacer ahora
-    // que aparezcan los botones de aceptar y de cancelar solo cuando seleccionas torreta
-    // que cuando canceles, la dummydeffense desaparezca, y que no haya pasado nada
-    // que cuando aceptes, la dummy deffense se coloque, y gaste dinero.
-      // que aparezca un mensaje de por que puede o no ponerse cuando toques OK
   },
   prepareNextWave: function() {// TODO no estoy teniendo en cuenta el orden en el que salen
     if (this.cWave === null) { // First random wave

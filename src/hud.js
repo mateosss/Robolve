@@ -39,14 +39,67 @@ var Hud = cc.Layer.extend({
 
     this.dsBtnOk = new ccui.Button(res.ui.okBtnM, res.ui.okBtnDM);
     this.dsBtnOk.setAnchorPoint(0, 0);
-    dsBtnOkPos = cc.p(0, dsSize.height + dsPos.y); // Information text position
+    dsBtnOkPos = cc.p(-s.width, dsSize.height + dsPos.y);
+    this.dsBtnOk.inScreen = false;
     this.dsBtnOk.setPosition(dsBtnOkPos);
+    this.dsBtnOk.show = function() {
+      if (!this.inScreen) {
+        this.runAction(new cc.MoveBy(0.1, cc.p(s.width,0)));
+        this.inScreen = true;
+      }
+    };
+    this.dsBtnOk.dismiss = function() {
+      if (this.inScreen) {
+        this.runAction(new cc.MoveBy(0.1, cc.p(-s.width,0)));
+        this.inScreen = false;
+      }
+    };
+    easyTouchEnded(this.dsBtnOk, function(btn, level) {
+      /// TODO ALL THIS CODE IS REPEATED FROM GAME.JS and MAP.JS
+      var pos = level.map.tileCoordFromChild(level.dummyDeffense);
+      var canBePlaced = level.dummyDeffense.canBePlacedOn(pos);
+      if (canBePlaced.result && level.base.money >= 300) {
+        // QUE GASTE PLATA
+        level.dummyDeffense.setColor(cc.color(255, 255, 255));
+        level.deffenses.push(level.dummyDeffense);
+        var newDeffense = level.dummyDeffense;
+        newDeffense.isDummy = false;
+        level.map.removeChild(level.dummyDeffense);
+        btn.getParent().dsBtnCancel.exec();
+        level.map.addChild(newDeffense);
+        btn.getParent().it.message(canBePlaced.cause);
+
+      } else {
+        if (canBePlaced.result) {
+          btn.getParent().it.message("You don't have 300 bucks");
+        } else {
+          btn.getParent().it.message(canBePlaced.cause);
+        }
+      }
+      ////////////////
+    }, this.level);
     this.addChild(this.dsBtnOk);
 
     this.dsBtnCancel = new ccui.Button(res.ui.cancelBtnM, res.ui.cancelBtnDM);
     this.dsBtnCancel.setAnchorPoint(0, 0);
-    dsBtnCancelPos = cc.p(s.width - this.dsBtnCancel.width, dsSize.height + dsPos.y); // Information text position
+    dsBtnCancelPos = cc.p(-s.width + s.width - this.dsBtnCancel.width, dsSize.height + dsPos.y);
+    this.dsBtnCancel.inScreen = false;
     this.dsBtnCancel.setPosition(dsBtnCancelPos);
+    this.dsBtnCancel.show = this.dsBtnOk.show; //TODO estas cosas que uno se ve obligado a hacer...
+    this.dsBtnCancel.dismiss = this.dsBtnOk.dismiss;
+    this.dsBtnCancel.exec = function() {
+      if (this.getParent().dsBtnOk.inScreen) {
+        this.getParent().dsBtnOk.dismiss();
+        this.dismiss();
+        this.getParent().level.dummyDeffense.removeFromParent();//TODO make afunction that disappearse the dummydeffense, this is being repeated
+        this.getParent().level.dummyDeffense = null;
+        this.getParent().level.map.debugger.debugTile(this.getParent().level.map, {stop: true});
+
+      }
+    };
+    easyTouchEnded(this.dsBtnCancel, function(btnCancel) {
+      btnCancel.exec();
+    }, this.dsBtnCancel);
     this.addChild(this.dsBtnCancel);
 
     var buttons = [
@@ -67,7 +120,8 @@ var Hud = cc.Layer.extend({
       }
     ];
     var dsEvent = function(btn, level, type) {
-      btn.getParent().getParent().getParent().it.message("Place" + type[0].toUpperCase() + type.slice(1) + " Tower - $300");
+      var hud = btn.getParent().getParent().getParent();
+      hud.it.message("Place " + type[0].toUpperCase() + type.slice(1) + " Tower - $300");
       var range = 0;//0,1,2
       var element = type;//water,fire,electric
       var terrain = 0;//0,1
@@ -76,6 +130,10 @@ var Hud = cc.Layer.extend({
       var customDeffense = new Deffense(level, element, range, terrain, damage, attackSpeed);
       customDeffense.isDummy = true;
       level.showDummyDeffense(customDeffense);
+      if (!hud.dsBtnOk.inScreen) {
+        hud.dsBtnOk.show();// TODO ETO SE VA A DECONTROLAAAA AIUDAAA
+        hud.dsBtnCancel.show();// TODO ETO SE VA A DECONTROLAAAA AIUDAAA
+      }
     };
     for (var i = 0; i < buttons.length; i++) {
       var btn = buttons[i].button;

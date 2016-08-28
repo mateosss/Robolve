@@ -141,17 +141,17 @@ var Deffense = cc.Sprite.extend({
     var tileProps = this.level.map.getPropertiesForGID(tile) || {};
     var isRoad = tileProps.hasOwnProperty('road');
     if (isRoad && tileProps.road == "1") {
-      return false; // Can't place on a road
+      return {result: false, cause: "Can't place on a road"};
     } else {
       for (var i = 0; i < this.level.deffenses.length; i++) {
         if (cc.pointEqualToPoint(
-          this.level.map.tileCoordFromObject(this.level.deffenses[i]),
+          this.level.map.tileCoordFromChild(this.level.deffenses[i]),
           tilePos
         )) {
-          return false; // There is already a tower there
+          return {result: false, cause: "There is already a tower there"};
         }
       }
-      return true; // Can be placed
+      return {result: true, cause: "Placed - $300"}; // TODO estos mensajes no estan muy bien aca
     }
   },
   counter: 0.0,

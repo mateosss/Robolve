@@ -10,15 +10,17 @@ var TiledMap = cc.TMXTiledMap.extend({
     this.scheduleUpdate();
 
     easyTouchEnded(this, function(map, event) {
-      if (map.level.dummyDeffense && map.level.dummyDeffense.visible === true) {
+      var btnRect = map.level.hud.dsBtnOk.getBoundingBoxToWorld();
+      var isNotABtn = !cc.rectContainsPoint(btnRect, event.getLocation());//TODO pretty unclean
+      if (map.level.dummyDeffense && map.level.dummyDeffense.visible === true && isNotABtn) {
         var tile = map.tileCoordFromLocation(event);
-        map.moveToTile(map.level.dummyDeffense, tile, true, 0.3);
+        map.moveToTile(map.level.dummyDeffense, tile);
 
         ///////TODO ALL THIS CODE IS REPEATED FROM GAME.JS
         var color;
         var tint;
 
-        if (map.level.dummyDeffense.canBePlacedOn(tile) && map.level.base.money >= 300) { //TODO 300 deffense price hardcoded TODO
+        if (map.level.dummyDeffense.canBePlacedOn(tile).result && map.level.base.money >= 300) { //TODO 300 deffense price hardcoded TODO
           color = cc.color(0, 255, 100, 50);
         } else {
           color = cc.color(255, 50, 50, 50);
@@ -92,7 +94,7 @@ var TiledMap = cc.TMXTiledMap.extend({
     return p;
   },
   tileCoordFromObject: function(obj){
-    //Returns the tile coordinates from a tiled map object
+    //Returns the tile coordinates from a tiled map object dont use this for sprites, use the FromChild instead
     //Source: http://discuss.cocos2d-x.org/t/isometric-map-is-returning-wrong-position-for-object/27100/7
     var mapHeight = this.getMapSize().height;
     var tileHeight = this.getTileSize().height;

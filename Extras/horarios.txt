@@ -123,7 +123,9 @@ Sa 27 - 4:45 hs
   - aparece una torre random en el mapa con el deffense selector - 0:50 hs
 Sa 28
   - turret canBePlacedOn - 0:45 hs
-  - Deffense selector work - 3 hs
+  - Deffense selector more work - 3 hs
+  - Dismiss DS buttons - 0:20 hs
+  18:55
 
 # Que hacer para la entrega del fin de mes
 - Seleccion de torreta
