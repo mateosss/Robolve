@@ -51,10 +51,14 @@ var Hud = cc.Layer.extend({
     this.ds.setTouchEnabled(true);
     this.ds.setContentSize(dsSize);
     this.ds.setPosition((this.ds.width - 3 * 96) / 2, 0); // TODO TOO MUCH HARDCODE
+    if (cc.sys.os) { // In JS this line throws an error so we look if we are running natively
+      this.dd.setScrollBarEnabled(false);
+    }
     this.addChild(this.ds);
 
     this.dsBtnOk = new ccui.Button(res.ui.okBtnM, res.ui.okBtnDM);
     this.dsBtnOk.setAnchorPoint(0, 0);
+    this.dsBtnOk.setTouchEnabled(true);
     dsBtnOkPos = cc.p(-s.width, dsSize.height + dsPos.y);
     this.dsBtnOk.inScreen = false;
     this.dsBtnOk.setPosition(dsBtnOkPos);
@@ -78,7 +82,7 @@ var Hud = cc.Layer.extend({
         level.dummyDeffense.setColor(cc.color(255, 255, 255));
         level.deffenses.push(level.dummyDeffense);
         var newDeffense = level.dummyDeffense;
-        newDeffense.retain();        
+        newDeffense.retain();
         newDeffense.isDummy = false;
         btn.getParent().dsBtnCancel.exec();
         level.map.addChild(newDeffense);
@@ -104,6 +108,7 @@ var Hud = cc.Layer.extend({
     this.dsBtnCancel.setAnchorPoint(0, 0);
     dsBtnCancelPos = cc.p(-s.width + s.width - this.dsBtnCancel.width, dsSize.height + dsPos.y);
     this.dsBtnCancel.inScreen = false;
+    this.dsBtnCancel.setTouchEnabled(true);    
     this.dsBtnCancel.setPosition(dsBtnCancelPos);
     this.dsBtnCancel.show = this.dsBtnOk.show; //TODO estas cosas que uno se ve obligado a hacer...
     this.dsBtnCancel.dismiss = this.dsBtnOk.dismiss;
@@ -140,6 +145,7 @@ var Hud = cc.Layer.extend({
       }
     ];
     var dsEvent = function(btn, level, type) {
+      console.log("YAI! dsEvent ejecutado YAI");
       var hud = btn.getParent().getParent().getParent();
       hud.it.message("Place " + type[0].toUpperCase() + type.slice(1) + " Tower - $300");
       var range = 0;//0,1,2
@@ -160,6 +166,7 @@ var Hud = cc.Layer.extend({
       var img = buttons[i].image;
       var type = buttons[i].type;
       btn.pressedActionEnabled = true;
+      btn.setTouchEnabled(true);
       btn.addChild(img);
       img.setPosition(btn.width / 2, btn.height / 2);
       easyTouchEnded(btn, dsEvent, this.level, type);
@@ -194,7 +201,7 @@ var Hud = cc.Layer.extend({
     this.dd.setContentSize(ddSize);
     this.dd.setPosition(ddPos);
     if (cc.sys.os) { // In JS this line throws an error so we look if we are running natively
-      this.dd.setScrollBarEnabled(false);
+      this.dd.setBarEnabled(false);
     }
     this.dd.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
     this.dd.setBackGroundColor(new cc.color(10, 10, 40));
@@ -232,6 +239,7 @@ var Hud = cc.Layer.extend({
     this.ddAttackSpeed = new PropertySelector(this.dd, this.ddDeffense, 'attackSpeed');
     this.dd.pushBackCustomItem(this.ddAttackSpeed);
     this.ddDestroy = new ccui.Button(res.ui.cancelBtnM, res.ui.cancelBtnDM);
+    this.ddDestroy.setTouchEnabled(true);
     this.ddDestroy.pressedActionEnabled = true;
     this.dd.pushBackCustomItem(this.ddDestroy);
     easyTouchEnded(this.ddDestroy, function(btn){
@@ -301,6 +309,7 @@ var PropertySelector = ccui.Layout.extend({
     downBtn.setAnchorPoint(0, 0);
     downBtn.setPosition(this.width / 2 - downBtn.width / 2, 8);
     downBtn.pressedActionEnabled = true;
+    downBtn.setTouchEnabled(true);
     downBtn.setContentSize(cc.size(this.width, this.width));
     easyTouchEnded(downBtn, function(downBtn){
       var d = upBtn.getParent().getParent().getParent().getParent().ddDeffense; //Deffense
@@ -334,6 +343,7 @@ var PropertySelector = ccui.Layout.extend({
     upBtn.setAnchorPoint(0, 0);
     upBtn.setPosition(this.width / 2 - upBtn.width / 2, this.getContentSize().height - upBtn.getSize().height - 24);//TODO 24 hardcode
     upBtn.pressedActionEnabled = true;
+    upBtn.setTouchEnabled(true);
     upBtn.setContentSize(cc.size(this.width, this.width));
     easyTouchEnded(upBtn, function(upBtn){
       var d = upBtn.getParent().getParent().getParent().getParent().ddDeffense; //Deffense

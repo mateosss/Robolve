@@ -128,11 +128,13 @@ Sa 28 - 6:20 hs
   - Almos DS finished - 1:15
   - DS WORKING!!! - 1:00 hs
 Do 29
-  - 17:25
+  - resolver compilacion linux - 0:40 hs
+  - 18:05
 
 # Que hacer para la entrega del fin de mes
-- Arreglar compilacion para linux/android
+- Arreglar compilacion para android
 - Attack speed not working
+- Sacar posibilidad de cambio de elemento de las torres
 - ENEMIGOS NO SE EQUILIBRAN
 - arreglar zoom con dos dedos
 - Hacer mas niveles todos los posibles, pedir ayuda si hiciera falta
