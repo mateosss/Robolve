@@ -78,8 +78,8 @@ var Hud = cc.Layer.extend({
         level.dummyDeffense.setColor(cc.color(255, 255, 255));
         level.deffenses.push(level.dummyDeffense);
         var newDeffense = level.dummyDeffense;
+        newDeffense.retain();        
         newDeffense.isDummy = false;
-        level.map.removeChild(level.dummyDeffense);
         btn.getParent().dsBtnCancel.exec();
         level.map.addChild(newDeffense);
         newDeffense.setTouchEvent();

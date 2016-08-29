@@ -13,7 +13,7 @@ var TiledMap = cc.TMXTiledMap.extend({
       var btnRect = map.level.hud.dsBtnOk.getBoundingBoxToWorld();
       var isNotABtn = !cc.rectContainsPoint(btnRect, event.getLocation());//TODO pretty unclean
       if (map.level.dummyDeffense && map.level.dummyDeffense.visible === true && isNotABtn) {
-        var tile = map.tileCoordFromLocation(event);
+        var tile = map.tileCoordFromLocation(event.getLocation());
         map.moveToTile(map.level.dummyDeffense, tile);
 
         ///////TODO ALL THIS CODE IS REPEATED FROM GAME.JS
@@ -128,7 +128,7 @@ var TiledMap = cc.TMXTiledMap.extend({
   },
   tileCoordFromLocation: function(loc){
     // Returns the tile coord from a screen location or event if loc is inside map
-    var mapLoc = this.convertTouchToNodeSpace(loc);
+    var mapLoc = this.convertToNodeSpace(loc);
     var tilePos = this.tileCoordFromChild(mapLoc);
     return tilePos;
   },

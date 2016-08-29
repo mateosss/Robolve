@@ -121,22 +121,19 @@ Sa 27 - 4:45 hs
   - Botones con imagenes en el DS - 0:30 hs
   - easyTouchEnded mejorado para aceptar parametros - 1:35 hs
   - aparece una torre random en el mapa con el deffense selector - 0:50 hs
-Sa 28
+Sa 28 - 6:20 hs
   - turret canBePlacedOn - 0:45 hs
   - Deffense selector more work - 3 hs
   - Dismiss DS buttons - 0:20 hs
   - Almos DS finished - 1:15
-  22:15
+  - DS WORKING!!! - 1:00 hs
+Do 29
+  - 17:25
 
 # Que hacer para la entrega del fin de mes
-- Seleccion de torreta
-  - boton ok
-  - boton cancelar
-  - cuando selecciono una que aprezcan los botones de ok/cancel y se ponga la pantalla mas oscura
-  - al tocar ok que la torreta se ponga
-- Oro
-  - que se sume cuando mato un robot
-  - Que aparezca en el hud
+- Arreglar compilacion para linux/android
+- Attack speed not working
+- ENEMIGOS NO SE EQUILIBRAN
 - arreglar zoom con dos dedos
 - Hacer mas niveles todos los posibles, pedir ayuda si hiciera falta
 - menu simple, game over, y win screen, con explicacion del juego y mini tutorial dentro del menu, y seleccion de niveles
