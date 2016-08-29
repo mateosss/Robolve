@@ -21,11 +21,27 @@ var Hud = cc.Layer.extend({
   dsLabel: null,
   dsDeffense: null, // Dummy deffense on screen
 
+  ig: null,
+
   ctor: function(level) {
     this._super();
     this.level = level;
     var s = cc.winSize;
     var center = cc.p(s.width / 2, s.height / 2); // Screen center
+
+    // Gold
+    var igt = new cc.LabelTTF("Gold:", "Arial", 32, cc.size(s.width, 32), cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_TOP);//TODO width hardcoded
+    igt.setAnchorPoint(0, 0);
+    igt.setPosition(cc.p(0, 64));
+    this.addChild(igt, 100);
+    var igPos = cc.p(0, 32);
+    this.ig = new cc.LabelTTF(this.level.base.money, "Arial", 32, cc.size(s.width, 32), cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_TOP);//TODO width hardcoded
+    this.ig.setAnchorPoint(0, 0);
+    this.ig.setPosition(igPos);
+    this.ig.refresh = function() {
+      this.setString(this.getParent().level.base.money + "");
+    };
+    this.addChild(this.ig, 100);
 
     // Deffense Selector
     var dsSize = cc.size(s.width, 128); // deffenseSelector Height // TODO 128 hardcoded
@@ -59,7 +75,6 @@ var Hud = cc.Layer.extend({
       var pos = level.map.tileCoordFromChild(level.dummyDeffense);
       var canBePlaced = level.dummyDeffense.canBePlacedOn(pos);
       if (canBePlaced.result && level.base.money >= 300) {
-        // QUE GASTE PLATA
         level.dummyDeffense.setColor(cc.color(255, 255, 255));
         level.deffenses.push(level.dummyDeffense);
         var newDeffense = level.dummyDeffense;
@@ -67,6 +82,11 @@ var Hud = cc.Layer.extend({
         level.map.removeChild(level.dummyDeffense);
         btn.getParent().dsBtnCancel.exec();
         level.map.addChild(newDeffense);
+        newDeffense.setTouchEvent();
+        newDeffense.scheduleUpdate();
+
+        level.base.money -= 300; //TODO 300 hardcoded
+        btn.getParent().ig.refresh();
         btn.getParent().it.message(canBePlaced.cause);
 
       } else {
@@ -298,6 +318,7 @@ var PropertySelector = ccui.Layout.extend({
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) - 1];
           d[p] = parseInt(improvement) || improvement;
           d.level.base.money -= cost;
+          d.level.hud.ig.refresh();
           upBtn.getParent().refresh();
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
         } else {
@@ -330,6 +351,7 @@ var PropertySelector = ccui.Layout.extend({
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) + 1];
           d[p] = parseInt(improvement) || improvement;
           d.level.base.money -= cost;
+          d.level.hud.ig.refresh();
           upBtn.getParent().refresh();
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
         } else {

@@ -56,9 +56,18 @@ var Deffense = cc.Sprite.extend({
       this._super(res.waterDeffense);
     }
 
-    this.setAnchorPoint(0.5, 0.1);
-
     // this.debug();
+    this.setAnchorPoint(0.5, 0.1);
+    if (!this.isDummy) {
+      this.setTouchEvent();
+      this.scheduleUpdate();
+    }
+
+  },
+  toString: function(){
+    return "Deffense";
+  },
+  setTouchEvent: function() {
     easyTouchEnded(this, function(deffense) {
       if (deffense.getNumberOfRunningActions() === 0) {
         if (!deffense.level.dummyDeffense && !deffense.isDummy) {
@@ -69,11 +78,6 @@ var Deffense = cc.Sprite.extend({
         }
       }
     });
-
-    this.scheduleUpdate();
-  },
-  toString: function(){
-    return "Deffense";
   },
   getTarget: function(){
     // This function returns the robot to which this deffense has to attack
@@ -131,7 +135,7 @@ var Deffense = cc.Sprite.extend({
     // Creates a debugger for verbose information directly on the canvas
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify debug information on canvas
-      { method: this.debugger.debugAnchor },
+      // { method: this.debugger.debugAnchor },
       { method: this.debugger.debugRange },
     ];
     this.debugger.debug();
@@ -166,6 +170,5 @@ var Deffense = cc.Sprite.extend({
         this.fire(this.getTarget());
       }
     }
-
   }
 });

@@ -1,6 +1,6 @@
 var Base = cc.Sprite.extend({
   level: null, // Level where this object is placed
-  money: 300, // Player money
+  money: 1200, // Player money
   cLife: null, // Current life
   sLife: null, // Initial life
   cTilePos: null, // Current Tile Position

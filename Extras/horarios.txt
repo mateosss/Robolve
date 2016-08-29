@@ -125,7 +125,8 @@ Sa 28
   - turret canBePlacedOn - 0:45 hs
   - Deffense selector more work - 3 hs
   - Dismiss DS buttons - 0:20 hs
-  18:55
+  - Almos DS finished - 1:15
+  22:15
 
 # Que hacer para la entrega del fin de mes
 - Seleccion de torreta
