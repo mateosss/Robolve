@@ -78,7 +78,7 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     // customRobot.retain();
     // this.addRobot(customRobot);
 
-    // deffense 0,0 walk
+    // deffense 0,0 walk RED
     range = 0;//0,1,2
     element = "fire";//water,fire,electric
     terrain = 1;//0,1
@@ -87,6 +87,15 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
     this.map.placeOnTile(customDeffense, cc.p(0,5));
     this.deffenses.push(customDeffense);
+
+    range = 0;//0,1,2 BLUE
+    element = "water";//water,fire,electric
+    terrain = 1;//0,1
+    damage = 0;//0,1,2
+    attackSpeed = 0;//0,1,2
+    var customDeffense1 = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    this.map.placeOnTile(customDeffense1, cc.p(19,5));
+    this.deffenses.push(customDeffense1);
 
     // Add Deffense
     range = 1;//0,1,2
@@ -420,7 +429,7 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     }
 
     if (this.lastWave && this.robots.length === 0) {
-      // TODO console.info("YOU WIN");
+      cc.director.runScene(new Menu("You Win"));
     }
   },
 });

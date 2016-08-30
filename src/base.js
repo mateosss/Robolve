@@ -67,7 +67,7 @@ var Base = cc.Sprite.extend({
     return totalDamage;
   },
   kill: function(){
-    //In the next frame the level will remove the robots with destroy==true
     // console.log("GAME OVER");
+    cc.director.runScene(new Menu("Game Over"));
   },
 });

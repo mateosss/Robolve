@@ -14,11 +14,13 @@ var Menu = cc.Layer.extend({
   //TODO pantalla de cargar y cargar todos los sprites de antes si no se tilda
   //en celular cada vez que spawnea hasta que todos los sprites se cargan
   sprite:null,
-  ctor:function () {
+  ctor:function (text) {
     this._super();
-
+    if (!text) {
+      text = "";
+    }
     var size = cc.winSize;
-    var tapLabel = new cc.LabelTTF("Tap to Start", "Arial", 38);
+    var tapLabel = new cc.LabelTTF(text + " - Tap to Start", "Arial", 38);
     tapLabel.x = size.width / 2;
     tapLabel.y = size.height / 2 + 200;
     this.addChild(tapLabel, 5);

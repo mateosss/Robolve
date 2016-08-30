@@ -44,9 +44,7 @@ var Deffense = cc.Sprite.extend({
     this.damage = damage;
     this.attackSpeed = attackSpeed;
 
-    this.sRange = this.pRange[this.range];
-    this.sDamage = this.pDamage[this.damage];
-    this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
+    this.refreshStats();
 
     if (this.element == 'electric') {
       this._super(res.electricDeffense);
@@ -64,8 +62,13 @@ var Deffense = cc.Sprite.extend({
     }
 
   },
-  toString: function(){
+  toString: function() {
     return "Deffense";
+  },
+  refreshStats: function() {
+    this.sRange = this.pRange[this.range];
+    this.sDamage = this.pDamage[this.damage];
+    this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
   },
   setTouchEvent: function() {
     easyTouchEnded(this, function(deffense) {

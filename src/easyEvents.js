@@ -31,7 +31,6 @@ var easyTouchEnded = function(pressObj, exec) {
         parameters.push(event);
       }
       parameters = parameters.concat(params);
-      console.log("#preEjecutarFuncionEjecutable Ejecutada");
       exec.apply(context, parameters);
       // exec(pressObj);
     }

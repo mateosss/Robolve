@@ -1,6 +1,6 @@
 var Hud = cc.Layer.extend({
   // TODO El hud es muy inestable, hay mucho hardcode de numeros en pixeles, hay que
-  // buscar un buen metodo para hacer menues mas estables y con mas logica
+  // buscar un buen metodo para hacer menues mas estables
   level: null,
 
   dd: null, // Deffense Details
@@ -52,7 +52,7 @@ var Hud = cc.Layer.extend({
     this.ds.setContentSize(dsSize);
     this.ds.setPosition((this.ds.width - 3 * 96) / 2, 0); // TODO TOO MUCH HARDCODE
     if (cc.sys.os) { // In JS this line throws an error so we look if we are running natively
-      this.dd.setScrollBarEnabled(false);
+      this.ds.setScrollBarEnabled(false);
     }
     this.addChild(this.ds);
 
@@ -108,7 +108,7 @@ var Hud = cc.Layer.extend({
     this.dsBtnCancel.setAnchorPoint(0, 0);
     dsBtnCancelPos = cc.p(-s.width + s.width - this.dsBtnCancel.width, dsSize.height + dsPos.y);
     this.dsBtnCancel.inScreen = false;
-    this.dsBtnCancel.setTouchEnabled(true);    
+    this.dsBtnCancel.setTouchEnabled(true);
     this.dsBtnCancel.setPosition(dsBtnCancelPos);
     this.dsBtnCancel.show = this.dsBtnOk.show; //TODO estas cosas que uno se ve obligado a hacer...
     this.dsBtnCancel.dismiss = this.dsBtnOk.dismiss;
@@ -145,7 +145,6 @@ var Hud = cc.Layer.extend({
       }
     ];
     var dsEvent = function(btn, level, type) {
-      console.log("YAI! dsEvent ejecutado YAI");
       var hud = btn.getParent().getParent().getParent();
       hud.it.message("Place " + type[0].toUpperCase() + type.slice(1) + " Tower - $300");
       var range = 0;//0,1,2
@@ -201,7 +200,7 @@ var Hud = cc.Layer.extend({
     this.dd.setContentSize(ddSize);
     this.dd.setPosition(ddPos);
     if (cc.sys.os) { // In JS this line throws an error so we look if we are running natively
-      this.dd.setBarEnabled(false);
+      this.dd.setScrollBarEnabled(false);
     }
     this.dd.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
     this.dd.setBackGroundColor(new cc.color(10, 10, 40));
@@ -321,11 +320,12 @@ var PropertySelector = ccui.Layout.extend({
       var sortedKeys = Object.keys(pProp).sort();
       var canMinimize = sortedKeys.indexOf(prop.toString()) > 0;
       if (canMinimize) {
-        var cost = 50;
+        var cost = 100;
         var hasBudget = d.level.base.money >= cost; // TODO 50 hardcoded
         if (hasBudget) {
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) - 1];
           d[p] = parseInt(improvement) || improvement;
+          d.refreshStats();
           d.level.base.money -= cost;
           d.level.hud.ig.refresh();
           upBtn.getParent().refresh();
@@ -334,7 +334,7 @@ var PropertySelector = ccui.Layout.extend({
           d.level.hud.it.message("You don't have 50 bucks");
         }
       } else {
-        d.level.hud.it.message("You only can go up for $50");
+        d.level.hud.it.message("You only can go up for $100");
       }
     });
     this.addChild(downBtn);
@@ -355,12 +355,13 @@ var PropertySelector = ccui.Layout.extend({
       var sortedKeys = Object.keys(pProp).sort();
       var canMaximize = sortedKeys.indexOf(prop.toString()) < sortedKeys.length - 1;
       if (canMaximize) {
-        var cost = 50;
+        var cost = 100;
         var hasBudget = d.level.base.money >= cost; // TODO 50 hardcoded
         if (hasBudget) {
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) + 1];
           d[p] = parseInt(improvement) || improvement;
           d.level.base.money -= cost;
+          d.refreshStats();
           d.level.hud.ig.refresh();
           upBtn.getParent().refresh();
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
@@ -368,7 +369,7 @@ var PropertySelector = ccui.Layout.extend({
           d.level.hud.it.message("You don't have 50 bucks");
         }
       } else {
-        d.level.hud.it.message("You only can go down for $50");
+        d.level.hud.it.message("You only can go down for $100");
       }
     });
     this.addChild(upBtn);
