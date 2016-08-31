@@ -140,10 +140,10 @@ Mi 31
   - seleccion de niveles y easyTouchButton - 1:10 hs
   - Arreglar compilacion para android botones tactiles, despues de 8 horas - 30 min
   - Resolucion adaptable y pantalla completa en android - 1:50
+  - En game over la aplicacion se cierra - 0:45 hs
   - arreglar zoom con dos dedos y scrollmap tactil
-  - explicacion del juego
-  - En game over la aplicacion se cierra
   - Android: pantalla negra despues de un rato de scroll
+  - explicacion del juego
 
 # Cosas que estoy posponiendo
   - Tiempo para fin de partida

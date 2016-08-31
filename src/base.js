@@ -68,6 +68,6 @@ var Base = cc.Sprite.extend({
   },
   kill: function(){
     this.killed = true;
-    cc.director.runScene(new cc.TransitionFlipX(1.5, new Menu("Game Over")));
+    cc.director.runScene(new cc.TransitionFade(1.5, new MainMenu("Game Over")));
   },
 });
