@@ -139,8 +139,7 @@ Mi 31
   - 2 niveles mas, y sistema para que el nivel pueda predefinir defensas - 3:00 hs
   - seleccion de niveles y easyTouchButton - 1:10 hs
   - Arreglar compilacion para android botones tactiles, despues de 8 horas - 30 min
-  - Probando cosas de la resolucion - 1:15
-  16:55
+  - Resolucion adaptable y pantalla completa en android - 1:50
   - arreglar zoom con dos dedos y scrollmap tactil
   - explicacion del juego
   - En game over la aplicacion se cierra
