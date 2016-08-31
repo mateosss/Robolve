@@ -72,7 +72,7 @@ var Deffense = cc.Sprite.extend({
   },
   setTouchEvent: function() {
     easyTouchEnded(this, function(deffense) {
-      this.level.base.kill();
+      // this.level.base.kill();//TODO sacar eete comentario
       if (deffense.getNumberOfRunningActions() === 0) {
         if (!deffense.level.dummyDeffense && !deffense.isDummy) {
           var increase = new cc.ScaleBy(0.1, 1.2);
@@ -105,7 +105,7 @@ var Deffense = cc.Sprite.extend({
 
     //If there is robots in range proceed to detect which of them is closest
     //To the base, set it to target and return it
-    var base = cc.p(0,0); //TODO use the real base object position
+    var base = this.level.map.tileCoordFromChild(this.level.base);
     var minDistanceToBase = 0;
     var closestRobotPos = null;
     inRange.filter(function(robot){
@@ -149,7 +149,7 @@ var Deffense = cc.Sprite.extend({
     var tileProps = this.level.map.getPropertiesForGID(tile) || {};
     var isRoad = tileProps.hasOwnProperty('road');
     if (isRoad && tileProps.road == "1") {
-      return {result: false, cause: "Can't place on a road"};
+      return {result: false, cause: "Can't place on here"};
     } else {
       for (var i = 0; i < this.level.deffenses.length; i++) {
         if (cc.pointEqualToPoint(

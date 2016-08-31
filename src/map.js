@@ -43,6 +43,29 @@ var TiledMap = cc.TMXTiledMap.extend({
     p.y += tileSize.height / 2;
     this.spawn(sprite, p);
   },
+  getMapDeffenses: function() {
+    // customRobot.retain();
+    var allObjects = this.getObjectGroup("Objects").getObjects();
+    var deffenses = [];
+    for (var i = 0; i < allObjects.length; i++) {
+      if (allObjects[i].name.startsWith("SpawnDeffense")) {
+        // Creates the new deffense
+        var deffense = new Deffense(
+          this.level,
+          allObjects[i].element,
+          parseInt(allObjects[i].range),
+          parseInt(allObjects[i].terrain),
+          parseInt(allObjects[i].damage),
+          parseInt(allObjects[i].attackSpeed)
+        );
+        // Calculates the new deffense position
+        p = this.tileCoordFromObject(allObjects[i]);
+        // Push the deffense and location
+        deffenses.push({deffense: deffense, position: p});
+      }
+    }
+    return deffenses;
+  },
   moveToTile: function(sprite, tile, withAnimations, animDuration) {
     mapLayer = this.getLayer("Background");
     // var p = mapLayer.getPositionAt(tile);
@@ -103,7 +126,7 @@ var TiledMap = cc.TMXTiledMap.extend({
     var w = obj.width;
     var h = obj.height;
     var objTileX = Math.floor(x / tileHeight);
-    var objTileY = Math.floor(mapHeight - y / tileHeight - h / tileHeight) - 1;
+    var objTileY = Math.floor(mapHeight - y / tileHeight - h / tileHeight);
     return cc.p(objTileX, objTileY);
   },
   tileCoordFromChild: function(child){

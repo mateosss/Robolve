@@ -225,7 +225,6 @@ var Hud = cc.Layer.extend({
       dd.dismiss();
     }, {options:{invertedArea:true}});
     this.addChild(this.dd);
-
     this.ddDeffense = this.level.deffenses[0]; // TODO que no sea una defensa estatica
     this.ddElement = new PropertySelector(this.dd, this.ddDeffense, 'element');
     this.dd.pushBackCustomItem(this.ddElement);

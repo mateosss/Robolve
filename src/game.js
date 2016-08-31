@@ -79,32 +79,39 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     // this.addRobot(customRobot);
 
     // deffense 0,0 walk RED
-    range = 0;//0,1,2
-    element = "fire";//water,fire,electric
-    terrain = 1;//0,1
-    damage = 0;//0,1,2
-    attackSpeed = 0;//0,1,2
-    var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    this.map.placeOnTile(customDeffense, cc.p(0,5));
-    this.deffenses.push(customDeffense);
+    // range = 0;//0,1,2
+    // element = "fire";//water,fire,electric
+    // terrain = 1;//0,1
+    // damage = 0;//0,1,2
+    // attackSpeed = 0;//0,1,2
+    // var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    // this.map.placeOnTile(customDeffense, cc.p(0,5));
+    // this.deffenses.push(customDeffense);
+    //
+    // range = 0;//0,1,2 BLUE
+    // element = "water";//water,fire,electric
+    // terrain = 1;//0,1
+    // damage = 0;//0,1,2
+    // attackSpeed = 0;//0,1,2
+    // var customDeffense1 = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    // this.map.placeOnTile(customDeffense1, cc.p(19,5));
+    // this.deffenses.push(customDeffense1);
+    //
+    // // Add Deffense
+    // range = 1;//0,1,2
+    // element = "electric";//water,fire,electric
+    // terrain = 0;//0,1
+    // damage = 2;//0,1,2
+    // attackSpeed = 2;//0,1,2
+    // customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
+    // this.addDeffense(customDeffense);
 
-    range = 0;//0,1,2 BLUE
-    element = "water";//water,fire,electric
-    terrain = 1;//0,1
-    damage = 0;//0,1,2
-    attackSpeed = 0;//0,1,2
-    var customDeffense1 = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    this.map.placeOnTile(customDeffense1, cc.p(19,5));
-    this.deffenses.push(customDeffense1);
+    var mapDeffenses = this.map.getMapDeffenses();
+    for (var d = 0; d < mapDeffenses.length; d++) {
+      this.map.placeOnTile(mapDeffenses[d].deffense, mapDeffenses[d].position);
+      this.deffenses.push(mapDeffenses[d].deffense);
+    }
 
-    // Add Deffense
-    range = 1;//0,1,2
-    element = "electric";//water,fire,electric
-    terrain = 0;//0,1
-    damage = 2;//0,1,2
-    attackSpeed = 2;//0,1,2
-    customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    this.addDeffense(customDeffense);
 
     // TODO mejorar el sistema en general que sea mas prolijo y DRY
     // TODO Better zoom (zoom where the mouse is or where the touch is made)

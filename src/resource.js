@@ -13,8 +13,10 @@ var res = {
   wdBtn: "res/sprites/wdBtn.png",
   base: "res/sprites/base.png",
   maps:{
-    map1Sheet: "res/map/landscape2.png",
-    map1: "res/map/mapsketch2.tmx",
+    map1Sheet: "res/map/tilesheet.png",
+    // map1: "res/map/map1.tmx",
+    // map1: "res/map/map2.tmx",
+    map1: "res/map/map3.tmx",
   },
   ui:{
     ddBackground: "res/sprites/ui/ddBackground.jpg",

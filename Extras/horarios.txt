@@ -134,17 +134,16 @@ Lu 29
 Ma 30
   - error de mierda del boton tactil - 2:00 hs
   - tratando de arreglar la mierda de error, sin suerte - 1:40
-  - 22:00
-
-# Que hacer para la entrega del fin de mes
-- Bugs
-  - arreglar zoom con dos dedos y scrollmap tactil
-  - Arreglar compilacion para android botones tactiles
-  - En game over la aplicacion se cierra
-  - Android: pantalla negra despues de un rato de scroll
-- explicacion del juego
-- seleccion de niveles
-- Hacer mas niveles
+  - seguimos con el error, pero arregle unas cosas aparte y otros bugs - 1:40
+Mi 31
+  - 2 niveles mas, y sistema para que el nivel pueda predefinir defensas - 3:00 hs
+  - seleccion de niveles
+  - explicacion del juego
+  - Bugs
+    - arreglar zoom con dos dedos y scrollmap tactil
+    - Arreglar compilacion para android botones tactiles
+    - En game over la aplicacion se cierra
+    - Android: pantalla negra despues de un rato de scroll
 
 # Cosas que estoy posponiendo
   - Tiempo para fin de partida
