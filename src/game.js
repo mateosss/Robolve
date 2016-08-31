@@ -119,17 +119,19 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
         onTouchesMoved: function (touches, event) {
           // TODO hacer padre que tenga moveButton, zoomButton map y herede aca
           // TODO Update pasarlo al map, por que update cosas suyas
-          this.map = event.getCurrentTarget().getChildByTag(TAG_TILE_MAP);
+          this.map = event.getCurrentTarget().map;
           var touch = touches[0];
           var delta = touch.getDelta();
+          // this.map.moveMap(delta.x, delta.y);
           this.map.positionTarget.x += delta.x;
           this.map.positionTarget.y += delta.y;
           if (touches.length > 1) {
             zoomDelta = delta.y*0.001;
-            zoom = this.map.scale + zoomDelta;
-            if (zoom >= 0.15 && zoom <= 1.0) {
-              this.map.scale = zoom;
-            }
+            this.map.zoomMap(zoomDelta);
+            // zoom = this.map.scale + zoomDelta;
+            // if (zoom >= 0.15 && zoom <= 1.0) {
+            //   this.map.scale = zoom;
+            // }
           }
         }
       }, this);
@@ -139,65 +141,23 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
         moveButton: cc.EventMouse.BUTTON_LEFT,
         zoomButton: cc.EventMouse.BUTTON_RIGHT,
         map: null,
-        moveMap: function(x, y) {
-          mapHalfWidth = (this.map.width * this.map.scale)/2;
-          mapHalfHeight = (this.map.height)/2;
-
-          maxLeft = winSize.width - 50 - mapHalfWidth;
-          maxRight = 0 + 50 + mapHalfWidth;
-          maxDown = winSize.height + 50 - mapHalfHeight;
-          maxUp = 0 - 50 + mapHalfHeight;
-
-          newX = this.map.positionTarget.x + x;
-          newY = this.map.positionTarget.y + y;
-
-          if (newX < maxLeft) {
-            newX = maxLeft;
-          }
-          if (newX > maxRight) {
-            newX = maxRight;
-          }
-
-          if (newY < maxDown) {
-            newY = maxDown;
-          }
-          if (newY > maxUp) {
-            newY = maxUp;
-          }
-          this.map.positionTarget.x = newX;
-          this.map.positionTarget.y = newY;
-        },
         onMouseDown: function(event) {
           this.pressed = event.getButton();
           this.clickLocation = event.getLocation();
-
         },
         onMouseUp: function(event) {
           this.pressed = -1;
         },
         onMouseMove: function(event) {
           if (this.pressed != -1) {
-            this.map = event.getCurrentTarget().getChildByTag(TAG_TILE_MAP);
+            this.map = event.getCurrentTarget().map;
             if(this.pressed == this.moveButton) {
               delta = event.getDelta();
-              // targetX = this.map.positionTarget.x + delta.x;
-              // targetY = this.map.positionTarget.y + delta.y;
-              this.moveMap(delta.x, delta.y);
+              this.map.moveMap(delta.x, delta.y);
             }
             else if(this.pressed == this.zoomButton) {
-              zoomDelta = event.getDeltaY()*0.001;
-              zoom = this.map.scale + zoomDelta;
-              if (zoom >= 0.15 && zoom <= 1.0) {
-                this.map.scale = zoom;
-                // mapCenter = this.map.convertToWorldSpaceAR(this.map.getAnchorPoint());
-                // difference = cc.pSub(mapCenter, this.clickLocation);
-                // TODO para que funcione el zoom hacia algo
-                // obtener la posicion en el mapa de mi click
-                // setear esa posicion como el anchor point
-                // escalar desde ahi
-                // dejar el anchor point donde estaba
-                // this.moveMap(difference.x * zoomDelta * 10, 0);
-              }
+              var zoomDelta = event.getDelta().y * 0.001;
+              this.map.zoomMap(zoomDelta);
             }
           }
         },
@@ -429,7 +389,7 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
     }
 
     if (this.lastWave && this.robots.length === 0) {
-      cc.director.runScene(new Menu("You Win"));
+      cc.director.runScene(new cc.TransitionFlipX(1.5, new Menu("You Win")));
     }
   },
 });

@@ -52,7 +52,7 @@ var Hud = cc.Layer.extend({
     this.ds.setContentSize(dsSize);
     this.ds.setPosition((this.ds.width - 3 * 96) / 2, 0); // TODO TOO MUCH HARDCODE
     if (cc.sys.os) { // In JS this line throws an error so we look if we are running natively
-      this.ds.setScrollBarEnabled(false);
+      // this.ds.setScrollBarEnabled(false); //TODO throws error in chrome
     }
     this.addChild(this.ds);
 
@@ -200,7 +200,7 @@ var Hud = cc.Layer.extend({
     this.dd.setContentSize(ddSize);
     this.dd.setPosition(ddPos);
     if (cc.sys.os) { // In JS this line throws an error so we look if we are running natively
-      this.dd.setScrollBarEnabled(false);
+      // this.dd.setScrollBarEnabled(false);//TODO in chrome detects Linux
     }
     this.dd.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
     this.dd.setBackGroundColor(new cc.color(10, 10, 40));
@@ -331,7 +331,7 @@ var PropertySelector = ccui.Layout.extend({
           upBtn.getParent().refresh();
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
         } else {
-          d.level.hud.it.message("You don't have 50 bucks");
+          d.level.hud.it.message("You don't have 100 bucks");
         }
       } else {
         d.level.hud.it.message("You only can go up for $100");
@@ -366,7 +366,7 @@ var PropertySelector = ccui.Layout.extend({
           upBtn.getParent().refresh();
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
         } else {
-          d.level.hud.it.message("You don't have 50 bucks");
+          d.level.hud.it.message("You don't have 100 bucks");
         }
       } else {
         d.level.hud.it.message("You only can go down for $100");

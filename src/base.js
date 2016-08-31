@@ -57,7 +57,7 @@ var Base = cc.Sprite.extend({
   hurt: function(robot){
     //This function calculates the total damage of the bullet depending on the
     //Robot, and do some things in reaction
-    var totalDamage = robot.sDamage;//TODO calcular diferencias por defensa y esas cosas
+    var totalDamage = robot.sDamage;
     this.cLife -= totalDamage;
     if (this.cLife <= 0) {
       this.life = 0;
@@ -67,7 +67,6 @@ var Base = cc.Sprite.extend({
     return totalDamage;
   },
   kill: function(){
-    // console.log("GAME OVER");
-    cc.director.runScene(new Menu("Game Over"));
+    cc.director.runScene(new cc.TransitionFlipX(1.5, new Menu("Game Over")));
   },
 });

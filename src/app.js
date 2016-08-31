@@ -35,7 +35,8 @@ var Menu = cc.Layer.extend({
     cc.eventManager.addListener({
       event: cc.EventListener.TOUCH_ONE_BY_ONE,
       onTouchBegan: function (touches, event) {
-        cc.director.runScene(new GameLevel());
+        // cc.director.runScene(new GameLevel());
+        cc.director.runScene(new cc.TransitionFade(1, new GameLevel()));
         return true;
       },
     }, this);

@@ -121,32 +121,37 @@ Sa 27 - 4:45 hs
   - Botones con imagenes en el DS - 0:30 hs
   - easyTouchEnded mejorado para aceptar parametros - 1:35 hs
   - aparece una torre random en el mapa con el deffense selector - 0:50 hs
-Sa 28 - 6:20 hs
+Do 28 - 6:20 hs
   - turret canBePlacedOn - 0:45 hs
   - Deffense selector more work - 3 hs
   - Dismiss DS buttons - 0:20 hs
   - Almos DS finished - 1:15
   - DS WORKING!!! - 1:00 hs
-Do 29
+Lu 29
   - resolver compilacion linux - 0:40 hs
   - surgio problema boton tactil en android - 2:00 hs
-  - 21:05
+  - no me acuerdo - 2:00 hs
+Ma 30
+  - error de mierda del boton tactil - 2:00 hs
+  - tratando de arreglar la mierda de error, sin suerte - 1:40
+  - 22:00
 
 # Que hacer para la entrega del fin de mes
-- Arreglar compilacion para android botones tactiles
-- arreglar zoom con dos dedos
-- Hacer mas niveles todos los posibles, pedir ayuda si hiciera falta
+- Bugs
+  - arreglar zoom con dos dedos y scrollmap tactil
+  - Arreglar compilacion para android botones tactiles
+  - En game over la aplicacion se cierra
+  - Android: pantalla negra despues de un rato de scroll
 - explicacion del juego
 - seleccion de niveles
-- #status torreta
-  - BUG: Solo en android, pasa que la ultima torre no se puede eliminar: Deja de ejcutarse el evento del boton destruir
-___________
-- Tiempo para fin de partida
-- Puntaje
-- Tiempo para la proxima oleada
-
+- Hacer mas niveles
 
 # Cosas que estoy posponiendo
+  - Tiempo para fin de partida
+  - Puntaje
+  - Tiempo para la proxima oleada
+  - #status torreta
+    - BUG: Solo en android, pasa que la ultima torre no se puede eliminar: Deja de ejcutarse el evento del boton destruir
   - Menu
   - Animación
   - "TODOS" en el codigo

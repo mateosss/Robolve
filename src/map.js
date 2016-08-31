@@ -1,7 +1,7 @@
 var TiledMap = cc.TMXTiledMap.extend({
   level: null,
   CHILD_SCALE: 0.8,
-  positionTarget: cc.p(winSize.width/2,winSize.height/2),
+  positionTarget: cc.p(winSize.width / 2, winSize.height / 2),
   ctor: function(level, tmxMap){
     this.level = level;
     this._super(tmxMap);
@@ -168,6 +168,49 @@ var TiledMap = cc.TMXTiledMap.extend({
       fillColor: color,
       z: 1
     });
+  },
+  zoomMap: function(zoomDelta) {
+    zoom = this.scale + zoomDelta;
+    if (zoom >= 0.15 && zoom <= 1.0) {
+      this.scale = zoom;
+      // mapCenter = this.map.convertToWorldSpaceAR(this.map.getAnchorPoint());
+      // difference = cc.pSub(mapCenter, this.clickLocation);
+      // TODO para que funcione el zoom hacia algo
+      // obtener la posicion en el mapa de mi click
+      // setear esa posicion como el anchor point
+      // escalar desde ahi
+      // dejar el anchor point donde estaba
+      // this.moveMap(difference.x * zoomDelta * 10, 0);
+    }
+  },
+  moveMap: function(x, y) {
+    mapHalfWidth = (this.width * this.scale)/2;
+    mapHalfHeight = (this.height)/2;
+
+    maxLeft = winSize.width - 50 - mapHalfWidth;
+    maxRight = 0 + 50 + mapHalfWidth;
+    maxDown = winSize.height + 50 - mapHalfHeight;
+    maxUp = 0 - 50 + mapHalfHeight;
+
+    newX = this.positionTarget.x + x;
+    newY = this.positionTarget.y + y;
+
+    if (newX < maxLeft) {
+      newX = maxLeft;
+    }
+    if (newX > maxRight) {
+      newX = maxRight;
+    }
+
+    if (newY < maxDown) {
+      newY = maxDown;
+    }
+    if (newY > maxUp) {
+      newY = maxUp;
+    }
+
+    this.positionTarget.x = newX;
+    this.positionTarget.y = newY;
   },
   update: function(deltaTime){
     this.x = (this.positionTarget.x - this.x) * deltaTime * 16 + this.x;

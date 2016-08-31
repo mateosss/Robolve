@@ -72,6 +72,7 @@ var Deffense = cc.Sprite.extend({
   },
   setTouchEvent: function() {
     easyTouchEnded(this, function(deffense) {
+      this.level.base.kill();
       if (deffense.getNumberOfRunningActions() === 0) {
         if (!deffense.level.dummyDeffense && !deffense.isDummy) {
           var increase = new cc.ScaleBy(0.1, 1.2);
