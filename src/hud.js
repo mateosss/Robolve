@@ -74,7 +74,7 @@ var Hud = cc.Layer.extend({
         this.inScreen = false;
       }
     };
-    easyTouchEnded(this.dsBtnOk, function(btn, level) {
+    easyTouchButton(this.dsBtnOk, function(btn, level) {
       /// TODO ALL THIS CODE IS REPEATED FROM GAME.JS and MAP.JS
       var pos = level.map.tileCoordFromChild(level.dummyDeffense);
       var canBePlaced = level.dummyDeffense.canBePlacedOn(pos);
@@ -122,7 +122,7 @@ var Hud = cc.Layer.extend({
 
       }
     };
-    easyTouchEnded(this.dsBtnCancel, function(btnCancel) {
+    easyTouchButton(this.dsBtnCancel, function(btnCancel) {
       btnCancel.exec();
     }, this.dsBtnCancel);
     this.addChild(this.dsBtnCancel);
@@ -168,7 +168,7 @@ var Hud = cc.Layer.extend({
       btn.setTouchEnabled(true);
       btn.addChild(img);
       img.setPosition(btn.width / 2, btn.height / 2);
-      easyTouchEnded(btn, dsEvent, this.level, type);
+      easyTouchButton(btn, dsEvent, this.level, type);
 
       this.ds.addChild(btn);
     }
@@ -240,18 +240,19 @@ var Hud = cc.Layer.extend({
     this.ddDestroy.setTouchEnabled(true);
     this.ddDestroy.pressedActionEnabled = true;
     this.dd.pushBackCustomItem(this.ddDestroy);
-    easyTouchEnded(this.ddDestroy, function(btn){
+    easyTouchButton(this.ddDestroy, function(btn){
       var hud = btn.getParent().getParent().getParent();
       if (hud.ddDestroySure) {
         var burn = new cc.TintTo(0.2, 0, 0, 0);
         var disappear = new cc.FadeOut(0.2);
         var message = new cc.CallFunc(function(deffense){hud.it.message("Turret destroyed");}, this, hud);
+        hud.level.base.money += 50;
         var destroy = new cc.CallFunc(function(deffense){deffense.die();}, this);
         var actArray = [burn, disappear, message, destroy];
         hud.ddDeffense.runAction(new cc.Sequence(actArray));
         hud.ddDestroySure = false;
       } else {
-        hud.it.message("Press again to destroy turret");
+        hud.it.message("Press again to destroy (+$50)");
         hud.ddDestroySure = true;
       }
     });
@@ -309,7 +310,7 @@ var PropertySelector = ccui.Layout.extend({
     downBtn.pressedActionEnabled = true;
     downBtn.setTouchEnabled(true);
     downBtn.setContentSize(cc.size(this.width, this.width));
-    easyTouchEnded(downBtn, function(downBtn){
+    easyTouchButton(downBtn, function(downBtn){
       var d = upBtn.getParent().getParent().getParent().getParent().ddDeffense; //Deffense
       var p = upBtn.getParent().property;  //Property name
       var pProp = d['p' + p[0].toUpperCase() + p.slice(1)]; // possible stats(properties)
@@ -344,7 +345,7 @@ var PropertySelector = ccui.Layout.extend({
     upBtn.pressedActionEnabled = true;
     upBtn.setTouchEnabled(true);
     upBtn.setContentSize(cc.size(this.width, this.width));
-    easyTouchEnded(upBtn, function(upBtn){
+    easyTouchButton(upBtn, function(upBtn){
       var d = upBtn.getParent().getParent().getParent().getParent().ddDeffense; //Deffense
       var p = upBtn.getParent().property;  //Property name
       var pProp = d['p' + p[0].toUpperCase() + p.slice(1)]; // possible stats(properties)

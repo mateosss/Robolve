@@ -137,11 +137,11 @@ Ma 30
   - seguimos con el error, pero arregle unas cosas aparte y otros bugs - 1:40
 Mi 31
   - 2 niveles mas, y sistema para que el nivel pueda predefinir defensas - 3:00 hs
-  - seleccion de niveles y easyTouchButton - 14:00
+  - seleccion de niveles y easyTouchButton - 1:10 hs
   - explicacion del juego
   - Bugs
     - arreglar zoom con dos dedos y scrollmap tactil
-    - Arreglar compilacion para android botones tactiles
+    - Arreglar compilacion para android botones tactiles, despues de 8 horas - 30 min
     - En game over la aplicacion se cierra
     - Android: pantalla negra despues de un rato de scroll
 

@@ -32,7 +32,6 @@ var easyTouchEnded = function(pressObj, exec) {
         parameters.push(event);
       }
       parameters = parameters.concat(params);
-      console.log("PATO");
       exec.apply(context, parameters);
       return true;
     }
