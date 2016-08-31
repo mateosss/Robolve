@@ -153,6 +153,7 @@ var Hud = cc.Layer.extend({
       var damage = 0;//0,1,2
       var attackSpeed = 0;//0,1,2
       var customDeffense = new Deffense(level, element, range, terrain, damage, attackSpeed);
+      customDeffense.retain();
       customDeffense.isDummy = true;
       level.showDummyDeffense(customDeffense);
       if (!hud.dsBtnOk.inScreen) {
@@ -247,6 +248,7 @@ var Hud = cc.Layer.extend({
         var disappear = new cc.FadeOut(0.2);
         var message = new cc.CallFunc(function(deffense){hud.it.message("Turret destroyed");}, this, hud);
         hud.level.base.money += 50;
+        hud.ig.refresh();
         var destroy = new cc.CallFunc(function(deffense){deffense.die();}, this);
         var actArray = [burn, disappear, message, destroy];
         hud.ddDeffense.runAction(new cc.Sequence(actArray));

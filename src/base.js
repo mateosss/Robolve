@@ -4,6 +4,7 @@ var Base = cc.Sprite.extend({
   cLife: null, // Current life
   sLife: null, // Initial life
   cTilePos: null, // Current Tile Position
+  killed: false, // Sets wheter the base is already killed
   ctor: function(level, life){
     this._super(res.base);
     this.level = level;
@@ -57,17 +58,19 @@ var Base = cc.Sprite.extend({
   hurt: function(robot){
     //This function calculates the total damage of the bullet depending on the
     //Robot, and do some things in reaction
-    var totalDamage = robot.sDamage;
-    this.cLife -= totalDamage;
-    if (this.cLife <= 0 && !this.killed) {
-      this.life = 0;
-      this.kill();
+    if (!this.killed) {
+      var totalDamage = robot.sDamage;
+      this.cLife -= totalDamage;
+      this.updateHealthBar();
+      if (this.cLife <= 0) {
+        this.life = 0;
+        this.kill();
+      }
+      return totalDamage;
     }
-    this.updateHealthBar();
-    return totalDamage;
   },
   kill: function(){
     this.killed = true;
-    cc.director.runScene(new cc.TransitionFade(1.5, new MainMenu("Game Over")));
+    this.level.gameOver();
   },
 });

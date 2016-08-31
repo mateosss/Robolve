@@ -54,7 +54,8 @@ var Menu = cc.LayerGradient.extend({
     this.addChild(this.ls, 1);//TODO z levels hardcoded
 
     var startGame = function(btn, i) {
-      cc.director.runScene(new cc.TransitionFade(1, new GameLevel(res.maps['map' + (i + 1)])));
+      var firstTime = !text;
+      cc.director.runScene(new cc.TransitionFade(1, new GameLevel(res.maps['map' + (i + 1)], firstTime)));
     };
 
     for (var i = 0; i < 3; i++) {

@@ -106,6 +106,7 @@ var Deffense = cc.Sprite.extend({
     //If there is robots in range proceed to detect which of them is closest
     //To the base, set it to target and return it
     var base = this.level.map.tileCoordFromChild(this.level.base);
+    // var base = this.level.base.getPosition();
     var minDistanceToBase = 0;
     var closestRobotPos = null;
     inRange.filter(function(robot){

@@ -1,13 +1,14 @@
 var TAG_TILE_MAP = 1;
 
 var GameLevel = cc.Scene.extend({
-  ctor: function(mapRes) {
+  ctor: function(mapRes, firstTime) {
     this._super();
     this.mapRes = mapRes;
+    this.firstTime = firstTime;
   },
   onEnter:function () {
     this._super();
-    var level = new Level(this.mapRes);
+    var level = new Level(this.mapRes, this.firstTime);
     var hud = new Hud(level);
     level.hud = hud;
     this.addChild(level);
@@ -26,7 +27,6 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   robots: [], // Current robots in map
   deffenses: [], // Current deffenses in map
   dummyDeffense: null,
-  purchableDeffenses: [], // TODO hardcoded deffenses declared in deffenses.js
   prevWaveRobots: [], // [DNA, score] of the previous wave robots
 
   wavesCounts: [], // Defined by the map, amount of robots per wave
@@ -36,26 +36,28 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   SPAWN_TIME: 0.8, // Seconds between spawns
   lastWave: false, // True if the game is on the last wave
   cWave: null, // Current wave position
-  ctor:function (mapRes) {
+  ctor:function (mapRes, firstTime) {
     this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
     this.map = new TiledMap(this, mapRes);
     this.addChild(this.map, 1, TAG_TILE_MAP);
 
-    // Set level speed
+    // <Set level speed
     this.SPAWN_TIME = this.SPAWN_TIME / this.SPEED;
     for (var i = 0; i < this.wavesIntervals.length; i++) {
       this.wavesIntervals[i] = this.wavesIntervals[i] / this.SPEED;
     }
-    rob = new Robot();
-    for (var value in rob.pSpeed) {
-      rob.pSpeed[value] = rob.pSpeed[value] * this.SPEED;
-      rob.pAttackSpeed[value] = rob.pAttackSpeed[value] * this.SPEED;
+    if (firstTime) { //
+      rob = new Robot();
+      for (var value in rob.pSpeed) {
+        rob.pSpeed[value] = rob.pSpeed[value] * this.SPEED;
+        rob.pAttackSpeed[value] = rob.pAttackSpeed[value] * this.SPEED;
+      }
+      def = new Deffense();
+      for (value in def.pAttackSpeed) {
+        def.pAttackSpeed[value] = def.pAttackSpeed[value] * this.SPEED;
+      }
     }
-    def = new Deffense();
-    for (value in def.pAttackSpeed) {
-      def.pAttackSpeed[value] = def.pAttackSpeed[value] * this.SPEED;
-    }
-
+    // Set level speed>
     //Prepare wave info
     this.wavesCounts =  this.map.getProperties().wavesCounts.split(",").map(Number);
     this.wavesIntervals = this.map.getProperties().wavesIntervals.split(",").map(Number);
@@ -224,6 +226,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   showDummyDeffense: function(deffense) {
     if (this.dummyDeffense) {
       this.dummyDeffense.removeFromParent();
+      this.dummyDeffense.release();
       this.dummyDeffense = null;
     }
     this.dummyDeffense = deffense;
@@ -376,10 +379,32 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     if (i != -1) {
       this.deffenses[i].removeAllChildren();
       this.deffenses[i].removeFromParent();
+      this.deffenses[i].release();
       this.deffenses.splice(i, 1);
       deletion = true;
     }
     return deletion;
+  },
+  endGame: function() {
+    for (var i = 0; i < this.deffenses.length; i++) {
+      this.killDeffense(this.deffenses[i]);
+    }
+    for (i = 0; i < this.robots.length; i++) {
+      this.kill(this.robots[i]);
+    }
+    for (i = 0; i < this.waveQuery.length; i++) {
+      this.waveQuery[i].release();
+    }
+    this.waveQuery = [];
+    this.removeAllChildren();
+  },
+  gameOver: function() {
+    this.endGame();
+    cc.director.runScene(new cc.TransitionFade(1.5, new MainMenu("Game Over")));
+  },
+  winGame: function() {
+    this.endGame();
+    cc.director.runScene(new cc.TransitionFade(1.5, new MainMenu("You Win")));
   },
   counter:0,
   update: function(delta) {// TODO buscar todos los updates del juego y tratar de simplificarlos al maximo, fijarse de usar custom schedulers
@@ -400,7 +425,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     }
 
     if (this.lastWave && this.robots.length === 0) {
-      cc.director.runScene(new cc.TransitionFade(1.5, new MainMenu("You Win")));
+      this.winGame();
     }
   },
 });

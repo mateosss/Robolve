@@ -58,6 +58,7 @@ var TiledMap = cc.TMXTiledMap.extend({
           parseInt(allObjects[i].damage),
           parseInt(allObjects[i].attackSpeed)
         );
+        deffense.retain();
         // Calculates the new deffense position
         p = this.tileCoordFromObject(allObjects[i]);
         // Push the deffense and location
