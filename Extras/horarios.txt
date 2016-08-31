@@ -138,19 +138,18 @@ Ma 30
 Mi 31
   - 2 niveles mas, y sistema para que el nivel pueda predefinir defensas - 3:00 hs
   - seleccion de niveles y easyTouchButton - 1:10 hs
+  - Arreglar compilacion para android botones tactiles, despues de 8 horas - 30 min
+  - Probando cosas de la resolucion - 1:15
+  16:55
+  - arreglar zoom con dos dedos y scrollmap tactil
   - explicacion del juego
-  - Bugs
-    - arreglar zoom con dos dedos y scrollmap tactil
-    - Arreglar compilacion para android botones tactiles, despues de 8 horas - 30 min
-    - En game over la aplicacion se cierra
-    - Android: pantalla negra despues de un rato de scroll
+  - En game over la aplicacion se cierra
+  - Android: pantalla negra despues de un rato de scroll
 
 # Cosas que estoy posponiendo
   - Tiempo para fin de partida
   - Puntaje
   - Tiempo para la proxima oleada
-  - #status torreta
-    - BUG: Solo en android, pasa que la ultima torre no se puede eliminar: Deja de ejcutarse el evento del boton destruir
   - Menu
   - Animación
   - "TODOS" en el codigo
