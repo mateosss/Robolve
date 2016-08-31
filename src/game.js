@@ -19,7 +19,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   hud: null,
   map: null,
   base: null,
-  SPEED: 10, // Keep speed on 1 for normal speed, increase for accelerate
+  SPEED: 1, // Keep speed on 1 for normal speed, increase for accelerate
   crossoverRate: 0.7, //the influence of the strongest parent to let its genes
   mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox. TODO, make the 8 not hardcoded
 
