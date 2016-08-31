@@ -59,7 +59,7 @@ var Base = cc.Sprite.extend({
     //Robot, and do some things in reaction
     var totalDamage = robot.sDamage;
     this.cLife -= totalDamage;
-    if (this.cLife <= 0) {
+    if (this.cLife <= 0 && !this.killed) {
       this.life = 0;
       this.kill();
     }
@@ -67,6 +67,7 @@ var Base = cc.Sprite.extend({
     return totalDamage;
   },
   kill: function(){
+    this.killed = true;
     cc.director.runScene(new cc.TransitionFlipX(1.5, new Menu("Game Over")));
   },
 });

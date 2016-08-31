@@ -32,6 +32,7 @@ var easyTouchEnded = function(pressObj, exec) {
         parameters.push(event);
       }
       parameters = parameters.concat(params);
+      console.log("PATO");
       exec.apply(context, parameters);
       return true;
     }
@@ -49,4 +50,21 @@ var easyTouchEnded = function(pressObj, exec) {
       onMouseUp: reaction,
     }, pressObj);
   }
+};
+
+var easyTouchButton = function(pressObj, exec) {
+  // For now only works with TOUCH_ENDED TODO
+  var params = Array.prototype.slice.call(arguments, 2);
+  var reaction = function (touches, event){
+    if (event == ccui.Widget.TOUCH_ENDED) {
+      var context = pressObj;
+      var parameters = [pressObj];
+      parameters = parameters.concat(params);
+      exec.apply(context, parameters);
+      return true;
+    }
+    return false;
+  };
+  pressObj.addTouchEventListener(reaction, pressObj);
+
 };

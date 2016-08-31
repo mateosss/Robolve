@@ -137,7 +137,7 @@ Ma 30
   - seguimos con el error, pero arregle unas cosas aparte y otros bugs - 1:40
 Mi 31
   - 2 niveles mas, y sistema para que el nivel pueda predefinir defensas - 3:00 hs
-  - seleccion de niveles
+  - seleccion de niveles y easyTouchButton - 14:00
   - explicacion del juego
   - Bugs
     - arreglar zoom con dos dedos y scrollmap tactil

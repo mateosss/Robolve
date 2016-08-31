@@ -1,9 +1,13 @@
 var TAG_TILE_MAP = 1;
 
 var GameLevel = cc.Scene.extend({
+  ctor: function(mapRes) {
+    this._super();
+    this.mapRes = mapRes;
+  },
   onEnter:function () {
     this._super();
-    var level = new Level();
+    var level = new Level(this.mapRes);
     var hud = new Hud(level);
     level.hud = hud;
     this.addChild(level);
@@ -11,7 +15,7 @@ var GameLevel = cc.Scene.extend({
   }
 });
 
-var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
+var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   hud: null,
   map: null,
   base: null,
@@ -32,9 +36,9 @@ var Level = cc.Layer.extend({ // TODO Ir archivando historial de oleadas
   SPAWN_TIME: 0.8, // Seconds between spawns
   lastWave: false, // True if the game is on the last wave
   cWave: null, // Current wave position
-  ctor:function () {
-    this._super();
-    this.map = new TiledMap(this, res.maps.map1);
+  ctor:function (mapRes) {
+    this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
+    this.map = new TiledMap(this, mapRes);
     this.addChild(this.map, 1, TAG_TILE_MAP);
 
     // Set level speed
