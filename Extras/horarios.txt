@@ -141,7 +141,7 @@ Mi 31
   - Arreglar compilacion para android botones tactiles, despues de 8 horas - 30 min
   - Resolucion adaptable y pantalla completa en android - 1:50
   - En game over la aplicacion se cierra - 0:45 hs
-  - arreglar zoom con dos dedos y scrollmap tactil - 21:00
+  - arreglar zoom con dos dedos - 21:00
   - explicacion del juego y posteo en reddit
   - Despues de ganar/perder no se pueden poner torres NO SOLUCIONADO- 1:40 hs
 

@@ -130,21 +130,16 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
       cc.eventManager.addListener({
         event: cc.EventListener.TOUCH_ALL_AT_ONCE,
         onTouchesMoved: function (touches, event) {
-          // TODO hacer padre que tenga moveButton, zoomButton map y herede aca
-          // TODO Update pasarlo al map, por que update cosas suyas
           this.map = event.getCurrentTarget().map;
           var touch = touches[0];
           var delta = touch.getDelta();
-          // this.map.moveMap(delta.x, delta.y);
-          this.map.positionTarget.x += delta.x;
-          this.map.positionTarget.y += delta.y;
+          this.map.moveMap(delta.x, delta.y);
           if (touches.length > 1) {
-            zoomDelta = delta.y*0.001;
+            //TODO make a good zoom method for gods sake
+            var initialDistance = cc.pDistance(touches[0].getStartLocation(), touches[1].getStartLocation());
+            var currentDistance = cc.pDistance(touches[0].getLocation(), touches[1].getLocation());
+            var zoomDelta = (currentDistance - initialDistance) * 0.0001;
             this.map.zoomMap(zoomDelta);
-            // zoom = this.map.scale + zoomDelta;
-            // if (zoom >= 0.15 && zoom <= 1.0) {
-            //   this.map.scale = zoom;
-            // }
           }
         }
       }, this);
@@ -170,12 +165,15 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
             }
             else if(this.pressed == this.zoomButton) {
               var zoomDelta = event.getDelta().y * 0.001;
+              console.log(zoomDelta);
               this.map.zoomMap(zoomDelta);
             }
           }
         },
         onMouseScroll: function(event) {
-          console.info("scroll");
+          this.map = event.getCurrentTarget().map;
+          var zoomDelta = event.getScrollY() * 0.0001;
+          this.map.zoomMap(zoomDelta);
         },
       }, this);
     }
@@ -300,7 +298,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   crossover: function(p1, p2, sonsCount) { //TODO GA que el robot sea equilibrado
     // Crossovers two DNAs from robot.getDNA(), p1 is the strongest parent
     sonsCount = sonsCount || 2;
-    var possible = [
+    var possible = [//TODO hardcoded
       [0, 1, 2], //pTurnProb
       [0, 1, 2], //pLife
       ["electric", "fire", "water"], //pElement
