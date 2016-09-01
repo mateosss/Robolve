@@ -138,11 +138,11 @@ Ma 30
 Mi 31
   - 2 niveles mas, y sistema para que el nivel pueda predefinir defensas - 3:00 hs
   - seleccion de niveles y easyTouchButton - 1:10 hs
-  - Arreglar compilacion para android botones tactiles, despues de 8 horas - 30 min
-  - Resolucion adaptable y pantalla completa en android - 1:50
+  - Arreglar compilacion para android botones tactiles, despues de 8 horas - 0:30 hs
+  - Resolucion adaptable y pantalla completa en android - 1:50 hs
   - En game over la aplicacion se cierra - 0:45 hs
-  - arreglar zoom con dos dedos - 21:00
-  - explicacion del juego y posteo en reddit
+  - arreglar zoom con dos dedos - 0:50 hs
+  - explicacion del juego y posteo en reddit y dificultad aumentada - 21:50
   - Despues de ganar/perder no se pueden poner torres NO SOLUCIONADO- 1:40 hs
 
 # Cosas que estoy posponiendo

@@ -11,7 +11,7 @@ var Robot = cc.Sprite.extend({
 
   //Possible (p) stats //TODO definir valores reales //TODO apply fuzzy logic
   pTurnProb: {0: 0.25, 1: 0.5, 2: 0.9},
-  pLife: {0: 300, 1: 400, 2: 500},
+  pLife: {0: 500, 1: 600, 2: 700},
   pElement: {
     "electric": cc.color(255, 231, 0 ,255),
     "fire": cc.color(227, 43, 0, 255),
@@ -19,7 +19,7 @@ var Robot = cc.Sprite.extend({
   },
   pRange: {0: 75, 1: 150},
   pTerrain: {0: 'walk',1: 'fly'},
-  pSpeed: {0: 0.25, 1: 0.5, 2: 1.0}, //TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug (0,10) Y velocidad 0.1, hace que para linux y android tengan tambien el bug, pero el javascript si.
+  pSpeed: {0: 0.35, 1: 0.75, 2: 1.0}, //TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug (0,10) Y velocidad 0.1, hace que para linux y android tengan tambien el bug, pero el javascript si.
   pDamage: {0: 5, 1: 15, 2:20},
   pAttackSpeed: {0: 0.5, 1: 1.0, 2: 2.0},
 

@@ -362,7 +362,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
       this.robots[i].removeFromParent();
       this.robots.splice(i, 1);
       deletion = true;
-      this.base.money += 50;
+      this.base.money += 30;
       this.hud.ig.refresh();
     }
     // if (deletion) {
