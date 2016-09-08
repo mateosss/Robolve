@@ -37,8 +37,8 @@ To know more about genetic algorithms read this three page article:
 
 For now you can play Robolve in this ways:
   - **Android:** greater than 4.4, download and install the .apk:
-  [https://mega.nz/#!x1sCWTqa!8gTskCOKfjAIRRLTMiWEkXDdbpI4PScUJJTgnQY2l2A](https://mega.nz/#!x1sCWTqa!8gTskCOKfjAIRRLTMiWEkXDdbpI4PScUJJTgnQY2l2A)
-  - **Linux:** 64 bits, download the zip, extract and run the "MyGame" executable: [https://mega.nz/#!BxtCnDCI!PJtK1mmMecXWf2RSVjhHrYcearF9X6uGJ_BvAPURjJc](https://mega.nz/#!BxtCnDCI!PJtK1mmMecXWf2RSVjhHrYcearF9X6uGJ_BvAPURjJc)
+  [https://github.com/mateosss/robolve/releases/download/v0.1/android-4.4.apk](https://github.com/mateosss/robolve/releases/download/v0.1/android-4.4.apk)
+  - **Linux:** 64 bits, download the zip, extract and run the "MyGame" executable: [https://github.com/mateosss/robolve/releases/download/v0.1/linux-64bits.zip](https://github.com/mateosss/robolve/releases/download/v0.1/linux-64bits.zip)
   - **Browser:** firefox/chrome, you can play robolve directly from this link: [robolve.tk](http://robolve.tk)  
 
     Note: robolve.tk refers to a Public dropbox folder, Public dropbox folders
