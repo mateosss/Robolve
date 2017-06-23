@@ -57,8 +57,7 @@ var Menu = cc.LayerGradient.extend({
       var firstTime = !text;
       cc.director.runScene(new cc.TransitionFade(1, new GameLevel(res.maps['map' + (i + 1)], firstTime)));
     };
-
-    for (var i = 0; i < 3; i++) {
+    for (var i = 0; i < _.size(res.maps) - 1; i++) {
       var btn = new ccui.Button(res.ui.greenBtnM, res.ui.greenBtnDM);
       btn.titleText = "Level " + (i + 1);
       btn.pressedActionEnabled = true;

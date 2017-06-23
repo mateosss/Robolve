@@ -21,6 +21,7 @@
         "src/deffense.js",
         "src/base.js",
         "src/hud.js",
-        "src/easyEvents.js"
+        "src/easyEvents.js",
+        "src/jsu.js"
     ]
 }

@@ -145,14 +145,19 @@ Mi 31
   - explicacion del juego y posteo en reddit y dificultad aumentada - 21:50
   - Despues de ganar/perder no se pueden poner torres NO SOLUCIONADO- 1:40 hs
 
-# Cosas que estoy posponiendo
-  - La segunda vez que juego despues de perder/ganar anda para el cul*
+---
+
+# Segunda mitad
+
+- 2017-06-23 02:15 | Volviendo a ver el proyecto, jugando, viendo actualizaciones
+  de tecnología, viendo por que es aburrido, agregado mapa con cientos de robots
+
+# TODO
   - Tiempo para fin de partida
-  - Puntaje
   - Tiempo para la proxima oleada
-  - Menu
-  - Animación
-  - "TODOS" en el codigo
+
+# BUG
+  - La segunda vez que juego despues de perder/ganar anda raro, algunos robots se escapan
   - GA - Problemas conocidos:
     - No estoy teniendo en cuenta el orden en el que salen los robots que afectaria
       mucho el score de cada uno

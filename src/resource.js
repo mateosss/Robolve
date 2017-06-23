@@ -17,6 +17,7 @@ var res = {
     map1: "res/map/map1.tmx",
     map2: "res/map/map2.tmx",
     map3: "res/map/map3.tmx",
+    map4: "res/map/map4.tmx",
   },
   ui:{
     ddBackground: "res/sprites/ui/ddBackground.jpg",
