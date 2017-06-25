@@ -151,12 +151,14 @@ Mi 31
 - 2017-06-23 Vi
     - 10:00 - 12:15 | Volviendo a ver el proyecto, jugando, viendo actualizaciones
   de tecnología, viendo por que es aburrido, agregado mapa con cientos de robots
-    - 23:00 - 00:20 | Armando el script de animaciones.blend
+    - 23:00 - 00:20 | Armando el script de animaciones.blend, animate.py
 
 - 2016-06-24 Sa
-    - 09:00 - 12:00 | siguiendo con animaciones.blend ya se parentean bien las partes con el esqueleto
-    - 14:00 - 15:30 | animaciones.blend ya empieza a renderizar cosas
-    - 22:00 - 22:40 | algunos retoques a animaciones.blend
+    - 09:00 - 12:00 | siguiendo con animate.py ya se parentean bien las partes con el esqueleto
+    - 14:00 - 15:30 | animate.py ya empieza a renderizar cosas
+    - 22:00 - 22:40 | algunos retoques a animate.py
+- 2016-06-25 DO
+    - 11:00 - 19:00 | terminado animate.py
 
 # TODO
   - Tiempo para fin de partida
