@@ -157,8 +157,10 @@ Mi 31
     - 09:00 - 12:00 | siguiendo con animate.py ya se parentean bien las partes con el esqueleto
     - 14:00 - 15:30 | animate.py ya empieza a renderizar cosas
     - 22:00 - 22:40 | algunos retoques a animate.py
-- 2016-06-25 DO
+- 2016-06-25 Do
     - 11:00 - 19:00 | terminado animate.py
+- 2016-06-26 Lu
+    - 21:15 - 00:30 | nuevos placeholders de todas las partes
 
 # TODO
   - Tiempo para fin de partida

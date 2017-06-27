@@ -16,6 +16,14 @@ General Rules:
 
 ### Robots.blend
 
+  - Color Swap: The color swap is a taken from the material design guidelines, electric:yellow, fire:red, water:blue,
+    for darkenning or lightening the color scale two steps, (e.g. yellow 500 lighten-1 would be yellow 300). Use the 
+    complementaries on the color wheel in the same way for details, and the black/white/greys for more details
+
+  - The names of the parts are (ignoring the pipe) PartNameInCamelCase|PartNumber\_SpriteName, e.g. `Heads1_fireStrong`,
+  where Heads1 is an identifier saying it is a Head, an is the number 1 head, and fireStrong, is the name that
+  will be used in game to call the sprite animations
+
 ### Animations.blend
 
 **Be careful:**
