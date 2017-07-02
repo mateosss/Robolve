@@ -32,54 +32,37 @@ var res = {
       "plus",
     ],
   },
-  parts:{
-    heads: {
-      "water0":"res/sprites/heads/waterWeak.png",
-      "water1":"res/sprites/heads/waterNormal.png",
-      "water2":"res/sprites/heads/waterStrong.png",
-      "fire0":"res/sprites/heads/fireWeak.png",
-      "fire1":"res/sprites/heads/fireNormal.png",
-      "fire2":"res/sprites/heads/fireStrong.png",
-      "electric0":"res/sprites/heads/electricWeak.png",
-      "electric1":"res/sprites/heads/electricNormal.png",
-      "electric2":"res/sprites/heads/electricStrong.png",
-    },
-    middles:{
-      0: "res/sprites/middles/weak.png",
-      1: "res/sprites/middles/normal.png",
-      2: "res/sprites/middles/strong.png",
-    },
-    arms:{
-      "water0L":"res/sprites/arms/waterMeleL.png",
-      "water0R":"res/sprites/arms/waterMeleR.png",
-      "water1L":"res/sprites/arms/waterRangeL.png",
-      "water1R":"res/sprites/arms/waterRangeR.png",
-      "fire0L":"res/sprites/arms/fireMeleL.png",
-      "fire0R":"res/sprites/arms/fireMeleR.png",
-      "fire1L":"res/sprites/arms/fireRangeL.png",
-      "fire1R":"res/sprites/arms/fireRangeR.png",
-      "electric0L":"res/sprites/arms/electricMeleL.png",
-      "electric0R":"res/sprites/arms/electricMeleR.png",
-      "electric1L":"res/sprites/arms/electricRangeL.png",
-      "electric1R":"res/sprites/arms/electricRangeR.png",
-    },
-    legs:{
-      "walkL":"res/sprites/legs/walkL.png",
-      "walkR":"res/sprites/legs/walkR.png",
-      "flyL":"res/sprites/legs/flyL.png",
-      "flyR":"res/sprites/legs/flyR.png",
-    },
+  animations: {"attack": 6, "walk": 8, "still": 1},
+  parts_png: "res/sprites/parts.png",
+  parts_plist: "res/sprites/parts.plist",
+};
+
+res.genToPart = function(type, gen) { // TODO reemplazar esta asquerosidad por algo decente
+  switch (type) {
+    case "head":
+      if (gen === 0) return "Weak";
+      else if (gen === 1) return "Normal";
+      else if (gen === 2) return "Strong";
+      break;
+    case "arm":
+      if (gen === 0) return "Mele";
+      else if (gen === 1) return "Range";
+      break;
+    case "middle":
+      if (gen === 0) return "weak";
+      if (gen === 1) return "normal";
+      if (gen === 2) return "strong";
+      break;
+    default:
+      return "ERROR DE GEN TO PART";
   }
 };
 
-var g_resources = [];
+res.getPartSpriteName = function(part_type, animation, part_name, frame) { //TODO Replace for a nicer one
+  return part_type + "/" + animation + "/" + part_name + "_" + frame + ".png";
+};
 
-// Charge robot parts
-for (var part in res.parts){
-  for (var subpart in res.parts[part]) {
-    g_resources.push(res.parts[part][subpart]);
-  }
-}
+var g_resources = [];
 
 // Charge maps sheets and tmx
 for (var map in res.maps){
@@ -111,7 +94,7 @@ for (var ui in res.ui){
 
 // Charge everything else
 for (var i in res) {
-  if (typeof res[i] != "object") {
+  if (typeof res[i] == "string") {
     g_resources.push(res[i]);
   }
 }

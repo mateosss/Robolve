@@ -95,7 +95,7 @@ var Robot = cc.Sprite.extend({
     }
 
     if (this.life in this.pLife) {
-      this.middle = new Part(res.parts.middles[this.life]);
+      this.middle = new Part(res.getPartSpriteName("middles", "still", res.genToPart("middle", this.life), 1));
       this.sLife = this.pLife[this.life];
       this.cLife = this.sLife;
     } else {
@@ -106,8 +106,8 @@ var Robot = cc.Sprite.extend({
     }
 
     if (this.range in this.pRange) {
-      this.armL = new Part(res.parts.arms[this.element + this.range + "L"]);
-      this.armR = new Part(res.parts.arms[this.element + this.range + "R"]);
+      this.armL = new Part(res.getPartSpriteName("armsl", "still", this.element + res.genToPart("arm", this.range) + "L", 1));
+      this.armR = new Part(res.getPartSpriteName("armsr", "still", this.element + res.genToPart("arm", this.range) + "R", 1));
       this.sRange = this.pRange[this.range];
     } else {
       this.armL = new Part(res.invalidPart);
@@ -117,8 +117,8 @@ var Robot = cc.Sprite.extend({
     }
 
     if (this.terrain in this.pTerrain) {
-      this.legL = new Part(res.parts.legs[this.pTerrain[this.terrain] + 'L']);
-      this.legR = new Part(res.parts.legs[this.pTerrain[this.terrain] + 'R']);
+      this.legL = new Part(res.getPartSpriteName("legsl", "still", this.pTerrain[this.terrain] + 'L', 1));
+      this.legR = new Part(res.getPartSpriteName("legsr", "still", this.pTerrain[this.terrain] + 'R', 1));
     } else {
       this.legL = new Part(res.invalidPart);
       this.legR = new Part(res.invalidPart);
@@ -136,7 +136,7 @@ var Robot = cc.Sprite.extend({
 
     if (this.damage in this.pDamage) {
       this.sDamage = this.pDamage[this.damage];
-      this.head = new Part(res.parts.heads[this.element + this.damage]);
+      this.head = new Part(res.getPartSpriteName("heads", "still", this.element + res.genToPart("head", this.damage), 1));
     } else {
       this.sDamage = this.pDamage[0];
       this.head = new Part(res.invalidPart);
@@ -450,7 +450,7 @@ var Robot = cc.Sprite.extend({
 
 var Part = cc.Sprite.extend({
   ctor:function(partImage) {
-    this._super(partImage);
+    this._super(cc.spriteFrameCache.getSpriteFrame(partImage));
     this.setAnchorPoint(0.5, 0.1);
   },
   toString: function() {

@@ -153,18 +153,27 @@ Mi 31
   de tecnología, viendo por que es aburrido, agregado mapa con cientos de robots
     - 23:00 - 00:20 | Armando el script de animaciones.blend, animate.py
 
-- 2016-06-24 Sa
+- 2017-06-24 Sa
     - 09:00 - 12:00 | siguiendo con animate.py ya se parentean bien las partes con el esqueleto
     - 14:00 - 15:30 | animate.py ya empieza a renderizar cosas
     - 22:00 - 22:40 | algunos retoques a animate.py
-- 2016-06-25 Do
+- 2017-06-25 Do
     - 11:00 - 19:00 | terminado animate.py
-- 2016-06-26 Lu
+- 2017-06-26 Lu
     - 21:15 - 00:30 | nuevos placeholders de todas las partes
+    - 00:30 - 02:00 | los nuevos sprites en el juego, viendo algunos temas con animate.py
+- 2016-06-30 Vi
+    - 18:30 - 22:00 | animate.py ahora exporta al formato de directorios que decidí y se arregló el composite
+    - 22:30 - 23:45 | importando en el juego el nuevo formato de directorios sin animaciones
+- 2016-07-01 Sa
+    - 21:30 - 23:30 | ahora los robots se importan del archivo de texture packer
 
 # TODO
-  - Tiempo para fin de partida
-  - Tiempo para la proxima oleada
+  - Importar nodos de compositing desde robot.blend a animaciones.blend
+  - En animate.py agregar una opcion para renderizar un cuerpo completo para ir viendo como queda el compositing
+
+  - Ver si hay alguna forma de actualizar cocos2d-html5 así tiene más sentido lo que veo en el navegador
+    ahora que se que tengo la 3.8 y no acepta polygon trimming en plist
 
 # BUG
   - La segunda vez que juego despues de perder/ganar anda raro, algunos robots se escapan
@@ -176,4 +185,4 @@ Mi 31
       la ultima 10, va a ser como empezar la partida de vuelta, esto hace que todos los mapas
       si o si tengan que tener un numero similar o mayor en waves sucesivas
         en resumen: Si tengo una wave de 1 solo robot va a haber errores en prepareNextWave por que
-        no hay dos padres para crossover
+        no hay dos padres para crossover 7

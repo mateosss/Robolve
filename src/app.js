@@ -24,6 +24,8 @@ var Menu = cc.LayerGradient.extend({
       text = "";
     }
 
+    cc.spriteFrameCache.addSpriteFrames(res.parts_plist);
+
     var size = cc.winSize;
     var tapLabel = new cc.LabelTTF(text + " - Select Level", "Arial", 46);
     tapLabel.x = size.width / 2;
