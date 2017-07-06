@@ -55,6 +55,7 @@ var Menu = cc.LayerGradient.extend({
     }
     this.addChild(this.ls, 1);//TODO z levels hardcoded
 
+    // Comment for omitting level screen
     var startGame = function(btn, i) {
       var firstTime = !text;
       cc.director.runScene(new cc.TransitionFade(1, new GameLevel(res.maps['map' + (i + 1)], firstTime)));

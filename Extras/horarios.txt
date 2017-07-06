@@ -167,7 +167,10 @@ Mi 31
     - 22:30 - 23:45 | importando en el juego el nuevo formato de directorios sin animaciones
 - 2016-07-01 Sa
     - 21:30 - 23:30 | ahora los robots se importan del archivo de texture packer
-
+- 2016-07-05 Mi
+    - 21:30 - 22:30 | Viendo todo,do  pensando en nada...
+- 2016-07-06 Ju
+    - 15:00 - 16:15 | Animaciones iniciales funcionan (solo walk)
 # TODO
   - Importar nodos de compositing desde robot.blend a animaciones.blend
   - En animate.py agregar una opcion para renderizar un cuerpo completo para ir viendo como queda el compositing

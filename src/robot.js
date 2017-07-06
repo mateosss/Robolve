@@ -55,7 +55,7 @@ var Robot = cc.Sprite.extend({
     // it assembles the robot sprite by sprite. It also sets the real stats based
     // on the initial parameters
     //TODO que funcione el balanceo, poder hacer que un robot sea de tipo +1 y eso
-    if (arguments.length === 0) {
+    if (arguments.length === 0) { // Hack for getting only the properties defined above
       return;
     }
 
@@ -64,7 +64,6 @@ var Robot = cc.Sprite.extend({
     this.setAnchorPoint(0.5, 0.0);
     this.level = level;
     this.creationTime = new Date().getTime();
-
 
     dna = dna || false;
     if (dna) {
@@ -87,80 +86,9 @@ var Robot = cc.Sprite.extend({
       this.attackSpeed = attackSpeed;
     }
 
-    if (this.turnProb in this.pTurnProb) {
-      this.sTurnProb = this.pTurnProb[this.turnProb];
-    } else {
-      this.sTurnProb = this.pTurnProb[0];
-      cc.log("Turn Probability value incorrect, setting 0");
-    }
-
-    if (this.life in this.pLife) {
-      this.middle = new Part(res.getPartSpriteName("middles", "still", res.genToPart("middle", this.life), 1));
-      this.sLife = this.pLife[this.life];
-      this.cLife = this.sLife;
-    } else {
-      this.middle = new Part(res.invalidPart);
-      this.sLife = this.pLife[0];
-      this.cLife = this.sLife;
-      cc.log("Life value incorrect, setting 0");
-    }
-
-    if (this.range in this.pRange) {
-      this.armL = new Part(res.getPartSpriteName("armsl", "still", this.element + res.genToPart("arm", this.range) + "L", 1));
-      this.armR = new Part(res.getPartSpriteName("armsr", "still", this.element + res.genToPart("arm", this.range) + "R", 1));
-      this.sRange = this.pRange[this.range];
-    } else {
-      this.armL = new Part(res.invalidPart);
-      this.armR = new Part(res.invalidPart);
-      this.sRange = this.pRange[0];
-      cc.log("Range value incorrect, setting 0");
-    }
-
-    if (this.terrain in this.pTerrain) {
-      this.legL = new Part(res.getPartSpriteName("legsl", "still", this.pTerrain[this.terrain] + 'L', 1));
-      this.legR = new Part(res.getPartSpriteName("legsr", "still", this.pTerrain[this.terrain] + 'R', 1));
-    } else {
-      this.legL = new Part(res.invalidPart);
-      this.legR = new Part(res.invalidPart);
-      cc.log("Terrain value incorrect");
-    }
-
-    if (this.speed in this.pSpeed) {
-      this.sSpeed = this.pSpeed[this.speed];
-      this.animSpeed = this.pSpeed[this.speed];
-    } else {
-      this.sSpeed = this.pSpeed[0];
-      this.animSpeed = this.pSpeed[0];
-      cc.log("Speed value incorrect, setting 0");
-    }
-
-    if (this.damage in this.pDamage) {
-      this.sDamage = this.pDamage[this.damage];
-      this.head = new Part(res.getPartSpriteName("heads", "still", this.element + res.genToPart("head", this.damage), 1));
-    } else {
-      this.sDamage = this.pDamage[0];
-      this.head = new Part(res.invalidPart);
-      cc.log("Damage value is incorrect, setting 0");
-    }
-
-    if (this.attackSpeed in this.pAttackSpeed) {
-      this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
-    } else {
-      this.sAttackSpeed = this.pAttackSpeed[0];
-      cc.log("Attack Speed value incorrect, setting 0");
-    }
-
-    this.addChild(this.head, 2);
-    this.addChild(this.middle, 1);
-    this.addChild(this.armL, 3);
-    this.addChild(this.armR, 0);
-    this.addChild(this.legL, 0);
-    this.addChild(this.legR, 0);
-
+    this.buildRobot();
     this.createHealthBar();
-
     // this.debug();
-
     this.scheduleUpdate();
   },
   toString: function() {
@@ -178,6 +106,39 @@ var Robot = cc.Sprite.extend({
       this.attackSpeed,
     ];
     return dna;
+  },
+  buildRobot: function() {
+    // Builds the robot, by placing all the correct sprites based on the
+    // robot DNA and the correct stats
+    this.sTurnProb = this.pTurnProb[this.turnProb];
+
+    this.middle = new Part(res.getPartSpriteName("middles", "walk", res.genToPart("middle", this.life), 1));
+    this.sLife = this.pLife[this.life];
+    this.cLife = this.sLife;
+
+    // TODO the res.getPartSpriteName and res.genToPart functions are just plain bad, they shouldn't be on res, and they functioning is awful,
+    // should review them after animations works
+    this.armL = new Part(res.getPartSpriteName("armsl", "walk", this.element + res.genToPart("arm", this.range) + "L", 1));
+    this.armR = new Part(res.getPartSpriteName("armsr", "walk", this.element + res.genToPart("arm", this.range) + "R", 1));
+    this.sRange = this.pRange[this.range];
+
+    this.legL = new Part(res.getPartSpriteName("legsl", "walk", this.pTerrain[this.terrain] + 'L', 1));
+    this.legR = new Part(res.getPartSpriteName("legsr", "walk", this.pTerrain[this.terrain] + 'R', 1));
+
+    this.sSpeed = this.pSpeed[this.speed];
+    this.animSpeed = this.pSpeed[this.speed];
+
+    this.sDamage = this.pDamage[this.damage];
+    this.head = new Part(res.getPartSpriteName("heads", "walk", this.element + res.genToPart("head", this.damage), 1));
+
+    this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
+
+    this.addChild(this.head, 2);
+    this.addChild(this.middle, 1);
+    this.addChild(this.armL, 3);
+    this.addChild(this.armR, 0);
+    this.addChild(this.legL, 0);
+    this.addChild(this.legR, 0);
   },
   createHealthBar: function() { //TODO crear una buena health bar que sea independiente del tamaño del sprie
     //Creates two rectangles for representing the healtbar
@@ -434,7 +395,7 @@ var Robot = cc.Sprite.extend({
       //   // text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
       //   // text: "time: " + this.firstHurtTimeScore().toFixed(4) + "\n" +
       //   text: "time: " + this.hitsReceivedScore().toFixed(4) + "\n" +
-      //   "damage: " + this.infligedDamageScore().toFixed(4) + "\n" +
+        // "damage: " + this.infligedDamageScore().toFixed(4) + "\n" +
       //   "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
       //   "score: " + this.getScore().toFixed(4) + "\n"
       // });
@@ -451,6 +412,20 @@ var Robot = cc.Sprite.extend({
 var Part = cc.Sprite.extend({
   ctor:function(partImage) {
     this._super(cc.spriteFrameCache.getSpriteFrame(partImage));
+
+    var frames = [];
+    for (var i = 1; i <= 8; i++) {
+      var lastUnderscore = partImage.lastIndexOf("_");
+      var first = partImage.slice(0, lastUnderscore + 1);
+      var last = partImage.slice(lastUnderscore + 1);
+      var lastDot = last.lastIndexOf(".");
+      var extension = last.slice(lastDot);
+      var newFrame = first + i + extension;
+      frames.push(cc.spriteFrameCache.getSpriteFrame(newFrame));
+    }
+    var animation = new cc.Animate(new cc.Animation(frames, 1/8));
+    this.runAction(new cc.RepeatForever(animation));
+
     this.setAnchorPoint(0.5, 0.1);
   },
   toString: function() {
