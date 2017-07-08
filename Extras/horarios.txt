@@ -174,7 +174,8 @@ Mi 31
     - 21:00 - 00:00 | Iniciando reestructuración del proyecto por las animaciones
 - 2016-07-07 Vi
     - 21:30 - 23:10 | Reestructuración terminada
-    
+    - 23:10 - 23:40 | Flip x al turnear
+
 # TODO
   - Setear una variable que determine la nueva posicion z de cada robot y cada parte
   - Rehacer sistema de menus y hud con componentes modulares
@@ -206,3 +207,6 @@ Mi 31
       si o si tengan que tener un numero similar o mayor en waves sucesivas
         en resumen: Si tengo una wave de 1 solo robot va a haber errores en prepareNextWave por que
         no hay dos padres para crossover 7
+
+# PRODUCTION TODO
+  - sprite con polygon mesh al exportar a android, ahora esta con maxrect para que funcione en navegador

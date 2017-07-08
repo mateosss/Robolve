@@ -133,13 +133,14 @@ var Robot = cc.Sprite.extend({
       this.legr,
     ];
   },
+  allParts: function(func) { // executes a function for every part
+    this.getParts().forEach(func, this);
+  },
   addPart: function(part) { // Adds a part to the robot as a child in the correct zindex
     this.addChild(part, part.PARTS[part.type].zIndex);
   },
   setAnimation: function(animation) { // Expects a string with the name of an animation to reproduce, and reproduce it in every robot part
-    this.getParts().forEach(function(part) {
-      part.setAnimation(animation);
-    });
+    this.allParts(function(part) {part.setAnimation(animation);});
   },
   createHealthBar: function() { //TODO crear una buena health bar que sea independiente del tamaño del sprie
     //Creates two rectangles for representing the healtbar
@@ -261,6 +262,7 @@ var Robot = cc.Sprite.extend({
         }
       }
       this.pointing = newDirection;
+      this.allParts(function(part){part.setFlippedX(this.pointing % 2);});
     }
   },
   walk: function() {
