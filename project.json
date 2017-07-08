@@ -12,16 +12,21 @@
     "modules" : ["cocos2d", "extensions"],
 
     "jsList" : [
-        "src/resource.js",
-        "src/app.js",
-        "src/game.js",
-        "src/debugger.js",
-        "src/robot.js",
-        "src/map.js",
-        "src/deffense.js",
-        "src/base.js",
-        "src/hud.js",
-        "src/easyEvents.js",
-        "src/jsu.js"
+      "src/app.js",
+      "src/debugger.js",
+      "src/jsu.js",
+      "src/resource.js",
+      "src/hud/easyEvents.js",
+      "src/hud/hud.js",
+      "src/hud/menu.js",
+      "src/hud/propertySelector.js",
+      "src/level/base.js",
+      "src/level/deffense.js",
+      "src/level/game.js",
+      "src/level/level.js",
+      "src/level/map.js",
+      "src/robot/animation.js",
+      "src/robot/part.js",
+      "src/robot/robot.js"
     ]
 }

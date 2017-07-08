@@ -171,12 +171,29 @@ Mi 31
     - 21:30 - 22:30 | Viendo todo,do  pensando en nada...
 - 2016-07-06 Ju
     - 15:00 - 16:15 | Animaciones iniciales funcionan (solo walk)
+    - 21:00 - 00:00 | Iniciando reestructuración del proyecto por las animaciones
+- 2016-07-07 Vi
+    - 21:30 - 23:10 | Reestructuración terminada
+    
 # TODO
+  - Setear una variable que determine la nueva posicion z de cada robot y cada parte
+  - Rehacer sistema de menus y hud con componentes modulares
+  - Repensar: Desarrollo de la partida, Sistema de mejoras,
+    Pathfinding de los robots, que opciones va a tener el jugador durante
+    la partida y que va a poder visualizar en el hud?
+  - Mejoras, más personalización visual de las torretas, que se note la
+    evolución de las torretas con partes, quizás algo simil al
+    funcionamiento de los robots
+
   - Importar nodos de compositing desde robot.blend a animaciones.blend
   - En animate.py agregar una opcion para renderizar un cuerpo completo para ir viendo como queda el compositing
 
   - Ver si hay alguna forma de actualizar cocos2d-html5 así tiene más sentido lo que veo en el navegador
     ahora que se que tengo la 3.8 y no acepta polygon trimming en plist
+
+# IDEA
+  - Que las defensas sean robots quietos internamente con diferentes sprites
+  - Poder armar robot bueno que camine hacia los malos
 
 # BUG
   - La segunda vez que juego despues de perder/ganar anda raro, algunos robots se escapan

@@ -1,4 +1,4 @@
-var res = {
+var r = { // resources variable
   HelloWorld_png : "res/HelloWorld.png",
   map: "res/map.png",
   empty: "res/sprites/empty.png",
@@ -37,64 +37,39 @@ var res = {
   parts_plist: "res/sprites/parts.plist",
 };
 
-res.genToPart = function(type, gen) { // TODO reemplazar esta asquerosidad por algo decente
-  switch (type) {
-    case "head":
-      if (gen === 0) return "Weak";
-      else if (gen === 1) return "Normal";
-      else if (gen === 2) return "Strong";
-      break;
-    case "arm":
-      if (gen === 0) return "Mele";
-      else if (gen === 1) return "Range";
-      break;
-    case "middle":
-      if (gen === 0) return "weak";
-      if (gen === 1) return "normal";
-      if (gen === 2) return "strong";
-      break;
-    default:
-      return "ERROR DE GEN TO PART";
-  }
-};
-
-res.getPartSpriteName = function(part_type, animation, part_name, frame) { //TODO Replace for a nicer one
-  return part_type + "/" + animation + "/" + part_name + "_" + frame + ".png";
-};
-
 var g_resources = [];
 
 // Charge maps sheets and tmx
-for (var map in res.maps){
-  g_resources.push(res.maps[map]);
+for (var map in r.maps){
+  g_resources.push(r.maps[map]);
 }
 
 // Charge ui images
-for (var ui in res.ui){
-  if (typeof res.ui[ui] === 'string') {
-    g_resources.push(res.ui[ui]);
+for (var ui in r.ui){
+  if (typeof r.ui[ui] === 'string') {
+    g_resources.push(r.ui[ui]);
   }
   if (ui == 'buttons') {
-    for (var btn in res.ui.buttons) {
-      res.ui[res.ui.buttons[btn] + "BtnL"] = "res/sprites/ui/largeButtons/" + res.ui.buttons[btn] + "BtnL.png";
-      res.ui[res.ui.buttons[btn] + "BtnDL"] = "res/sprites/ui/largeButtons/" + res.ui.buttons[btn] + "BtnDL.png";
-      res.ui[res.ui.buttons[btn] + "BtnM"] = "res/sprites/ui/mediumButtons/" + res.ui.buttons[btn] + "BtnM.png";
-      res.ui[res.ui.buttons[btn] + "BtnDM"] = "res/sprites/ui/mediumButtons/" + res.ui.buttons[btn] + "BtnDM.png";
-      res.ui[res.ui.buttons[btn] + "BtnS"] = "res/sprites/ui/smallButtons/" + res.ui.buttons[btn] + "BtnS.png";
-      res.ui[res.ui.buttons[btn] + "BtnDS"] = "res/sprites/ui/smallButtons/" + res.ui.buttons[btn] + "BtnDS.png";
-      g_resources.push(res.ui[res.ui.buttons[btn] + "BtnL"]);
-      g_resources.push(res.ui[res.ui.buttons[btn] + "BtnDL"]);
-      g_resources.push(res.ui[res.ui.buttons[btn] + "BtnM"]);
-      g_resources.push(res.ui[res.ui.buttons[btn] + "BtnDM"]);
-      g_resources.push(res.ui[res.ui.buttons[btn] + "BtnS"]);
-      g_resources.push(res.ui[res.ui.buttons[btn] + "BtnDS"]);
+    for (var btn in r.ui.buttons) {
+      r.ui[r.ui.buttons[btn] + "BtnL"] = "res/sprites/ui/largeButtons/" + r.ui.buttons[btn] + "BtnL.png";
+      r.ui[r.ui.buttons[btn] + "BtnDL"] = "res/sprites/ui/largeButtons/" + r.ui.buttons[btn] + "BtnDL.png";
+      r.ui[r.ui.buttons[btn] + "BtnM"] = "res/sprites/ui/mediumButtons/" + r.ui.buttons[btn] + "BtnM.png";
+      r.ui[r.ui.buttons[btn] + "BtnDM"] = "res/sprites/ui/mediumButtons/" + r.ui.buttons[btn] + "BtnDM.png";
+      r.ui[r.ui.buttons[btn] + "BtnS"] = "res/sprites/ui/smallButtons/" + r.ui.buttons[btn] + "BtnS.png";
+      r.ui[r.ui.buttons[btn] + "BtnDS"] = "res/sprites/ui/smallButtons/" + r.ui.buttons[btn] + "BtnDS.png";
+      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnL"]);
+      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDL"]);
+      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnM"]);
+      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDM"]);
+      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnS"]);
+      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDS"]);
     }
   }
 }
 
 // Charge everything else
-for (var i in res) {
-  if (typeof res[i] == "string") {
-    g_resources.push(res[i]);
+for (var i in r) {
+  if (typeof r[i] == "string") {
+    g_resources.push(r[i]);
   }
 }

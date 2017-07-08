@@ -6,7 +6,7 @@ var Base = cc.Sprite.extend({
   cTilePos: null, // Current Tile Position
   killed: false, // Sets wheter the base is already killed
   ctor: function(level, life){
-    this._super(res.base);
+    this._super(r.base);
     this.level = level;
     this.sLife = this.cLife = life;
     this.setAnchorPoint(0.5, 0.1);

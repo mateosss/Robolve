@@ -1,21 +1,3 @@
-var TAG_TILE_MAP = 1;
-
-var GameLevel = cc.Scene.extend({
-  ctor: function(mapRes, firstTime) {
-    this._super();
-    this.mapRes = mapRes;
-    this.firstTime = firstTime;
-  },
-  onEnter:function () {
-    this._super();
-    var level = new Level(this.mapRes, this.firstTime);
-    var hud = new Hud(level);
-    level.hud = hud;
-    this.addChild(level);
-    this.addChild(hud);
-  }
-});
-
 var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   hud: null,
   map: null,
@@ -39,7 +21,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   ctor:function (mapRes, firstTime) {
     this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
     this.map = new TiledMap(this, mapRes);
-    this.addChild(this.map, 1, TAG_TILE_MAP);
+    this.addChild(this.map, 1);
 
     // <Set level speed
     this.SPAWN_TIME = this.SPAWN_TIME / this.SPEED;
@@ -47,12 +29,12 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
       this.wavesIntervals[i] = this.wavesIntervals[i] / this.SPEED;
     }
     if (firstTime) { //
-      rob = new Robot();
+      rob = _.props(Robot);
       for (var value in rob.pSpeed) {
         rob.pSpeed[value] = rob.pSpeed[value] * this.SPEED;
         rob.pAttackSpeed[value] = rob.pAttackSpeed[value] * this.SPEED;
       }
-      def = new Deffense();
+      def = _.props(Deffense);
       for (value in def.pAttackSpeed) {
         def.pAttackSpeed[value] = def.pAttackSpeed[value] * this.SPEED;
       }
@@ -64,7 +46,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.prepareNextWave();
 
     // Set base
-    var base = new Base(this, 500);
+    var base = new Base(this, 50000);
     this.setBase(base);
 
     // Add Robot
@@ -413,7 +395,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
       }
       this.counter = 0;
       if (this.waveQuery.length > 0) {
-        this.addRobot(this.waveQuery[this.waveQuery.length - 1]);
+        this.addRobot(_.last(this.waveQuery));
         this.waveQuery.pop();
       } else if (!this.lastWave && this.robots.length === 0) {
         this.prepareNextWave();

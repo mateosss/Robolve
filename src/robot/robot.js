@@ -1,15 +1,15 @@
 var Robot = cc.Sprite.extend({
-  level: null, //Level where this object is placed
-  pointing: 2, //Looking direction 0:North, 1:East, 2:South, 3:West
-  animSpeed: 1.0, //Walk speed animation
-  animAttackSpeed: 1.0, //Attack speed animation
-  cLife: null, //Current Life
-  cTilePos: cc.p(0, 0), //Current tile Position of the robot //TODO estoy hardcodeando esto
+  level: null, // Level where this object is placed
+  pointing: 2, // Looking direction 0:North, 1:East, 2:South, 3:West
+  cAction: null, // Current cc.Action being played
+  cLife: null, // Current Life
+  cTilePos: cc.p(0, 0), // Current tile Position of the robot // TODO estoy hardcodeando esto
+  state: null, // Current robot state (attack, walk, still...)
   creationTime: null,
   hitsReceived: 0,
   infligedDamage: 0,
 
-  //Possible (p) stats //TODO definir valores reales //TODO apply fuzzy logic
+  //Possible (p) stats // TODO definir valores reales // TODO apply fuzzy logic
   pTurnProb: {0: 0.25, 1: 0.5, 2: 0.9},
   pLife: {0: 500, 1: 600, 2: 700},
   pElement: {
@@ -19,7 +19,7 @@ var Robot = cc.Sprite.extend({
   },
   pRange: {0: 75, 1: 150},
   pTerrain: {0: 'walk',1: 'fly'},
-  pSpeed: {0: 0.35, 1: 0.75, 2: 1.0}, //TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug donde el robot se va del mapa (0,10) Y velocidad 0.1, hace que para linux y android tengan tambien el bug, pero el javascript si.
+  pSpeed: {0: 0.35, 1: 0.75, 2: 1.0}, // TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug donde el robot se va del mapa (0,10) Y velocidad 0.1, hace que para linux y android tengan tambien el bug, pero el javascript si.
   pDamage: {0: 5, 1: 15, 2:20},
   pAttackSpeed: {0: 0.5, 1: 1.0, 2: 2.0},
 
@@ -44,10 +44,10 @@ var Robot = cc.Sprite.extend({
   //Part objects
   head: null,
   middle: null,
-  armL: null,
-  armR: null,
-  legL: null,
-  legR: null,
+  arml: null,
+  armr: null,
+  legl: null,
+  legr: null,
 
   ctor: function(level, dna, turnProb, life, element, range, terrain, speed, damage, attackSpeed) {
     // The constructor sets the level, creationTime, and all the initial stats,
@@ -55,12 +55,9 @@ var Robot = cc.Sprite.extend({
     // it assembles the robot sprite by sprite. It also sets the real stats based
     // on the initial parameters
     //TODO que funcione el balanceo, poder hacer que un robot sea de tipo +1 y eso
-    if (arguments.length === 0) { // Hack for getting only the properties defined above
-      return;
-    }
 
-    this._super(res.empty);
-
+    if (arguments.length === 0) return; // Hack for getting only the properties defined above
+    this._super(r.empty);
     this.setAnchorPoint(0.5, 0.0);
     this.level = level;
     this.creationTime = new Date().getTime();
@@ -86,8 +83,10 @@ var Robot = cc.Sprite.extend({
       this.attackSpeed = attackSpeed;
     }
 
+    this.resetStats();
     this.buildRobot();
     this.createHealthBar();
+    this.setState("walk");
     // this.debug();
     this.scheduleUpdate();
   },
@@ -110,35 +109,37 @@ var Robot = cc.Sprite.extend({
   buildRobot: function() {
     // Builds the robot, by placing all the correct sprites based on the
     // robot DNA and the correct stats
+    Object.keys(_.props(Part).PARTS).forEach(function(part) {
+      this[part] = new Part(this, part);
+      this.addPart(this[part]);
+    }, this);
+  },
+  resetStats: function() {
     this.sTurnProb = this.pTurnProb[this.turnProb];
-
-    this.middle = new Part(res.getPartSpriteName("middles", "walk", res.genToPart("middle", this.life), 1));
     this.sLife = this.pLife[this.life];
     this.cLife = this.sLife;
-
-    // TODO the res.getPartSpriteName and res.genToPart functions are just plain bad, they shouldn't be on res, and they functioning is awful,
-    // should review them after animations works
-    this.armL = new Part(res.getPartSpriteName("armsl", "walk", this.element + res.genToPart("arm", this.range) + "L", 1));
-    this.armR = new Part(res.getPartSpriteName("armsr", "walk", this.element + res.genToPart("arm", this.range) + "R", 1));
     this.sRange = this.pRange[this.range];
-
-    this.legL = new Part(res.getPartSpriteName("legsl", "walk", this.pTerrain[this.terrain] + 'L', 1));
-    this.legR = new Part(res.getPartSpriteName("legsr", "walk", this.pTerrain[this.terrain] + 'R', 1));
-
     this.sSpeed = this.pSpeed[this.speed];
-    this.animSpeed = this.pSpeed[this.speed];
-
     this.sDamage = this.pDamage[this.damage];
-    this.head = new Part(res.getPartSpriteName("heads", "walk", this.element + res.genToPart("head", this.damage), 1));
-
     this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
-
-    this.addChild(this.head, 2);
-    this.addChild(this.middle, 1);
-    this.addChild(this.armL, 3);
-    this.addChild(this.armR, 0);
-    this.addChild(this.legL, 0);
-    this.addChild(this.legR, 0);
+  },
+  getParts: function() { // Return all Part objects from which the robot is made
+    return [
+      this.head,
+      this.middle,
+      this.arml,
+      this.armr,
+      this.legl,
+      this.legr,
+    ];
+  },
+  addPart: function(part) { // Adds a part to the robot as a child in the correct zindex
+    this.addChild(part, part.PARTS[part.type].zIndex);
+  },
+  setAnimation: function(animation) { // Expects a string with the name of an animation to reproduce, and reproduce it in every robot part
+    this.getParts().forEach(function(part) {
+      part.setAnimation(animation);
+    });
   },
   createHealthBar: function() { //TODO crear una buena health bar que sea independiente del tamaño del sprie
     //Creates two rectangles for representing the healtbar
@@ -171,8 +172,14 @@ var Robot = cc.Sprite.extend({
   fire: function(target) {//TODO repetido en defensa hacer buena clase padre
     // This funcitons is executed when the robot attacks something
     if (target) {
+      this.setState("attack");
       this.infligedDamage += target.hurt(this);
     }
+  },
+  setState: function(state) { // TODO too basic, probably will need improvements in the future, investigate finite state machine
+    if (this.state === state) return;
+    this.setAnimation(state);
+    this.state = state;
   },
   getTarget: function() {//TODO otra vez se repite en defensa
     // This function returns if there is a target to attack in the robot range
@@ -406,29 +413,5 @@ var Robot = cc.Sprite.extend({
     if (!base) {
       this.walk();
     }
-  },
-});
-
-var Part = cc.Sprite.extend({
-  ctor:function(partImage) {
-    this._super(cc.spriteFrameCache.getSpriteFrame(partImage));
-
-    var frames = [];
-    for (var i = 1; i <= 8; i++) {
-      var lastUnderscore = partImage.lastIndexOf("_");
-      var first = partImage.slice(0, lastUnderscore + 1);
-      var last = partImage.slice(lastUnderscore + 1);
-      var lastDot = last.lastIndexOf(".");
-      var extension = last.slice(lastDot);
-      var newFrame = first + i + extension;
-      frames.push(cc.spriteFrameCache.getSpriteFrame(newFrame));
-    }
-    var animation = new cc.Animate(new cc.Animation(frames, 1/8));
-    this.runAction(new cc.RepeatForever(animation));
-
-    this.setAnchorPoint(0.5, 0.1);
-  },
-  toString: function() {
-    return "Part";
   },
 });

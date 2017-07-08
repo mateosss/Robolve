@@ -1,7 +1,7 @@
 var TiledMap = cc.TMXTiledMap.extend({
   level: null,
   CHILD_SCALE: 0.8,
-  positionTarget: cc.p(winSize.width / 2, winSize.height / 2),
+  positionTarget: cc.p(cc.director.getWinSize().width / 2, cc.director.getWinSize().height / 2),
   ctor: function(level, tmxMap){
     this.level = level;
     this._super(tmxMap);
@@ -208,16 +208,17 @@ var TiledMap = cc.TMXTiledMap.extend({
     }
   },
   moveMap: function(x, y) {
-    mapHalfWidth = (this.width * this.scale)/2;
-    mapHalfHeight = (this.height)/2;
+    var winSize = cc.director.getWinSize();
+    var mapHalfWidth = (this.width * this.scale)/2;
+    var mapHalfHeight = (this.height)/2;
 
-    maxLeft = winSize.width - 50 - mapHalfWidth;
-    maxRight = 0 + 50 + mapHalfWidth;
-    maxDown = winSize.height + 50 - mapHalfHeight;
-    maxUp = 0 - 50 + mapHalfHeight;
+    var maxLeft = winSize.width - 50 - mapHalfWidth;
+    var maxRight = 0 + 50 + mapHalfWidth;
+    var maxDown = winSize.height + 50 - mapHalfHeight;
+    var maxUp = 0 - 50 + mapHalfHeight;
 
-    newX = this.positionTarget.x + x;
-    newY = this.positionTarget.y + y;
+    var newX = this.positionTarget.x + x;
+    var newY = this.positionTarget.y + y;
 
     if (newX < maxLeft) {
       newX = maxLeft;

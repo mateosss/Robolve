@@ -11,9 +11,9 @@ var Deffense = cc.Sprite.extend({
     "electric": "Electro",
     "fire": "Fire",
     "water": "Water"
-    // "electric": res.ui.yellowBtnDS,
-    // "fire": res.ui.redBtnDS,
-    // "water": res.ui.blueBtnDS
+    // "electric": r.ui.yellowBtnDS,
+    // "fire": r.ui.redBtnDS,
+    // "water": r.ui.blueBtnDS
   },
   pRange: {0: 200, 1: 300, 2:500},
   pTerrain: {0: 'walk',1: 'fly'},
@@ -32,9 +32,8 @@ var Deffense = cc.Sprite.extend({
   attackSpeed: null,
 
   ctor:function(level, element, range, terrain, damage, attackSpeed) {
-    if (arguments.length === 0) {
-      return;
-    }
+    if (arguments.length === 0) return;
+
     // Defines the initial values and stats by searching on possible stats
     this.level = level;
 
@@ -45,14 +44,7 @@ var Deffense = cc.Sprite.extend({
     this.attackSpeed = attackSpeed;
 
     this.refreshStats();
-
-    if (this.element == 'electric') {
-      this._super(res.electricDeffense);
-    } else if (this.element == 'fire') {
-      this._super(res.fireDeffense);
-    } else if (this.element == 'water') {
-      this._super(res.waterDeffense);
-    }
+    this._super(r[this.element + "Deffense"]);
 
     // this.debug();
     this.setAnchorPoint(0.5, 0.1);

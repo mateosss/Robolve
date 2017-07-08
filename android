@@ -1,7 +1,7 @@
 #adb tcpip 5555 &
 sh Extras/copyfiles.sh
 cd $HOME/Escritorio/Robolve/
-adb connect 192.168.0.14
+adb connect 192.168.0.98
 cocos run -p android
 RETVAL=$?
 [ $RETVAL -eq 0 ] && echo Success
