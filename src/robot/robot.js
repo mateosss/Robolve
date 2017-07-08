@@ -4,7 +4,7 @@ var Robot = cc.Sprite.extend({
   cAction: null, // Current cc.Action being played
   cLife: null, // Current Life
   cTilePos: cc.p(0, 0), // Current tile Position of the robot // TODO estoy hardcodeando esto
-  state: null, // Current robot state (attack, walk, still...)
+  state: null, // robot state (attack, walk, still...)
   creationTime: null,
   hitsReceived: 0,
   infligedDamage: 0,
@@ -287,27 +287,27 @@ var Robot = cc.Sprite.extend({
     this.x += this.sSpeed * xDirection;
     this.y += (this.sSpeed / 2) * yDirection;
   },
-  hurt: function(deffense) {
+  hurt: function(defense) {
     // This function calculates the total damage of the received attack depending
-    // on the deffense properties, and do some things in reaction
+    // on the defense properties, and do some things in reaction
     this.hitsReceived += 1;
     var elementMod = 1;
     if (this.element == "electric") {
-      if (deffense.element == "electric") {elementMod = 1;}
-      else if (deffense.element == "fire") {elementMod = 2;}
-      else if (deffense.element == "water") {elementMod = 0.5;}
+      if (defense.element == "electric") {elementMod = 1;}
+      else if (defense.element == "fire") {elementMod = 2;}
+      else if (defense.element == "water") {elementMod = 0.5;}
     }
     else if (this.element == "fire") {
-      if (deffense.element == "electric") {elementMod = 0.5;}
-      else if (deffense.element == "fire") {elementMod = 1;}
-      else if (deffense.element == "water") {elementMod = 2;}
+      if (defense.element == "electric") {elementMod = 0.5;}
+      else if (defense.element == "fire") {elementMod = 1;}
+      else if (defense.element == "water") {elementMod = 2;}
     }
     else if (this.element == "water") {
-      if (deffense.element == "electric") {elementMod = 2;}
-      else if (deffense.element == "fire") {elementMod = 0.5;}
-      else if (deffense.element == "water") {elementMod = 1;}
+      if (defense.element == "electric") {elementMod = 2;}
+      else if (defense.element == "fire") {elementMod = 0.5;}
+      else if (defense.element == "water") {elementMod = 1;}
     }
-    var totalDamage = deffense.sDamage * elementMod;
+    var totalDamage = defense.sDamage * elementMod;
     this.cLife -= totalDamage;
     if (this.cLife <= 0) {
       this.cLife = 0;
@@ -333,7 +333,7 @@ var Robot = cc.Sprite.extend({
   },
   hitsReceivedScore: function() {
     // Returns a float, being 0.0 == 0 ms, 1.0 lived more or equal ms to maxTime
-    var maxHits = this.pLife[2] / (new Deffense().pDamage[0] * 0.5);
+    var maxHits = this.pLife[2] / (new Defense().pDamage[0] * 0.5);
     var score = 0;
     var hitsReceived = this.hitsReceived;
     score =  hitsReceived / maxHits;

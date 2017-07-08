@@ -1,7 +1,7 @@
 var PropertySelector = ccui.Layout.extend({
   property: null,
   pValueLabel: null,
-  ctor: function(parent, deffense, property) {
+  ctor: function(parent, defense, property) {
     // TODO HARDCODE EVERYWHERE
     this._super();
     this.property = property;
@@ -28,7 +28,7 @@ var PropertySelector = ccui.Layout.extend({
     pNameLabel.setPosition(0, background.height);
     background.addChild(pNameLabel, 99);
 
-    var pValue = deffense[pProperty][deffense[this.property]];
+    var pValue = defense[pProperty][defense[this.property]];
     this.pValueLabel = new ccui.Text(pValue, "Arial", background.width / 2);
     this.pValueLabel.setAnchorPoint(0, 0);
     this.pValueLabel.setPosition(4, background.height / 2 - this.pValueLabel.height / 2); // TODO 4 hardcodeado
@@ -41,7 +41,7 @@ var PropertySelector = ccui.Layout.extend({
     downBtn.setTouchEnabled(true);
     downBtn.setContentSize(cc.size(this.width, this.width));
     easyTouchButton(downBtn, function(downBtn){
-      var d = upBtn.getParent().getParent().getParent().getParent().ddDeffense; //Deffense
+      var d = upBtn.getParent().getParent().getParent().getParent().ddDefense; //Defense
       var p = upBtn.getParent().property;  //Property name
       var pProp = d['p' + p[0].toUpperCase() + p.slice(1)]; // possible stats(properties)
       var prop = d[p];
@@ -76,7 +76,7 @@ var PropertySelector = ccui.Layout.extend({
     upBtn.setTouchEnabled(true);
     upBtn.setContentSize(cc.size(this.width, this.width));
     easyTouchButton(upBtn, function(upBtn){
-      var d = upBtn.getParent().getParent().getParent().getParent().ddDeffense; //Deffense
+      var d = upBtn.getParent().getParent().getParent().getParent().ddDefense; //Defense
       var p = upBtn.getParent().property;  //Property name
       var pProp = d['p' + p[0].toUpperCase() + p.slice(1)]; // possible stats(properties)
       var prop = d[p];
@@ -105,9 +105,9 @@ var PropertySelector = ccui.Layout.extend({
     this.addChild(upBtn);
   },
   refresh: function() {
-    var deffense = this.getParent().getParent().getParent().ddDeffense;
+    var defense = this.getParent().getParent().getParent().ddDefense;
     var pProperty = 'p' + this.property[0].toUpperCase() + this.property.slice(1);
-    var pValue = deffense[pProperty][deffense[this.property]];
+    var pValue = defense[pProperty][defense[this.property]];
     this.pValueLabel.setString(pValue);
   },
 

@@ -7,8 +7,8 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox. TODO, make the 8 not hardcoded
 
   robots: [], // Current robots in map
-  deffenses: [], // Current deffenses in map
-  dummyDeffense: null,
+  defenses: [], // Current defenses in map
+  dummyDefense: null,
   prevWaveRobots: [], // [DNA, score] of the previous wave robots
 
   wavesCounts: [], // Defined by the map, amount of robots per wave
@@ -34,7 +34,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         rob.pSpeed[value] = rob.pSpeed[value] * this.SPEED;
         rob.pAttackSpeed[value] = rob.pAttackSpeed[value] * this.SPEED;
       }
-      def = _.props(Deffense);
+      def = _.props(Defense);
       for (value in def.pAttackSpeed) {
         def.pAttackSpeed[value] = def.pAttackSpeed[value] * this.SPEED;
       }
@@ -66,38 +66,38 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     // customRobot.retain();
     // this.addRobot(customRobot);
 
-    // deffense 0,0 walk RED
+    // defense 0,0 walk RED
     // range = 0;//0,1,2
     // element = "fire";//water,fire,electric
     // terrain = 1;//0,1
     // damage = 0;//0,1,2
     // attackSpeed = 0;//0,1,2
-    // var customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    // this.map.placeOnTile(customDeffense, cc.p(0,5));
-    // this.deffenses.push(customDeffense);
+    // var customDefense = new Defense(this, element, range, terrain, damage, attackSpeed);
+    // this.map.placeOnTile(customDefense, cc.p(0,5));
+    // this.defenses.push(customDefense);
     //
     // range = 0;//0,1,2 BLUE
     // element = "water";//water,fire,electric
     // terrain = 1;//0,1
     // damage = 0;//0,1,2
     // attackSpeed = 0;//0,1,2
-    // var customDeffense1 = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    // this.map.placeOnTile(customDeffense1, cc.p(19,5));
-    // this.deffenses.push(customDeffense1);
+    // var customDefense1 = new Defense(this, element, range, terrain, damage, attackSpeed);
+    // this.map.placeOnTile(customDefense1, cc.p(19,5));
+    // this.defenses.push(customDefense1);
     //
-    // // Add Deffense
+    // // Add Defense
     // range = 1;//0,1,2
     // element = "electric";//water,fire,electric
     // terrain = 0;//0,1
     // damage = 2;//0,1,2
     // attackSpeed = 2;//0,1,2
-    // customDeffense = new Deffense(this, element, range, terrain, damage, attackSpeed);
-    // this.addDeffense(customDeffense);
+    // customDefense = new Defense(this, element, range, terrain, damage, attackSpeed);
+    // this.addDefense(customDefense);
 
-    var mapDeffenses = this.map.getMapDeffenses();
-    for (var d = 0; d < mapDeffenses.length; d++) {
-      this.map.placeOnTile(mapDeffenses[d].deffense, mapDeffenses[d].position);
-      this.deffenses.push(mapDeffenses[d].deffense);
+    var mapDefenses = this.map.getMapDefenses();
+    for (var d = 0; d < mapDefenses.length; d++) {
+      this.map.placeOnTile(mapDefenses[d].defense, mapDefenses[d].position);
+      this.defenses.push(mapDefenses[d].defense);
     }
 
 
@@ -147,7 +147,6 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
             }
             else if(this.pressed == this.zoomButton) {
               var zoomDelta = event.getDelta().y * 0.001;
-              console.log(zoomDelta);
               this.map.zoomMap(zoomDelta);
             }
           }
@@ -179,7 +178,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     var customRobot = new Robot(this, false, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
     return customRobot;
   },
-  getRandomDeffense: function() {
+  getRandomDefense: function() {
     //TODO las defensas van a ser por partes?
   },
   setBase: function(base) {
@@ -193,36 +192,36 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     // debug = new Debugger();//TODO sacar despues las cosas de debug
     // debug.debugText(this, {text: "Robots Count: " + this.robots.length});
   },
-  addDeffense: function(deffense) {
+  addDefense: function(defense) {
     //TODO que las cosas se spameen no en un layer hardcodeado como 5
     //si no que tenga relacion con el eje y en el que estan mientras mas alto
     //menos se van a mostrar, para que de un sentido mas uniforme de volumen
     //Tambien se puede buscar como hacer eso con isometric maps en cocos 2d
     //Capaz que ya existe | si existe pregunta de stackoverflow en algunlado
     //del codigo
-    this.map.spawn(deffense, null, 5);
-    this.deffenses.push(deffense);
+    this.map.spawn(defense, null, 5);
+    this.defenses.push(defense);
   },
-  showDummyDeffense: function(deffense) {
-    if (this.dummyDeffense) {
-      this.dummyDeffense.removeFromParent();
-      this.dummyDeffense.release();
-      this.dummyDeffense = null;
+  showDummyDefense: function(defense) {
+    if (this.dummyDefense) {
+      this.dummyDefense.removeFromParent();
+      this.dummyDefense.release();
+      this.dummyDefense = null;
     }
-    this.dummyDeffense = deffense;
+    this.dummyDefense = defense;
     var ms = this.map.getMapSize();
     var pos = cc.p(ms.width / 2, ms.height / 2);
-    this.map.placeOnTile(this.dummyDeffense, pos);
+    this.map.placeOnTile(this.dummyDefense, pos);
     var color;
     var tint;
 
-    if (this.dummyDeffense.canBePlacedOn(pos).result && this.base.money >= 300) { //TODO 300 deffense price hardcoded TODO
+    if (this.dummyDefense.canBePlacedOn(pos).result && this.base.money >= 300) { //TODO 300 defense price hardcoded TODO
       color = cc.color(0, 255, 100, 50);
     } else {
       color = cc.color(255, 50, 50, 50);
     }
     tint = new cc.TintTo(0.2, color.r, color.g, color.b);
-    this.dummyDeffense.runAction(tint);
+    this.dummyDefense.runAction(tint);
     this.map.selectTile(pos, color);
   },
   prepareNextWave: function() {// TODO no estoy teniendo en cuenta el orden en el que salen
@@ -352,22 +351,22 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     // }
     return deletion;
   },
-  killDeffense: function(deffense) {
-    // Kills a deffense
+  killDefense: function(defense) {
+    // Kills a defense
     var deletion = false;
-    var i = this.deffenses.indexOf(deffense);
+    var i = this.defenses.indexOf(defense);
     if (i != -1) {
-      this.deffenses[i].removeAllChildren();
-      this.deffenses[i].removeFromParent();
-      this.deffenses[i].release();
-      this.deffenses.splice(i, 1);
+      this.defenses[i].removeAllChildren();
+      this.defenses[i].removeFromParent();
+      this.defenses[i].release();
+      this.defenses.splice(i, 1);
       deletion = true;
     }
     return deletion;
   },
   endGame: function() {
-    for (var i = 0; i < this.deffenses.length; i++) {
-      this.killDeffense(this.deffenses[i]);
+    for (var i = 0; i < this.defenses.length; i++) {
+      this.killDefense(this.defenses[i]);
     }
     for (i = 0; i < this.robots.length; i++) {
       this.kill(this.robots[i]);
@@ -395,8 +394,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
       }
       this.counter = 0;
       if (this.waveQuery.length > 0) {
-        this.addRobot(_.last(this.waveQuery));
-        this.waveQuery.pop();
+        this.addRobot(this.waveQuery.pop());
       } else if (!this.lastWave && this.robots.length === 0) {
         this.prepareNextWave();
       }

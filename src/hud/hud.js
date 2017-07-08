@@ -3,7 +3,7 @@ var Hud = cc.Layer.extend({
   // buscar un buen metodo para hacer menues mas estables
   level: null,
 
-  dd: null, // Deffense Details
+  dd: null, // Defense Details
   ddElement: null,
   ddRange: null,
   ddTerrain: null,
@@ -11,15 +11,15 @@ var Hud = cc.Layer.extend({
   ddAttackSpeed: null,
   ddDestroy: null,
   ddDestroySure: false,
-  ddDeffense: null, // Selected dd deffense
+  ddDefense: null, // Selected dd defense
 
   it: null, // Information Text
 
-  ds: null, // Deffense Selector
+  ds: null, // Defense Selector
   dsBtnOk: null,
   dsBtnCancel: null,
   dsLabel: null,
-  dsDeffense: null, // Dummy deffense on screen
+  dsDefense: null, // Dummy defense on screen
 
   ig: null,
 
@@ -43,9 +43,9 @@ var Hud = cc.Layer.extend({
     };
     this.addChild(this.ig, 100);
 
-    // Deffense Selector
-    var dsSize = cc.size(s.width, 128); // deffenseSelector Height // TODO 128 hardcoded
-    var dsPos = cc.p(0, 0); // deffenseSelector Position//TODO 128 esta hardcodeado, igual que el 3, fijarse si se puede centrar mejor, con alguna funcion de cocos
+    // Defense Selector
+    var dsSize = cc.size(s.width, 128); // defenseSelector Height // TODO 128 hardcoded
+    var dsPos = cc.p(0, 0); // defenseSelector Position//TODO 128 esta hardcodeado, igual que el 3, fijarse si se puede centrar mejor, con alguna funcion de cocos
     this.ds = new ccui.ListView();
     this.ds.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
     this.ds.setTouchEnabled(true);
@@ -76,18 +76,18 @@ var Hud = cc.Layer.extend({
     };
     easyTouchButton(this.dsBtnOk, function(btn, level) {
       /// TODO ALL THIS CODE IS REPEATED FROM GAME.JS and MAP.JS
-      var pos = level.map.tileCoordFromChild(level.dummyDeffense);
-      var canBePlaced = level.dummyDeffense.canBePlacedOn(pos);
+      var pos = level.map.tileCoordFromChild(level.dummyDefense);
+      var canBePlaced = level.dummyDefense.canBePlacedOn(pos);
       if (canBePlaced.result && level.base.money >= 300) {
-        level.dummyDeffense.setColor(cc.color(255, 255, 255));
-        level.deffenses.push(level.dummyDeffense);
-        var newDeffense = level.dummyDeffense;
-        newDeffense.retain();
-        newDeffense.isDummy = false;
+        level.dummyDefense.setColor(cc.color(255, 255, 255));
+        level.defenses.push(level.dummyDefense);
+        var newDefense = level.dummyDefense;
+        newDefense.retain();
+        newDefense.isDummy = false;
         btn.getParent().dsBtnCancel.exec();
-        level.map.addChild(newDeffense);
-        newDeffense.setTouchEvent();
-        newDeffense.scheduleUpdate();
+        level.map.addChild(newDefense);
+        newDefense.setTouchEvent();
+        newDefense.scheduleUpdate();
 
         level.base.money -= 300; //TODO 300 hardcoded
         btn.getParent().ig.refresh();
@@ -116,8 +116,8 @@ var Hud = cc.Layer.extend({
       if (this.getParent().dsBtnOk.inScreen) {
         this.getParent().dsBtnOk.dismiss();
         this.dismiss();
-        this.getParent().level.dummyDeffense.removeFromParent();//TODO make afunction that disappearse the dummydeffense, this is being repeated
-        this.getParent().level.dummyDeffense = null;
+        this.getParent().level.dummyDefense.removeFromParent();//TODO make afunction that disappearse the dummydefense, this is being repeated
+        this.getParent().level.dummyDefense = null;
         this.getParent().level.map.debugger.debugTile(this.getParent().level.map, {stop: true});
 
       }
@@ -152,10 +152,10 @@ var Hud = cc.Layer.extend({
       var terrain = 0;//0,1
       var damage = 0;//0,1,2
       var attackSpeed = 0;//0,1,2
-      var customDeffense = new Deffense(level, element, range, terrain, damage, attackSpeed);
-      customDeffense.retain();
-      customDeffense.isDummy = true;
-      level.showDummyDeffense(customDeffense);
+      var customDefense = new Defense(level, element, range, terrain, damage, attackSpeed);
+      customDefense.retain();
+      customDefense.isDummy = true;
+      level.showDummyDefense(customDefense);
       if (!hud.dsBtnOk.inScreen) {
         hud.dsBtnOk.show();// TODO ETO SE VA A DECONTROLAAAA AIUDAAA
         hud.dsBtnCancel.show();// TODO ETO SE VA A DECONTROLAAAA AIUDAAA
@@ -175,7 +175,7 @@ var Hud = cc.Layer.extend({
     }
 
     // Info Text
-    this.it = new cc.LabelTTF("Deffense Selector", "Arial", 32, cc.size(s.width, 32), cc.TEXT_ALIGNMENT_CENTER);
+    this.it = new cc.LabelTTF("Defense Selector", "Arial", 32, cc.size(s.width, 32), cc.TEXT_ALIGNMENT_CENTER);
     var itPos = cc.p(0, dsSize.height + dsPos.y); // Information text position
     this.it.setAnchorPoint(0, 0);
     this.it.setPosition(itPos);
@@ -191,9 +191,9 @@ var Hud = cc.Layer.extend({
     };
     this.addChild(this.it, 101);
 
-    // Deffense Details
-    var ddSize = cc.size(s.width, 192); // deffenseDetails // TODO Height 256 hardcoded
-    var ddPos = cc.p(-s.width, dsSize.height + dsPos.y + this.it.height + 8); // deffenseDetails Position in function of deffenseSelectorPos // TODO HARDOCODE 8
+    // Defense Details
+    var ddSize = cc.size(s.width, 192); // defenseDetails // TODO Height 256 hardcoded
+    var ddPos = cc.p(-s.width, dsSize.height + dsPos.y + this.it.height + 8); // defenseDetails Position in function of defenseSelectorPos // TODO HARDOCODE 8
     this.dd = new ccui.ListView();
     this.dd.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
     this.dd.setTouchEnabled(true); // TODO do i really need this?
@@ -207,10 +207,10 @@ var Hud = cc.Layer.extend({
     this.dd.setBackGroundColor(new cc.color(10, 10, 40));
     this.dd.setBackGroundColorOpacity(80);
     this.dd.inScreen = false;
-    this.dd.show = function(deffense) {
-      if (!this.inScreen && deffense) {
+    this.dd.show = function(defense) {
+      if (!this.inScreen && defense) {
         this.runAction(new cc.MoveBy(0.1, cc.p(s.width,0)));
-        this.getParent().ddDeffense = deffense;
+        this.getParent().ddDefense = defense;
         this.getParent().ddRefresh();
         this.inScreen = true;
       }
@@ -226,16 +226,16 @@ var Hud = cc.Layer.extend({
       dd.dismiss();
     }, {options:{invertedArea:true}});
     this.addChild(this.dd);
-    this.ddDeffense = this.level.deffenses[0]; // TODO que no sea una defensa estatica
-    this.ddElement = new PropertySelector(this.dd, this.ddDeffense, 'element');
+    this.ddDefense = this.level.defenses[0]; // TODO que no sea una defensa estatica
+    this.ddElement = new PropertySelector(this.dd, this.ddDefense, 'element');
     this.dd.pushBackCustomItem(this.ddElement);
-    this.ddRange = new PropertySelector(this.dd, this.ddDeffense, 'range');
+    this.ddRange = new PropertySelector(this.dd, this.ddDefense, 'range');
     this.dd.pushBackCustomItem(this.ddRange);
-    this.ddTerrain = new PropertySelector(this.dd, this.ddDeffense, 'terrain');
+    this.ddTerrain = new PropertySelector(this.dd, this.ddDefense, 'terrain');
     this.dd.pushBackCustomItem(this.ddTerrain);
-    this.ddDamage = new PropertySelector(this.dd, this.ddDeffense, 'damage');
+    this.ddDamage = new PropertySelector(this.dd, this.ddDefense, 'damage');
     this.dd.pushBackCustomItem(this.ddDamage);
-    this.ddAttackSpeed = new PropertySelector(this.dd, this.ddDeffense, 'attackSpeed');
+    this.ddAttackSpeed = new PropertySelector(this.dd, this.ddDefense, 'attackSpeed');
     this.dd.pushBackCustomItem(this.ddAttackSpeed);
     this.ddDestroy = new ccui.Button(r.ui.cancelBtnM, r.ui.cancelBtnDM);
     this.ddDestroy.setTouchEnabled(true);
@@ -246,12 +246,12 @@ var Hud = cc.Layer.extend({
       if (hud.ddDestroySure) {
         var burn = new cc.TintTo(0.2, 0, 0, 0);
         var disappear = new cc.FadeOut(0.2);
-        var message = new cc.CallFunc(function(deffense){hud.it.message("Turret destroyed");}, this, hud);
+        var message = new cc.CallFunc(function(defense){hud.it.message("Turret destroyed");}, this, hud);
         hud.level.base.money += 50;
         hud.ig.refresh();
-        var destroy = new cc.CallFunc(function(deffense){deffense.die();}, this);
+        var destroy = new cc.CallFunc(function(defense){defense.die();}, this);
         var actArray = [burn, disappear, message, destroy];
-        hud.ddDeffense.runAction(new cc.Sequence(actArray));
+        hud.ddDefense.runAction(new cc.Sequence(actArray));
         hud.ddDestroySure = false;
       } else {
         hud.it.message("Press again to destroy (+$50)");

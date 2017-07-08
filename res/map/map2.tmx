@@ -651,7 +651,7 @@
  </layer>
  <objectgroup name="Objects">
   <object id="36" name="SpawnRobot" x="576" y="0" width="64" height="64"/>
-  <object id="40" name="SpawnDeffenseElectric" x="512" y="320" width="64" height="64">
+  <object id="40" name="SpawnDefenseElectric" x="512" y="320" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="2"/>
@@ -661,7 +661,7 @@
    </properties>
   </object>
   <object id="44" name="SpawnBase" x="576" y="1152" width="64" height="64"/>
-  <object id="52" name="SpawnDeffenseFire" x="0" y="320" width="64" height="64">
+  <object id="52" name="SpawnDefenseFire" x="0" y="320" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="0"/>
     <property name="damage" value="2"/>
@@ -670,7 +670,7 @@
     <property name="terrain" value="1"/>
    </properties>
   </object>
-  <object id="53" name="SpawnDeffenseWater" x="1216" y="320" width="64" height="64">
+  <object id="53" name="SpawnDefenseWater" x="1216" y="320" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="0"/>

@@ -1051,7 +1051,7 @@
  </layer>
  <objectgroup name="Objects">
   <object id="36" name="SpawnRobot" x="0" y="-64" width="64" height="64"/>
-  <object id="40" name="SpawnDeffense" x="640" y="2176" width="64" height="64">
+  <object id="40" name="SpawnDefense" x="640" y="2176" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="2"/>
@@ -1061,7 +1061,7 @@
    </properties>
   </object>
   <object id="44" name="SpawnBase" x="960" y="2432" width="64" height="64"/>
-  <object id="53" name="SpawnDeffense1" x="640" y="1984" width="64" height="64">
+  <object id="53" name="SpawnDefense1" x="640" y="1984" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="2"/>
@@ -1070,7 +1070,7 @@
     <property name="terrain" value="0"/>
    </properties>
   </object>
-  <object id="54" name="SpawnDeffense1" x="512" y="1088" width="64" height="64">
+  <object id="54" name="SpawnDefense1" x="512" y="1088" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="2"/>
@@ -1079,7 +1079,7 @@
     <property name="terrain" value="0"/>
    </properties>
   </object>
-  <object id="55" name="SpawnDeffense1" x="512" y="832" width="64" height="64">
+  <object id="55" name="SpawnDefense1" x="512" y="832" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="2"/>
@@ -1088,7 +1088,7 @@
     <property name="terrain" value="0"/>
    </properties>
   </object>
-  <object id="56" name="SpawnDeffense" x="512" y="640" width="64" height="64">
+  <object id="56" name="SpawnDefense" x="512" y="640" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="2"/>
@@ -1097,7 +1097,7 @@
     <property name="terrain" value="1"/>
    </properties>
   </object>
-  <object id="57" name="SpawnDeffense" x="512" y="960" width="64" height="64">
+  <object id="57" name="SpawnDefense" x="512" y="960" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="2"/>

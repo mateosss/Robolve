@@ -40,5 +40,5 @@ General Rules:
  - You can modify the `PARTS_LIST`, `ANIMATIONS_LIST` and `FRAMES_LIST` variables
    at the beginning of the animate.py script, read those lines for more info
 
-### Deffense.blend
+### Defense.blend
 

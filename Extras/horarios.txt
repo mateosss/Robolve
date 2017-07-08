@@ -106,24 +106,24 @@ Ma 9 - 1:00 hs
   - Agregar clase hud basica - 1 hs
 Do 14 - 4:10 hs
   - Sprites de botones en inkscape - 0:30 hs
-  - Barra ListView deffenseSelector sin funcionalidad - 1:40 hs
+  - Barra ListView defenseSelector sin funcionalidad - 1:40 hs
   - Tratando de arreglar ccui bug compilando a linux - 2 hs
 Ju 18 - 1:00 hs
   - empezando a hacer que las defensas puedan tocarse para mejorarse - 1:00 hs
 Do 21 - 1:00 hs
   - defensa reacciona a click - 1:00 hs
 Ma 23 - 6:00 hs
-  - Hud, deffense details y nuevos botones - 6:00 hs
+  - Hud, defense details y nuevos botones - 6:00 hs
 Mi 24 - 7:00 hs
   - terminar defense details -  7:00 hs
 Sa 27 - 4:45 hs
   - Modelos de las tres torres - 1:50 hs
   - Botones con imagenes en el DS - 0:30 hs
   - easyTouchEnded mejorado para aceptar parametros - 1:35 hs
-  - aparece una torre random en el mapa con el deffense selector - 0:50 hs
+  - aparece una torre random en el mapa con el defense selector - 0:50 hs
 Do 28 - 6:20 hs
   - turret canBePlacedOn - 0:45 hs
-  - Deffense selector more work - 3 hs
+  - Defense selector more work - 3 hs
   - Dismiss DS buttons - 0:20 hs
   - Almos DS finished - 1:15
   - DS WORKING!!! - 1:00 hs
@@ -174,18 +174,60 @@ Mi 31
     - 21:00 - 00:00 | Iniciando reestructuración del proyecto por las animaciones
 - 2016-07-07 Vi
     - 21:30 - 23:10 | Reestructuración terminada
-    - 23:10 - 23:40 | Flip x al turnear
+    - 23:10 - 00:00 | Flip x al turnear
+- 2016-07-08 Sa
+
+# Restantes
+- 2016-07-09 Do
+- 2016-07-10 Lu
+- 2016-07-11 Ma
+- 2016-07-12 Mi
+- 2016-07-13 Ju
+- 2016-07-14 Vi
+- 2016-07-15 Sa
+- 2016-07-16 Do
+- 2016-07-17 Lu
+- 2016-07-18 Ma
+- 2016-07-19 Mi
+- 2016-07-20 Ju
+- 2016-07-21 Vi
+- 2016-07-22 Sa
+- 2016-07-23 Do
+- 2016-07-24 Lu
+- 2016-07-25 Ma
+- 2016-07-26 Mi
+- 2016-07-27 Ju
+- 2016-07-28 Vi
+- 2016-07-29 Sa
+- 2016-07-30 Do
+- 2016-07-31 Lu
+- 2016-08-01 Ma
+- 2016-08-02 Mi
+- 2016-08-03 Ju
+- 2016-08-04 Vi
+- 2016-08-05 Sa
+- 2016-08-06 Do
+- 2016-08-07 Lu
+- 2016-08-08 Ma
+- 2016-08-09 Mi
+- 2016-08-10 Ju
+- 2016-08-11 Vi
+- 2016-08-12 Sa
+- 2016-08-13 Do
 
 # TODO
   - Setear una variable que determine la nueva posicion z de cada robot y cada parte
   - Rehacer sistema de menus y hud con componentes modulares
+  - Buscar mejor forma de hacer el tema del zoom
   - Repensar: Desarrollo de la partida, Sistema de mejoras,
     Pathfinding de los robots, que opciones va a tener el jugador durante
     la partida y que va a poder visualizar en el hud?
   - Mejoras, más personalización visual de las torretas, que se note la
     evolución de las torretas con partes, quizás algo simil al
     funcionamiento de los robots
-
+  - Particulas! Spawn, golpes
+  - Defensas con animaciones
+  - Tipografias
   - Importar nodos de compositing desde robot.blend a animaciones.blend
   - En animate.py agregar una opcion para renderizar un cuerpo completo para ir viendo como queda el compositing
 
@@ -195,6 +237,10 @@ Mi 31
 # IDEA
   - Que las defensas sean robots quietos internamente con diferentes sprites
   - Poder armar robot bueno que camine hacia los malos
+  - Robot gigante cada tanto con el dna promedio de la wave
+  - Ir Mostrando el dna promedio de la wave
+  - Que la plata solo se entregue al final de la wave
+  - Que el usuario tenga habilidades
 
 # BUG
   - La segunda vez que juego despues de perder/ganar anda raro, algunos robots se escapan

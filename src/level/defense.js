@@ -1,10 +1,10 @@
-var Deffense = cc.Sprite.extend({
+var Defense = cc.Sprite.extend({
   level: null,// Level where this object is placed
   target: null,// Target robot to fire
   pointing: null,// Looking direction TODO
   animAttackSpeed: 1.0,// Attack speed animation
   cTilePos: null, // Current tile position
-  isDummy: false, // If it is a dummy deffense, (a.k.a. a deffense preview in the map)
+  isDummy: false, // If it is a dummy defense, (a.k.a. a defense preview in the map)
 
   // Possible (p) stats
   pElement: {
@@ -44,7 +44,7 @@ var Deffense = cc.Sprite.extend({
     this.attackSpeed = attackSpeed;
 
     this.refreshStats();
-    this._super(r[this.element + "Deffense"]);
+    this._super(r[this.element + "Defense"]);
 
     // this.debug();
     this.setAnchorPoint(0.5, 0.1);
@@ -55,7 +55,7 @@ var Deffense = cc.Sprite.extend({
 
   },
   toString: function() {
-    return "Deffense";
+    return "Defense";
   },
   refreshStats: function() {
     this.sRange = this.pRange[this.range];
@@ -63,27 +63,27 @@ var Deffense = cc.Sprite.extend({
     this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
   },
   setTouchEvent: function() {
-    easyTouchEnded(this, function(deffense) {
+    easyTouchEnded(this, function(defense) {
       // this.level.base.kill();//TODO sacar eete comentario
-      if (deffense.getNumberOfRunningActions() === 0) {
-        if (!deffense.level.dummyDeffense && !deffense.isDummy) {
+      if (defense.getNumberOfRunningActions() === 0) {
+        if (!defense.level.dummyDefense && !defense.isDummy) {
           var increase = new cc.ScaleBy(0.1, 1.2);
           var decrease = new cc.ScaleBy(0.1, 1 / 1.2);
-          deffense.runAction(new cc.Sequence(increase, decrease));
-          deffense.level.hud.dd.show(deffense);
+          defense.runAction(new cc.Sequence(increase, decrease));
+          defense.level.hud.dd.show(defense);
         }
       }
     });
   },
   getTarget: function(){
-    // This function returns the robot to which this deffense has to attack
+    // This function returns the robot to which this defense has to attack
 
     //Looks for robots in tower range
     inRange = [];
     for (var i = 0; i < this.level.robots.length; i++) {
-      var deffenseCenter = this.getPosition();
+      var defenseCenter = this.getPosition();
       var robotCenter = this.level.robots[i].getPosition();
-      var distance = cc.pDistance(deffenseCenter, robotCenter);
+      var distance = cc.pDistance(defenseCenter, robotCenter);
       if (distance <= this.sRange && this.level.robots[i].terrain == this.terrain) {
         inRange.push(this.level.robots[i]);
       }
@@ -124,8 +124,8 @@ var Deffense = cc.Sprite.extend({
     }
   },
   die: function() {
-    // Call the level kill function to kill this deffense
-    this.level.killDeffense(this);
+    // Call the level kill function to kill this defense
+    this.level.killDefense(this);
     this.removeFromParent();
   },
   debug: function(){
@@ -144,9 +144,9 @@ var Deffense = cc.Sprite.extend({
     if (isRoad && tileProps.road == "1") {
       return {result: false, cause: "Can't place on here"};
     } else {
-      for (var i = 0; i < this.level.deffenses.length; i++) {
+      for (var i = 0; i < this.level.defenses.length; i++) {
         if (cc.pointEqualToPoint(
-          this.level.map.tileCoordFromChild(this.level.deffenses[i]),
+          this.level.map.tileCoordFromChild(this.level.defenses[i]),
           tilePos
         )) {
           return {result: false, cause: "There is already a tower there"};
@@ -158,7 +158,7 @@ var Deffense = cc.Sprite.extend({
   counter: 0.0,
   update: function(delta){
     if (this.isDummy) {
-      // if the deffense is not a real one, just a preview
+      // if the defense is not a real one, just a preview
     } else {
       if (this.counter < 1 / this.sAttackSpeed) {
         this.counter += delta;

@@ -12,21 +12,21 @@ var TiledMap = cc.TMXTiledMap.extend({
     easyTouchEnded(this, function(map, event) {
       var btnRect = map.level.hud.dsBtnOk.getBoundingBoxToWorld();
       var isNotABtn = !cc.rectContainsPoint(btnRect, event.getLocation());//TODO pretty unclean
-      if (map.level.dummyDeffense && map.level.dummyDeffense.visible === true && isNotABtn) {
+      if (map.level.dummyDefense && map.level.dummyDefense.visible === true && isNotABtn) {
         var tile = map.tileCoordFromLocation(event.getLocation());
-        map.moveToTile(map.level.dummyDeffense, tile);
+        map.moveToTile(map.level.dummyDefense, tile);
 
         ///////TODO ALL THIS CODE IS REPEATED FROM GAME.JS
         var color;
         var tint;
 
-        if (map.level.dummyDeffense.canBePlacedOn(tile).result && map.level.base.money >= 300) { //TODO 300 deffense price hardcoded TODO
+        if (map.level.dummyDefense.canBePlacedOn(tile).result && map.level.base.money >= 300) { //TODO 300 defense price hardcoded TODO
           color = cc.color(0, 255, 100, 50);
         } else {
           color = cc.color(255, 50, 50, 50);
         }
         tint = new cc.TintTo(0.2, color.r, color.g, color.b);
-        map.level.dummyDeffense.runAction(tint);
+        map.level.dummyDefense.runAction(tint);
         /////////////
         map.selectTile(tile, color);
       }
@@ -43,14 +43,14 @@ var TiledMap = cc.TMXTiledMap.extend({
     p.y += tileSize.height / 2;
     this.spawn(sprite, p);
   },
-  getMapDeffenses: function() {
+  getMapDefenses: function() {
     // customRobot.retain();
     var allObjects = this.getObjectGroup("Objects").getObjects();
-    var deffenses = [];
+    var defenses = [];
     for (var i = 0; i < allObjects.length; i++) {
-      if (allObjects[i].name.startsWith("SpawnDeffense")) {
-        // Creates the new deffense
-        var deffense = new Deffense(
+      if (allObjects[i].name.startsWith("SpawnDefense")) {
+        // Creates the new defense
+        var defense = new Defense(
           this.level,
           allObjects[i].element,
           parseInt(allObjects[i].range),
@@ -58,14 +58,14 @@ var TiledMap = cc.TMXTiledMap.extend({
           parseInt(allObjects[i].damage),
           parseInt(allObjects[i].attackSpeed)
         );
-        deffense.retain();
-        // Calculates the new deffense position
+        defense.retain();
+        // Calculates the new defense position
         p = this.tileCoordFromObject(allObjects[i]);
-        // Push the deffense and location
-        deffenses.push({deffense: deffense, position: p});
+        // Push the defense and location
+        defenses.push({defense: defense, position: p});
       }
     }
-    return deffenses;
+    return defenses;
   },
   moveToTile: function(sprite, tile, withAnimations, animDuration) {
     mapLayer = this.getLayer("Background");
@@ -82,7 +82,7 @@ var TiledMap = cc.TMXTiledMap.extend({
     }
   },
   spawn: function(child, position, layer, tag){
-    //Spawn a robot, deffense or base in the map
+    //Spawn a robot, defense or base in the map
     position = position || null;
     layer = layer || null;
     tag = tag || null;
