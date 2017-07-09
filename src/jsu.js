@@ -1,4 +1,17 @@
-// Javscript Utilities
+// Javscript Related Utilities and Initializations
+// It probably has repeated code because it is made for performance not for size
+
+Map.prototype.getki = function(i) { // Gets the key that corresponds to an index
+  return Array.from(this.keys())[i];
+};
+
+Map.prototype.geti = function(i) { // Gets the value that corresponds to an index
+  return Array.from(this.values())[i];
+};
+
+Map.prototype.seti = function(i, value) { // Sets the value of an index
+  this.set(this.getki(i), value);
+};
 
 var _ = {
   size: function(object) { // length of an object
@@ -26,5 +39,8 @@ var _ = {
     // Put the elements separated by commas after the pos param
     var elements = Array.prototype.slice.call(arguments, 2);
     Array.prototype.splice.apply(array, [pos, 0].concat(elements));
+  },
+  capitalize: function(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 };

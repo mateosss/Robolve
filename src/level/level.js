@@ -29,14 +29,19 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
       this.wavesIntervals[i] = this.wavesIntervals[i] / this.SPEED;
     }
     if (firstTime) { //
-      rob = _.props(Robot);
-      for (var value in rob.pSpeed) {
-        rob.pSpeed[value] = rob.pSpeed[value] * this.SPEED;
-        rob.pAttackSpeed[value] = rob.pAttackSpeed[value] * this.SPEED;
+      // rob = _.props(Robot); XXX
+      // for (var value in rob.pSpeed) {
+      //   rob.pSpeed[value] = rob.pSpeed[value] * this.SPEED;
+      //   rob.pAttackSpeed[value] = rob.pAttackSpeed[value] * this.SPEED;
+      // }
+      rob = _.props(Robot).STATS;
+      for (i in rob.get('speed')) {
+        rob.get('speed')[i] *= this.SPEED;
+        rob.get('attackSpeed')[i] *= this.SPEED;
       }
       def = _.props(Defense);
-      for (value in def.pAttackSpeed) {
-        def.pAttackSpeed[value] = def.pAttackSpeed[value] * this.SPEED;
+      for (i in def.pAttackSpeed) {
+        def.pAttackSpeed[i] = def.pAttackSpeed[i] * this.SPEED;
       }
     }
     // Set level speed>
@@ -238,6 +243,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         this.cWave += 1;
         robotsAmount = this.wavesCounts[this.cWave];
         //Agarrar 1/4 + 1 de los mejores prevWaveRobots
+
         this.prevWaveRobots.sort(function(a, b) {return b[1] - a[1];});
 
         //Debugear avg score
@@ -319,7 +325,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
           sonBorn = true;
           sons.push(son);
         }
-        if (!(equalToSon)) { //TODO esto es un test
+        if (!(equalToSon)) { //TODO esto es un test ¿puede nacer igual a un padre? ¿esta naciendo dos veces si es igual a un padre?
           sonBorn = true;
           sons.push(son);
         }

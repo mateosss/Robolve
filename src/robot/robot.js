@@ -2,44 +2,90 @@ var Robot = cc.Sprite.extend({
   level: null, // Level where this object is placed
   pointing: 2, // Looking direction 0:North, 1:East, 2:South, 3:West
   cAction: null, // Current cc.Action being played
-  cLife: null, // Current Life
   cTilePos: cc.p(0, 0), // Current tile Position of the robot // TODO estoy hardcodeando esto
   state: null, // robot state (attack, walk, still...)
   creationTime: null,
   hitsReceived: 0,
   infligedDamage: 0,
 
-  //Possible (p) stats // TODO definir valores reales // TODO apply fuzzy logic
-  pTurnProb: {0: 0.25, 1: 0.5, 2: 0.9},
-  pLife: {0: 500, 1: 600, 2: 700},
-  pElement: {
-    "electric": cc.color(255, 231, 0 ,255),
-    "fire": cc.color(227, 43, 0, 255),
-    "water": cc.color(1, 179, 255, 255)
-  },
-  pRange: {0: 75, 1: 150},
-  pTerrain: {0: 'walk',1: 'fly'},
-  pSpeed: {0: 0.35, 1: 0.75, 2: 1.0}, // TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug donde el robot se va del mapa (0,10) Y velocidad 0.1, hace que para linux y android tengan tambien el bug, pero el javascript si.
-  pDamage: {0: 5, 1: 15, 2:20},
-  pAttackSpeed: {0: 0.5, 1: 1.0, 2: 2.0},
+  // STATS constant defines the structure of this Robot based class
+  // Take into account that if for example turnProb is in STATS, the properties
+  // turnProb and sTurnProb will be created directly on the object, with
+  // turnProb having the gene, and sTurnProb the current real stat the robot
+  // is having that can be modified and resetted by setDefaultStat
+  STATS: new Map([
+    ['turnProb', {0: 0.25, 1: 0.5, 2: 0.9}],
+    ['life', {0: 500, 1: 600, 2: 700}],
+    ['element', {
+      electric: cc.color(255, 231, 0 ,255),
+      fire: cc.color(227, 43, 0, 255),
+      water: cc.color(1, 179, 255, 255)
+    }],
+    ['range', {0: 75, 1: 150}],
+    ['terrain', {0: 'walk',1: 'fly'}],
+    ['speed', {0: 0.35, 1: 0.75, 2: 1.0}],
+    ['damage', {0: 5, 1: 15, 2:20}],
+    ['attackSpeed', {0: 0.5, 1: 1.0, 2: 2.0}],
+  ]),
 
-  //Stats (s)
-  sTurnProb: null,
-  sLife: null,
-  sRange: null,
-  sSpeed: null,
-  sDamage: null,
-  sAttackSpeed: null,
+  //Possible (p) stats // TODO definir valores reales // TODO apply fuzzy logic XXX
+  // pTurnProb: {0: 0.25, 1: 0.5, 2: 0.9},
+  // pLife: {0: 500, 1: 600, 2: 700},
+  // pElement: {
+  //   "electric": cc.color(255, 231, 0 ,255),
+  //   "fire": cc.color(227, 43, 0, 255),
+  //   "water": cc.color(1, 179, 255, 255)
+  // },
+  // pRange: {0: 75, 1: 150},
+  // pTerrain: {0: 'walk',1: 'fly'},
+  // pSpeed: {0: 0.35, 1: 0.75, 2: 1.0}, // TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug donde el robot se va del mapa (0,10) Y velocidad 0.1, hace que para linux y android tengan tambien el bug, pero el javascript si.
+  // pDamage: {0: 5, 1: 15, 2:20},
+  // pAttackSpeed: {0: 0.5, 1: 1.0, 2: 2.0},
 
-  //Initial values
-  turnProb: null,
-  life: null,
-  element: null,
-  range: null,
-  terrain: null,
-  speed: null,
-  damage: null,
-  attackSpeed: null,
+  //Initial values XXX
+  // turnProb: null,
+  // life: null,
+  // element: null,
+  // range: null,
+  // terrain: null,
+  // speed: null,
+  // damage: null,
+  // attackSpeed: null,
+
+  // genes: new Map(), // The genes from the dna that matches the STATS constant's properties
+  // // Example of genes on runtime
+  // // genes: new Map([ // This constant defines the dna of this Robot based class
+  // //   ['turnProb', 1],
+  // //   ['life', 2],
+  // //   ['element', 'electric']
+  // //   ['range', 1],
+  // //   ['terrain', 0],
+  // //   ['speed', 2],
+  // //   ['damage', 1],
+  // //   ['attackSpeed', 0],
+  // // ]),
+
+  //Stats (s) XXX
+  // sTurnProb: null,
+  // sLife: null,
+  // sRange: null,
+  // sSpeed: null,
+  // sDamage: null,
+  // sAttackSpeed: null,
+
+  // stats: new Map(), // Current stats values, can be reseted to match the genes with setDefaultStat function
+  // // Example of stats on runtime
+  // // stats: new Map([ // This constant defines the dna of this Robot based class
+  // //   ['turnProb', 0.5],
+  // //   ['life', 700],
+  // //   ['element', cc.color(255, 231, 0 ,255)]
+  // //   ['range', 150],
+  // //   ['terrain', 'walk'],
+  // //   ['speed', 1.0],
+  // //   ['damage', 15],
+  // //   ['attackSpeed', 0.5],
+  // // ]),
+  //cLife: null, // Current Life XXX
 
   //Part objects
   head: null,
@@ -49,7 +95,10 @@ var Robot = cc.Sprite.extend({
   legl: null,
   legr: null,
 
-  ctor: function(level, dna, turnProb, life, element, range, terrain, speed, damage, attackSpeed) {
+  // ctor: function(level, dna, turnProb, life, element, range, terrain, speed, damage, attackSpeed) { XXX
+  ctor: function(level, dna) {
+    // Can be used by sending a dna array, with corresponding values for every property
+    // or by sending every property individually after a false dna
     // The constructor sets the level, creationTime, and all the initial stats,
     // after that it determines which sprites corresponds to every robot part and
     // it assembles the robot sprite by sprite. It also sets the real stats based
@@ -61,27 +110,18 @@ var Robot = cc.Sprite.extend({
     this.setAnchorPoint(0.5, 0.0);
     this.level = level;
     this.creationTime = new Date().getTime();
-
-    dna = dna || false;
-    if (dna) {
-      this.turnProb = dna[0];
-      this.life = dna[1];
-      this.element = dna[2];
-      this.range = dna[3];
-      this.terrain = dna[4];
-      this.speed = dna[5];
-      this.damage = dna[6];
-      this.attackSpeed = dna[7];
-    } else {
-      this.turnProb = turnProb;
-      this.life = life;
-      this.element = element;
-      this.range = range;
-      this.terrain = terrain;
-      this.speed = speed;
-      this.damage = damage;
-      this.attackSpeed = attackSpeed;
+    dna = dna || Array.prototype.slice.call(arguments, 2);
+    for (var i = 0; i < this.STATS.size; i++) {
+      this[this.STATS.getki(i)] = dna[i];
     }
+    // this.turnProb = dna[0]; XXX
+    // this.life = dna[1];
+    // this.element = dna[2];
+    // this.range = dna[3];
+    // this.terrain = dna[4];
+    // this.speed = dna[5];
+    // this.damage = dna[6];
+    // this.attackSpeed = dna[7];
 
     this.resetStats();
     this.buildRobot();
@@ -93,35 +133,57 @@ var Robot = cc.Sprite.extend({
   toString: function() {
     return "Robot";
   },
+  getStat: function(stat) {
+    return this['s' + _.capitalize(stat)];
+  },
+  setStat: function(stat, value) {
+    this['s' + _.capitalize(stat)] = value;
+  },
+  getDefaultStat: function(stat) { // Returns the original stat
+    return this.STATS.get(stat)[this[stat]];
+  },
+  setDefaultStat: function(stat) { // Provide an stat name or stat index to reset it, to the default given by the genes
+    this.setStat(stat, this.getDefaultStat(stat));
+  },
+  getPossiblesStat: function(stat) { // Returns the possible values that a stat can have
+    return this.STATS.get(stat);
+  },
   getDNA: function() {
-    var dna = [
-      this.turnProb,
-      this.life,
-      this.element,
-      this.range,
-      this.terrain,
-      this.speed,
-      this.damage,
-      this.attackSpeed,
-    ];
+    // var dna = [ XXX
+    //   this.turnProb,
+    //   this.life,
+    //   this.element,
+    //   this.range,
+    //   this.terrain,
+    //   this.speed,
+    //   this.damage,
+    //   this.attackSpeed,
+    // ];
+    var dna = [];
+    this.STATS.forEach(function(possibles, stat) {
+      dna.push(this[stat]);
+    });
     return dna;
   },
   buildRobot: function() {
-    // Builds the robot, by placing all the correct sprites based on the
-    // robot DNA and the correct stats
+    // Builds the robot, by creating all the parts
     Object.keys(_.props(Part).PARTS).forEach(function(part) {
       this[part] = new Part(this, part);
       this.addPart(this[part]);
     }, this);
   },
-  resetStats: function() {
-    this.sTurnProb = this.pTurnProb[this.turnProb];
-    this.sLife = this.pLife[this.life];
-    this.cLife = this.sLife;
-    this.sRange = this.pRange[this.range];
-    this.sSpeed = this.pSpeed[this.speed];
-    this.sDamage = this.pDamage[this.damage];
-    this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
+  resetStats: function() { // sets the initial value to all stats in sStats
+    this.STATS.forEach(function(possibles, stat) {
+      this.setDefaultStat(stat);
+    }, this);
+
+    // this.sTurnProb = this.pTurnProb[this.turnProb]; XXX
+    // this.sLife = this.pLife[this.life];
+    // this.cLife = this.sLife;
+    // this.sRange = this.pRange[this.range];
+    // this.sSpeed = this.pSpeed[this.speed];
+    // this.sDamage = this.pDamage[this.damage];
+    // this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
   },
   getParts: function() { // Return all Part objects from which the robot is made
     return [
@@ -140,6 +202,7 @@ var Robot = cc.Sprite.extend({
     this.addChild(part, part.PARTS[part.type].zIndex);
   },
   setAnimation: function(animation) { // Expects a string with the name of an animation to reproduce, and reproduce it in every robot part
+    this.cAction = animation;
     this.allParts(function(part) {part.setAnimation(animation);});
   },
   createHealthBar: function() { //TODO crear una buena health bar que sea independiente del tamaño del sprie
@@ -149,7 +212,7 @@ var Robot = cc.Sprite.extend({
     var destinationB = cc.p(30, 15);
     var destinationF = cc.p(28, 13);
     var fillColorB = cc.color(0, 0, 0, 255);
-    var fillColorF = this.pElement[this.element];
+    var fillColorF = this.sElement;
 
     var back = new cc.DrawNode();
     var front = new cc.DrawNode();
@@ -168,7 +231,7 @@ var Robot = cc.Sprite.extend({
   updateHealthBar: function() {
     // Updates the healthbar length with the sLife stat
     var hpbar = this.getChildByName("hpbar");
-    hpbar.setScaleX(this.cLife / this.sLife);
+    hpbar.setScaleX(this.sLife / this.getDefaultStat('life'));
   },
   fire: function(target) {//TODO repetido en defensa hacer buena clase padre
     // This funcitons is executed when the robot attacks something
@@ -206,7 +269,7 @@ var Robot = cc.Sprite.extend({
     if (this.cTilePos && !cc.pointEqualToPoint(currTilePos, this.cTilePos)) {
       if (!(this.canTurn(currTilePos) !== false &&
       [0,3].indexOf(this.pointing) != -1) ||
-      this.y >= this.level.map.getMidPointFromTile(currTilePos).y + (this.level.map.getTileSize().height / 2) - this.pSpeed[this.speed]) {//TODO no habia una solucion menos horrible?
+      this.y >= this.level.map.getMidPointFromTile(currTilePos).y + (this.level.map.getTileSize().height / 2) - this.getPossiblesStat('speed')[this.speed]) {//TODO no habia una solucion menos horrible?
         this.cTilePos = currTilePos;
         return true;
       }
@@ -308,9 +371,9 @@ var Robot = cc.Sprite.extend({
       else if (defense.element == "water") {elementMod = 1;}
     }
     var totalDamage = defense.sDamage * elementMod;
-    this.cLife -= totalDamage;
-    if (this.cLife <= 0) {
-      this.cLife = 0;
+    this.sLife -= totalDamage;
+    if (this.sLife <= 0) {
+      this.sLife = 0;
       this.die();
     } else {
       this.updateHealthBar();
@@ -333,7 +396,7 @@ var Robot = cc.Sprite.extend({
   },
   hitsReceivedScore: function() {
     // Returns a float, being 0.0 == 0 ms, 1.0 lived more or equal ms to maxTime
-    var maxHits = this.pLife[2] / (new Defense().pDamage[0] * 0.5);
+    var maxHits = this.getPossiblesStat('life')[2] / (new Defense().pDamage[0] * 0.5);
     var score = 0;
     var hitsReceived = this.hitsReceived;
     score =  hitsReceived / maxHits;

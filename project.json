@@ -25,7 +25,6 @@
       "src/level/game.js",
       "src/level/level.js",
       "src/level/map.js",
-      "src/robot/animation.js",
       "src/robot/part.js",
       "src/robot/robot.js"
     ]

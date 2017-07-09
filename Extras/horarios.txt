@@ -148,37 +148,40 @@ Mi 31
 ---
 
 # Segunda mitad
-- 2017-06-23 Vi
+- 2017-06-23 Vi - 03:35 hs
     - 10:00 - 12:15 | Volviendo a ver el proyecto, jugando, viendo actualizaciones
-  de tecnología, viendo por que es aburrido, agregado mapa con cientos de robots
+      de tecnología, viendo por que es aburrido, agregado mapa con cientos de robots
     - 23:00 - 00:20 | Armando el script de animaciones.blend, animate.py
-
-- 2017-06-24 Sa
+- 2017-06-24 Sa - 05:10 hs
     - 09:00 - 12:00 | siguiendo con animate.py ya se parentean bien las partes con el esqueleto
     - 14:00 - 15:30 | animate.py ya empieza a renderizar cosas
     - 22:00 - 22:40 | algunos retoques a animate.py
-- 2017-06-25 Do
+- 2017-06-25 Do - 08:00 hs
     - 11:00 - 19:00 | terminado animate.py
-- 2017-06-26 Lu
+- 2017-06-26 Lu - 04:45 hs
     - 21:15 - 00:30 | nuevos placeholders de todas las partes
     - 00:30 - 02:00 | los nuevos sprites en el juego, viendo algunos temas con animate.py
-- 2016-06-30 Vi
+- 2016-06-30 Vi - 04:45 hs
     - 18:30 - 22:00 | animate.py ahora exporta al formato de directorios que decidí y se arregló el composite
     - 22:30 - 23:45 | importando en el juego el nuevo formato de directorios sin animaciones
-- 2016-07-01 Sa
+- 2016-07-01 Sa - 02:00 hs
     - 21:30 - 23:30 | ahora los robots se importan del archivo de texture packer
-- 2016-07-05 Mi
-    - 21:30 - 22:30 | Viendo todo,do  pensando en nada...
-- 2016-07-06 Ju
+- 2016-07-05 Mi - 01:00 hs
+    - 21:30 - 22:30 | Viendo todo, pensando en nada...
+- 2016-07-06 Ju - 04:15 hs
     - 15:00 - 16:15 | Animaciones iniciales funcionan (solo walk)
     - 21:00 - 00:00 | Iniciando reestructuración del proyecto por las animaciones
-- 2016-07-07 Vi
+- 2016-07-07 Vi - 02:30 hs
     - 21:30 - 23:10 | Reestructuración terminada
     - 23:10 - 00:00 | Flip x al turnear
-- 2016-07-08 Sa
+- 2016-07-08 Sa - 03:20 hs
+    - 10:00 - 12:00 | Viendo cosas no muy utiles del proyecto y algunos articulos para monetizar td (tower defenses)
+    - 21:40 - 23:00 | Planificando nuevas características y metas para el final de este segundo sprint
+- 2016-07-09 Do
+    - 09:30 - 12:20 | Comenzando modificaciones de la clase Robot, para ser la base de las defensas tambien
+    - 13:20 - 16:45 | Nueva estructura planteada, ahora falta empezar a subdividir en padres e hijos las clases
 
 # Restantes
-- 2016-07-09 Do
 - 2016-07-10 Lu
 - 2016-07-11 Ma
 - 2016-07-12 Mi
@@ -215,13 +218,12 @@ Mi 31
 - 2016-08-12 Sa
 - 2016-08-13 Do
 
-# TODO
-  - Setear una variable que determine la nueva posicion z de cada robot y cada parte
+# TODO Para este sprint
+  - Repensar: Desarrollo de la partida, Sistema de mejoras,
+  Pathfinding de los robots, que opciones va a tener el jugador durante
+  la partida y que va a poder visualizar en el hud? Modos de juegos? tienda de items?
   - Rehacer sistema de menus y hud con componentes modulares
   - Buscar mejor forma de hacer el tema del zoom
-  - Repensar: Desarrollo de la partida, Sistema de mejoras,
-    Pathfinding de los robots, que opciones va a tener el jugador durante
-    la partida y que va a poder visualizar en el hud?
   - Mejoras, más personalización visual de las torretas, que se note la
     evolución de las torretas con partes, quizás algo simil al
     funcionamiento de los robots
@@ -230,9 +232,6 @@ Mi 31
   - Tipografias
   - Importar nodos de compositing desde robot.blend a animaciones.blend
   - En animate.py agregar una opcion para renderizar un cuerpo completo para ir viendo como queda el compositing
-
-  - Ver si hay alguna forma de actualizar cocos2d-html5 así tiene más sentido lo que veo en el navegador
-    ahora que se que tengo la 3.8 y no acepta polygon trimming en plist
 
 # IDEA
   - Que las defensas sean robots quietos internamente con diferentes sprites

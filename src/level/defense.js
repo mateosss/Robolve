@@ -118,7 +118,6 @@ var Defense = cc.Sprite.extend({
     return this.target;
   },
   fire: function(target){
-    //TODO comprobar territorio
     if (target) {
       target.hurt(this);
     }
