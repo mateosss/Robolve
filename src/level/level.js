@@ -29,11 +29,6 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
       this.wavesIntervals[i] = this.wavesIntervals[i] / this.SPEED;
     }
     if (firstTime) { //
-      // rob = _.props(Robot); XXX
-      // for (var value in rob.pSpeed) {
-      //   rob.pSpeed[value] = rob.pSpeed[value] * this.SPEED;
-      //   rob.pAttackSpeed[value] = rob.pAttackSpeed[value] * this.SPEED;
-      // }
       rob = _.props(Robot).STATS;
       for (i in rob.get('speed')) {
         rob.get('speed')[i] *= this.SPEED;

@@ -28,64 +28,7 @@ var Robot = cc.Sprite.extend({
     ['attackSpeed', {0: 0.5, 1: 1.0, 2: 2.0}],
   ]),
 
-  //Possible (p) stats // TODO definir valores reales // TODO apply fuzzy logic XXX
-  // pTurnProb: {0: 0.25, 1: 0.5, 2: 0.9},
-  // pLife: {0: 500, 1: 600, 2: 700},
-  // pElement: {
-  //   "electric": cc.color(255, 231, 0 ,255),
-  //   "fire": cc.color(227, 43, 0, 255),
-  //   "water": cc.color(1, 179, 255, 255)
-  // },
-  // pRange: {0: 75, 1: 150},
-  // pTerrain: {0: 'walk',1: 'fly'},
-  // pSpeed: {0: 0.35, 1: 0.75, 2: 1.0}, // TODO PORQUE?!?!?! velocidades 0.88 - 0.93 traen el bug donde el robot se va del mapa (0,10) Y velocidad 0.1, hace que para linux y android tengan tambien el bug, pero el javascript si.
-  // pDamage: {0: 5, 1: 15, 2:20},
-  // pAttackSpeed: {0: 0.5, 1: 1.0, 2: 2.0},
-
-  //Initial values XXX
-  // turnProb: null,
-  // life: null,
-  // element: null,
-  // range: null,
-  // terrain: null,
-  // speed: null,
-  // damage: null,
-  // attackSpeed: null,
-
-  // genes: new Map(), // The genes from the dna that matches the STATS constant's properties
-  // // Example of genes on runtime
-  // // genes: new Map([ // This constant defines the dna of this Robot based class
-  // //   ['turnProb', 1],
-  // //   ['life', 2],
-  // //   ['element', 'electric']
-  // //   ['range', 1],
-  // //   ['terrain', 0],
-  // //   ['speed', 2],
-  // //   ['damage', 1],
-  // //   ['attackSpeed', 0],
-  // // ]),
-
-  //Stats (s) XXX
-  // sTurnProb: null,
-  // sLife: null,
-  // sRange: null,
-  // sSpeed: null,
-  // sDamage: null,
-  // sAttackSpeed: null,
-
-  // stats: new Map(), // Current stats values, can be reseted to match the genes with setDefaultStat function
-  // // Example of stats on runtime
-  // // stats: new Map([ // This constant defines the dna of this Robot based class
-  // //   ['turnProb', 0.5],
-  // //   ['life', 700],
-  // //   ['element', cc.color(255, 231, 0 ,255)]
-  // //   ['range', 150],
-  // //   ['terrain', 'walk'],
-  // //   ['speed', 1.0],
-  // //   ['damage', 15],
-  // //   ['attackSpeed', 0.5],
-  // // ]),
-  //cLife: null, // Current Life XXX
+  //Possible (p) stats // TODO definir valores reales // TODO apply fuzzy logic
 
   //Part objects
   head: null,
@@ -95,7 +38,6 @@ var Robot = cc.Sprite.extend({
   legl: null,
   legr: null,
 
-  // ctor: function(level, dna, turnProb, life, element, range, terrain, speed, damage, attackSpeed) { XXX
   ctor: function(level, dna) {
     // Can be used by sending a dna array, with corresponding values for every property
     // or by sending every property individually after a false dna
@@ -110,18 +52,11 @@ var Robot = cc.Sprite.extend({
     this.setAnchorPoint(0.5, 0.0);
     this.level = level;
     this.creationTime = new Date().getTime();
+
     dna = dna || Array.prototype.slice.call(arguments, 2);
     for (var i = 0; i < this.STATS.size; i++) {
       this[this.STATS.getki(i)] = dna[i];
     }
-    // this.turnProb = dna[0]; XXX
-    // this.life = dna[1];
-    // this.element = dna[2];
-    // this.range = dna[3];
-    // this.terrain = dna[4];
-    // this.speed = dna[5];
-    // this.damage = dna[6];
-    // this.attackSpeed = dna[7];
 
     this.resetStats();
     this.buildRobot();
@@ -149,16 +84,6 @@ var Robot = cc.Sprite.extend({
     return this.STATS.get(stat);
   },
   getDNA: function() {
-    // var dna = [ XXX
-    //   this.turnProb,
-    //   this.life,
-    //   this.element,
-    //   this.range,
-    //   this.terrain,
-    //   this.speed,
-    //   this.damage,
-    //   this.attackSpeed,
-    // ];
     var dna = [];
     this.STATS.forEach(function(possibles, stat) {
       dna.push(this[stat]);
@@ -176,14 +101,6 @@ var Robot = cc.Sprite.extend({
     this.STATS.forEach(function(possibles, stat) {
       this.setDefaultStat(stat);
     }, this);
-
-    // this.sTurnProb = this.pTurnProb[this.turnProb]; XXX
-    // this.sLife = this.pLife[this.life];
-    // this.cLife = this.sLife;
-    // this.sRange = this.pRange[this.range];
-    // this.sSpeed = this.pSpeed[this.speed];
-    // this.sDamage = this.pDamage[this.damage];
-    // this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
   },
   getParts: function() { // Return all Part objects from which the robot is made
     return [
