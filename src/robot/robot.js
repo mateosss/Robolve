@@ -13,6 +13,7 @@ var Robot = cc.Sprite.extend({
   // turnProb and sTurnProb will be created directly on the object, with
   // turnProb having the gene, and sTurnProb the current real stat the robot
   // is having that can be modified and resetted by setDefaultStat
+  // TODO definir valores reales // TODO apply fuzzy logic
   STATS: new Map([
     ['turnProb', {0: 0.25, 1: 0.5, 2: 0.9}],
     ['life', {0: 500, 1: 600, 2: 700}],
@@ -27,16 +28,14 @@ var Robot = cc.Sprite.extend({
     ['damage', {0: 5, 1: 15, 2:20}],
     ['attackSpeed', {0: 0.5, 1: 1.0, 2: 2.0}],
   ]),
-
-  //Possible (p) stats // TODO definir valores reales // TODO apply fuzzy logic
-
-  //Part objects
-  head: null,
-  middle: null,
-  arml: null,
-  armr: null,
-  legl: null,
-  legr: null,
+  PARTS: { // Necessary info for the parts to make a robot
+    head: {plural: "heads", z: 2, partName: robot => robot.element + ["Weak", "Normal", "Strong"][robot.damage]},
+    middle: {plural: "middles", z: 1, partName: robot => ["weak", "normal", "strong"][robot.life]},
+    arml: {plural: "armsl", z: 3, partName: robot => robot.element + ["Mele", "Range"][robot.range] + "L"},
+    armr: {plural: "armsr", z: 0, partName: robot => robot.element + ["Mele", "Range"][robot.range] + "R"},
+    legl: {plural: "legsl", z: 0, partName: robot => ["walk", "fly"][robot.terrain] + "L"},
+    legr: {plural: "legsr", z: 0, partName: robot => ["walk", "fly"][robot.terrain] + "R"},
+  },
 
   ctor: function(level, dna) {
     // Can be used by sending a dna array, with corresponding values for every property
@@ -85,24 +84,23 @@ var Robot = cc.Sprite.extend({
   },
   getDNA: function() {
     var dna = [];
-    this.STATS.forEach(function(possibles, stat) {
-      dna.push(this[stat]);
-    });
+    this.STATS.forEach((possibles, stat) => {dna.push(this[stat]);});
     return dna;
   },
   buildRobot: function() {
     // Builds the robot, by creating all the parts
-    Object.keys(_.props(Part).PARTS).forEach(function(part) {
+    Object.keys(this.PARTS).forEach(part => {
       this[part] = new Part(this, part);
       this.addPart(this[part]);
-    }, this);
+    });
   },
   resetStats: function() { // sets the initial value to all stats in sStats
-    this.STATS.forEach(function(possibles, stat) {
-      this.setDefaultStat(stat);
-    }, this);
+    this.STATS.forEach((possibles, stat) => {this.setDefaultStat(stat);});
   },
   getParts: function() { // Return all Part objects from which the robot is made
+    for (var part in this.PARTS) {
+
+    }
     return [
       this.head,
       this.middle,
@@ -116,7 +114,7 @@ var Robot = cc.Sprite.extend({
     this.getParts().forEach(func, this);
   },
   addPart: function(part) { // Adds a part to the robot as a child in the correct zindex
-    this.addChild(part, part.PARTS[part.type].zIndex);
+    this.addChild(part, this.PARTS[part.type].z);
   },
   setAnimation: function(animation) { // Expects a string with the name of an animation to reproduce, and reproduce it in every robot part
     this.cAction = animation;
