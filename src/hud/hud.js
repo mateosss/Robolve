@@ -21,7 +21,7 @@ var Hud = cc.Layer.extend({
   dsLabel: null,
   dsDefense: null, // Dummy defense on screen
 
-  ig: null,
+  ig: null, // Infromationg - Gold
 
   ctor: function(level) {
     this._super();
@@ -226,16 +226,15 @@ var Hud = cc.Layer.extend({
       dd.dismiss();
     }, {options:{invertedArea:true}});
     this.addChild(this.dd);
-    this.ddDefense = this.level.defenses[0]; // TODO que no sea una defensa estatica
-    this.ddElement = new PropertySelector(this.dd, this.ddDefense, 'element');
+    this.ddElement = new PropertySelector(this.dd, 'element');
     this.dd.pushBackCustomItem(this.ddElement);
-    this.ddRange = new PropertySelector(this.dd, this.ddDefense, 'range');
+    this.ddRange = new PropertySelector(this.dd, 'range');
     this.dd.pushBackCustomItem(this.ddRange);
-    this.ddTerrain = new PropertySelector(this.dd, this.ddDefense, 'terrain');
+    this.ddTerrain = new PropertySelector(this.dd, 'terrain');
     this.dd.pushBackCustomItem(this.ddTerrain);
-    this.ddDamage = new PropertySelector(this.dd, this.ddDefense, 'damage');
+    this.ddDamage = new PropertySelector(this.dd, 'damage');
     this.dd.pushBackCustomItem(this.ddDamage);
-    this.ddAttackSpeed = new PropertySelector(this.dd, this.ddDefense, 'attackSpeed');
+    this.ddAttackSpeed = new PropertySelector(this.dd, 'attackSpeed');
     this.dd.pushBackCustomItem(this.ddAttackSpeed);
     this.ddDestroy = new ccui.Button(r.ui.cancelBtnM, r.ui.cancelBtnDM);
     this.ddDestroy.setTouchEnabled(true);

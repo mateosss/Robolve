@@ -16,6 +16,7 @@ var r = { // resources variable
     map2: "res/map/map2.tmx",
     map3: "res/map/map3.tmx",
     map4: "res/map/map4.tmx",
+    map5: "res/map/map5.tmx",
   },
   ui:{
     ddBackground: "res/sprites/ui/ddBackground.jpg",

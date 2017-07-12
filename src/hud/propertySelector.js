@@ -1,7 +1,7 @@
 var PropertySelector = ccui.Layout.extend({
   property: null,
   pValueLabel: null,
-  ctor: function(parent, defense, property) {
+  ctor: function(parent, property) {
     // TODO HARDCODE EVERYWHERE
     this._super();
     this.property = property;
@@ -28,8 +28,7 @@ var PropertySelector = ccui.Layout.extend({
     pNameLabel.setPosition(0, background.height);
     background.addChild(pNameLabel, 99);
 
-    var pValue = defense[pProperty][defense[this.property]];
-    this.pValueLabel = new ccui.Text(pValue, "Arial", background.width / 2);
+    this.pValueLabel = new ccui.Text("--", "Arial", background.width / 2);
     this.pValueLabel.setAnchorPoint(0, 0);
     this.pValueLabel.setPosition(4, background.height / 2 - this.pValueLabel.height / 2); // TODO 4 hardcodeado
     background.addChild(this.pValueLabel, 99);

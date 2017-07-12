@@ -46,7 +46,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.prepareNextWave();
 
     // Set base
-    var base = new Base(this, 50000);
+    var base = new Base(this, 500);
     this.setBase(base);
 
     // Add Robot
@@ -254,6 +254,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         while (dnaWaveQuery.length + toAdd.length < robotsAmount) {
           var randomised = dnaWaveQuery.map(rouleteSorting);
           randomised.sort(function(a, b) { return b[1] - a[1]; });
+          if (randomised.length === 1) randomised.push(randomised[0]); // duplicate subject if there is only one
           // hacerles crossover para que den un hijo
           var son = this.crossover(randomised[0][0], randomised[1][0], 1)[2][0];
           // agregar ese hijo a la dnawavequery
@@ -280,16 +281,8 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   crossover: function(p1, p2, sonsCount) { //TODO GA que el robot sea equilibrado
     // Crossovers two DNAs from robot.getDNA(), p1 is the strongest parent
     sonsCount = sonsCount || 2;
-    var possible = [//TODO hardcoded
-      [0, 1, 2], //pTurnProb
-      [0, 1, 2], //pLife
-      ["electric", "fire", "water"], //pElement
-      [0, 1], //pRange
-      [0, 1], //pTerrain
-      [0, 1, 2], //pSpeed
-      [0, 1, 2], //pDamage
-      [0, 1, 2], //pAttackSpeed
-    ];
+    var possible = [];
+    _.props(Robot).STATS.forEach(oPossibles => possible.push(Object.keys(oPossibles)));
     sons = [];
     for (var j = 0; j < sonsCount; j++) {
       var sonBorn = false;
