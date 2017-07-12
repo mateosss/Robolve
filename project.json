@@ -15,6 +15,8 @@
       "src/app.js",
       "src/debugger.js",
       "src/jsu.js",
+      "src/robot/state.js",
+      "src/rb.js",
       "src/resource.js",
       "src/hud/easyEvents.js",
       "src/hud/hud.js",

@@ -182,7 +182,7 @@ var Hud = cc.Layer.extend({
     this.it.message = function (message, duration) {
       this.setOpacity(0);
       duration = duration || 3;
-      var changeText = new cc.CallFunc(function(it, msg){it.setString(msg);}, this, message);
+      var changeText = new cc.CallFunc(function(it, msg) { it.setString(msg); }, this, message);
       var appear = new cc.FadeIn(0.2);
       var delay = new cc.DelayTime(duration);
       var disappear = new cc.FadeOut(0.2);
@@ -246,10 +246,10 @@ var Hud = cc.Layer.extend({
       if (hud.ddDestroySure) {
         var burn = new cc.TintTo(0.2, 0, 0, 0);
         var disappear = new cc.FadeOut(0.2);
-        var message = new cc.CallFunc(function(defense){hud.it.message("Turret destroyed");}, this, hud);
+        var message = new cc.CallFunc(function(defense){ hud.it.message("Turret destroyed"); }, this, hud);
         hud.level.base.money += 50;
         hud.ig.refresh();
-        var destroy = new cc.CallFunc(function(defense){defense.die();}, this);
+        var destroy = new cc.CallFunc(function(defense){ defense.die(); }, this);
         var actArray = [burn, disappear, message, destroy];
         hud.ddDefense.runAction(new cc.Sequence(actArray));
         hud.ddDestroySure = false;

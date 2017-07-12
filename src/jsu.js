@@ -24,7 +24,7 @@ var _ = {
     if (typeof params !== "object") params = Array.prototype.slice.call(arguments, 1);
     var chunks = string.split("{}");
     var final = "";
-    if (chunks.length - 1 !== params.length) throw "format arguments length doesn't match the given string expected params";
+    if (chunks.length - 1 !== params.length) throw "jsu: _.format arguments length doesn't match the given string expected params";
     for (var i = 0; i < chunks.length - 1; i++) {
       final += chunks[i] + params[i];
     }

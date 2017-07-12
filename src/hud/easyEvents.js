@@ -39,7 +39,7 @@ var easyTouchEnded = function(pressObj, exec) {
   if ('touches' in cc.sys.capabilities) {
     cc.eventManager.addListener({
       event: cc.EventListener.TOUCH_ONE_BY_ONE,
-      onTouchBegan: function(touch, event) {return true;},
+      onTouchBegan: function(touch, event) { return true; },
       onTouchEnded: reaction,
     }, pressObj);
   } else if ('mouse' in cc.sys.capabilities) {

@@ -1,9 +1,9 @@
 var Robot = cc.Sprite.extend({
   level: null, // Level where this object is placed
   pointing: 2, // Looking direction 0:North, 1:East, 2:South, 3:West
-  cAction: null, // Current cc.Action being played
+  cAnimation: null, // Current cc.Action being played
   cTilePos: cc.p(0, 0), // Current tile Position of the robot // TODO estoy hardcodeando esto
-  state: null, // robot state (attack, walk, still...)
+  cStates: [], // array with applied states, from older to newer
   creationTime: null,
   hitsReceived: 0,
   infligedDamage: 0,
@@ -36,6 +36,13 @@ var Robot = cc.Sprite.extend({
     legl: {plural: "legsl", z: 0, partName: robot => ["walk", "fly"][robot.terrain] + "L"},
     legr: {plural: "legsr", z: 0, partName: robot => ["walk", "fly"][robot.terrain] + "R"},
   },
+
+  // Possible states for this robot
+  STATES: [
+    rb.states.robot.still,
+    rb.states.robot.walk,
+    rb.states.robot.attack
+  ],
 
   ctor: function(level, dna) {
     // Can be used by sending a dna array, with corresponding values for every property
@@ -98,17 +105,11 @@ var Robot = cc.Sprite.extend({
     this.STATS.forEach((possibles, stat) => {this.setDefaultStat(stat);});
   },
   getParts: function() { // Return all Part objects from which the robot is made
+    var parts = [];
     for (var part in this.PARTS) {
-
+      parts.push(this[part]);
     }
-    return [
-      this.head,
-      this.middle,
-      this.arml,
-      this.armr,
-      this.legl,
-      this.legr,
-    ];
+    return parts;
   },
   allParts: function(func) { // executes a function for every part
     this.getParts().forEach(func, this);
@@ -116,9 +117,9 @@ var Robot = cc.Sprite.extend({
   addPart: function(part) { // Adds a part to the robot as a child in the correct zindex
     this.addChild(part, this.PARTS[part.type].z);
   },
-  setAnimation: function(animation) { // Expects a string with the name of an animation to reproduce, and reproduce it in every robot part
-    this.cAction = animation;
-    this.allParts(function(part) {part.setAnimation(animation);});
+  setAnimation: function(animation, speed) { // Expects a string with the name of an animation to reproduce, and reproduce it in every robot part
+    this.cAnimation = animation;
+    this.allParts(function(part) { part.setAnimation(animation, speed); });
   },
   createHealthBar: function() { //TODO crear una buena health bar que sea independiente del tamaño del sprie
     //Creates two rectangles for representing the healtbar
@@ -155,10 +156,19 @@ var Robot = cc.Sprite.extend({
       this.infligedDamage += target.hurt(this);
     }
   },
-  setState: function(state) { // TODO too basic, probably will need improvements in the future, investigate finite state machine
-    if (this.state === state) return;
-    this.setAnimation(state);
-    this.state = state;
+  getState: function(state) { // Gets a state from STATES by name
+    if (typeof state === 'string') state = this.STATES.find(aState => aState.name == state);
+    return state;
+  },
+  addState: function(state) { // adds a state to cStates and starts it, expects a state or a string with its name
+    this.getState(state).start(this);
+  },
+  removeState: function(state) { // removes a state from cStates and ends it, expects a state or a string with its name
+    this.getState(state).end();
+  },
+  setState: function(state) { // stops all states and add the provided one
+    this.cStates.forEach(function(state) { this.removeState(state); }, this);
+    this.addState(state);
   },
   getTarget: function() {//TODO otra vez se repite en defensa
     // This function returns if there is a target to attack in the robot range
@@ -240,7 +250,7 @@ var Robot = cc.Sprite.extend({
         }
       }
       this.pointing = newDirection;
-      this.allParts(function(part){part.setFlippedX(this.pointing % 2);});
+      this.allParts(function(part) { part.setFlippedX(this.pointing % 2); });
     }
   },
   walk: function() {
@@ -356,7 +366,7 @@ var Robot = cc.Sprite.extend({
       { method: this.debugger.debugAnchor },
       { method: this.debugger.debugRange },
       { method: this.debugger.debugText, options: {
-        text: JSON.stringify(this.cTilePos),
+        text: JSON.stringify([this.sAttackSpeed, (1 / (this.sAttackSpeed * 6)).toFixed(2)]),
         dimensions: cc.size(256, 256),
         fontSize: 24,
         hAlignment: cc.TEXT_ALIGNMENT_LEFT,

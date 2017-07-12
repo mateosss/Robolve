@@ -46,9 +46,8 @@ var Part = cc.Sprite.extend({
   getDefaultSprite: function() {
     return _.format(this.getSpritePlaceholder(this.dAnimation), 1);
   },
-  setAnimation: function(actionName) {
+  setAnimation: function(actionName, speed) {
     if (actionName === this.cAnimation) return;
-    var speed = (1 / 16) / this.robot.sSpeed; // TODO This animation speed is the same for all animations even atack
     var action = this.getSpriteAction(
       r.animations[actionName], this.getSpritePlaceholder(actionName), speed
     );

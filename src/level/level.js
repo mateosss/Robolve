@@ -239,28 +239,28 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         robotsAmount = this.wavesCounts[this.cWave];
         //Agarrar 1/4 + 1 de los mejores prevWaveRobots
 
-        this.prevWaveRobots.sort(function(a, b) {return b[1] - a[1];});
+        this.prevWaveRobots.sort(function(a, b) { return b[1] - a[1]; });
 
         //Debugear avg score
         total = 0;
         count = 0;
-        this.prevWaveRobots.forEach(function(e){total+=e[1];count+=1;});
+        this.prevWaveRobots.forEach(function(e) { total += e[1]; count += 1; });
         console.log("Average fitScore prev wave: " + total/count);
         //crear array dnaWaveQuery con esos agarrados
         var dnaWaveQuery = this.prevWaveRobots.slice(0, Math.ceil((robotsAmount / 4) + 1));
         // bucle agarrando dos al azar de ese cuarto+1 segun su score
         var toAdd = [];
-        rouleteSorting = function(dna){return [dna[0], dna[1] * Math.random()];};
+        rouleteSorting = function(dna) { return [dna[0], dna[1] * Math.random()]; };
         while (dnaWaveQuery.length + toAdd.length < robotsAmount) {
           var randomised = dnaWaveQuery.map(rouleteSorting);
-          randomised.sort(function(a, b) {return b[1] - a[1];});
+          randomised.sort(function(a, b) { return b[1] - a[1]; });
           // hacerles crossover para que den un hijo
           var son = this.crossover(randomised[0][0], randomised[1][0], 1)[2][0];
           // agregar ese hijo a la dnawavequery
           toAdd.push(son);
           // cortar el bucle cuando se alcance el robotsAumount
         }
-        dnaWaveQuery = dnaWaveQuery.map(function(a) {return a[0];});
+        dnaWaveQuery = dnaWaveQuery.map(function(a) { return a[0]; });
         dnaWaveQuery = dnaWaveQuery.concat(toAdd);
         var auxWaveQuery = [];
         for (var j = 0; j < dnaWaveQuery.length; j++) {
@@ -330,7 +330,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   },
   mutate: function(gen, possibles) {
     // Mutates a gen within the possibles array
-    var leftPossibles = possibles.filter(function(a) {return a != gen;});
+    var leftPossibles = possibles.filter(function(a) { return a != gen; });
     var mutatedGen = leftPossibles[Math.floor((Math.random() * leftPossibles.length))];
     return mutatedGen;
   },
