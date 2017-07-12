@@ -183,9 +183,10 @@ Mi 31
 - 2017-07-10 Lu
     - 20:40 - 23:00 | Part bien separada de robot, y empezando con la idea de State
 - 2017-07-11 Ma
-    - 21:00 - 
-# Restantes
+    - 21:00 - 00:30 | States iniciales funcionando, falta state con timer y un buen metodo para testearlos pero andan
 - 2017-07-12 Mi
+    - 10:45 -
+# Restantes
 - 2017-07-13 Ju
 - 2017-07-14 Vi
 - 2017-07-15 Sa

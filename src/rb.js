@@ -1,5 +1,6 @@
 // Global rb variable (stands for RoBolve), that saves global things
 var rb = {
+  animations: {"attack": 6, "walk": 8, "still": 1},
   states: {
     robot: {
       still: new State('still', { sSpeed: 0 }, {

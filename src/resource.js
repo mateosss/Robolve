@@ -1,10 +1,8 @@
 var r = { // resources variable
-  HelloWorld_png : "res/HelloWorld.png",
-  map: "res/map.png",
+  menuBackground : "res/menuBackground.png",
   empty: "res/sprites/empty.png",
   point: "res/sprites/point.png",
   invalidPart: "res/sprites/invalidPart.png",
-  defense: "res/sprites/defense.png",
   electricDefense: "res/sprites/electricDefense.png",
   fireDefense: "res/sprites/fireDefense.png",
   waterDefense: "res/sprites/waterDefense.png",
@@ -32,7 +30,6 @@ var r = { // resources variable
       "plus",
     ],
   },
-  animations: {"attack": 6, "walk": 8, "still": 1},
   parts_png: "res/sprites/parts.png",
   parts_plist: "res/sprites/parts.plist",
 };

@@ -16,7 +16,7 @@ var Menu = cc.LayerGradient.extend({
     tapLabel.y = size.height / 2 + 200;
     this.addChild(tapLabel, 5);
 
-    this.sprite = new cc.Sprite(r.HelloWorld_png);
+    this.sprite = new cc.Sprite(r.menuBackground);
     this.sprite.attr({
       x: size.width / 2,
       y: size.height / 2,
