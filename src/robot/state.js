@@ -6,13 +6,20 @@
 // If more customization needed you can use the postStart, everyFrame and beforeEnd
 // functions, be sure to let everything as you wish before ending the node
 
+// Possible TODO, do it only if needed
+// options.delay, delay before starting the state
+// options.schedule list, use parent.schedule to execute something with lots of options
+//    use http://www.cocos2d-x.org/docs/api-ref/js/v3x/symbols/cc.Node.html#schedule with the exact same parameters
+
+
 var State = cc.Node.extend({
   name: null, // name of the state i.e. 'walk'
-  newProps: {}, // an object with property name to change and new value, i.e. {sSpeed: 0}
-  oldProps: {}, // will backup the old properties on start
-  local: {}, // use this to save variables through state moments
+  newProps: null, // {} an object with property name to change and new value, i.e. {sSpeed: 0}
+  oldProps: null, // {} will backup the old properties on start
+  local: null, // {} use this to save variables through state moments
+  timeToEnd: null, // put a number here for finishing the event after that amount of seconds
 
-  // Control flow variables
+  // Flow control variables
   first: true, // false when it was executed at least once
   active: false, // true when the state has started but not ended yet
   ended: false, // true when the state has ended
@@ -23,14 +30,18 @@ var State = cc.Node.extend({
   postStart: null, // executed inmediately after start
   everyFrame: null, // executed every frame (if present, a scheduleUpdate() will be made), first argument is deltatime
   beforeEnd: null, // executed just before exit
-  ctor: function(name, newProps, options) {
+
+  lifespan: 0, // amount of seconds the event should last until it finish itself
+
+
+  ctor: function(options) {
     this._super();
-    this.newProps = newProps;
-    this.name = name;
-    this.local = {};
+    this.newProps = options.props || {};
+    this.name = options.name;
     this.postStart = options.postStart;
     this.everyFrame = options.everyFrame;
     this.beforeEnd = options.beforeEnd;
+    this.lifespan = options.lifespan;
   },
   start: function(parent) {
     // The states checks it is already active, if thats the case, exit
@@ -38,8 +49,10 @@ var State = cc.Node.extend({
     // 1. The states adds itself to the cStates of the parent
     parent.cStates.push(this);
     parent.addChild(this);
-    // 2. The properties of the parent that are in new Props are backed up
-    // in oldProps, and are replaced with the new
+    // 2. Initializations and the properties of the parent that are in new Props
+    // are backed up in oldProps, and are replaced with the new
+    this.oldProps = {};
+    this.local = {};
     for (var prop in this.newProps) {
       this.oldProps[prop] = parent[prop];
       parent[prop] = this.newProps[prop];
@@ -47,10 +60,12 @@ var State = cc.Node.extend({
     // 3. If postStart was given, then call it
     if (this.postStart) this.postStart.call(parent, this);
     // 4. If everyFrame was given, then scheduleUpdate
-    if (this.everyFrame) this.scheduleUpdate();
-    // 5. mark that this is at least the first run
+    if (this.everyFrame || this.lifespan) this.scheduleUpdate();
+    // 5. If lifespan was given, increase set timeToEnd value
+    if (this.lifespan) this.timeToEnd = this.lifespan;
+    // 6. mark that this is at least the first run
     this.first = false;
-    // 6. mark that this state is now active because it hasn't ended yet (just started)
+    // 7. mark that this state is now active because it hasn't ended yet (just started)
     this.active = true;
   },
   end: function() {
@@ -68,7 +83,9 @@ var State = cc.Node.extend({
     // -1. Mark that this state is now ended
     this.ended = true;
   },
-  update: function() {
-    this.everyFrame.call(this.parent, dt, this);
+  update: function(dt) {
+    if (this.everyFrame) this.everyFrame.call(this.parent, dt, this);
+    if (this.lifespan) this.timeToEnd -= dt; console.log("lifespan");
+    if (this.timeToEnd < 0) this.end();
   }
 });

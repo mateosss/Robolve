@@ -187,9 +187,11 @@ Mi 31
 - 2017-07-12 Mi
     - 10:45 - 11:10 | Limpieza de algunos sprites obsoletos
     - 12:00 - 14:25 | Agregado map5 y mas mejoras de codigo viejo
-    - 14:25 - 
-# Restantes
+    - 14:25 - 14:50 | Intentando debugear states
 - 2017-07-13 Ju
+    - 20:00 - 22:30 | Corregido states, ahora si son propios de cada robot
+
+# Restantes
 - 2017-07-14 Vi
 - 2017-07-15 Sa
 - 2017-07-16 Do

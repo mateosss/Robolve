@@ -3,7 +3,8 @@ var Robot = cc.Sprite.extend({
   pointing: 2, // Looking direction 0:North, 1:East, 2:South, 3:West
   cAnimation: null, // Current cc.Action being played
   cTilePos: cc.p(0, 0), // Current tile Position of the robot // TODO estoy hardcodeando esto
-  cStates: [], // array with applied states, from older to newer
+  cStates: null, // [] array with applied states, from older to newer
+  states: null, // [] Automatically generated array, with all the STATES instances
   creationTime: null,
   hitsReceived: 0,
   infligedDamage: 0,
@@ -36,9 +37,7 @@ var Robot = cc.Sprite.extend({
     legl: {plural: "legsl", z: 0, partName: robot => ["walk", "fly"][robot.terrain] + "L"},
     legr: {plural: "legsr", z: 0, partName: robot => ["walk", "fly"][robot.terrain] + "R"},
   },
-
-  // Possible states for this robot
-  STATES: [
+  STATES: [ // Possible states for this robot
     rb.states.robot.still,
     rb.states.robot.walk,
     rb.states.robot.attack
@@ -60,15 +59,21 @@ var Robot = cc.Sprite.extend({
     this.creationTime = new Date().getTime();
 
     dna = dna || Array.prototype.slice.call(arguments, 2);
-    for (var i = 0; i < this.STATS.size; i++) {
+    for (let i = 0; i < this.STATS.size; i++) {
       this[this.STATS.getki(i)] = dna[i];
+    }
+
+    this.states = [];
+    this.cStates = [];
+    for (let i = 0; i < this.STATES.length; i++) {
+      this.states.push(new State(this.STATES[i]));
     }
 
     this.resetStats();
     this.buildRobot();
     this.createHealthBar();
     this.setState("walk");
-    this.debug();
+    // this.debug();
     this.scheduleUpdate();
   },
   toString: function() {
@@ -157,7 +162,7 @@ var Robot = cc.Sprite.extend({
     }
   },
   getState: function(state) { // Gets a state from STATES by name
-    if (typeof state === 'string') state = this.STATES.find(aState => aState.name == state);
+    if (typeof state === 'string') state = this.states.find(aState => aState.name == state);
     return state;
   },
   addState: function(state) { // adds a state to cStates and starts it, expects a state or a string with its name
@@ -382,17 +387,16 @@ var Robot = cc.Sprite.extend({
     if (this.counter < 1 / this.sAttackSpeed) {
       this.counter += delta;
     } else {
-      this.debugger.debugTile(this.level.map, {stop: true});// TODO stop doesn't work
-      this.debugger.debugText(this, {
-        // text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
-        // text: "time: " + this.firstHurtTimeScore().toFixed(4) + "\n" +
-        text: "received: " + this.hitsReceivedScore().toFixed(4) + "\n" +
-        "infliged: " + this.infligedDamageScore().toFixed(4) + "\n" +
-        "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
-        "score: " + this.getScore().toFixed(4) + "\n"
-      });
-      this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
-
+      // this.debugger.debugTile(this.level.map, {stop: true});// TODO stop doesn't work
+      // this.debugger.debugText(this, {
+      //   // text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
+      //   // text: "time: " + this.firstHurtTimeScore().toFixed(4) + "\n" +
+      //   text: "received: " + this.hitsReceivedScore().toFixed(4) + "\n" +
+      //   "infliged: " + this.infligedDamageScore().toFixed(4) + "\n" +
+      //   "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
+      //   "score: " + this.getScore().toFixed(4) + "\n"
+      // });
+      // this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
       this.counter = 0.0;
       this.fire(base);
     }

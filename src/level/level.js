@@ -46,7 +46,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.prepareNextWave();
 
     // Set base
-    var base = new Base(this, 500);
+    var base = new Base(this, 500000);
     this.setBase(base);
 
     // Add Robot
@@ -202,7 +202,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.map.spawn(defense, null, 5);
     this.defenses.push(defense);
   },
-  showDummyDefense: function(defense) {
+  showDummyDefense: function(defense) { // TODO when the map doesn't fill all the space, there are problems when selecting a tile that is outside the map
     if (this.dummyDefense) {
       this.dummyDefense.removeFromParent();
       this.dummyDefense.release();
@@ -282,7 +282,9 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     // Crossovers two DNAs from robot.getDNA(), p1 is the strongest parent
     sonsCount = sonsCount || 2;
     var possible = [];
-    _.props(Robot).STATS.forEach(oPossibles => possible.push(Object.keys(oPossibles)));
+    _.props(Robot).STATS.forEach(oPossibles => possible.push(
+      Object.keys(oPossibles).map((p) => isNaN(p) ? p : parseInt(p))
+    ));
     sons = [];
     for (var j = 0; j < sonsCount; j++) {
       var sonBorn = false;
