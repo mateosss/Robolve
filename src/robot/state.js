@@ -14,6 +14,7 @@
 
 var State = cc.Node.extend({
   name: null, // name of the state i.e. 'walk'
+  owner: null, // The node owner of the state, to which the state will affect
   newProps: null, // {} an object with property name to change and new value, i.e. {sSpeed: 0}
   oldProps: null, // {} will backup the old properties on start
   local: null, // {} use this to save variables through state moments
@@ -34,8 +35,9 @@ var State = cc.Node.extend({
   lifespan: 0, // amount of seconds the event should last until it finish itself
 
 
-  ctor: function(options) {
+  ctor: function(owner, options) {
     this._super();
+    this.owner = owner;
     this.newProps = options.props || {};
     this.oldProps = {};
     this.local = {};
@@ -46,20 +48,20 @@ var State = cc.Node.extend({
     this.lifespan = options.lifespan;
 
   },
-  start: function(parent) {
+  start: function() {
     // The states checks it is already active, if thats the case, exit
     if (this.active) return;
-    // 1. The states adds itself to the cStates of the parent
-    parent.cStates.push(this);
-    parent.addChild(this);
-    // 2. The properties of the parent that are in new Props
+    // 1. The states adds itself to the cStates of the owner
+    this.owner.cStates.push(this);
+    this.owner.addChild(this);
+    // 2. The properties of the owner that are in new Props
     // are backed up in oldProps, and are replaced with the new
     for (var prop in this.newProps) {
-      this.oldProps[prop] = parent[prop];
-      parent[prop] = this.newProps[prop];
+      this.oldProps[prop] = this.owner[prop];
+      this.owner[prop] = this.newProps[prop];
     }
     // 3. If postStart was given, then call it
-    if (this.postStart) this.postStart.call(parent, this);
+    if (this.postStart) this.postStart.call(this.owner, this);
     // 4. If everyFrame was given, then scheduleUpdate
     if (this.everyFrame || this.lifespan) this.scheduleUpdate();
     // 5. If lifespan was given, increase set timeToEnd value
@@ -71,21 +73,21 @@ var State = cc.Node.extend({
   },
   end: function() {
     // -6. Check if beforeEnd was given, then call it
-    if (this.beforeEnd) this.beforeEnd.call(this.parent, this);
-    // -5. Place the backuped properties again on the parent
-    for (var prop in this.oldProps) this.parent[prop] = this.oldProps[prop];
+    if (this.beforeEnd) this.beforeEnd.call(this.owner, this);
+    // -5. Place the backuped properties again on the owner
+    for (var prop in this.oldProps) this.owner[prop] = this.oldProps[prop];
     // -4. Be sure to unscheduleUpdate, we don't want this to be running anymore
     this.unscheduleUpdate();
-    // -3. the state removes itself from the parent cStates and is removed from the parent
-    this.parent.cStates.splice(this.parent.cStates.findIndex(aState => aState === this), 1);
-    this.parent.removeChild(this);
+    // -3. the state removes itself from the owner cStates and is removed from the owner
+    this.owner.cStates.splice(this.owner.cStates.findIndex(aState => aState === this), 1);
+    this.owner.removeChild(this);
     // -2. Mark that this state is not active anymore
     this.active = false;
     // -1. Mark that this state is now ended
     this.ended = true;
   },
   update: function(dt) {
-    if (this.everyFrame) this.everyFrame.call(this.parent, dt, this);
+    if (this.everyFrame) this.everyFrame.call(this.owner, dt, this);
     if (this.lifespan) this.timeToEnd -= dt;
     if (this.timeToEnd < 0) this.end();
   }

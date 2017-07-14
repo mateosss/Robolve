@@ -66,7 +66,7 @@ var Robot = cc.Sprite.extend({
     this.states = [];
     this.cStates = [];
     for (let i = 0; i < this.STATES.length; i++) {
-      this.states.push(new State(this.STATES[i]));
+      this.states.push(new State(this, this.STATES[i]));
     }
 
     this.resetStats();
@@ -101,6 +101,7 @@ var Robot = cc.Sprite.extend({
   },
   buildRobot: function() {
     // Builds the robot, by creating all the parts
+    this.getParts().forEach((part)=>part.parent.removeChild(part));
     Object.keys(this.PARTS).forEach(part => {
       this[part] = new Part(this, part);
       this.addPart(this[part]);
@@ -112,7 +113,7 @@ var Robot = cc.Sprite.extend({
   getParts: function() { // Return all Part objects from which the robot is made
     var parts = [];
     for (var part in this.PARTS) {
-      parts.push(this[part]);
+      if (this[part]) parts.push(this[part]);
     }
     return parts;
   },
@@ -168,14 +169,15 @@ var Robot = cc.Sprite.extend({
   addState: function(state, extra) { // adds a state to cStates and starts it, expects a state or a string with its name, extra is an {}, adds everything that is in extra to state.local
     state = this.getState(state);
     _.concat(state.local, extra);
-    state.start(this);
+    state.start();
+    return state;
   },
   removeState: function(state) { // removes a state from cStates and ends it, expects a state or a string with its name
     this.getState(state).end();
   },
   setState: function(state, extra) { // stops all states and add the provided one
-    this.cStates.forEach(function(state) { this.removeState(state); }, this);
-    this.addState(state, extra);
+    var preserve = this.addState(state, extra);
+    this.cStates.forEach(function(state) { if (state !== preserve) this.removeState(state); }, this);
   },
   isInState: function(state) {
     return this.getState(state).active;

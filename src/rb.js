@@ -1,25 +1,29 @@
 // Global rb variable (stands for RoBolve), that saves global things
 var rb = {
-  dev: {
+
+  dev: { // Helper functions for use in the debugging console
     getLevel: () => cc.director.getRunningScene().children[0],
     getRobots: () => rb.dev.getLevel().robots,
+    getRobot: () => rb.dev.getRobots()[0],
     allRobots: (func) => rb.dev.getRobots().forEach(func),
-    debugScoreRobot: (robot) => {
-      robot.debug();
-      robot.debugger.debugTile(robot.level.map, {stop: true});// TODO stop doesn't work
-      robot.debugger.debugText(robot, {
-        // text: "time: " + robot.livedTimeScore().toFixed(4) + "\n" +
-        // text: "time: " + robot.firstHurtTimeScore().toFixed(4) + "\n" +
-        text: "received: " + robot.hitsReceivedScore().toFixed(4) + "\n" +
-        "infliged: " + robot.infligedDamageScore().toFixed(4) + "\n" +
-        "distance: " + robot.distanceToBaseScore().toFixed(4) + "\n" +
-        "score: " + robot.getScore().toFixed(4) + "\n"
+    debugScoreRobot: function() {
+      if (!this.debugger) this.debug();
+      this.debugger.debugTile(this.level.map, { stop: true });// TODO stop doesn't work
+      this.debugger.debugText(this, {
+        // text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
+        // text: "time: " + this.firstHurtTimeScore().toFixed(4) + "\n" +
+        text: "received: " + this.hitsReceivedScore().toFixed(4) + "\n" +
+        "infliged: " + this.infligedDamageScore().toFixed(4) + "\n" +
+        "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
+        "score: " + this.getScore().toFixed(4) + "\n"
       });
-      robot.debugger.debugTile(robot.level.map, {tile:robot.level.map.rectFromTile(robot.cTilePos)});
+      this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
     },
-    debugAllRobotsScore: () => rb.dev.allRobots(rb.dev.debugScoreRobot),
+    debugAllRobotsScore: (i) => rb.dev.allRobots((r) => r.schedule(rb.dev.debugScoreRobot, isNaN(i) ? 0.5 : i)),
   },
-  animations: { "attack": 6, "walk": 8, "still": 1 },
+
+  animations: { attack: 6, walk: 8, still: 1 },
+
   states: {
     robot: {
       still: {
@@ -30,7 +34,6 @@ var rb = {
           this.setAnimation('still');
         },
         beforeEnd: function(s) { this.setAnimation(s.local.prevAnim); },
-
       },
       walk: {
         name: 'walk',
