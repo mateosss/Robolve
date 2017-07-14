@@ -335,6 +335,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     var i = this.robots.indexOf(robot);
     if (i != -1) {
       this.prevWaveRobots.push([robot.getDNA(), robot.getScore()]);
+      this.robots[i].states.forEach((s) => s.destroy());
       this.robots[i].release();
       this.robots[i].removeFromParent();
       this.robots.splice(i, 1);

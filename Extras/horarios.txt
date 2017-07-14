@@ -193,7 +193,7 @@ Mi 31
     - 22:30 - 23:40 | Usando everyFrame en los states, update del robot es mas independiente
 - 2017-07-14 Vi
     - 10:20 - 12:00 | Varias mejoras a states, ahora son mucho mas predecibles y debugeables
-
+    - 12:00 - 12:25 | States funcionan en android con retain y release
 # Restantes
 - 2017-07-15 Sa
 - 2017-07-16 Do

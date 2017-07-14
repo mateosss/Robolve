@@ -37,6 +37,7 @@ var State = cc.Node.extend({
 
   ctor: function(owner, options) {
     this._super();
+    this.retain();
     this.owner = owner;
     this.newProps = options.props || {};
     this.oldProps = {};
@@ -46,7 +47,10 @@ var State = cc.Node.extend({
     this.everyFrame = options.everyFrame;
     this.beforeEnd = options.beforeEnd;
     this.lifespan = options.lifespan;
-
+  },
+  destroy: function() {
+    this.owner.removeChild(this);
+    this.release();
   },
   start: function() {
     // The states checks it is already active, if thats the case, exit
