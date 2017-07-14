@@ -165,15 +165,20 @@ var Robot = cc.Sprite.extend({
     if (typeof state === 'string') state = this.states.find(aState => aState.name == state);
     return state;
   },
-  addState: function(state) { // adds a state to cStates and starts it, expects a state or a string with its name
-    this.getState(state).start(this);
+  addState: function(state, extra) { // adds a state to cStates and starts it, expects a state or a string with its name, extra is an {}, adds everything that is in extra to state.local
+    state = this.getState(state);
+    _.concat(state.local, extra);
+    state.start(this);
   },
   removeState: function(state) { // removes a state from cStates and ends it, expects a state or a string with its name
     this.getState(state).end();
   },
-  setState: function(state) { // stops all states and add the provided one
+  setState: function(state, extra) { // stops all states and add the provided one
     this.cStates.forEach(function(state) { this.removeState(state); }, this);
-    this.addState(state);
+    this.addState(state, extra);
+  },
+  isInState: function(state) {
+    return this.getState(state).active;
   },
   getTarget: function() {//TODO otra vez se repite en defensa
     // This function returns if there is a target to attack in the robot range
@@ -382,31 +387,7 @@ var Robot = cc.Sprite.extend({
   },
   counter: 0.0,
   update: function(delta) {
-    // Executed every frame
     var base = this.getTarget();
-    if (this.counter < 1 / this.sAttackSpeed) {
-      this.counter += delta;
-    } else {
-      // this.debugger.debugTile(this.level.map, {stop: true});// TODO stop doesn't work
-      // this.debugger.debugText(this, {
-      //   // text: "time: " + this.livedTimeScore().toFixed(4) + "\n" +
-      //   // text: "time: " + this.firstHurtTimeScore().toFixed(4) + "\n" +
-      //   text: "received: " + this.hitsReceivedScore().toFixed(4) + "\n" +
-      //   "infliged: " + this.infligedDamageScore().toFixed(4) + "\n" +
-      //   "distance: " + this.distanceToBaseScore().toFixed(4) + "\n" +
-      //   "score: " + this.getScore().toFixed(4) + "\n"
-      // });
-      // this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
-      this.counter = 0.0;
-      this.fire(base);
-    }
-
-    if (this.checkNewTile()) {
-      this.turn(this.canTurn(this.cTilePos));
-    }
-
-    if (!base) {
-      this.walk();
-    }
+    if (base && this.isInState('walk')) this.setState('attack', {base: base});
   },
 });

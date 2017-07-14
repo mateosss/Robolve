@@ -37,11 +37,14 @@ var State = cc.Node.extend({
   ctor: function(options) {
     this._super();
     this.newProps = options.props || {};
+    this.oldProps = {};
+    this.local = {};
     this.name = options.name;
     this.postStart = options.postStart;
     this.everyFrame = options.everyFrame;
     this.beforeEnd = options.beforeEnd;
     this.lifespan = options.lifespan;
+
   },
   start: function(parent) {
     // The states checks it is already active, if thats the case, exit
@@ -49,10 +52,8 @@ var State = cc.Node.extend({
     // 1. The states adds itself to the cStates of the parent
     parent.cStates.push(this);
     parent.addChild(this);
-    // 2. Initializations and the properties of the parent that are in new Props
+    // 2. The properties of the parent that are in new Props
     // are backed up in oldProps, and are replaced with the new
-    this.oldProps = {};
-    this.local = {};
     for (var prop in this.newProps) {
       this.oldProps[prop] = parent[prop];
       parent[prop] = this.newProps[prop];
@@ -85,7 +86,7 @@ var State = cc.Node.extend({
   },
   update: function(dt) {
     if (this.everyFrame) this.everyFrame.call(this.parent, dt, this);
-    if (this.lifespan) this.timeToEnd -= dt; console.log("lifespan");
+    if (this.lifespan) this.timeToEnd -= dt;
     if (this.timeToEnd < 0) this.end();
   }
 });

@@ -16,7 +16,7 @@ Map.prototype.seti = function(i, value) { // Sets the value of an index
 var _ = {
   size: object => Object.keys(object).length, // length of an object
   props: Class => new Class(), // new empty class, used for getting constants
-  format: (string, params) => { // similar to python str.format
+  format: function(string, params) { // similar to python str.format
     if (typeof params !== "object") params = Array.prototype.slice.call(arguments, 1);
     var chunks = string.split("{}");
     var final = "";
@@ -31,10 +31,24 @@ var _ = {
     if (!value) return array[array.length - 1];
     else array[array.length - 1] = value;
   },
-  insert: (array, pos) => { // inserts elements into an array at a given position
+  insert: function(array, pos) { // inserts elements into an array at a given position
     // Put the elements separated by commas after the pos param
     var elements = Array.prototype.slice.call(arguments, 2);
     Array.prototype.splice.apply(array, [pos, 0].concat(elements));
   },
   capitalize: string => string[0].toUpperCase() + string.slice(1),
+  concat: function() { // adds objects to the first object argument and returns it
+    for (var i = 1; i < arguments.length; i++)
+      for (var a in arguments[i])
+        arguments[0][a] = arguments[i][a];
+    return arguments[0];
+  },
+  test: (func, iterations, ...params) => {
+      iTime = new Date().getTime();
+      for (var i = 0; i < iterations; i++) {
+        func.apply(null, params);
+      }
+      eTime = new Date().getTime() - iTime;
+      return eTime;
+    }
 };
