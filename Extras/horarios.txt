@@ -194,9 +194,13 @@ Mi 31
 - 2017-07-14 Vi
     - 10:20 - 12:00 | Varias mejoras a states, ahora son mucho mas predecibles y debugeables
     - 12:00 - 12:25 | States funcionan en android con retain y release
-# Restantes
+    - 12:25 - 13:25 | Arreglando dependencias para que funione en linux de vuelta, y viendo si se puede hacer fullscreen (se puede pero es un viaje)
 - 2017-07-15 Sa
+    - 19:00 - 20:15 | Viendo como hacer una clase padre que contenga a Robot y Defense
 - 2017-07-16 Do
+    - 12:00 - 15:30 | Computer desprendida de robot, ahora es la clase padre
+
+# Restantes
 - 2017-07-17 Lu
 - 2017-07-18 Ma
 - 2017-07-19 Mi

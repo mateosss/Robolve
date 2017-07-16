@@ -43,10 +43,10 @@ var _ = {
         arguments[0][a] = arguments[i][a];
     return arguments[0];
   },
-  test: (func, iterations, ...params) => {
-      iTime = new Date().getTime();
+  test: (func, self, iterations, ...params) => {
+    iTime = new Date().getTime();
       for (var i = 0; i < iterations; i++) {
-        func.apply(null, params);
+        func.apply(self, params);
       }
       eTime = new Date().getTime() - iTime;
       return eTime;
