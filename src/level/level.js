@@ -72,7 +72,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     // terrain = 1;//0,1
     // damage = 0;//0,1,2
     // attackSpeed = 0;//0,1,2
-    // var customDefense = new Defense(this, element, range, terrain, damage, attackSpeed);
+    // var customDefense = new Defense(this, null, element, range, terrain, damage, attackSpeed);
     // this.map.placeOnTile(customDefense, cc.p(0,5));
     // this.defenses.push(customDefense);
     //
@@ -81,7 +81,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     // terrain = 1;//0,1
     // damage = 0;//0,1,2
     // attackSpeed = 0;//0,1,2
-    // var customDefense1 = new Defense(this, element, range, terrain, damage, attackSpeed);
+    // var customDefense1 = new Defense(this, null, element, range, terrain, damage, attackSpeed);
     // this.map.placeOnTile(customDefense1, cc.p(19,5));
     // this.defenses.push(customDefense1);
     //
@@ -91,7 +91,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     // terrain = 0;//0,1
     // damage = 2;//0,1,2
     // attackSpeed = 2;//0,1,2
-    // customDefense = new Defense(this, element, range, terrain, damage, attackSpeed);
+    // customDefense = new Defense(this, null, element, range, terrain, damage, attackSpeed);
     // this.addDefense(customDefense);
 
     var mapDefenses = this.map.getMapDefenses();

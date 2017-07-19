@@ -152,7 +152,7 @@ var Hud = cc.Layer.extend({
       var terrain = 0;//0,1
       var damage = 0;//0,1,2
       var attackSpeed = 0;//0,1,2
-      var customDefense = new Defense(level, element, range, terrain, damage, attackSpeed);
+      var customDefense = new Defense(level, null, element, range, terrain, damage, attackSpeed);
       customDefense.retain();
       customDefense.isDummy = true;
       level.showDummyDefense(customDefense);

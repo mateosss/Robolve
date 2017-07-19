@@ -52,6 +52,7 @@ var TiledMap = cc.TMXTiledMap.extend({
         // Creates the new defense
         var defense = new Defense(
           this.level,
+          null,
           allObjects[i].element,
           parseInt(allObjects[i].range),
           parseInt(allObjects[i].terrain),

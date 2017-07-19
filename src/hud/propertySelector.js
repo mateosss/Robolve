@@ -5,8 +5,6 @@ var PropertySelector = ccui.Layout.extend({
     // TODO HARDCODE EVERYWHERE
     this._super();
     this.property = property;
-    pProperty = 'p' + property[0].toUpperCase() + property.slice(1);
-    sProperty = 's' + property[0].toUpperCase() + property.slice(1);
 
     var colPos = this.getAnchorPointInPoints();
     // this.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
@@ -42,7 +40,7 @@ var PropertySelector = ccui.Layout.extend({
     easyTouchButton(downBtn, function(downBtn){
       var d = upBtn.getParent().getParent().getParent().getParent().ddDefense; //Defense
       var p = upBtn.getParent().property;  //Property name
-      var pProp = d['p' + p[0].toUpperCase() + p.slice(1)]; // possible stats(properties)
+      var pProp = d.getPossibleStats(p);
       var prop = d[p];
       var sProp = pProp[prop];
 
@@ -54,7 +52,7 @@ var PropertySelector = ccui.Layout.extend({
         if (hasBudget) {
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) - 1];
           d[p] = parseInt(improvement) || improvement;
-          d.refreshStats();
+          d.factoryReset();
           d.level.base.money -= cost;
           d.level.hud.ig.refresh();
           upBtn.getParent().refresh();
@@ -77,7 +75,7 @@ var PropertySelector = ccui.Layout.extend({
     easyTouchButton(upBtn, function(upBtn){
       var d = upBtn.getParent().getParent().getParent().getParent().ddDefense; //Defense
       var p = upBtn.getParent().property;  //Property name
-      var pProp = d['p' + p[0].toUpperCase() + p.slice(1)]; // possible stats(properties)
+      var pProp = d.getPossibleStats(p);
       var prop = d[p];
       var sProp = pProp[prop];
 
@@ -90,7 +88,7 @@ var PropertySelector = ccui.Layout.extend({
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) + 1];
           d[p] = parseInt(improvement) || improvement;
           d.level.base.money -= cost;
-          d.refreshStats();
+          d.factoryReset();
           d.level.hud.ig.refresh();
           upBtn.getParent().refresh();
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
@@ -105,9 +103,7 @@ var PropertySelector = ccui.Layout.extend({
   },
   refresh: function() {
     var defense = this.getParent().getParent().getParent().ddDefense;
-    var pProperty = 'p' + this.property[0].toUpperCase() + this.property.slice(1);
-    var pValue = defense[pProperty][defense[this.property]];
-    this.pValueLabel.setString(pValue);
+    this.pValueLabel.setString(defense.getDefaultStat(this.property));
   },
 
 });

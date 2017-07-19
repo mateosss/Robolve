@@ -1,70 +1,41 @@
-var Defense = cc.Sprite.extend({
-  level: null,// Level where this object is placed
+var Defense = Computer.extend({
   target: null,// Target robot to fire
-  pointing: null,// Looking direction TODO
   animAttackSpeed: 1.0,// Attack speed animation
-  cTilePos: null, // Current tile position
   isDummy: false, // If it is a dummy defense, (a.k.a. a defense preview in the map)
-
-  // Possible (p) stats
-  pElement: {
-    "electric": "Electro",
-    "fire": "Fire",
-    "water": "Water"
-    // "electric": r.ui.yellowBtnDS,
-    // "fire": r.ui.redBtnDS,
-    // "water": r.ui.blueBtnDS
+  createHealthBar: ()=>{}, // TODO remove this line and add life to defenses
+  STATS: new Map([
+    // ['life', {0: 500, 1: 600, 2: 700}], TODO add life to defenses
+    ['element', {
+      electric: "Electro",
+      fire: "Fire",
+      water: "Water",
+    }],
+    ['range', {0: 200, 1: 300, 2: 500}],
+    ['terrain', {0: 'walk', 1: 'fly'}],
+    ['damage', {0: 25, 1: 50, 2:75}],
+    ['attackSpeed', {0: 0.5, 1: 1.0, 2: 2.0}],
+  ]),
+  PARTS: { // Necessary info for the parts to make a defense
+    base: {plural: "bases", z: 0, partName: defense => defense.element},
   },
-  pRange: {0: 200, 1: 300, 2:500},
-  pTerrain: {0: 'walk',1: 'fly'},
-  pDamage: {0: 25, 1: 50, 2:75},
-  pAttackSpeed: {0: 0.5, 1: 1.0, 2: 2.0},
-  // Stats (s)
-  sRange: null,
-  sDamage: null,
-  sAttackSpeed: null,
-
-  // Initial values
-  element: null,
-  range: null,
-  terrain: null,
-  damage: null,
-  attackSpeed: null,
-
+  STATES: [ // Possible states for this defense
+    rb.states.defense.idle
+  ],
   ctor:function(level, element, range, terrain, damage, attackSpeed) {
     if (arguments.length === 0) return;
-
-    // Defines the initial values and stats by searching on possible stats
-    this.level = level;
-
-    this.element = element;
-    this.range = range;
-    this.terrain = terrain;
-    this.damage = damage;
-    this.attackSpeed = attackSpeed;
-
-    this.refreshStats();
-    this._super(r[this.element + "Defense"]);
-
+    this._super.apply(this, arguments);
     // this.debug();
-    this.setAnchorPoint(0.5, 0.1);
+    this.setAnchorPoint(0.5, 0.1); // TODO quirk because of the bad tiles proportions
     if (!this.isDummy) {
       this.setTouchEvent();
       this.scheduleUpdate();
     }
-
   },
   toString: function() {
     return "Defense";
   },
-  refreshStats: function() {
-    this.sRange = this.pRange[this.range];
-    this.sDamage = this.pDamage[this.damage];
-    this.sAttackSpeed = this.pAttackSpeed[this.attackSpeed];
-  },
   setTouchEvent: function() {
     easyTouchEnded(this, function(defense) {
-      // this.level.base.kill();//TODO sacar eete comentario
       if (defense.getNumberOfRunningActions() === 0) {
         if (!defense.level.dummyDefense && !defense.isDummy) {
           var increase = new cc.ScaleBy(0.1, 1.2);
@@ -117,15 +88,9 @@ var Defense = cc.Sprite.extend({
 
     return this.target;
   },
-  fire: function(target){
-    if (target) {
-      target.hurt(this);
-    }
-  },
-  die: function() {
+  die: function() { // TODO, almost the same that robot, unify computer dead
     // Call the level kill function to kill this defense
     this.level.killDefense(this);
-    this.removeFromParent();
   },
   debug: function(){
     // Creates a debugger for verbose information directly on the canvas

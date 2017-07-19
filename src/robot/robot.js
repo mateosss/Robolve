@@ -23,8 +23,8 @@ var Robot = Computer.extend({
     legr: {plural: "legsr", z: 0, partName: robot => ["walk", "fly"][robot.terrain] + "R"},
   },
   STATES: [ // Possible states for this robot
+    rb.states.robot.walk, // The first is the state executed on startup
     rb.states.robot.still,
-    rb.states.robot.walk,
     rb.states.robot.attack
   ],
 
@@ -32,7 +32,6 @@ var Robot = Computer.extend({
     //TODO que funcione el balanceo, poder hacer que un robot sea de tipo +1 y eso
     if (arguments.length === 0) return; // Hack for getting only the properties defined above
     this._super.apply(this, arguments);
-    this.setState("walk");
     // this.debug();
     this.scheduleUpdate();
   },

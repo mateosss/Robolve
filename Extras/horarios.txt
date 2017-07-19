@@ -199,10 +199,12 @@ Mi 31
     - 19:00 - 20:15 | Viendo como hacer una clase padre que contenga a Robot y Defense
 - 2017-07-16 Do
     - 12:00 - 15:30 | Computer desprendida de robot, ahora es la clase padre
+    - 16:20 - 17:50 | Intentando construir defensa basade en Computer
+    - 18:30 - 21:00 | Siguiendo con eso
+- 2017-07-18 Ma
+    - 20:30 - 23:20 | Casi terminado, falta mergear algunos metodos y que Defense.blend funcione como se espera ahora
 
 # Restantes
-- 2017-07-17 Lu
-- 2017-07-18 Ma
 - 2017-07-19 Mi
 - 2017-07-20 Ju
 - 2017-07-21 Vi
@@ -244,6 +246,8 @@ Mi 31
   - Tipografias
   - Importar nodos de compositing desde robot.blend a animaciones.blend
   - En animate.py agregar una opcion para renderizar un cuerpo completo para ir viendo como queda el compositing
+  - Integrar mejor animate.py con Defense.blend, ademas, poder hacer objetos auxiliares que no sean importados en la escena
+    de animate.py (como los cables de Defense.blend, o las versiones viejas de las defensas), y que se exporte a robots y defense programaticamente
 
 # IDEA
   - Que las defensas sean robots quietos internamente con diferentes sprites

@@ -1,11 +1,15 @@
 // Global rb variable (stands for RoBolve), that saves global things
 var rb = {
 
-  dev: { // Helper functions for use in the debugging console
+  dev: { // Helper functions for use when debuggin on the browser
     getLevel: () => cc.director.getRunningScene().children[0],
     getRobots: () => rb.dev.getLevel().robots,
+    getDefenses: () => rb.dev.getLevel().defenses,
     getRobot: () => rb.dev.getRobots()[0],
+    getDefense: () => rb.dev.getDefenses()[0],
     allRobots: (func) => rb.dev.getRobots().forEach(func),
+    allDefenses: (func) => rb.dev.getDefenses().forEach(func),
+
     debugScoreRobot: function() {
       if (!this.debugger) this.debug();
       this.debugger.debugTile(this.level.map, { stop: true });// TODO stop doesn't work
@@ -22,9 +26,15 @@ var rb = {
     debugAllRobotsScore: (i) => rb.dev.allRobots((r) => r.schedule(rb.dev.debugScoreRobot, isNaN(i) ? 0.5 : i)),
   },
 
-  animations: { attack: 6, walk: 8, still: 1 },
+  animations: { attack: 6, walk: 8, still: 1, idle: 1 },
 
   states: {
+    defense: {
+      idle: {
+        name: 'idle',
+        postStart: function() { this.setAnimation('idle'); }
+      }
+    },
     robot: {
       still: {
         name: 'still',

@@ -1,3 +1,6 @@
+// This class is the base class of the robots and defenses, main functionalities
+// Of this class are: DNA, STATS, PARTS, STATES, read below for further information on each
+
 var Computer = cc.Sprite.extend({
   level: null, // Level where this object is placed
   pointing: 2, // Looking direction 0:North, 1:East, 2:South, 3:West
@@ -25,6 +28,8 @@ var Computer = cc.Sprite.extend({
     // on the initial parameters
     this._super();
     this.setAnchorPoint(0.5, 0.0);
+    this.setCascadeColorEnabled(true);
+    this.setCascadeOpacityEnabled(true);
     this.level = level;
     this.creationTime = new Date().getTime();
 
@@ -39,12 +44,12 @@ var Computer = cc.Sprite.extend({
       this.states.push(new State(this, this.STATES[i]));
     }
 
-    this.resetStats();
-    this.assembleParts();
-    this.createHealthBar();
+    this.factoryReset();
   },
-  toString: function() {
-    return "Computer";
+
+  // Stat section
+  refreshStats: function() { // sets the initial value to all stats in sStats
+    this.STATS.forEach((possibles, stat) => {this.setDefaultStat(stat);});
   },
   getStat: function(stat) {
     return this['s' + _.capitalize(stat)];
@@ -58,7 +63,7 @@ var Computer = cc.Sprite.extend({
   setDefaultStat: function(stat) { // Provide an stat name or stat index to reset it, to the default given by the genes
     this.setStat(stat, this.getDefaultStat(stat));
   },
-  getPossiblesStat: function(stat) { // Returns the possible values that a stat can have
+  getPossibleStats: function(stat) { // Returns the possible values that a stat can have
     return this.STATS.get(stat);
   },
   getDNA: function() {
@@ -66,16 +71,15 @@ var Computer = cc.Sprite.extend({
     this.STATS.forEach((possibles, stat) => {dna.push(this[stat]);});
     return dna;
   },
+
+  // Part section
   assembleParts: function() {
     // Creates all the parts and adds them as children
-    this.getParts().forEach((part)=>part.parent.removeChild(part));
+    this.getParts().forEach((part) => part.parent.removeChild(part));
     Object.keys(this.PARTS).forEach(part => {
       this[part] = new Part(this, part);
       this.addPart(this[part]);
     });
-  },
-  resetStats: function() { // sets the initial value to all stats in sStats
-    this.STATS.forEach((possibles, stat) => {this.setDefaultStat(stat);});
   },
   getParts: function() { // Return all Part objects from which the robot is made
     var parts = [];
@@ -93,6 +97,56 @@ var Computer = cc.Sprite.extend({
   setAnimation: function(animation, speed) { // Expects a string with the name of an animation to reproduce, and reproduce it in every robot part
     this.cAnimation = animation;
     this.allParts(function(part) { part.setAnimation(animation, speed); });
+  },
+
+  // State section
+  getState: function(state) { // Gets a state from STATES by name
+    if (typeof state === 'string') state = this.states.find(aState => aState.name == state);
+    return state;
+  },
+  addState: function(state, extra) { // adds a state to cStates and starts it, expects a state or a string with its name, extra is an {}, adds everything that is in extra to state.local
+    state = this.getState(state);
+    if (!state) return;
+    _.concat(state.local, extra);
+    state.start();
+    return state;
+  },
+  removeState: function(state) { // removes a state from cStates and ends it, expects a state or a string with its name
+    this.getState(state).end();
+  },
+  removeAllStates: function() {
+    this.cStates.forEach((state) => state.end());
+  },
+  setState: function(state, extra) { // stops all states and add the provided one
+    var preserve = this.addState(state, extra);
+    this.cStates.forEach(function(state) { if (state !== preserve) this.removeState(state); }, this);
+  },
+  isInState: function(state) {
+    return this.getState(state).active;
+  },
+  getTarget: function() {//TODO otra vez se repite en defensa
+    // This function returns if there is a target to attack in the robot range
+    var distance = this.getDistanceTo(this.level.base);
+    if (distance <= this.sRange) {
+      return this.level.base;
+    } else {
+      return false;
+    }
+  },
+
+  // General section
+  factoryReset: function() {
+    this.refreshStats();
+    this.assembleParts();
+    this.createHealthBar();
+    this.removeAllStates();
+    this.setState(this.states[0]);
+  },
+  toString: function() {
+    return "Computer";
+  },
+  toStringP: function() { // Plural to string: if Computer -> computers,  used for getting parts sprites in Part
+    return this.toString().toLowerCase() + "s";
   },
   createHealthBar: function() { //TODO crear una buena health bar que sea independiente del tamaño del sprie
     //Creates two rectangles for representing the healtbar
@@ -122,40 +176,11 @@ var Computer = cc.Sprite.extend({
     var hpbar = this.getChildByName("hpbar");
     hpbar.setScaleX(this.sLife / this.getDefaultStat('life'));
   },
-  fire: function(target) {//TODO repetido en defensa hacer buena clase padre
+  fire: function(target) {
     // This funcitons is executed when the robot attacks something
     if (target) {
       this.setState("attack");
       this.infligedDamage += target.hurt(this);
-    }
-  },
-  getState: function(state) { // Gets a state from STATES by name
-    if (typeof state === 'string') state = this.states.find(aState => aState.name == state);
-    return state;
-  },
-  addState: function(state, extra) { // adds a state to cStates and starts it, expects a state or a string with its name, extra is an {}, adds everything that is in extra to state.local
-    state = this.getState(state);
-    _.concat(state.local, extra);
-    state.start();
-    return state;
-  },
-  removeState: function(state) { // removes a state from cStates and ends it, expects a state or a string with its name
-    this.getState(state).end();
-  },
-  setState: function(state, extra) { // stops all states and add the provided one
-    var preserve = this.addState(state, extra);
-    this.cStates.forEach(function(state) { if (state !== preserve) this.removeState(state); }, this);
-  },
-  isInState: function(state) {
-    return this.getState(state).active;
-  },
-  getTarget: function() {//TODO otra vez se repite en defensa
-    // This function returns if there is a target to attack in the robot range
-    var distance = this.getDistanceTo(this.level.base);
-    if (distance <= this.sRange) {
-      return this.level.base;
-    } else {
-      return false;
     }
   },
   getDistanceTo: function(target) {
@@ -173,7 +198,7 @@ var Computer = cc.Sprite.extend({
     if (this.cTilePos && !cc.pointEqualToPoint(currTilePos, this.cTilePos)) {
       if (!(this.canTurn(currTilePos) !== false &&
       [0,3].indexOf(this.pointing) != -1) ||
-      this.y >= this.level.map.getMidPointFromTile(currTilePos).y + (this.level.map.getTileSize().height / 2) - this.getPossiblesStat('speed')[this.speed]) {//TODO no habia una solucion menos horrible?
+      this.y >= this.level.map.getMidPointFromTile(currTilePos).y + (this.level.map.getTileSize().height / 2) - this.getPossibleStats('speed')[this.speed]) {//TODO no habia una solucion menos horrible?
         this.cTilePos = currTilePos;
         return true;
       }
@@ -300,7 +325,7 @@ var Computer = cc.Sprite.extend({
   },
   hitsReceivedScore: function() {
     // Returns a float, being 0.0 == 0 ms, 1.0 lived more or equal ms to maxTime
-    var maxHits = this.getPossiblesStat('life')[2] / (new Defense().pDamage[0] * 0.5);
+    var maxHits = this.getPossibleStats('life')[2] / (_.props(Defense).STATS.get('damage')[0] * 0.5);
     var score = 0;
     var hitsReceived = this.hitsReceived;
     score =  hitsReceived / maxHits;

@@ -1,7 +1,7 @@
-// This represents a robot part, like an arm, the head, etc
+// This represents a computer part, like an arm, the head, etc
 
 var Part = cc.Sprite.extend({
-  robot: null, // The parent robot
+  computer: null, // The parent computer, the same that using the parent property
   type: null, // The part type, it can be: head, middle, arml, armr, legl or legr
   dAnimation: "still", // The default animation, should be a 1 frame animation, used for generating the part
   cAnimation: null, // The current animation that is being played
@@ -11,12 +11,12 @@ var Part = cc.Sprite.extend({
   plural: null, // plural name for identifying the part type
   z: null, // the zIndex at which the part spawns
   partName: null, // a function to get  the sprite name to locate the textures
-  ctor:function(robot, type) {
+  ctor:function(computer, type) {
     if (arguments.length === 0) return; // Hack for getting only the properties defined above
-    this.robot = robot;
+    this.computer = computer;
     this.type = type;
-    for (var prop in robot.PARTS[type]) {
-      this[prop] = robot.PARTS[type][prop];
+    for (var prop in computer.PARTS[type]) {
+      this[prop] = computer.PARTS[type][prop];
     }
     this._super(cc.spriteFrameCache.getSpriteFrame(this.getDefaultSprite()));
     this.setAnchorPoint(0.5, 0.1);
@@ -24,8 +24,8 @@ var Part = cc.Sprite.extend({
   toString: function() {
     return "Part";
   },
-  getPartName: function() { // Returns the name of the sprite based on parent robot dna. e.g: electricRangeL
-    return this.partName(this.robot);
+  getPartName: function() { // Returns the name of the sprite based on parent computer dna. e.g: electricRangeL
+    return this.partName(this.computer);
   },
   getSpriteAction: function(totalFrames, string, speed) {
     // totalFrames: total numbers of the animation frame
@@ -41,7 +41,7 @@ var Part = cc.Sprite.extend({
     return action;
   },
   getSpritePlaceholder: function(animation) {
-    return this.plural + "/" + animation + "/" + this.getPartName() + "_{}.png";
+    return this.computer.toStringP() + "/" + this.plural + "/" + animation + "/" + this.getPartName() + "_{}.png";
   },
   getDefaultSprite: function() {
     return _.format(this.getSpritePlaceholder(this.dAnimation), 1);
