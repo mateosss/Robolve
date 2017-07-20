@@ -210,9 +210,15 @@ Mi 31
     - 23:15 - 00:20 | Arreglando bug extraño que salio por los ifs sin llaves en hurt() y state die
     - 00:20 - 01:20 | Arreglando otro bug raro, que hacia que setState no eliminara bien los states anteriores
     - 01:20 - 01:40 | Funcion kill de level fue bien implementada en computer
+- 2017-07-20 Ju
+    - 11:30 - 12:40 | Update pasado a state en defense
+
+    FUNCION DE TARGET MERGEAR
+    QUE LOS ROBOTS ATAQUEN A LAS DEFENSAS
+    QUE LA HEALTHBAR DE LAS DEFENSAS NO SE REINICIE AL CAMBIARLE UN ATRIBUTO
+    EMPEZAR A HACER PLACEHOLDERS DE PARTES DE DEFENSA
 
 # Restantes
-- 2017-07-20 Ju
 - 2017-07-21 Vi
 - 2017-07-22 Sa
 - 2017-07-23 Do

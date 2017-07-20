@@ -46,6 +46,17 @@ var rb = {
         this.runAction(new cc.Sequence(actArray));
       }
     },
+    attack: {
+      name: 'attack',
+      animation: function() { this.setAnimation('attack', 1 / (this.sAttackSpeed * 6)); },
+      everyFrame: function(delta, state) {
+        if (this.counter < 1 / this.sAttackSpeed) this.counter += delta;
+        else {
+          this.counter = 0.0;
+          this.fire(this.getTarget());
+        }
+      }
+    },
     defense: {
       idle: {
         name: 'idle',

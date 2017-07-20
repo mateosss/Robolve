@@ -19,6 +19,7 @@ var Defense = Computer.extend({
   },
   STATES: [ // Possible states for this defense
     rb.states.defense.idle,
+    rb.states.attack,
     rb.states.die
   ],
   ctor:function(level, life, element, range, terrain, damage, attackSpeed) {
@@ -116,16 +117,7 @@ var Defense = Computer.extend({
     }
   },
   counter: 0.0,
-  update: function(delta){
-    if (this.isDummy) {
-      // if the defense is not a real one, just a preview
-    } else {
-      if (this.counter < 1 / this.sAttackSpeed) {
-        this.counter += delta;
-      } else {
-        this.counter = 0.0;
-        this.fire(this.getTarget());
-      }
-    }
+  update: function(delta) {
+    if (!this.isDummy && this.isInState('idle')) this.setState('attack');
   }
 });
