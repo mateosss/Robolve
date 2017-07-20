@@ -24,9 +24,9 @@ var State = cc.Node.extend({
   active: false, // true when the state has started but not ended yet
   ended: false, // true when the state has ended
 
-  // These three functions (state moments) will be provided with the state parent as the this
-  // and the first argument as the state (second on everyFrame)
-  // you can use the local property from state provided in the first argument to store variables
+  // These three functions (state moments) will be provided with the state parent
+  // (the computer) as the function context (this) and the first argument as the state (second on everyFrame)
+  // you can use the local property from the state to store variables
   animation: null, // a function to be executed to set the animation for this state
   postStart: null, // executed inmediately after start
   everyFrame: null, // executed every frame (if present, a scheduleUpdate() will be made), first argument is deltatime
@@ -90,7 +90,7 @@ var State = cc.Node.extend({
     this.owner.cStates.splice(index, 1);
     this.owner.removeChild(this);
     // -3. If this state was the last (the one with higher priority), set the animation of the new higher priority state
-    if (index === this.owner.cStates.length) _.last(this.owner.cStates).animation.call(this.owner, this);
+    if (index && index === this.owner.cStates.length) _.last(this.owner.cStates).animation.call(this.owner, this);
     // -2. Mark that this state is not active anymore
     this.active = false;
     // -1. Mark that this state is now ended

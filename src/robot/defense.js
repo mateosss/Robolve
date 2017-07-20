@@ -18,7 +18,8 @@ var Defense = Computer.extend({
     base: {plural: "bases", z: 0, partName: defense => defense.element},
   },
   STATES: [ // Possible states for this defense
-    rb.states.defense.idle
+    rb.states.defense.idle,
+    rb.states.die
   ],
   ctor:function(level, life, element, range, terrain, damage, attackSpeed) {
     if (arguments.length === 0) return;
@@ -87,8 +88,7 @@ var Defense = Computer.extend({
 
     return this.target;
   },
-  die: function() { // TODO, almost the same that robot, unify computer dead
-    // Call the level kill function to kill this defense
+  kill: function() { // TODO, almost the same that robot, unify computer dead
     this.level.killDefense(this);
   },
   debug: function(){

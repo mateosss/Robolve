@@ -25,7 +25,8 @@ var Robot = Computer.extend({
   STATES: [ // Possible states for this robot
     rb.states.robot.walk, // The first is the state executed on startup
     rb.states.robot.still,
-    rb.states.robot.attack
+    rb.states.robot.attack,
+    rb.states.die
   ],
 
   ctor: function(level, dna) {

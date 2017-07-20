@@ -1,6 +1,14 @@
 // This class is the base class of the robots and defenses, main functionalities
 // Of this class are: DNA, STATS, PARTS, STATES, read below for further information on each
 
+// TODO IF NEEDED - Computer is using states like attack and die, that shouldn't be needed for every computer
+// maybe there could be other sprites with parts that doesn't necessarily battle
+// the solution would be to make a new class called BattleComputer that requires those two states and the hurt/die/attack/etc methods
+
+// TODO IF NEEDED - The concept of states is very powerfull, we need one more level of abstraction
+// from it, It can be used for gui elements, tutorials, etc. So making a class called
+// something like StateNode would be really useful
+
 var Computer = cc.Sprite.extend({
   level: null, // Level where this object is placed
   pointing: 2, // Looking direction 0:North, 1:East, 2:South, 3:West
@@ -106,7 +114,7 @@ var Computer = cc.Sprite.extend({
   },
   addState: function(state, extra) { // adds a state to cStates and starts it, expects a state or a string with its name, extra is an {}, adds everything that is in extra to state.local
     state = this.getState(state);
-    if (!state) return;
+    if (!state) return cc.log("addState: State " + state + " doesn't exists for a " + this.toString());
     _.concat(state.local, extra);
     state.start();
     return state;
@@ -119,8 +127,9 @@ var Computer = cc.Sprite.extend({
   },
   setState: function(state, extra) { // stops all states and add the provided one
     var preserve = this.getState(state, extra);
+    if (!preserve) return cc.log("setState: State " + state + " doesn't exists for a " + this.toString());
     this.cStates.forEach(function(state) { if (state !== preserve) this.removeState(state); }, this);
-    preserve.start();
+    this.addState(preserve);
   },
   isInState: function(state) {
     return this.getState(state).active;
@@ -285,19 +294,21 @@ var Computer = cc.Sprite.extend({
     // on the attacker properties, and does some things in reaction
     this.hitsReceived += 1;
     var mod;
-    if (this.element == "electric")
+    if (this.element == "electric") {
       if (attacker.element == "electric") mod = 1;
       else if (attacker.element == "fire") mod = 2;
       else if (attacker.element == "water") mod = 0.5;
-    else if (this.element == "fire")
+    }
+    else if (this.element == "fire") {
       if (attacker.element == "electric") mod = 0.5;
       else if (attacker.element == "fire") mod = 1;
       else if (attacker.element == "water") mod = 2;
-    else if (this.element == "water")
+    }
+    else if (this.element == "water") {
       if (attacker.element == "electric") mod = 2;
       else if (attacker.element == "fire") mod = 0.5;
       else if (attacker.element == "water") mod = 1;
-
+    }
     var totalDamage = attacker.sDamage * mod;
     this.sLife -= totalDamage;
     if (this.sLife <= 0) {
@@ -308,9 +319,12 @@ var Computer = cc.Sprite.extend({
     }
     return totalDamage;
   },
-  die: function() {
-    // Call the level kill function to kill this robot
+  kill: function() { // Kills the computer without setting any state
     this.level.kill(this);
+  },
+  die: function() {
+    // Sets the die state that will reproduce some animations and then kill the computer
+    this.setState('die');
   },
   livedTimeScore: function() {
     // Returns a float, being 0.0 == 0 ms, 1.0 lived more or equal ms to maxTime

@@ -244,14 +244,9 @@ var Hud = cc.Layer.extend({
     easyTouchButton(this.ddDestroy, function(btn){
       var hud = btn.getParent().getParent().getParent();
       if (hud.ddDestroySure) {
-        var burn = new cc.TintTo(0.2, 0, 0, 0);
-        var disappear = new cc.FadeOut(0.2);
-        var message = new cc.CallFunc(function(defense){ hud.it.message("Turret destroyed"); }, this, hud);
+        hud.ddDefense.die();
         hud.level.base.money += 50;
         hud.ig.refresh();
-        var destroy = new cc.CallFunc(function(defense){ defense.die(); }, this);
-        var actArray = [burn, disappear, message, destroy];
-        hud.ddDefense.runAction(new cc.Sequence(actArray));
         hud.ddDestroySure = false;
       } else {
         hud.it.message("Press again to destroy (+$50)");

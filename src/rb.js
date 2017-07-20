@@ -34,6 +34,18 @@ var rb = {
     water: cc.color(1, 179, 255, 255)
   },
   states: {
+    die: {
+      name: 'die',
+      postStart: function() {
+        var hud = this.level.hud;
+        var burn = new cc.TintTo(0.2, 0, 0, 0);
+        var disappear = new cc.FadeOut(0.2);
+        var message = new cc.CallFunc(function(){ hud.it.message("Turret destroyed"); });
+        var destroy = new cc.CallFunc(function(){ this.kill(); }, this);
+        var actArray = [burn, disappear, message, destroy];
+        this.runAction(new cc.Sequence(actArray));
+      }
+    },
     defense: {
       idle: {
         name: 'idle',
