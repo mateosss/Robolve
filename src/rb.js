@@ -44,13 +44,11 @@ var rb = {
       still: {
         name: 'still',
         props: { sSpeed: 0 },
-        postStart: function() {
-          this.setAnimation('still');
-        }
+        animation: function() { this.setAnimation('still'); }
       },
       walk: {
         name: 'walk',
-        postStart: function() { this.setAnimation('walk', (1 / 16) / this.sSpeed); },
+        animation: function() { this.setAnimation('walk', (1 / 16) / this.sSpeed); },
         everyFrame: function() {
           if (this.checkNewTile()) this.turn(this.canTurn(this.cTilePos));
           this.walk();
@@ -58,7 +56,7 @@ var rb = {
       },
       attack: {
         name: 'attack',
-        postStart: function() { this.setAnimation('attack', 1 / (this.sAttackSpeed * 6)); },
+        animation: function() { this.setAnimation('attack', 1 / (this.sAttackSpeed * 6)); },
         everyFrame: function(delta, state) {
           if (this.counter < 1 / this.sAttackSpeed) this.counter += delta;
           else {

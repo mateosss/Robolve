@@ -19,7 +19,6 @@ var State = cc.Node.extend({
   oldProps: null, // {} will backup the old properties on start
   local: null, // {} use this to save variables through state moments
   timeToEnd: null, // put a number here for finishing the event after that amount of seconds
-
   // Flow control variables
   first: true, // false when it was executed at least once
   active: false, // true when the state has started but not ended yet
@@ -28,6 +27,7 @@ var State = cc.Node.extend({
   // These three functions (state moments) will be provided with the state parent as the this
   // and the first argument as the state (second on everyFrame)
   // you can use the local property from state provided in the first argument to store variables
+  animation: null, // a function to be executed to set the animation for this state
   postStart: null, // executed inmediately after start
   everyFrame: null, // executed every frame (if present, a scheduleUpdate() will be made), first argument is deltatime
   beforeEnd: null, // executed just before exit
@@ -43,6 +43,7 @@ var State = cc.Node.extend({
     this.oldProps = {};
     this.local = {};
     this.name = options.name;
+    this.animation = options.animation;
     this.postStart = options.postStart;
     this.everyFrame = options.everyFrame;
     this.beforeEnd = options.beforeEnd;
@@ -64,27 +65,32 @@ var State = cc.Node.extend({
       this.oldProps[prop] = this.owner[prop];
       this.owner[prop] = this.newProps[prop];
     }
-    // 3. If postStart was given, then call it
+    // 3. If setAnimation was given, then call it
+    if (this.animation) this.animation.call(this.owner, this);
+    // 4. If postStart was given, then call it
     if (this.postStart) this.postStart.call(this.owner, this);
-    // 4. If everyFrame was given, then scheduleUpdate
+    // 5. If everyFrame was given, then scheduleUpdate
     if (this.everyFrame || this.lifespan) this.scheduleUpdate();
-    // 5. If lifespan was given, increase set timeToEnd value
+    // 6. If lifespan was given, increase set timeToEnd value
     if (this.lifespan) this.timeToEnd = this.lifespan;
-    // 6. mark that this is at least the first run
+    // 7. mark that this is at least the first run
     this.first = false;
-    // 7. mark that this state is now active because it hasn't ended yet (just started)
+    // 8. mark that this state is now active because it hasn't ended yet (just started)
     this.active = true;
   },
   end: function() {
-    // -6. Check if beforeEnd was given, then call it
+    // -7. Check if beforeEnd was given, then call it
     if (this.beforeEnd) this.beforeEnd.call(this.owner, this);
-    // -5. Place the backuped properties again on the owner
+    // -6. Place the backuped properties again on the owner
     for (var prop in this.oldProps) this.owner[prop] = this.oldProps[prop];
-    // -4. Be sure to unscheduleUpdate, we don't want this to be running anymore
+    // -5. Be sure to unscheduleUpdate, we don't want this to be running anymore
     this.unscheduleUpdate();
-    // -3. the state removes itself from the owner cStates and is removed from the owner
-    this.owner.cStates.splice(this.owner.cStates.indexOf(this), 1);
+    // -4. the state removes itself from the owner cStates and is removed from the owner
+    var index = this.owner.cStates.indexOf(this);
+    this.owner.cStates.splice(index, 1);
     this.owner.removeChild(this);
+    // -3. If this state was the last (the one with higher priority), set the animation of the new higher priority state
+    if (index === this.owner.cStates.length) _.last(this.owner.cStates).animation.call(this.owner, this);
     // -2. Mark that this state is not active anymore
     this.active = false;
     // -1. Mark that this state is now ended
