@@ -333,44 +333,12 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     var mutatedGen = leftPossibles[Math.floor((Math.random() * leftPossibles.length))];
     return mutatedGen;
   },
-  kill: function(robot) {
-    // Kills a robot
-    var deletion = false;
-    var i = this.robots.indexOf(robot);
-    if (i != -1) {
-      this.prevWaveRobots.push([robot.getDNA(), robot.getScore()]);
-      this.robots[i].states.forEach((s) => s.destroy());
-      this.robots[i].release();
-      this.robots[i].removeFromParent();
-      this.robots.splice(i, 1);
-      deletion = true;
-      this.base.money += 30;
-      this.hud.ig.refresh();
-    }
-    // if (deletion) {
-    //   debug.debugText(this, {text: "Robots Count: " + this.robots.length});
-    // }
-    return deletion;
-  },
-  killDefense: function(defense) {
-    // Kills a defense
-    var deletion = false;
-    var i = this.defenses.indexOf(defense);
-    if (i != -1) {
-      this.defenses[i].removeAllChildren();
-      this.defenses[i].removeFromParent();
-      this.defenses[i].release();
-      this.defenses.splice(i, 1);
-      deletion = true;
-    }
-    return deletion;
-  },
   endGame: function() {
     for (var i = 0; i < this.defenses.length; i++) {
-      this.killDefense(this.defenses[i]);
+      this.defenses[i].destroy();
     }
     for (i = 0; i < this.robots.length; i++) {
-      this.kill(this.robots[i]);
+      this.robots[i].destroy();
     }
     for (i = 0; i < this.waveQuery.length; i++) {
       this.waveQuery[i].release();

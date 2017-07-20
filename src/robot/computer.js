@@ -321,14 +321,16 @@ var Computer = cc.Sprite.extend({
     }
     return totalDamage;
   },
-  kill: function() { // Kills the computer without setting any state
-    if (this.toString() == 'Robot') {
-      this.level.kill(this);
-
-    } else {
-      this.level.killDefense(this);
-
+  destroy: function() { // Properly kills the computer from memory
+    var computers = this.level[this.toStringP()];
+    var i = computers.indexOf(this);
+    if (i != -1) {
+      this.states.forEach((s) => s.destroy());
+      this.removeFromParent();
+      this.release();
+      computers.splice(i, 1);
     }
+    return true;
   },
   die: function() {
     // Sets the die state that will reproduce some animations and then kill the computer

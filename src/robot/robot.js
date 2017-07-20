@@ -55,6 +55,12 @@ var Robot = Computer.extend({
     ];
     this.debugger.debug();
   },
+  destroy: function() {
+    this._super();
+    this.level.prevWaveRobots.push([this.getDNA(), this.getScore()]);
+    this.level.base.money += 30;
+    this.level.hud.ig.refresh();
+  },
   counter: 0.0,
   update: function(delta) {
     var base = this.getTarget();
