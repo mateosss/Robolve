@@ -9,7 +9,8 @@ var rb = {
     getDefense: () => rb.dev.getDefenses()[0],
     allRobots: (func) => rb.dev.getRobots().forEach(func),
     allDefenses: (func) => rb.dev.getDefenses().forEach(func),
-
+    killRobots: (notKill) => rb.dev.getRobots().slice(notKill).forEach((r) => r.die()),
+    killDefenses: (notKill) => rb.dev.getDefenses().slice(notKill).forEach((d) => d.die()),
     debugScoreRobot: function() {
       if (!this.debugger) this.debug();
       this.debugger.debugTile(this.level.map, { stop: true });// TODO stop doesn't work
@@ -43,11 +44,9 @@ var rb = {
       still: {
         name: 'still',
         props: { sSpeed: 0 },
-        postStart: function(s) {
-          s.local.prevAnim = this.cAnimation;
+        postStart: function() {
           this.setAnimation('still');
-        },
-        beforeEnd: function(s) { this.setAnimation(s.local.prevAnim); },
+        }
       },
       walk: {
         name: 'walk',

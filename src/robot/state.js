@@ -48,7 +48,7 @@ var State = cc.Node.extend({
     this.beforeEnd = options.beforeEnd;
     this.lifespan = options.lifespan;
   },
-  destroy: function() {
+  destroy: function() { // called when the computer dies for freeing memory
     this.owner.removeChild(this);
     this.release();
   },
@@ -83,7 +83,7 @@ var State = cc.Node.extend({
     // -4. Be sure to unscheduleUpdate, we don't want this to be running anymore
     this.unscheduleUpdate();
     // -3. the state removes itself from the owner cStates and is removed from the owner
-    this.owner.cStates.splice(this.owner.cStates.findIndex(aState => aState === this), 1);
+    this.owner.cStates.splice(this.owner.cStates.indexOf(this), 1);
     this.owner.removeChild(this);
     // -2. Mark that this state is not active anymore
     this.active = false;

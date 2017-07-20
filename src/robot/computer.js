@@ -118,8 +118,9 @@ var Computer = cc.Sprite.extend({
     this.cStates.forEach((state) => state.end());
   },
   setState: function(state, extra) { // stops all states and add the provided one
-    var preserve = this.addState(state, extra);
+    var preserve = this.getState(state, extra);
     this.cStates.forEach(function(state) { if (state !== preserve) this.removeState(state); }, this);
+    preserve.start();
   },
   isInState: function(state) {
     return this.getState(state).active;
