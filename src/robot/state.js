@@ -88,7 +88,7 @@ var State = cc.Node.extend({
     // -4. the state removes itself from the owner cStates and is removed from the owner
     var index = this.owner.cStates.indexOf(this);
     this.owner.cStates.splice(index, 1);
-    this.owner.removeChild(this);
+    this.removeFromParent();
     // -3. If this state was the last (the one with higher priority), set the animation of the new higher priority state
     if (index && index === this.owner.cStates.length) _.last(this.owner.cStates).animation.call(this.owner, this);
     // -2. Mark that this state is not active anymore

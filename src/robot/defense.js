@@ -88,9 +88,6 @@ var Defense = Computer.extend({
 
     return this.target;
   },
-  kill: function() { // TODO, almost the same that robot, unify computer dead
-    this.level.killDefense(this);
-  },
   debug: function(){
     // Creates a debugger for verbose information directly on the canvas
     this.debugger = new Debugger(this);

@@ -128,7 +128,9 @@ var Computer = cc.Sprite.extend({
   setState: function(state, extra) { // stops all states and add the provided one
     var preserve = this.getState(state, extra);
     if (!preserve) return cc.log("setState: State " + state + " doesn't exists for a " + this.toString());
-    this.cStates.forEach(function(state) { if (state !== preserve) this.removeState(state); }, this);
+    for (var i = this.cStates.length - 1; i >= 0; i--) {
+      if (this.cStates[i] !== preserve) this.removeState(this.cStates[i]);
+    }
     this.addState(preserve);
   },
   isInState: function(state) {
@@ -320,7 +322,13 @@ var Computer = cc.Sprite.extend({
     return totalDamage;
   },
   kill: function() { // Kills the computer without setting any state
-    this.level.kill(this);
+    if (this.toString() == 'Robot') {
+      this.level.kill(this);
+
+    } else {
+      this.level.killDefense(this);
+
+    }
   },
   die: function() {
     // Sets the die state that will reproduce some animations and then kill the computer

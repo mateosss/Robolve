@@ -208,7 +208,7 @@ Mi 31
     - 22:10 - 23:00 | Resolviendo sutil bug de states, que hacia que al setear un state, las propiedades del state anterior se resetearan despues de setear el state nuevo
     - 23:00 - 23:15 | Nueva propiedad animation para los states, para animaciones por state
     - 23:15 - 00:20 | Arreglando bug extraño que salio por los ifs sin llaves en hurt() y state die
-
+    - 00:20 - 01:20 | Arreglando otro bug raro, que hacia que setState no eliminara bien los states anteriores
 # Restantes
 - 2017-07-20 Ju
 - 2017-07-21 Vi
