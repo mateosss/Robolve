@@ -4,7 +4,7 @@
   <property name="wavesCounts" value="10,15,20,25,30,35,40,45,50"/>
   <property name="wavesIntervals" value="5,5,5,5,5,5,5,5,5"/>
  </properties>
- <tileset firstgid="1" name="landscape" tilewidth="132" tileheight="132" tilecount="70">
+ <tileset firstgid="1" name="landscape" tilewidth="132" tileheight="132" tilecount="70" columns="7">
   <image source="tilesheet.png" width="924" height="1320"/>
   <tile id="2">
    <properties>
@@ -656,6 +656,7 @@
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="2"/>
     <property name="element" value="electric"/>
+    <property name="life" value="1"/>
     <property name="range" value="1"/>
     <property name="terrain" value="0"/>
    </properties>
@@ -666,6 +667,7 @@
     <property name="attackSpeed" value="0"/>
     <property name="damage" value="2"/>
     <property name="element" value="fire"/>
+    <property name="life" value="2"/>
     <property name="range" value="0"/>
     <property name="terrain" value="1"/>
    </properties>
@@ -675,6 +677,7 @@
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="0"/>
     <property name="element" value="water"/>
+    <property name="life" value="0"/>
     <property name="range" value="0"/>
     <property name="terrain" value="1"/>
    </properties>

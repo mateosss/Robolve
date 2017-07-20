@@ -33,7 +33,7 @@ var Computer = cc.Sprite.extend({
     this.level = level;
     this.creationTime = new Date().getTime();
 
-    dna = dna || Array.prototype.slice.call(arguments, 2);
+    dna = typeof dna === 'object' ? dna : Array.prototype.slice.call(arguments, 1);
     for (let i = 0; i < this.STATS.size; i++) {
       this[this.STATS.getki(i)] = dna[i];
     }
@@ -155,7 +155,7 @@ var Computer = cc.Sprite.extend({
     var destinationB = cc.p(30, 15);
     var destinationF = cc.p(28, 13);
     var fillColorB = cc.color(0, 0, 0, 255);
-    var fillColorF = this.sElement;
+    var fillColorF = rb.palette[this.element];
 
     var back = new cc.DrawNode();
     var front = new cc.DrawNode();
@@ -279,27 +279,25 @@ var Computer = cc.Sprite.extend({
     this.x += this.sSpeed * xDirection;
     this.y += (this.sSpeed / 2) * yDirection;
   },
-  hurt: function(defense) {
+  hurt: function(attacker) {
     // This function calculates the total damage of the received attack depending
-    // on the defense properties, and do some things in reaction
+    // on the attacker properties, and does some things in reaction
     this.hitsReceived += 1;
-    var elementMod = 1;
-    if (this.element == "electric") {
-      if (defense.element == "electric") {elementMod = 1;}
-      else if (defense.element == "fire") {elementMod = 2;}
-      else if (defense.element == "water") {elementMod = 0.5;}
-    }
-    else if (this.element == "fire") {
-      if (defense.element == "electric") {elementMod = 0.5;}
-      else if (defense.element == "fire") {elementMod = 1;}
-      else if (defense.element == "water") {elementMod = 2;}
-    }
-    else if (this.element == "water") {
-      if (defense.element == "electric") {elementMod = 2;}
-      else if (defense.element == "fire") {elementMod = 0.5;}
-      else if (defense.element == "water") {elementMod = 1;}
-    }
-    var totalDamage = defense.sDamage * elementMod;
+    var mod;
+    if (this.element == "electric")
+      if (attacker.element == "electric") mod = 1;
+      else if (attacker.element == "fire") mod = 2;
+      else if (attacker.element == "water") mod = 0.5;
+    else if (this.element == "fire")
+      if (attacker.element == "electric") mod = 0.5;
+      else if (attacker.element == "fire") mod = 1;
+      else if (attacker.element == "water") mod = 2;
+    else if (this.element == "water")
+      if (attacker.element == "electric") mod = 2;
+      else if (attacker.element == "fire") mod = 0.5;
+      else if (attacker.element == "water") mod = 1;
+
+    var totalDamage = attacker.sDamage * mod;
     this.sLife -= totalDamage;
     if (this.sLife <= 0) {
       this.sLife = 0;

@@ -147,12 +147,13 @@ var Hud = cc.Layer.extend({
     var dsEvent = function(btn, level, type) {
       var hud = btn.getParent().getParent().getParent();
       hud.it.message("Place " + type[0].toUpperCase() + type.slice(1) + " Tower - $300");
+      var life = 2;//0,1,2
       var range = 0;//0,1,2
       var element = type;//water,fire,electric
       var terrain = 0;//0,1
       var damage = 0;//0,1,2
       var attackSpeed = 0;//0,1,2
-      var customDefense = new Defense(level, null, element, range, terrain, damage, attackSpeed);
+      var customDefense = new Defense(level, life, element, range, terrain, damage, attackSpeed);
       customDefense.retain();
       customDefense.isDummy = true;
       level.showDummyDefense(customDefense);

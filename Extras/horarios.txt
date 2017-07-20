@@ -203,9 +203,10 @@ Mi 31
     - 18:30 - 21:00 | Siguiendo con eso
 - 2017-07-18 Ma
     - 20:30 - 23:20 | Casi terminado, falta mergear algunos metodos y que Defense.blend funcione como se espera ahora
+- 2017-07-19 Mi
+    - 21:20 - 22:10 | Propiedad life y healthbar presente en defense
 
 # Restantes
-- 2017-07-19 Mi
 - 2017-07-20 Ju
 - 2017-07-21 Vi
 - 2017-07-22 Sa

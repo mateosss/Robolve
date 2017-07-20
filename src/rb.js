@@ -27,7 +27,11 @@ var rb = {
   },
 
   animations: { attack: 6, walk: 8, still: 1, idle: 1 },
-
+  palette: {
+    electric: cc.color(255, 231, 0 ,255),
+    fire: cc.color(227, 43, 0, 255),
+    water: cc.color(1, 179, 255, 255)
+  },
   states: {
     defense: {
       idle: {

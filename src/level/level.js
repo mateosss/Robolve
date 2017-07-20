@@ -58,7 +58,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     // speed = 1;//0,1,2
     // damage = 0;//0,1,2
     // attackSpeed = 1;//0,1,2
-    // var customRobot = new Robot(this, false, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
+    // var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
 
     // Add Robot by DNA
     // var dna = [2, 2, "water", 0, 0, 2, 0, 1];
@@ -67,31 +67,35 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     // this.addRobot(customRobot);
 
     // defense 0,0 walk RED
+    // life = 2;//0,1,2
     // range = 0;//0,1,2
     // element = "fire";//water,fire,electric
     // terrain = 1;//0,1
     // damage = 0;//0,1,2
     // attackSpeed = 0;//0,1,2
-    // var customDefense = new Defense(this, null, element, range, terrain, damage, attackSpeed);
+    // var customDefense = new Defense(this, life, element, range, terrain, damage, attackSpeed);
     // this.map.placeOnTile(customDefense, cc.p(0,5));
     // this.defenses.push(customDefense);
     //
+
+    // life = 2;//0,1,2
     // range = 0;//0,1,2 BLUE
     // element = "water";//water,fire,electric
     // terrain = 1;//0,1
     // damage = 0;//0,1,2
     // attackSpeed = 0;//0,1,2
-    // var customDefense1 = new Defense(this, null, element, range, terrain, damage, attackSpeed);
+    // var customDefense1 = new Defense(this, life, element, range, terrain, damage, attackSpeed);
     // this.map.placeOnTile(customDefense1, cc.p(19,5));
     // this.defenses.push(customDefense1);
     //
     // // Add Defense
+    // life = 2;//0,1,2
     // range = 1;//0,1,2
     // element = "electric";//water,fire,electric
     // terrain = 0;//0,1
     // damage = 2;//0,1,2
     // attackSpeed = 2;//0,1,2
-    // customDefense = new Defense(this, null, element, range, terrain, damage, attackSpeed);
+    // customDefense = new Defense(this, life, element, range, terrain, damage, attackSpeed);
     // this.addDefense(customDefense);
 
     var mapDefenses = this.map.getMapDefenses();
@@ -175,7 +179,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     speed = Math.floor((Math.random() * 3));
     damage = Math.floor((Math.random() * 3));
     attackSpeed = Math.floor((Math.random() * 3));
-    var customRobot = new Robot(this, false, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
+    var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
     return customRobot;
   },
   getRandomDefense: function() {

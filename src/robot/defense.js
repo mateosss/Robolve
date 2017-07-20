@@ -2,9 +2,8 @@ var Defense = Computer.extend({
   target: null,// Target robot to fire
   animAttackSpeed: 1.0,// Attack speed animation
   isDummy: false, // If it is a dummy defense, (a.k.a. a defense preview in the map)
-  createHealthBar: ()=>{}, // TODO remove this line and add life to defenses
   STATS: new Map([
-    // ['life', {0: 500, 1: 600, 2: 700}], TODO add life to defenses
+    ['life', {0: 500, 1: 600, 2: 700}],
     ['element', {
       electric: "Electro",
       fire: "Fire",
@@ -21,7 +20,7 @@ var Defense = Computer.extend({
   STATES: [ // Possible states for this defense
     rb.states.defense.idle
   ],
-  ctor:function(level, element, range, terrain, damage, attackSpeed) {
+  ctor:function(level, life, element, range, terrain, damage, attackSpeed) {
     if (arguments.length === 0) return;
     this._super.apply(this, arguments);
     // this.debug();
