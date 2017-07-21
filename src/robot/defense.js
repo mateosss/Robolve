@@ -25,7 +25,7 @@ var Defense = Computer.extend({
   ctor:function(level, life, element, range, terrain, damage, attackSpeed) {
     if (arguments.length === 0) return;
     this._super.apply(this, arguments);
-    // this.debug();
+    this.debug();
     this.setAnchorPoint(0.5, 0.1); // TODO quirk because of the bad tiles proportions
     if (!this.isDummy) {
       this.setTouchEvent();
@@ -119,7 +119,9 @@ var Defense = Computer.extend({
   counter: 0.0,
   update: function(delta) {
     var target = this.getTarget();
-    if (!this.isDummy && target && this.isInState('idle')) {
+    this.debugger.debugLine(this, {stop: true});
+    this.debugger.debugLine(this, {target: target});
+    if (!this.isDummy && target) {
       this.setState('attack', {target: target});
     }
   }

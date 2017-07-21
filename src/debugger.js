@@ -37,13 +37,21 @@ var Debugger = cc.Class.extend({
     }
   },
   debugLine: function(object, options){
-    //TODO Draw a line from object to target with distance label in pixels
+    // Draws a line between from object to options.target
     debugName = "debugLine";
-    stop = options.stop || false;
+    stop = options.stop || false; // TODO STOP DOESNT WORK. maybe stop should be default, and cleanup should be the option
     if(stop) {object.removeChild(object.getChildByName(debugName));}
     else {
-      target = options.target || null;
-      //TODO DRAW A LINE TO TARGET AND LABEL WITH PIXELS DISTANCE ABOVE THAT
+      var pos = object.getAnchorPointInPoints();
+      if (!options.target) return;
+      var target = object.convertToNodeSpace(rb.dev.getLevel().map.convertToWorldSpace(options.target));
+      var color = options.color || cc.color(255, 255, 255, 255);
+      var width = options.width || 2;
+      var line = new cc.DrawNode();
+      line.drawSegment(pos, target, width, color);
+      line.setName(debugName);
+      object.addChild(line, 1000);//TODO hacer nivel z opcional tambien
+      return line;
     }
   },
   debugRange: function(object, options){

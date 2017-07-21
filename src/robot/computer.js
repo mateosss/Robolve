@@ -190,10 +190,7 @@ var Computer = cc.Sprite.extend({
   },
   fire: function(target) {
     // This funcitons is executed when the robot attacks something
-    if (target) {
-      this.setState("attack");
-      this.infligedDamage += target.hurt(this);
-    }
+    if (target) this.infligedDamage += target.hurt(this);
   },
   getDistanceTo: function(target) {
     // Get distance to another object in the map
