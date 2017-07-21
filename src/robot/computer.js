@@ -19,6 +19,7 @@ var Computer = cc.Sprite.extend({
   creationTime: null,
   hitsReceived: 0,
   infligedDamage: 0,
+  DEBUG: false, // Set to true for executing the debug function
   // STATS constant defines the structure of this Robot based class
   // Take into account that if for example turnProb is in STATS, the properties
   // turnProb and sTurnProb will be created directly on the object, with
@@ -153,6 +154,7 @@ var Computer = cc.Sprite.extend({
     this.createHealthBar();
     this.removeAllStates();
     this.setState(this.states[0]);
+    if (this.DEBUG) this.debug();
   },
   toString: function() {
     return "Computer";
@@ -192,13 +194,7 @@ var Computer = cc.Sprite.extend({
     // This funcitons is executed when the robot attacks something
     if (target) this.infligedDamage += target.hurt(this);
   },
-  getDistanceTo: function(target) {
-    // Get distance to another object in the map
-    var robotCenter = this.getPosition();
-    var targetCenter = target.getPosition();
-    var distance = cc.pDistance(robotCenter, targetCenter);
-    return distance;
-  },
+  getDistanceTo: function(target) { return cc.pDistance(this, target); },
   checkNewTile: function() {
     // This function is executed every frame by the walk state to check if the
     // robot is on a new tile, and refresh this.cTilePos to represent it.

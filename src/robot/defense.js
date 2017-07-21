@@ -2,6 +2,7 @@ var Defense = Computer.extend({
   target: null,// Target robot to fire
   animAttackSpeed: 1.0,// Attack speed animation
   isDummy: false, // If it is a dummy defense, (a.k.a. a defense preview in the map)
+  DEBUG: true,
   STATS: new Map([
     ['life', {0: 500, 1: 600, 2: 700}],
     ['element', {
@@ -25,7 +26,6 @@ var Defense = Computer.extend({
   ctor:function(level, life, element, range, terrain, damage, attackSpeed) {
     if (arguments.length === 0) return;
     this._super.apply(this, arguments);
-    this.debug();
     this.setAnchorPoint(0.5, 0.1); // TODO quirk because of the bad tiles proportions
     if (!this.isDummy) {
       this.setTouchEvent();
@@ -51,42 +51,27 @@ var Defense = Computer.extend({
     // This function returns the robot to which this defense has to attack
 
     //Looks for robots in tower range
-    inRange = [];
-    for (var i = 0; i < this.level.robots.length; i++) {
-      var defenseCenter = this.getPosition();
-      var robotCenter = this.level.robots[i].getPosition();
-      var distance = cc.pDistance(defenseCenter, robotCenter);
-      if (distance <= this.sRange && this.level.robots[i].terrain == this.terrain) {
-        inRange.push(this.level.robots[i]);
-      }
-    }
-
+    var inRange = this.level.robots.filter(function(robot) {
+      return this.getDistanceTo(robot) <= this.sRange && robot.terrain == this.terrain;
+    });
     //if no robot in range return null
     if (inRange.length === 0) {
       this.target = null;
+      this.setState('idle');
       return null;
     }
-
     //If there is robots in range proceed to detect which of them is closest
     //To the base, set it to target and return it
-    var base = this.level.map.tileCoordFromChild(this.level.base);
-    // var base = this.level.base.getPosition();
     var minDistanceToBase = 0;
-    var closestRobotPos = null;
-    inRange.filter(function(robot){
-      var distanceToBase = cc.pDistance(robot.getPosition(), base);
-      if (minDistanceToBase <= 0 || distanceToBase < minDistanceToBase) {
+    var closestRobot = null;
+    inRange.forEach(robot => {
+      var distanceToBase = cc.pDistance(robot, this.level.base);
+      if (minDistanceToBase === 0 || distanceToBase < minDistanceToBase) {
         minDistanceToBase = distanceToBase;
-        closestRobotPos = robot.getPosition();
-      }
-      return false;
-    });
-    this.target = inRange.find(function(robot){
-      if(cc.pointEqualToPoint(robot.getPosition(), closestRobotPos)){
-        return true;
+        closestRobot = robot;
       }
     });
-
+    this.target = closestRobot;
     return this.target;
   },
   debug: function(){

@@ -33,7 +33,6 @@ var Robot = Computer.extend({
     //TODO que funcione el balanceo, poder hacer que un robot sea de tipo +1 y eso
     if (arguments.length === 0) return; // Hack for getting only the properties defined above
     this._super.apply(this, arguments);
-    // this.debug();
     this.scheduleUpdate();
   },
   toString: function() {
