@@ -19,7 +19,7 @@ var Defense = Computer.extend({
   },
   STATES: [ // Possible states for this defense
     rb.states.defense.idle,
-    rb.states.attack,
+    rb.states.defense.attack,
     rb.states.die
   ],
   ctor:function(level, life, element, range, terrain, damage, attackSpeed) {
@@ -118,6 +118,9 @@ var Defense = Computer.extend({
   },
   counter: 0.0,
   update: function(delta) {
-    if (!this.isDummy && this.isInState('idle')) this.setState('attack');
+    var target = this.getTarget();
+    if (!this.isDummy && target && this.isInState('idle')) {
+      this.setState('attack', {target: target});
+    }
   }
 });

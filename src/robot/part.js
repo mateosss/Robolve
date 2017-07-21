@@ -48,7 +48,8 @@ var Part = cc.Sprite.extend({
   },
   setAnimation: function(actionName, speed) {
     var action = this.getSpriteAction(
-      rb.animations[actionName], this.getSpritePlaceholder(actionName), speed || 1
+      rb.animations[this.computer.toString().toLowerCase()][actionName],
+      this.getSpritePlaceholder(actionName), speed || 1
     );
     this.stopAllActions();
     this.runAction(action);

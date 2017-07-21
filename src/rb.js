@@ -27,7 +27,11 @@ var rb = {
     debugAllRobotsScore: (i) => rb.dev.allRobots((r) => r.schedule(rb.dev.debugScoreRobot, isNaN(i) ? 0.5 : i)),
   },
 
-  animations: { attack: 6, walk: 8, still: 1, idle: 1 },
+  animations: {
+    robot: { attack: 6, walk: 8, still: 1 },
+    defense: { idle: 1, attack: 4 }
+  },
+
   palette: {
     electric: cc.color(255, 231, 0 ,255),
     fire: cc.color(227, 43, 0, 255),
@@ -46,21 +50,21 @@ var rb = {
         this.runAction(new cc.Sequence(actArray));
       }
     },
-    attack: {
-      name: 'attack',
-      animation: function() { this.setAnimation('attack', 1 / (this.sAttackSpeed * 6)); },
-      everyFrame: function(delta, state) {
-        if (this.counter < 1 / this.sAttackSpeed) this.counter += delta;
-        else {
-          this.counter = 0.0;
-          this.fire(this.getTarget());
-        }
-      }
-    },
     defense: {
       idle: {
         name: 'idle',
         postStart: function() { this.setAnimation('idle'); }
+      },
+      attack: {
+        name: 'attack',
+        animation: function() { this.setAnimation('attack', 1 / (this.sAttackSpeed * 6)); },
+        everyFrame: function(delta, state) {
+          if (this.counter < 1 / this.sAttackSpeed) this.counter += delta;
+          else {
+            this.counter = 0.0;
+            this.fire(state.local.target);
+          }
+        }
       }
     },
     robot: {

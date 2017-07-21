@@ -212,6 +212,7 @@ Mi 31
     - 01:20 - 01:40 | Funcion kill de level fue bien implementada en computer
 - 2017-07-20 Ju
     - 11:30 - 12:40 | Update pasado a state en defense
+    - 22:00 -
 
     FUNCION DE TARGET MERGEAR
     QUE LOS ROBOTS ATAQUEN A LAS DEFENSAS
@@ -282,4 +283,5 @@ Mi 31
         no hay dos padres para crossover 7
 
 # PRODUCTION TODO
-  - sprite con polygon mesh al exportar a android, ahora esta con maxrect para que funcione en navegador
+  - Sprite con polygon mesh al exportar a android, ahora esta con maxrect para que funcione en navegador
+  - Leer main.js, explicación de project.json, la propiedad modules puede ser interesante para reducir tamaño del juego
