@@ -52,7 +52,7 @@ var PropertySelector = ccui.Layout.extend({
         if (hasBudget) {
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) - 1];
           d[p] = parseInt(improvement) || improvement;
-          d.factoryReset();
+          d.factoryReset(true);
           d.level.base.money -= cost;
           d.level.hud.ig.refresh();
           upBtn.getParent().refresh();
@@ -88,7 +88,7 @@ var PropertySelector = ccui.Layout.extend({
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) + 1];
           d[p] = parseInt(improvement) || improvement;
           d.level.base.money -= cost;
-          d.factoryReset();
+          d.factoryReset(true);
           d.level.hud.ig.refresh();
           upBtn.getParent().refresh();
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);

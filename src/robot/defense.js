@@ -53,7 +53,7 @@ var Defense = Computer.extend({
     //Looks for robots in tower range
     var inRange = this.level.robots.filter(function(robot) {
       return this.getDistanceTo(robot) <= this.sRange && robot.terrain == this.terrain;
-    });
+    }, this);
     //if no robot in range return null
     if (inRange.length === 0) {
       this.target = null;
@@ -64,13 +64,13 @@ var Defense = Computer.extend({
     //To the base, set it to target and return it
     var minDistanceToBase = 0;
     var closestRobot = null;
-    inRange.forEach(robot => {
+    inRange.forEach(function(robot) {
       var distanceToBase = cc.pDistance(robot, this.level.base);
       if (minDistanceToBase === 0 || distanceToBase < minDistanceToBase) {
         minDistanceToBase = distanceToBase;
         closestRobot = robot;
       }
-    });
+    }, this);
     this.target = closestRobot;
     return this.target;
   },

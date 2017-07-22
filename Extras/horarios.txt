@@ -214,14 +214,13 @@ Mi 31
     - 11:30 - 12:40 | Update pasado a state en defense
     - 22:00 - 00:30 | Debug debugLine para ver target de defense
     - 00:30 - 01:20 | Mejoras en codigo viejo, y mas responsividad en debug de defensas
+- 2017-07-21 Vi
+    - 23:15 - 00:15 | Los robots ahora atacan a las defensas y la healthbar de las mismas no se resetea al cambiarle un stat
 
     FUNCION DE TARGET MERGEAR
-    QUE LOS ROBOTS ATAQUEN A LAS DEFENSAS
-    QUE LA HEALTHBAR DE LAS DEFENSAS NO SE REINICIE AL CAMBIARLE UN ATRIBUTO
     EMPEZAR A HACER PLACEHOLDERS DE PARTES DE DEFENSA
 
 # Restantes
-- 2017-07-21 Vi
 - 2017-07-22 Sa
 - 2017-07-23 Do
 - 2017-07-24 Lu

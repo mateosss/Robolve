@@ -138,22 +138,40 @@ var Computer = cc.Sprite.extend({
     return this.getState(state).active;
   },
   getTarget: function() {//TODO otra vez se repite en defensa
-    // This function returns if there is a target to attack in the robot range
-    var distance = this.getDistanceTo(this.level.base);
-    if (distance <= this.sRange) {
-      return this.level.base;
-    } else {
-      return false;
+    // This function returns the defense to which this robot has to attack
+    //Looks for defense in robot range
+    var inRange = this.level.defenses.filter(function(defense) {
+      return this.getDistanceTo(defense) <= this.sRange;
+    }, this);
+    //if no defense in range return null
+    if (inRange.length === 0) {
+      this.target = null;
+      this.setState('walk');
+      return null;
     }
+    //If there are defenses in range proceed to detect which of them is closest
+    var closestDistance = 0;
+    var closestDefense = null;
+    inRange.forEach(function(defense) {
+      var distance = this.getDistanceTo(defense);
+      if (closestDistance === 0 || distance < closestDistance) {
+        closestDistance = distance;
+        closestDefense = defense;
+      }
+    }, this);
+    this.target = closestDefense;
+    return this.target;
   },
 
   // General section
-  factoryReset: function() {
-    this.refreshStats();
+  factoryReset: function(soft) {
     this.assembleParts();
-    this.createHealthBar();
+    if (!soft) {
+      this.refreshStats();
+    }
     this.removeAllStates();
     this.setState(this.states[0]);
+    this.createHealthBar();
     if (this.DEBUG) this.debug();
   },
   toString: function() {
@@ -164,6 +182,13 @@ var Computer = cc.Sprite.extend({
   },
   createHealthBar: function() { //TODO crear una buena health bar que sea independiente del tamaño del sprie
     //Creates two rectangles for representing the healtbar
+    var old_back = this.getChildByName("hpbarback");
+    if (old_back) {
+      var old_front = this.getChildByName("hpbar");
+      old_back.removeFromParent();
+      old_front.removeFromParent();
+    }
+
     var originB = cc.p(-30, 0);
     var originF = cc.p(-28, 2);
     var destinationB = cc.p(30, 15);
@@ -181,9 +206,11 @@ var Computer = cc.Sprite.extend({
     front.x += 15;
     back.setRotationY(30);
     front.setRotationY(30);
+    back.setName("hpbarback");
     front.setName("hpbar");
     this.addChild(back, 10);
     this.addChild(front, 11);
+    this.updateHealthBar();
   },
   updateHealthBar: function() {
     // Updates the healthbar length with the sLife stat
