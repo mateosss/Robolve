@@ -51,7 +51,7 @@ var PropertySelector = ccui.Layout.extend({
         var hasBudget = d.level.base.money >= cost; // TODO 50 hardcoded
         if (hasBudget) {
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) - 1];
-          d[p] = parseInt(improvement) || improvement;
+          d.changeStat(p, parseInt(improvement) || improvement);
           d.factoryReset(true);
           d.level.base.money -= cost;
           d.level.hud.ig.refresh();
@@ -86,7 +86,7 @@ var PropertySelector = ccui.Layout.extend({
         var hasBudget = d.level.base.money >= cost; // TODO 50 hardcoded
         if (hasBudget) {
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) + 1];
-          d[p] = parseInt(improvement) || improvement;
+          d.changeStat(p, parseInt(improvement) || improvement);
           d.level.base.money -= cost;
           d.factoryReset(true);
           d.level.hud.ig.refresh();

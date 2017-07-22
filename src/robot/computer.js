@@ -66,6 +66,13 @@ var Computer = cc.Sprite.extend({
   setStat: function(stat, value) {
     this['s' + _.capitalize(stat)] = value;
   },
+  changeStat: function(stat, newValue) { // sets a new stat maintaining the proportion that existed between the sStat and the default stat before the change
+    var sProportion = (this.getStat(stat) / this.getDefaultStat(stat));
+    this[stat] = newValue;
+    var newStatValueProportioned = sProportion * this.getDefaultStat(stat);
+    this.setStat(stat, newStatValueProportioned);
+    return newStatValueProportioned;
+  },
   getDefaultStat: function(stat) { // Returns the original stat
     return this.STATS.get(stat)[this[stat]];
   },
@@ -140,7 +147,7 @@ var Computer = cc.Sprite.extend({
   // General section
   factoryReset: function(soft) {
     this.assembleParts();
-    this.refreshStats();
+    if (!soft) this.refreshStats();
     this.removeAllStates();
     this.setState(this.states[0]);
     this.createHealthBar();
