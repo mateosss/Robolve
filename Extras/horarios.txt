@@ -101,7 +101,7 @@ Lu 25
   - Decidiendo que hacer con animaciones: NO HACERLAS hasta el final - 1:05 hs
   - Que hacer ahora? planificacion|hud|balas - 0:50 hs
 
-Agosto
+Agosto - 51:15 hs
 Ma 9 - 1:00 hs
   - Agregar clase hud basica - 1 hs
 Do 14 - 4:10 hs
@@ -127,15 +127,15 @@ Do 28 - 6:20 hs
   - Dismiss DS buttons - 0:20 hs
   - Almos DS finished - 1:15
   - DS WORKING!!! - 1:00 hs
-Lu 29
+Lu 29 - 4:40 hs
   - resolver compilacion linux - 0:40 hs
   - surgio problema boton tactil en android - 2:00 hs
   - no me acuerdo - 2:00 hs
-Ma 30
+Ma 30 - 5:20 hs
   - error de mierda del boton tactil - 2:00 hs
   - tratando de arreglar la mierda de error, sin suerte - 1:40
   - seguimos con el error, pero arregle unas cosas aparte y otros bugs - 1:40
-Mi 31
+Mi 31 - 10:00 hs
   - 2 niveles mas, y sistema para que el nivel pueda predefinir defensas - 3:00 hs
   - seleccion de niveles y easyTouchButton - 1:10 hs
   - Arreglar compilacion para android botones tactiles, despues de 8 horas - 0:30 hs
@@ -145,6 +145,12 @@ Mi 31
   - explicacion del juego y posteo en reddit y dificultad aumentada - 21:50
   - Despues de ganar/perder no se pueden poner torres NO SOLUCIONADO- 1:40 hs
 
+TOTAL: 27 + 70:10 + 51:15 = 148:25 hs
+PROMEDIO: 148:25 hs / 39 dias de trabajo = 3:48 hs/dia de trabajo
+DURACION: 2016-06-05 - 2016-08-31 = 88 dias => 148:25 / 88 = 1:40 hs por dia
+PROPORCION: Trabaje 39/88=0.44 dias de los totales
+LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
+        Algoritmo genetico - Logica de debugging visual
 ---
 
 # Segunda mitad
@@ -177,44 +183,44 @@ Mi 31
 - 2017-07-08 Sa - 03:20 hs
     - 10:00 - 12:00 | Viendo cosas no muy utiles del proyecto y algunos articulos para monetizar td (tower defenses)
     - 21:40 - 23:00 | Planificando nuevas características y metas para el final de este segundo sprint
-- 2017-07-09 Do
+- 2017-07-09 Do - 06:15 hs
     - 09:30 - 12:20 | Comenzando modificaciones de la clase Robot, para ser la base de las defensas tambien
     - 13:20 - 16:45 | Nueva estructura planteada, ahora falta empezar a subdividir en padres e hijos las clases
-- 2017-07-10 Lu
+- 2017-07-10 Lu - 02:20 hs
     - 20:40 - 23:00 | Part bien separada de robot, y empezando con la idea de State
-- 2017-07-11 Ma
+- 2017-07-11 Ma - 03:30 hs
     - 21:00 - 00:30 | States iniciales funcionando, falta state con timer y un buen metodo para testearlos pero andan
-- 2017-07-12 Mi
+- 2017-07-12 Mi - 03:05 hs
     - 10:45 - 11:10 | Limpieza de algunos sprites obsoletos
     - 12:00 - 14:25 | Agregado map5 y mas mejoras de codigo viejo
     - 14:25 - 14:50 | Intentando debugear states
-- 2017-07-13 Ju
+- 2017-07-13 Ju - 03:40 hs
     - 20:00 - 22:30 | Corregido states, ahora si son propios de cada robot
     - 22:30 - 23:40 | Usando everyFrame en los states, update del robot es mas independiente
-- 2017-07-14 Vi
+- 2017-07-14 Vi - 03:05 hs
     - 10:20 - 12:00 | Varias mejoras a states, ahora son mucho mas predecibles y debugeables
     - 12:00 - 12:25 | States funcionan en android con retain y release
     - 12:25 - 13:25 | Arreglando dependencias para que funione en linux de vuelta, y viendo si se puede hacer fullscreen (se puede pero es un viaje)
-- 2017-07-15 Sa
+- 2017-07-15 Sa - 01:15 hs
     - 19:00 - 20:15 | Viendo como hacer una clase padre que contenga a Robot y Defense
-- 2017-07-16 Do
+- 2017-07-16 Do - 07:30 hs
     - 12:00 - 15:30 | Computer desprendida de robot, ahora es la clase padre
     - 16:20 - 17:50 | Intentando construir defensa basade en Computer
     - 18:30 - 21:00 | Siguiendo con eso
-- 2017-07-18 Ma
+- 2017-07-18 Ma - 02:50 hs
     - 20:30 - 23:20 | Casi terminado, falta mergear algunos metodos y que Defense.blend funcione como se espera ahora
-- 2017-07-19 Mi
+- 2017-07-19 Mi - 04:20 hs
     - 21:20 - 22:10 | Propiedad life y healthbar presente en defense
     - 22:10 - 23:00 | Resolviendo sutil bug de states, que hacia que al setear un state, las propiedades del state anterior se resetearan despues de setear el state nuevo
     - 23:00 - 23:15 | Nueva propiedad animation para los states, para animaciones por state
     - 23:15 - 00:20 | Arreglando bug extraño que salio por los ifs sin llaves en hurt() y state die
     - 00:20 - 01:20 | Arreglando otro bug raro, que hacia que setState no eliminara bien los states anteriores
     - 01:20 - 01:40 | Funcion kill de level fue bien implementada en computer
-- 2017-07-20 Ju
+- 2017-07-20 Ju - 04:30 hs
     - 11:30 - 12:40 | Update pasado a state en defense
     - 22:00 - 00:30 | Debug debugLine para ver target de defense
     - 00:30 - 01:20 | Mejoras en codigo viejo, y mas responsividad en debug de defensas
-- 2017-07-21 Vi
+- 2017-07-21 Vi - 03:15 hs
     - 23:15 - 00:15 | Los robots ahora atacan a las defensas y la healthbar de las mismas no se resetea al cambiarle un stat
     - 00:15 - 01:30 | Ahora getTarget es obligado que sea overrided de Computer
     - 01:30 - 02:30 | El problema de la healthbar de los robots era mas complicaod de lo que parecia pero se resolvió elegantemente con changeStat
