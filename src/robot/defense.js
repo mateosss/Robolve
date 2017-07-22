@@ -57,10 +57,10 @@ var Defense = Computer.extend({
     //if no robot in range return null
     if (inRange.length === 0) {
       this.target = null;
-      this.setState('idle');
+      if (this.isInState('attack')) this.setState('idle');
       return null;
     }
-    //If there is robots in range proceed to detect which of them is closest
+    //If there are robots in range proceed to detect which of them is closest
     //To the base, set it to target and return it
     var minDistanceToBase = 0;
     var closestRobot = null;

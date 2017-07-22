@@ -227,6 +227,8 @@ var Hud = cc.Layer.extend({
       dd.dismiss();
     }, {options:{invertedArea:true}});
     this.addChild(this.dd);
+    this.ddLife = new PropertySelector(this.dd, 'life');
+    this.dd.pushBackCustomItem(this.ddLife);
     this.ddElement = new PropertySelector(this.dd, 'element');
     this.dd.pushBackCustomItem(this.ddElement);
     this.ddRange = new PropertySelector(this.dd, 'range');
@@ -257,6 +259,7 @@ var Hud = cc.Layer.extend({
     return true;
   },
   ddRefresh: function() {
+    this.ddLife.refresh();
     this.ddElement.refresh();
     this.ddRange.refresh();
     this.ddTerrain.refresh();

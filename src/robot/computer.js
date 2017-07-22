@@ -137,38 +137,10 @@ var Computer = cc.Sprite.extend({
   isInState: function(state) {
     return this.getState(state).active;
   },
-  getTarget: function() {//TODO otra vez se repite en defensa
-    // This function returns the defense to which this robot has to attack
-    //Looks for defense in robot range
-    var inRange = this.level.defenses.filter(function(defense) {
-      return this.getDistanceTo(defense) <= this.sRange;
-    }, this);
-    //if no defense in range return null
-    if (inRange.length === 0) {
-      this.target = null;
-      this.setState('walk');
-      return null;
-    }
-    //If there are defenses in range proceed to detect which of them is closest
-    var closestDistance = 0;
-    var closestDefense = null;
-    inRange.forEach(function(defense) {
-      var distance = this.getDistanceTo(defense);
-      if (closestDistance === 0 || distance < closestDistance) {
-        closestDistance = distance;
-        closestDefense = defense;
-      }
-    }, this);
-    this.target = closestDefense;
-    return this.target;
-  },
-
   // General section
   factoryReset: function(soft) {
     this.assembleParts();
-    if (!soft) {
-      this.refreshStats();
-    }
+    this.refreshStats();
     this.removeAllStates();
     this.setState(this.states[0]);
     this.createHealthBar();
@@ -179,6 +151,9 @@ var Computer = cc.Sprite.extend({
   },
   toStringP: function() { // Plural to string: if Computer -> computers,  used for getting parts sprites in Part
     return this.toString().toLowerCase() + "s";
+  },
+  getTarget: function() {
+    // Override this method, see examples in class Robot or Defense
   },
   createHealthBar: function() { //TODO crear una buena health bar que sea independiente del tamaño del sprie
     //Creates two rectangles for representing the healtbar

@@ -38,6 +38,32 @@ var Robot = Computer.extend({
   toString: function() {
     return "Robot";
   },
+  getTarget: function() {
+    // This function returns the defense to which this robot has to attack
+
+    //Looks for defense in robot range
+    var inRange = this.level.defenses.filter(function(defense) {
+      return this.getDistanceTo(defense) <= this.sRange;
+    }, this);
+    //if no defense in range return null
+    if (inRange.length === 0) {
+      this.target = null;
+      if (this.isInState('attack')) this.setState('walk');
+      return null;
+    }
+    //If there are defenses in range proceed to detect which of them is closest
+    var closestDistance = 0;
+    var closestDefense = null;
+    inRange.forEach(function(defense) {
+      var distance = this.getDistanceTo(defense);
+      if (closestDistance === 0 || distance < closestDistance) {
+        closestDistance = distance;
+        closestDefense = defense;
+      }
+    }, this);
+    this.target = closestDefense;
+    return this.target;
+  },
   debug: function() {
     // Creates a debugger for verbose information directly on the canvas
     this.debugger = new Debugger(this);

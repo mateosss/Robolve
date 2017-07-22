@@ -216,8 +216,9 @@ Mi 31
     - 00:30 - 01:20 | Mejoras en codigo viejo, y mas responsividad en debug de defensas
 - 2017-07-21 Vi
     - 23:15 - 00:15 | Los robots ahora atacan a las defensas y la healthbar de las mismas no se resetea al cambiarle un stat
+    - 00:15 - 01:30 | Ahora getTarget es obligado que sea overrided de Computer
 
-    FUNCION DE TARGET MERGEAR
+    QUE NO SE REINICIE LA VIDA DE LAS TORRETAS AL CAMBIAR UN STAT
     EMPEZAR A HACER PLACEHOLDERS DE PARTES DE DEFENSA
 
 # Restantes
