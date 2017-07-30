@@ -8,11 +8,12 @@ This folder contains automated blend files and other assets that helps with the 
 
 General Rules:
 
-    - Distance of multiples of 8
-    - Put an asterisk in a object name if it is a meta object, like a lamp or 
-      an empty, that way it will be always imported and will appears first in the outliner
-    - Also if it has an asterisk in the name, then you should not delete it because it is important
-    - May or may not cause problems: When executing a script make sure that you let the blender windows focused
+  - Distance of multiples of 8
+  - Put an asterisk in a object name if it is a meta object, like a lamp or 
+    an empty, that way it will be always i
+mported and will appears first in the outliner
+  - Also if it has an asterisk in the name, then you should not delete it because it is important
+  - May or may not cause problems: When executing a script make sure that you let the blender windows focused
 
 ### Robots.blend
 
@@ -20,9 +21,14 @@ General Rules:
     for darkenning or lightening the color scale two steps, (e.g. yellow 500 lighten-1 would be yellow 300). Use the 
     complementaries on the color wheel in the same way for details, and the black/white/greys for more details
 
-  - The names of the parts are (ignoring the pipe) PartNameInCamelCase|PartNumber\_SpriteName, e.g. `Heads1_fireStrong`,
-  where Heads1 is an identifier saying it is a Head, an is the number 1 head, and fireStrong, is the name that
-  will be used in game to call the sprite animations
+  - The names of the parts are [PartNameInCamelCase][PartNumber]_[SpriteName], e.g. `Head1_fireStrong`,
+    where Head1 is an identifier saying it is a Head, an is the number 1 head, and fireStrong, is the name that
+    will be used in game to call the sprite animations
+
+### Defense.blend
+
+  - *DefenseFloor is the reference to which you should adjust when making the defense bases, be sure to not surpass it
+    or better yet, make sure to put a boolean modifier and apply it when you finish the model.
 
 ### Animations.blend
 
@@ -39,6 +45,4 @@ General Rules:
  - Run the animate.py script for export everything
  - You can modify the `PARTS_LIST`, `ANIMATIONS_LIST` and `FRAMES_LIST` variables
    at the beginning of the animate.py script, read those lines for more info
-
-### Defense.blend
 

@@ -31,7 +31,7 @@ var rb = {
 
   animations: {
     robot: { attack: 6, walk: 8, still: 1 },
-    defense: { idle: 1, attack: 4 }
+    defense: { idle: 12, attack: 12 , still: 1}
   },
 
   palette: {
@@ -40,26 +40,18 @@ var rb = {
     water: cc.color(1, 179, 255, 255)
   },
   states: {
-    die: {
-      name: 'die',
-      postStart: function() {
-        var hud = this.level.hud;
-        var burn = new cc.TintTo(0.2, 0, 0, 0);
-        var disappear = new cc.FadeOut(0.2);
-        var message = new cc.CallFunc(function(){ hud.it.message("Turret destroyed"); });
-        var destroy = new cc.CallFunc(function(){ this.destroy(); }, this);
-        var actArray = [burn, disappear, message, destroy];
-        this.runAction(new cc.Sequence(actArray));
-      }
-    },
     defense: {
+      still: {
+        name: 'still',
+        animation: function() { this.setAnimation('still'); }
+      },
       idle: {
         name: 'idle',
-        postStart: function() { this.setAnimation('idle'); }
+        postStart: function() { this.setAnimation('idle', 1 / (8 * this.sAttackSpeed)); }
       },
       attack: {
         name: 'attack',
-        animation: function() { this.setAnimation('attack', 1 / (this.sAttackSpeed * 6)); },
+        animation: function() { this.setAnimation('attack', 1 / (this.sAttackSpeed * 12)); },
         everyFrame: function(delta, state) {
           if (this.counter < 1 / this.sAttackSpeed) this.counter += delta;
           else {
@@ -67,7 +59,19 @@ var rb = {
             this.fire(state.local.target);
           }
         }
-      }
+      },
+      die: {
+        name: 'die',
+        postStart: function() {
+          var hud = this.level.hud;
+          var burn = new cc.TintTo(0.2, 0, 0, 0);
+          var disappear = new cc.FadeOut(0.2);
+          var message = new cc.CallFunc(function(){ hud.it.message("Turret destroyed"); });
+          var destroy = new cc.CallFunc(function(){ this.destroy(); }, this);
+          var actArray = [burn, disappear, message, destroy];
+          this.runAction(new cc.Sequence(actArray));
+        }
+      },
     },
     robot: {
       still: {
@@ -92,6 +96,17 @@ var rb = {
             this.counter = 0.0;
             this.fire(state.local.base);
           }
+        }
+      },
+      die: {
+        name: 'die',
+        postStart: function() {
+          var hud = this.level.hud;
+          var burn = new cc.TintTo(0.2, 0, 0, 0);
+          var disappear = new cc.FadeOut(0.2);
+          var destroy = new cc.CallFunc(function(){ this.destroy(); }, this);
+          var actArray = [burn, disappear, destroy];
+          this.runAction(new cc.Sequence(actArray));
         }
       },
     }

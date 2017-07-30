@@ -28,8 +28,10 @@ var r = { // resources variable
       "plus",
     ],
   },
-  parts_png: "res/sprites/parts.png",
-  parts_plist: "res/sprites/parts.plist",
+  parts_png_0: "res/sprites/parts_0.png",
+  parts_plist_0: "res/sprites/parts_0.plist",
+  parts_png_1: "res/sprites/parts_1.png",
+  parts_plist_1: "res/sprites/parts_1.plist",
 };
 
 var g_resources = [];

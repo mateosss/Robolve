@@ -41,7 +41,10 @@ var Menu = cc.LayerGradient.extend({
 
     // Comment for omitting level screen
     var startGame = function(btn, i) {
-      cc.spriteFrameCache.addSpriteFrames(r.parts_plist);
+      
+      cc.spriteFrameCache.addSpriteFrames(r.parts_plist_0);
+      cc.spriteFrameCache.addSpriteFrames(r.parts_plist_1);
+
       var firstTime = !text;
       cc.director.runScene(new cc.TransitionFade(1, new GameLevel(r.maps['map' + (i + 1)], firstTime)));
     };

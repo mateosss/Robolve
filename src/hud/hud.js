@@ -87,6 +87,7 @@ var Hud = cc.Layer.extend({
         btn.getParent().dsBtnCancel.exec();
         level.map.addChild(newDefense);
         newDefense.setTouchEvent();
+        newDefense.factoryReset(); // This makes possible to the idle animation to execute the idle animation
         newDefense.scheduleUpdate();
 
         level.base.money -= 300; //TODO 300 hardcoded

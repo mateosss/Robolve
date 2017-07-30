@@ -224,17 +224,22 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
     - 23:15 - 00:15 | Los robots ahora atacan a las defensas y la healthbar de las mismas no se resetea al cambiarle un stat
     - 00:15 - 01:30 | Ahora getTarget es obligado que sea overrided de Computer
     - 01:30 - 02:30 | El problema de la healthbar de los robots era mas complicaod de lo que parecia pero se resolvió elegantemente con changeStat
+- 2017-07-22 Sa
+    - 22:00 - 23:45 | Viendo como hacer las defensas modulares, al final me parece que tengo que repensar el tema con tiempo
+- 2017-07-24 Lu
+    - 21:30 - 22:00 | La buena indecisión, etapa de "como carajo voy a hacer este juego divertido", probando otros tower defenses
+- 2017-07-25 Ma
+    - 21:40 - 24:00 | Probando y buscando mas información sobre tower defenses, cosas en blender, pero nada muy serio, el estado parece estar pasando
+- 2017-07-27 Ju
+    - 11:30 - 13:45 | Haciendo las nuevas partes de las defensas
+    - 15:00 - 16:30 | Terminadas 9 heads y 9 middles, falta 9 bases y 6 legs
+- 2017-07-29 Sa
+    - 11:50 - 13:00 | Terminadas el resto de las partes, a animar
+    - 15:20 - 19:45 | Terminado el setup de DefenseAnimations y renderizando
+- 2017-07-30 Do
+    - 10:20 - 
 
 # Restantes
-- 2017-07-22 Sa
-- 2017-07-23 Do
-- 2017-07-24 Lu
-- 2017-07-25 Ma
-- 2017-07-26 Mi
-- 2017-07-27 Ju
-- 2017-07-28 Vi
-- 2017-07-29 Sa
-- 2017-07-30 Do
 - 2017-07-31 Lu
 - 2017-08-01 Ma
 - 2017-08-02 Mi

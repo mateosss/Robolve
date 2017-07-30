@@ -16,12 +16,15 @@ var Defense = Computer.extend({
     ['attackSpeed', {0: 0.5, 1: 1.0, 2: 2.0}],
   ]),
   PARTS: { // Necessary info for the parts to make a defense
-    base: {plural: "bases", z: 0, partName: defense => defense.element},
+    head: {plural: "heads", z: 2, partName: defense => defense.element + ["Weak", "Normal", "Strong"][defense.damage]},
+    middle: {plural: "middles", z: 1, partName: defense => defense.element + ["Weak", "Normal", "Strong"][defense.life]},
+    base: {plural: "bases", z: 0, partName: defense => defense.element + ["Walk", "Fly"][defense.terrain]}
   },
   STATES: [ // Possible states for this defense
     rb.states.defense.idle,
+    rb.states.defense.still,
     rb.states.defense.attack,
-    rb.states.die
+    rb.states.defense.die
   ],
   ctor:function(level, life, element, range, terrain, damage, attackSpeed) {
     if (arguments.length === 0) return;
@@ -79,7 +82,7 @@ var Defense = Computer.extend({
     this.debugger = new Debugger(this);
     this.debugger.methods = [ // Modify debug information on canvas
       // { method: this.debugger.debugAnchor },
-      { method: this.debugger.debugRange },
+      // { method: this.debugger.debugRange },
     ];
     this.debugger.debug();
   },
