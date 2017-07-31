@@ -167,7 +167,6 @@ var Hud = cc.Layer.extend({
       var btn = buttons[i].button;
       var img = buttons[i].image;
       var type = buttons[i].type;
-      btn.pressedActionEnabled = true;
       btn.setTouchEnabled(true);
       btn.addChild(img);
       img.setPosition(btn.width / 2, btn.height / 2);
@@ -242,7 +241,6 @@ var Hud = cc.Layer.extend({
     this.dd.pushBackCustomItem(this.ddAttackSpeed);
     this.ddDestroy = new ccui.Button(r.ui.cancelBtnM, r.ui.cancelBtnDM);
     this.ddDestroy.setTouchEnabled(true);
-    this.ddDestroy.pressedActionEnabled = true;
     this.dd.pushBackCustomItem(this.ddDestroy);
     easyTouchButton(this.ddDestroy, function(btn){
       var hud = btn.getParent().getParent().getParent();

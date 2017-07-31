@@ -13,10 +13,10 @@ var PropertySelector = ccui.Layout.extend({
     this.setContentSize(64, parent.height);
 
     var background = new ccui.Layout();
-    background.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-    background.setBackGroundColor(new cc.color(0, 0, 0));
-    background.setBackGroundColorOpacity(200);
-    background.setContentSize(this.width * 0.75 - 4, this.getContentSize().height - 32); //TODO 32 hardcoded
+    // background.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+    // background.setBackGroundColor(new cc.color(0, 0, 0));
+    // background.setBackGroundColorOpacity(200);
+    background.setContentSize(this.width * 0.75 - 4, this.height - 32); //TODO hardcode
     background.setPosition(this.width / 2 - background.width / 2, 8);
     this.addChild(background);
 
@@ -28,17 +28,16 @@ var PropertySelector = ccui.Layout.extend({
 
     this.pValueLabel = new ccui.Text("--", "Arial", background.width / 2);
     this.pValueLabel.setAnchorPoint(0, 0);
-    this.pValueLabel.setPosition(4, background.height / 2 - this.pValueLabel.height / 2); // TODO 4 hardcodeado
+    this.pValueLabel.setPosition(4, background.height / 2 - this.pValueLabel.height / 2); // TODO hardcode
     background.addChild(this.pValueLabel, 99);
 
     var downBtn = new ccui.Button(r.ui.minusBtnS, r.ui.minusBtnDS);
     downBtn.setAnchorPoint(0, 0);
     downBtn.setPosition(this.width / 2 - downBtn.width / 2, 8);
-    downBtn.pressedActionEnabled = true;
     downBtn.setTouchEnabled(true);
     downBtn.setContentSize(cc.size(this.width, this.width));
     easyTouchButton(downBtn, function(downBtn){
-      var d = upBtn.getParent().getParent().getParent().getParent().ddDefense; //Defense
+      var d = upBtn.getParent().getParent().getParent().getParent().ddDefense; //Defense // TODO asco
       var p = upBtn.getParent().property;  //Property name
       var pProp = d.getPossibleStats(p);
       var prop = d[p];
@@ -69,7 +68,6 @@ var PropertySelector = ccui.Layout.extend({
     var upBtn = new ccui.Button(r.ui.plusBtnS, r.ui.plusBtnDS);
     upBtn.setAnchorPoint(0, 0);
     upBtn.setPosition(this.width / 2 - upBtn.width / 2, this.getContentSize().height - upBtn.getSize().height - 24);//TODO 24 hardcode
-    upBtn.pressedActionEnabled = true;
     upBtn.setTouchEnabled(true);
     upBtn.setContentSize(cc.size(this.width, this.width));
     easyTouchButton(upBtn, function(upBtn){

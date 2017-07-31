@@ -237,7 +237,8 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
     - 11:50 - 13:00 | Terminadas el resto de las partes, a animar
     - 15:20 - 19:45 | Terminado el setup de DefenseAnimations y renderizando
 - 2017-07-30 Do
-    - 10:20 - 
+    - 10:20 - 11:50 | Animaciones de Defensas listas!
+    - 21:15 - 01:05 | Nuevo archivo de UI y nuevos botones
 
 # Restantes
 - 2017-07-31 Lu

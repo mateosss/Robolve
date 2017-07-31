@@ -33,7 +33,8 @@ var Menu = cc.LayerGradient.extend({
     this.ls.setTouchEnabled(true);
     this.ls.setBounceEnabled(true);
     this.ls.setContentSize(lsSize);
-    this.ls.setPosition((this.ls.width - 3 * 96) / 2, size.height / 2 - this.ls.height); // TODO TOO MUCH HARDCODE
+    this.ls.setPosition((this.ls.width - (_.size(r.maps) - 1) * 96) / 2, size.height / 2 - this.ls.height); // TODO TOO MUCH HARDCODE
+    this.ls.setItemsMargin(8);
     if (cc.sys.os) { // In JS this line throws an error so we look if we are running natively
       // this.ls.setScrollBarEnabled(false); //TODO throws error in chrome
     }
@@ -41,7 +42,7 @@ var Menu = cc.LayerGradient.extend({
 
     // Comment for omitting level screen
     var startGame = function(btn, i) {
-      
+
       cc.spriteFrameCache.addSpriteFrames(r.parts_plist_0);
       cc.spriteFrameCache.addSpriteFrames(r.parts_plist_1);
 
@@ -51,7 +52,6 @@ var Menu = cc.LayerGradient.extend({
     for (var i = 0; i < _.size(r.maps) - 1; i++) {
       var btn = new ccui.Button(r.ui.greenBtnM, r.ui.greenBtnDM);
       btn.titleText = "Level " + (i + 1);
-      btn.pressedActionEnabled = true;
       btn.setTouchEnabled(true);
       easyTouchButton(btn, startGame, i);
       this.ls.addChild(btn);
