@@ -104,7 +104,7 @@ var Defense = Computer.extend({
       return {result: true, cause: "Placed - $300"}; // TODO estos mensajes no estan muy bien aca
     }
   },
-  counter: 0.0,
+  counter: 0.0, // TODO counter is being used in the attack state but it is not clear if it is here
   update: function(delta) {
     var target = this.getTarget();
     this.debugger.debugLine(this, {stop: true});

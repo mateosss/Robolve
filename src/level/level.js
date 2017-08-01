@@ -46,7 +46,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.prepareNextWave();
 
     // Set base
-    var base = new Base(this, 500000);
+    var base = new Base(this);
     this.setBase(base);
 
     // Add Robot

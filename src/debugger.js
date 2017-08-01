@@ -44,7 +44,7 @@ var Debugger = cc.Class.extend({
     else {
       var pos = object.getAnchorPointInPoints();
       if (!options.target) return;
-      var target = object.convertToNodeSpace(rb.dev.getLevel().map.convertToWorldSpace(options.target));
+      var target = object.convertToNodeSpace(object.level.map.convertToWorldSpace(options.target));
       var color = options.color || cc.color(255, 255, 255, 255);
       var width = options.width || 2;
       var line = new cc.DrawNode();

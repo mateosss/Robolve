@@ -1,14 +1,14 @@
 var Base = cc.Sprite.extend({
   level: null, // Level where this object is placed
-  money: 200000, // Player money
+  money: 4000, // Player money
+  sLife: 2000, // Initial life
   cLife: null, // Current life
-  sLife: null, // Initial life
   cTilePos: null, // Current Tile Position
   killed: false, // Sets wheter the base is already killed
-  ctor: function(level, life){
+  ctor: function(level){
     this._super(r.base);
     this.level = level;
-    this.sLife = this.cLife = life;
+    this.cLife = this.sLife;
     this.setAnchorPoint(0.5, 0.1);
     this.createHealthBar();
     this.debug();

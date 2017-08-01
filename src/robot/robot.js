@@ -41,9 +41,9 @@ var Robot = Computer.extend({
   getTarget: function() {
     // This function returns the defense to which this robot has to attack
 
-    //Looks for defense in robot range
-    var inRange = this.level.defenses.filter(function(defense) {
-      return this.getDistanceTo(defense) <= this.sRange;
+    //Looks for defenses or the base in robot range
+    var inRange = this.level.defenses.concat(this.level.base).filter(function(target) {
+      return this.getDistanceTo(target) <= this.sRange;
     }, this);
     //if no defense in range return null
     if (inRange.length === 0) {
@@ -53,15 +53,15 @@ var Robot = Computer.extend({
     }
     //If there are defenses in range proceed to detect which of them is closest
     var closestDistance = 0;
-    var closestDefense = null;
-    inRange.forEach(function(defense) {
-      var distance = this.getDistanceTo(defense);
+    var closestTarget = null;
+    inRange.forEach(function(target) {
+      var distance = this.getDistanceTo(target);
       if (closestDistance === 0 || distance < closestDistance) {
         closestDistance = distance;
-        closestDefense = defense;
+        closestTarget = target;
       }
     }, this);
-    this.target = closestDefense;
+    this.target = closestTarget;
     return this.target;
   },
   debug: function() {
@@ -81,14 +81,14 @@ var Robot = Computer.extend({
     this.debugger.debug();
   },
   destroy: function() {
-    this._super();
     this.level.prevWaveRobots.push([this.getDNA(), this.getScore()]);
     this.level.base.money += 30;
     this.level.hud.ig.refresh();
+    this._super();
   },
-  counter: 0.0,
+  counter: 0.0, // TODO counter is being used in the attack state but it is not clear if it is here
   update: function(delta) {
-    var base = this.getTarget();
-    if (base && this.isInState('walk')) this.setState('attack', {base: base});
+    var target = this.getTarget();
+    if (target && this.isInState('walk')) this.setState('attack', {target: target});
   },
 });

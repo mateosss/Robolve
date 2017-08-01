@@ -241,6 +241,7 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
     - 21:15 - 01:05 | Nuevo archivo de UI y nuevos botones
 - 2017-07-31 Lu
     - 22:00 - 22:25 | Que compile para android
+    - 22:25 - 01:30 | Ahora los robots atacan a la base como antes, solucionando un bug que salio de esto
 
 # Restantes
 - 2017-08-01 Ma
