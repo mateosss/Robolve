@@ -2,7 +2,7 @@
 var rb = {
 
   dev: { // Helper functions for use when debuggin on the browser
-    getLevel: () => cc.director.getRunningScene().children[0],
+    getLevel: () => cc.director.getRunningScene().children.find(c => c.toString() === "Level"),
     getRobots: () => rb.dev.getLevel().robots,
     getDefenses: () => rb.dev.getLevel().defenses,
     getRobot: () => rb.dev.getRobots()[0],

@@ -257,6 +257,9 @@ var Hud = cc.Layer.extend({
 
     return true;
   },
+  toString: function() {
+    return "Hud";
+  },
   ddRefresh: function() {
     this.ddLife.refresh();
     this.ddElement.refresh();

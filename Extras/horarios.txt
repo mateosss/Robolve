@@ -239,9 +239,10 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
 - 2017-07-30 Do
     - 10:20 - 11:50 | Animaciones de Defensas listas!
     - 21:15 - 01:05 | Nuevo archivo de UI y nuevos botones
+- 2017-07-31 Lu
+    - 22:00 - 22:25 | Que compile para android
 
 # Restantes
-- 2017-07-31 Lu
 - 2017-08-01 Ma
 - 2017-08-02 Mi
 - 2017-08-03 Ju
