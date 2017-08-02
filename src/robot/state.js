@@ -6,7 +6,7 @@
 // If more customization needed you can use the postStart, everyFrame and beforeEnd
 // functions, be sure to let everything as you wish before ending the node
 
-// Possible TODO, do it only if needed
+// TODO IF NEEDED
 // options.delay, delay before starting the state
 // options.schedule list, use parent.schedule to execute something with lots of options
 //    use http://www.cocos2d-x.org/docs/api-ref/js/v3x/symbols/cc.Node.html#schedule with the exact same parameters

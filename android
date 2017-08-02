@@ -1,14 +1,27 @@
-#adb tcpip 5555 &
+DEVICE_IP="192.168.0.98"
+PACKAGE_NAME="com.sadjockerking.robolve"
+
 sh Extras/copyfiles.sh
 cd $HOME/Escritorio/Robolve/
-adb connect 192.168.0.98
-cocos run -p android
-RETVAL=$?
-[ $RETVAL -eq 0 ] && echo Success
-[ $RETVAL -ne 0 ] && echo Failure && exit
-adb logcat | grep "cocos"
 
-# adb install -rs SimpleGame-debug.apk
-# adb shell monkey -p org.cocos2dx.SimpleGame -c android.intent.category.LAUNCHER 1
-##$$$###./adb-run.sh SimpleGame-debug.apk
-#cd ../..
+# Chech if there are devices connected, if not connect to the default ip, if not exit
+adb devices | grep "device$" ||
+adb connect $DEVICE_IP | grep "connected" ||
+{ echo "There is no device to run the app"; exit; }
+
+# Turn on screen for feedback purposes
+adb shell dumpsys power | grep 'mHoldingDisplaySuspendBlocker=false' &&
+adb shell input keyevent 26 &&
+adb shell input keyevent 82
+
+# Compile and run project
+cocos run -p android && echo "Success"
+[ $? -ne 0 ] && echo "Failure" && exit
+
+# Try to turn it on again just in case
+adb shell dumpsys power | grep 'mHoldingDisplaySuspendBlocker=false' &&
+adb shell input keyevent 26 &&
+adb shell input keyevent 82
+
+# Use pidcat (an improved logcat) for showing debug messages from this project
+pidcat $PACKAGE_NAME

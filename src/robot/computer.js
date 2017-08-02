@@ -7,7 +7,8 @@
 
 // TODO IF NEEDED - The concept of states is very powerfull, we need one more level of abstraction
 // from it, It can be used for gui elements, tutorials, etc. So making a class called
-// something like StateNode would be really useful
+// something like StateNode would be really useful, so that we could create sprites,
+// buttons, and so on with states already working on them without special initialization
 
 var Computer = cc.Sprite.extend({
   level: null, // Level where this object is placed

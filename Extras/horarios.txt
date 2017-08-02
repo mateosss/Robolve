@@ -242,9 +242,14 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
 - 2017-07-31 Lu
     - 22:00 - 22:25 | Que compile para android
     - 22:25 - 01:30 | Ahora los robots atacan a la base como antes, solucionando un bug que salio de esto
+- 2017-08-01 Ma
+    - 21:30 - 23:10 | Seteando un buen ambiente de debugging para solucionar esos bugs: archivo ./android muy mejorado
+
+    SOLUCIONAR BUGS EN SEGUNDA PARTIDA
+    SOLUCIONAR BUG DE LOS ROBOTS QUE SE VAN
+    SLIDER O BOTON CON SPEED EN TIEMPO REAL
 
 # Restantes
-- 2017-08-01 Ma
 - 2017-08-02 Mi
 - 2017-08-03 Ju
 - 2017-08-04 Vi
@@ -264,19 +269,15 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
   la partida y que va a poder visualizar en el hud? Modos de juegos? tienda de items?
   - Rehacer sistema de menus y hud con componentes modulares
   - Buscar mejor forma de hacer el tema del zoom
-  - Mejoras, más personalización visual de las torretas, que se note la
-    evolución de las torretas con partes, quizás algo simil al
-    funcionamiento de los robots
   - Particulas! Spawn, golpes
-  - Defensas con animaciones
   - Tipografias
   - Importar nodos de compositing desde robot.blend a animaciones.blend
   - En animate.py agregar una opcion para renderizar un cuerpo completo para ir viendo como queda el compositing
   - Integrar mejor animate.py con Defense.blend, ademas, poder hacer objetos auxiliares que no sean importados en la escena
     de animate.py (como los cables de Defense.blend, o las versiones viejas de las defensas), y que se exporte a robots y defense programaticamente
+  - Boton o slider para speed
 
 # IDEA
-  - Que las defensas sean robots quietos internamente con diferentes sprites
   - Poder armar robot bueno que camine hacia los malos
   - Robot gigante cada tanto con el dna promedio de la wave
   - Ir Mostrando el dna promedio de la wave
@@ -284,7 +285,7 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
   - Que el usuario tenga habilidades
 
 # BUG
-  - La segunda vez que juego despues de perder/ganar anda raro, algunos robots se escapan
+  - La segunda vez que juego despues de perder/ganar anda raro, algunos robots se escapan y hay error al perder
   - GA - Problemas conocidos:
     - No estoy teniendo en cuenta el orden en el que salen los robots que afectaria
       mucho el score de cada uno
@@ -292,8 +293,6 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
       que habian ganado de las generaciones anteriores se va a perder casi por completo,
       la ultima 10, va a ser como empezar la partida de vuelta, esto hace que todos los mapas
       si o si tengan que tener un numero similar o mayor en waves sucesivas
-        en resumen: Si tengo una wave de 1 solo robot va a haber errores en prepareNextWave por que
-        no hay dos padres para crossover 7
 
 # PRODUCTION TODO
   - Sprite con polygon mesh al exportar a android, ahora esta con maxrect para que funcione en navegador
