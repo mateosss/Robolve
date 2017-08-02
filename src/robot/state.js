@@ -50,7 +50,7 @@ var State = cc.Node.extend({
     this.lifespan = options.lifespan;
   },
   destroy: function() { // called when the computer dies for freeing memory
-    this.owner.removeChild(this);
+    this.removeFromParent();
     this.release();
   },
   start: function() {

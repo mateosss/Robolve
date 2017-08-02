@@ -245,7 +245,6 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
 - 2017-08-01 Ma
     - 21:30 - 23:10 | Seteando un buen ambiente de debugging para solucionar esos bugs: archivo ./android muy mejorado
 
-    SOLUCIONAR BUGS EN SEGUNDA PARTIDA
     SOLUCIONAR BUG DE LOS ROBOTS QUE SE VAN
     SLIDER O BOTON CON SPEED EN TIEMPO REAL
 
@@ -285,7 +284,7 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
   - Que el usuario tenga habilidades
 
 # BUG
-  - La segunda vez que juego despues de perder/ganar anda raro, algunos robots se escapan y hay error al perder
+  - Level 5 hay bug en android por el tema de tener un solo sujeto para el crossover
   - GA - Problemas conocidos:
     - No estoy teniendo en cuenta el orden en el que salen los robots que afectaria
       mucho el score de cada uno

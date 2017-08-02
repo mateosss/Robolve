@@ -38,17 +38,24 @@ var _ = {
   },
   capitalize: string => string[0].toUpperCase() + string.slice(1),
   concat: function() { // adds objects to the first object argument and returns it
-    for (var i = 1; i < arguments.length; i++)
-      for (var a in arguments[i])
+    for (var i = 1; i < arguments.length; i++) {
+      for (var a in arguments[i]) {
         arguments[0][a] = arguments[i][a];
+      }
+    }
     return arguments[0];
   },
   test: (func, self, iterations, ...params) => {
     iTime = new Date().getTime();
-      for (var i = 0; i < iterations; i++) {
-        func.apply(self, params);
-      }
-      eTime = new Date().getTime() - iTime;
-      return eTime;
+    for (var i = 0; i < iterations; i++) {
+      func.apply(self, params);
     }
+    eTime = new Date().getTime() - iTime;
+    return eTime;
+  },
+  revEach: function(array, func, context) { // Reverse forEach from last to first element in array
+    for (var i = array.length - 1; i >= 0; i--) {
+      func.call(context, array[i], i, array);
+    }
+  }
 };

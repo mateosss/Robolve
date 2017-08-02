@@ -56,7 +56,7 @@ var rb = {
           if (this.counter < 1 / this.sAttackSpeed) this.counter += delta;
           else {
             this.counter = 0.0;
-            this.fire(state.local.target);
+            this.attack(state.local.target);
           }
         }
       },
@@ -94,7 +94,7 @@ var rb = {
           if (this.counter < 1 / this.sAttackSpeed) this.counter += delta;
           else {
             this.counter = 0.0;
-            this.fire(state.local.target);
+            this.attack(state.local.target);
           }
         }
       },

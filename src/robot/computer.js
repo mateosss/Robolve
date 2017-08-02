@@ -200,7 +200,7 @@ var Computer = cc.Sprite.extend({
     var hpbar = this.getChildByName("hpbar");
     hpbar.setScaleX(this.sLife / this.getDefaultStat('life'));
   },
-  fire: function(target) {
+  attack: function(target) {
     // This funcitons is executed when the robot attacks something
     if (target) this.infligedDamage += target.hurt(this);
   },

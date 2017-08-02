@@ -334,15 +334,9 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     return mutatedGen;
   },
   endGame: function() {
-    for (var i = 0; i < this.defenses.length; i++) {
-      this.defenses[i].destroy();
-    }
-    for (i = 0; i < this.robots.length; i++) {
-      this.robots[i].destroy();
-    }
-    for (i = 0; i < this.waveQuery.length; i++) {
-      this.waveQuery[i].release();
-    }
+    _.revEach(this.defenses, d => d.destroy());
+    _.revEach(this.robots, r => r.destroy());
+    _.revEach(this.waveQuery, q => q.release());
     this.waveQuery = [];
     this.removeAllChildren();
   },
