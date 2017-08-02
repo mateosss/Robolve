@@ -244,6 +244,7 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
     - 22:25 - 01:30 | Ahora los robots atacan a la base como antes, solucionando un bug que salio de esto
 - 2017-08-01 Ma
     - 21:30 - 23:10 | Seteando un buen ambiente de debugging para solucionar esos bugs: archivo ./android muy mejorado
+    - 23:10 - 01:40 | Arreglado el bug que esta desde el año pasado que no permitía volver a jugar
 
     SOLUCIONAR BUG DE LOS ROBOTS QUE SE VAN
     SLIDER O BOTON CON SPEED EN TIEMPO REAL

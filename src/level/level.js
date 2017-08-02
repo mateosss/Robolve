@@ -2,7 +2,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   hud: null,
   map: null,
   base: null,
-  SPEED: 1, // Keep speed on 1 for normal speed, increase for accelerate
+  SPEED: 10, // Keep speed on 1 for normal speed, increase for accelerate
   crossoverRate: 0.7, //the influence of the strongest parent to let its genes
   mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox. TODO, make the 8 not hardcoded
 
@@ -23,23 +23,23 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.map = new TiledMap(this, mapRes);
     this.addChild(this.map, 1);
 
-    // <Set level speed
+    // TODO improve the setting level system, with support for realtime speed changes
+    // Set initial level speed
     this.SPAWN_TIME = this.SPAWN_TIME / this.SPEED;
     for (var i = 0; i < this.wavesIntervals.length; i++) {
       this.wavesIntervals[i] = this.wavesIntervals[i] / this.SPEED;
     }
-    if (firstTime) { //
+    if (firstTime) {
       rob = _.props(Robot).STATS;
       for (i in rob.get('speed')) {
         rob.get('speed')[i] *= this.SPEED;
         rob.get('attackSpeed')[i] *= this.SPEED;
       }
-      def = _.props(Defense);
-      for (i in def.pAttackSpeed) {
-        def.pAttackSpeed[i] = def.pAttackSpeed[i] * this.SPEED;
+      def = _.props(Defense).STATS;
+      for (i in def.get('attackSpeed')) {
+        def.get('attackSpeed')[i] *= this.SPEED;
       }
     }
-    // Set level speed>
     //Prepare wave info
     this.wavesCounts =  this.map.getProperties().wavesCounts.split(",").map(Number);
     this.wavesIntervals = this.map.getProperties().wavesIntervals.split(",").map(Number);
