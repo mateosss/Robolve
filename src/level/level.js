@@ -2,7 +2,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   hud: null,
   map: null,
   base: null,
-  SPEED: 10, // Keep speed on 1 for normal speed, increase for accelerate
+  speed: 1, // Keep speed on 1 for normal speed, modify it with setSpeed for accelerate
   crossoverRate: 0.7, //the influence of the strongest parent to let its genes
   mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox. TODO, make the 8 not hardcoded
 
@@ -15,7 +15,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   wavesIntervals: [], // Defined by the map, amount of time between waves
   waveQuery: [], // Robots in this array, has to spawn in this wave
   waveDelay: null, // Delay before a new wave is spawned
-  SPAWN_TIME: 0.8, // Seconds between spawns
+  spawn_time: 0.8, // Seconds between spawns
   lastWave: false, // True if the game is on the last wave
   cWave: null, // Current wave position
   ctor:function (mapRes, firstTime) {
@@ -23,23 +23,8 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.map = new TiledMap(this, mapRes);
     this.addChild(this.map, 1);
 
-    // TODO improve the setting level system, with support for realtime speed changes
-    // Set initial level speed
-    this.SPAWN_TIME = this.SPAWN_TIME / this.SPEED;
-    for (var i = 0; i < this.wavesIntervals.length; i++) {
-      this.wavesIntervals[i] = this.wavesIntervals[i] / this.SPEED;
-    }
-    if (firstTime) {
-      rob = _.props(Robot).STATS;
-      for (i in rob.get('speed')) {
-        rob.get('speed')[i] *= this.SPEED;
-        rob.get('attackSpeed')[i] *= this.SPEED;
-      }
-      def = _.props(Defense).STATS;
-      for (i in def.get('attackSpeed')) {
-        def.get('attackSpeed')[i] *= this.SPEED;
-      }
-    }
+    this.setSpeed(this.speed);
+
     //Prepare wave info
     this.wavesCounts =  this.map.getProperties().wavesCounts.split(",").map(Number);
     this.wavesIntervals = this.map.getProperties().wavesIntervals.split(",").map(Number);
@@ -167,6 +152,33 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   },
   toString: function() {
     return "Level";
+  },
+  setSpeed: function(speed) {
+    this.speed = speed;
+    this.refreshSpeed();
+  },
+  refreshSpeed: function() {
+    // TODO this won't work properly after startup because of states
+    // States save properties for later use, but don't have into account the level speed
+
+    // update time between robots
+    this.spawn_time = this.spawn_time / this.speed;
+    // update time between waves
+    for (var i = 0; i < this.wavesIntervals.length; i++) {
+      this.wavesIntervals[i] = this.wavesIntervals[i] / this.speed;
+    }
+    // update robot stats related to time
+    rob = _.props(Robot).STATS;
+    for (i in rob.get('speed')) {
+      rob.get('speed')[i] *= this.speed;
+      rob.get('attackSpeed')[i] *= this.speed;
+    }
+    def = _.props(Defense).STATS;
+    for (i in def.get('attackSpeed')) {
+      def.get('attackSpeed')[i] *= this.speed;
+    }
+    this.robots.forEach(r=>r.refreshStats());
+    this.defenses.forEach(d=>d.refreshStats());
   },
   getRandomRobot: function() {
     //Add Robot
@@ -352,8 +364,8 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   update: function(delta) {// TODO buscar todos los updates del juego y tratar de simplificarlos al maximo, fijarse de usar custom schedulers
     // Controls the delay between spawns
     if (this.counter >= this.waveDelay) {
-      if (this.waveDelay != this.SPAWN_TIME) {
-        this.waveDelay = this.SPAWN_TIME;
+      if (this.waveDelay != this.spawn_time) {
+        this.waveDelay = this.spawn_time;
       }
       this.counter = 0;
       if (this.waveQuery.length > 0) {

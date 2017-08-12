@@ -75,8 +75,9 @@ var State = cc.Node.extend({
     if (this.lifespan) this.timeToEnd = this.lifespan;
     // 7. mark that this is at least the first run
     this.first = false;
-    // 8. mark that this state is now active because it hasn't ended yet (just started)
+    // 8. mark that this state is now active and it hasn't ended yet (it just started)
     this.active = true;
+    this.ended = false;
   },
   end: function() {
     // -7. Check if beforeEnd was given, then call it
