@@ -77,6 +77,19 @@ var Defense = Computer.extend({
     this.target = closestRobot;
     return this.target;
   },
+  attack: function(target) {
+    this._super(target);
+    var self = this;
+
+    var bullet = new cc.DrawNode();
+    bullet.drawRect(cc.p(0,0), cc.p(64, 64), cc.color(255,255,0));
+    self.addChild(bullet);
+
+    var follow = new cc.Follow(target, cc.rect(0, 0, 128, 128));
+    var destroy = new cc.CallFunc(function(){ bullet.removeFromParent(); });
+    var sequence = [follow, destroy];
+    bullet.runAction(new cc.Sequence(sequence));
+  },
   debug: function(){
     // Creates a debugger for verbose information directly on the canvas
     this.debugger = new Debugger(this);

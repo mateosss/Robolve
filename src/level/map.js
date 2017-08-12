@@ -36,10 +36,10 @@ var TiledMap = cc.TMXTiledMap.extend({
     return "Map";
   },
   placeOnTile: function(sprite, tile) {
-    mapLayer = this.getLayer("Background");
+    var mapLayer = this.getLayer("Background");
     // var p = mapLayer.getPositionAt(tile);
     var p = this.getMidPointFromTile(tile);
-    tileSize = this.getTileSize();
+    var tileSize = this.getTileSize();
     p.y += tileSize.height / 2;
     this.spawn(sprite, p);
   },
@@ -61,7 +61,7 @@ var TiledMap = cc.TMXTiledMap.extend({
         );
         defense.retain();
         // Calculates the new defense position
-        p = this.tileCoordFromObject(allObjects[i]);
+        var p = this.tileCoordFromObject(allObjects[i]);
         // Push the defense and location
         defenses.push({defense: defense, position: p});
       }
@@ -69,10 +69,10 @@ var TiledMap = cc.TMXTiledMap.extend({
     return defenses;
   },
   moveToTile: function(sprite, tile, withAnimations, animDuration) {
-    mapLayer = this.getLayer("Background");
+    var mapLayer = this.getLayer("Background");
     // var p = mapLayer.getPositionAt(tile);
     var p = this.getMidPointFromTile(tile);
-    tileSize = this.getTileSize();
+    var tileSize = this.getTileSize();
     p.y += tileSize.height / 2; //TODO esto deberia existir? aparece en muchas pates
     if (!withAnimations) {
       sprite.setPosition(p);
@@ -95,18 +95,18 @@ var TiledMap = cc.TMXTiledMap.extend({
     // tmpCastle->setZOrder(z);
     this.addChild(child, layer, tag);
     child.scale = this.CHILD_SCALE;//TODO escalado? asi se hace?
-    p = position || this.getSpawnPoint(child);
+    var p = position || this.getSpawnPoint(child);
     child.setPosition(p);
   },
   getSpawnPoint: function(child){
-    spawnPoint = this.getObjectGroup("Objects").getObject(
+    var spawnPoint = this.getObjectGroup("Objects").getObject(
       "Spawn" + child.toString()
     );
-    tileCoord = this.tileCoordFromObject(spawnPoint);
-    mapLayer = this.getLayer("Background");
-    tileSize = this.getTileSize();
+    var tileCoord = this.tileCoordFromObject(spawnPoint);
+    var mapLayer = this.getLayer("Background");
+    var tileSize = this.getTileSize();
 
-    p = mapLayer.getPositionAt(tileCoord);
+    var p = mapLayer.getPositionAt(tileCoord);
 
     // debug = new Debugger();//TODO sacar despues las cosas de debug
     // var punto = cc.p(1,1);
@@ -159,7 +159,7 @@ var TiledMap = cc.TMXTiledMap.extend({
   },
   spriteRectFromTile: function(tileCoord){
     //Returns the rect of a tile's sprite (expressed in tilemap coords)
-    tile = this.getLayer("Background").getTileAt(tileCoord);
+    var tile = this.getLayer("Background").getTileAt(tileCoord);
     var rect = cc.rect(
       tile.x, tile.y,
       tile.width, tile.height
@@ -168,7 +168,7 @@ var TiledMap = cc.TMXTiledMap.extend({
   },
   rectFromTile: function(tileCoord){
     //Returns the rect of a tile expressed in tilemap coords
-    tile = this.getLayer("Background").getTileAt(tileCoord);
+    var tile = this.getLayer("Background").getTileAt(tileCoord);
     var rect = cc.rect(
       tile.x, tile.y,
       this.getTileSize().width, this.getTileSize().height
@@ -195,7 +195,7 @@ var TiledMap = cc.TMXTiledMap.extend({
     });
   },
   zoomMap: function(zoomDelta) {
-    zoom = this.scale + zoomDelta;
+    var zoom = this.scale + zoomDelta;
     if (zoom >= 0.15 && zoom <= 1.0) {
       this.scale = zoom;
       // mapCenter = this.map.convertToWorldSpaceAR(this.map.getAnchorPoint());

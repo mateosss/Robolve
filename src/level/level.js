@@ -131,7 +131,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
           if (this.pressed != -1) {
             this.map = event.getCurrentTarget().map;
             if(this.pressed == this.moveButton) {
-              delta = event.getDelta();
+              var delta = event.getDelta();
               this.map.moveMap(delta.x, delta.y);
             }
             else if(this.pressed == this.zoomButton) {
@@ -168,12 +168,12 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
       this.wavesIntervals[i] = this.wavesIntervals[i] / this.speed;
     }
     // update robot stats related to time
-    rob = _.props(Robot).STATS;
+    var rob = _.props(Robot).STATS;
     for (i in rob.get('speed')) {
       rob.get('speed')[i] *= this.speed;
       rob.get('attackSpeed')[i] *= this.speed;
     }
-    def = _.props(Defense).STATS;
+    var def = _.props(Defense).STATS;
     for (i in def.get('attackSpeed')) {
       def.get('attackSpeed')[i] *= this.speed;
     }
@@ -182,15 +182,15 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   },
   getRandomRobot: function() {
     //Add Robot
-    turnProb = Math.floor((Math.random() * 3)); //0,1,2
-    life = Math.floor((Math.random() * 3)); //0,1,2
-    elements = ['electric', 'water', 'fire'];
-    range = Math.floor((Math.random() * 2));//0,1
-    element = elements[Math.floor((Math.random() * 3))];//water,fire,electric
-    terrain = Math.floor((Math.random() * 2));
-    speed = Math.floor((Math.random() * 3));
-    damage = Math.floor((Math.random() * 3));
-    attackSpeed = Math.floor((Math.random() * 3));
+    var turnProb = Math.floor((Math.random() * 3)); //0,1,2
+    var life = Math.floor((Math.random() * 3)); //0,1,2
+    var elements = ['electric', 'water', 'fire'];
+    var range = Math.floor((Math.random() * 2));//0,1
+    var element = elements[Math.floor((Math.random() * 3))];//water,fire,electric
+    var terrain = Math.floor((Math.random() * 2));
+    var speed = Math.floor((Math.random() * 3));
+    var damage = Math.floor((Math.random() * 3));
+    var attackSpeed = Math.floor((Math.random() * 3));
     var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
     return customRobot;
   },
@@ -241,6 +241,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.map.selectTile(pos, color);
   },
   prepareNextWave: function() {// TODO no estoy teniendo en cuenta el orden en el que salen
+    var robotsAmount;
     if (this.cWave === null) { // First random wave
       this.cWave = 0;
       robotsAmount = this.wavesCounts[this.cWave];
@@ -258,15 +259,15 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         this.prevWaveRobots.sort(function(a, b) { return b[1] - a[1]; });
 
         //Debugear avg score
-        total = 0;
-        count = 0;
+        var total = 0;
+        var count = 0;
         this.prevWaveRobots.forEach(function(e) { total += e[1]; count += 1; });
         console.log("Average fitScore prev wave: " + total/count);
         //crear array dnaWaveQuery con esos agarrados
         var dnaWaveQuery = this.prevWaveRobots.slice(0, Math.ceil((robotsAmount / 4) + 1));
         // bucle agarrando dos al azar de ese cuarto+1 segun su score
         var toAdd = [];
-        rouleteSorting = function(dna) { return [dna[0], dna[1] * Math.random()]; };
+        var rouleteSorting = function(dna) { return [dna[0], dna[1] * Math.random()]; };
         while (dnaWaveQuery.length + toAdd.length < robotsAmount) {
           var randomised = dnaWaveQuery.map(rouleteSorting);
           randomised.sort(function(a, b) { return b[1] - a[1]; });
@@ -281,7 +282,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         dnaWaveQuery = dnaWaveQuery.concat(toAdd);
         var auxWaveQuery = [];
         for (var j = 0; j < dnaWaveQuery.length; j++) {
-          dnaRobot = new Robot(this, dnaWaveQuery[j]);
+          var dnaRobot = new Robot(this, dnaWaveQuery[j]);
           dnaRobot.retain();
           auxWaveQuery.push(dnaRobot);
         }
@@ -301,7 +302,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     _.props(Robot).STATS.forEach(oPossibles => possible.push(
       Object.keys(oPossibles).map((p) => isNaN(p) ? p : parseInt(p))
     ));
-    sons = [];
+    var sons = [];
     for (var j = 0; j < sonsCount; j++) {
       var sonBorn = false;
       while (!sonBorn) {
@@ -318,9 +319,9 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
           }
           son.push(gen);
         }
-        equalToP1 = son.join() == p1.join();
-        equalToP2 = son.join() == p2.join();
-        equalToSon = false;
+        var equalToP1 = son.join() == p1.join();
+        var equalToP2 = son.join() == p2.join();
+        var equalToSon = false;
         for (var k = 0; k < sons.length; k++) {
           if (son.join() == sons[k].join()) {
             equalToSon = true;

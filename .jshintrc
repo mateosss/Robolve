@@ -1,3 +1,33 @@
 {
+  "globals": {
+    "cc": false,
+    "ccui": false,
+    "gl": false,
+    "r": true,
+    "rb": true,
+    "_": true,
+    "Debugger": true,
+
+    "easyTouchEnded": true,
+    "easyTouchButton": true,
+    "g_resources": true,
+    "document": true,
+    "console": true,
+
+    "Computer": true,
+    "State": true,
+    "Part": true,
+    "Robot": true,
+    "Defense": true,
+    "Base": true,
+    "GameLevel": true,
+    "Level": true,
+    "TiledMap": true,
+    "Hud": true,
+    "Menu": true,
+    "PropertySelector": true,
+    "MainMenu": true
+  },
+  "strict": "implied",
   "esversion": 6
 }

@@ -59,7 +59,7 @@ var Hud = cc.Layer.extend({
     this.dsBtnOk = new ccui.Button(r.ui.okBtnM, r.ui.okBtnDM);
     this.dsBtnOk.setAnchorPoint(0, 0);
     this.dsBtnOk.setTouchEnabled(true);
-    dsBtnOkPos = cc.p(-s.width, dsSize.height + dsPos.y);
+    var dsBtnOkPos = cc.p(-s.width, dsSize.height + dsPos.y);
     this.dsBtnOk.inScreen = false;
     this.dsBtnOk.setPosition(dsBtnOkPos);
     this.dsBtnOk.show = function() {
@@ -107,7 +107,7 @@ var Hud = cc.Layer.extend({
 
     this.dsBtnCancel = new ccui.Button(r.ui.cancelBtnM, r.ui.cancelBtnDM);
     this.dsBtnCancel.setAnchorPoint(0, 0);
-    dsBtnCancelPos = cc.p(-s.width + s.width - this.dsBtnCancel.width, dsSize.height + dsPos.y);
+    var dsBtnCancelPos = cc.p(-s.width + s.width - this.dsBtnCancel.width, dsSize.height + dsPos.y);
     this.dsBtnCancel.inScreen = false;
     this.dsBtnCancel.setTouchEnabled(true);
     this.dsBtnCancel.setPosition(dsBtnCancelPos);

@@ -274,6 +274,10 @@ var Computer = cc.Sprite.extend({
   },
   walk: function() {
     // Moves the robot by its speed in a pointing direction
+
+    var xDirection;
+    var yDirection;
+
     if (this.pointing === 0) {
       xDirection = 1;
       yDirection = 1;

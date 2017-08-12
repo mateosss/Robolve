@@ -13,8 +13,8 @@ var Debugger = cc.Class.extend({
     }
   },
   debugText: function(object, options){
-    debugName = "debugText";
-    stop = options.stop || false;
+    var debugName = "debugText";
+    var stop = options.stop || false;
     if(stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var updateLabel = object.getChildByName(debugName);
@@ -38,8 +38,8 @@ var Debugger = cc.Class.extend({
   },
   debugLine: function(object, options){
     // Draws a line between from object to options.target
-    debugName = "debugLine";
-    stop = options.stop || false; // TODO STOP DOESNT WORK. maybe stop should be default, and cleanup should be the option
+    var debugName = "debugLine";
+    var stop = options.stop || false; // TODO STOP DOESNT WORK. maybe stop should be default, and cleanup should be the option
     if(stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var pos = object.getAnchorPointInPoints();
@@ -56,8 +56,8 @@ var Debugger = cc.Class.extend({
   },
   debugRange: function(object, options){
     // Draws a circle from the center with radius sRange
-    debugName = "debugRange";
-    stop = options.stop || false;
+    var debugName = "debugRange";
+    var stop = options.stop || false;
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var pos = object.getAnchorPointInPoints();
@@ -72,8 +72,8 @@ var Debugger = cc.Class.extend({
   },
   debugAnchor: function(object, options){//TODO Unir esta funcion con debugPoint
     // Draws a circle in the object's anchor point
-    debugName = "debugAnchor";
-    stop = options.stop || false;
+    var debugName = "debugAnchor";
+    var stop = options.stop || false;
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var pos = object.getAnchorPointInPoints();
@@ -88,8 +88,8 @@ var Debugger = cc.Class.extend({
   },
   debugPoint: function(object, options){
     // Draws a point in the given options.pos
-    debugName = "debugPoint";
-    stop = options.stop || false;//TODO stop doesn't work because many repeated  names
+    var debugName = "debugPoint";
+    var stop = options.stop || false;//TODO stop doesn't work because many repeated  names
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var pos = options.point || null;
@@ -104,8 +104,8 @@ var Debugger = cc.Class.extend({
   },
   debugRect: function(object, options){
     //Draws options.rect, or the object's rect
-    debugName = "debugRect";
-    stop = options.stop || false;//TODO check in all debug functions if stop works
+    var debugName = "debugRect";
+    var stop = options.stop || false;//TODO check in all debug functions if stop works
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var square = new cc.DrawNode();
@@ -126,8 +126,8 @@ var Debugger = cc.Class.extend({
   },
   debugPoly: function(object, options){
     // Draws a polygon from vertexes in options.verts or the object's limits
-    debugName = "debugPoly";
-    stop = options.stop || false;
+    var debugName = "debugPoly";
+    var stop = options.stop || false;
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var polygon = new cc.DrawNode();

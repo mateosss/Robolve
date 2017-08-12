@@ -46,11 +46,11 @@ var _ = {
     return arguments[0];
   },
   test: (func, self, iterations, ...params) => {
-    iTime = new Date().getTime();
+    var iTime = new Date().getTime();
     for (var i = 0; i < iterations; i++) {
       func.apply(self, params);
     }
-    eTime = new Date().getTime() - iTime;
+    var eTime = new Date().getTime() - iTime;
     return eTime;
   },
   revEach: function(array, func, context) { // Reverse forEach from last to first element in array
