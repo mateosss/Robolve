@@ -79,16 +79,18 @@ var Defense = Computer.extend({
   },
   attack: function(target) {
     this._super(target);
-    var self = this;
+    if (target) {
 
-    var bullet = new cc.DrawNode();
-    bullet.drawRect(cc.p(0,0), cc.p(64, 64), cc.color(255,255,0));
-    self.addChild(bullet);
+      var bullet = new cc.DrawNode();
+      bullet.drawDot(cc.p(0, 0), 8 * (this.damage + 1), rb.palette[this.element]);
+      bullet.setPosition(this.x, this.y + 128);
+      this.level.map.addChild(bullet);
 
-    var follow = new cc.Follow(target, cc.rect(0, 0, 128, 128));
-    var destroy = new cc.CallFunc(function(){ bullet.removeFromParent(); });
-    var sequence = [follow, destroy];
-    bullet.runAction(new cc.Sequence(sequence));
+      var follow = new cc.MoveTo(0.5, cc.p(target.x, target.y + 96));
+      var destroy = new cc.RemoveSelf();
+      var sequence = [follow, destroy];
+      bullet.runAction(new cc.Sequence(sequence));
+    }
   },
   debug: function(){
     // Creates a debugger for verbose information directly on the canvas
@@ -121,7 +123,7 @@ var Defense = Computer.extend({
   update: function(delta) {
     var target = this.getTarget();
     this.debugger.debugLine(this, {stop: true});
-    this.debugger.debugLine(this, {target: target});
+    this.debugger.debugLine(this, {target: target, offset: cc.p(0, 128), color: rb.palette[this.element]});
     if (!this.isDummy && target) {
       this.setState('attack', {target: target});
     }

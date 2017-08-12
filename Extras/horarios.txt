@@ -248,11 +248,11 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
 - 2017-08-02 Mi
     - 21:15 - 22:00 | Viendo como hacer funcionar los sprites y boludeando un montón
 - 2017-08-11 Vi
-    - 22:45 - 23:40 
+    - 22:45 - 23:40 | use strict
+    - 23:40 - 00:50 | animacion de dot a enemy
 
     SOLUCIONAR BUG DE LOS ROBOTS QUE SE VAN
     SLIDER O BOTON CON SPEED EN TIEMPO REAL
-    AGREGAR "use strict"; Y UPDATEAR .JSHINTRC
 
 # Restantes
 - 2017-08-12 Sa

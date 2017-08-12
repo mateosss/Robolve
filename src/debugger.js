@@ -47,8 +47,9 @@ var Debugger = cc.Class.extend({
       var target = object.convertToNodeSpace(object.level.map.convertToWorldSpace(options.target));
       var color = options.color || cc.color(255, 255, 255, 255);
       var width = options.width || 2;
+      var offset = options.offset || cc.p(0, 0);
       var line = new cc.DrawNode();
-      line.drawSegment(pos, target, width, color);
+      line.drawSegment(cc.pAdd(pos, offset), cc.pAdd(target, offset), width, color);
       line.setName(debugName);
       object.addChild(line, 1000);//TODO hacer nivel z opcional tambien
       return line;
