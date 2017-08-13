@@ -245,19 +245,18 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
 - 2017-08-01 Ma - 04:30 hs
     - 21:30 - 23:10 | Seteando un buen ambiente de debugging para solucionar esos bugs: archivo ./android muy mejorado
     - 23:10 - 02:00 | Arreglado el bug que esta desde el año pasado que no permitía volver a jugar
-- 2017-08-02 Mi
+- 2017-08-02 Mi -00:45 hs
     - 21:15 - 22:00 | Viendo como hacer funcionar los sprites y boludeando un montón
-- 2017-08-11 Vi
+- 2017-08-11 Vi - 02:05 hs
     - 22:45 - 23:40 | use strict
     - 23:40 - 00:50 | animacion de dot a enemy
-- 2017-08-12 Sa
-    - 21:20 - 
+- 2017-08-12 Sa - 01:00 hs
+    - 21:20 - 23:20 | pasando todos los blends a freestyle
+- 2017-08-13 Do - 01:00 hs
+    - 11:00 - 12:00 | terminando de reemplazar sprites con freestyle
 
     SOLUCIONAR BUG DE LOS ROBOTS QUE SE VAN
     SLIDER O BOTON CON SPEED EN TIEMPO REAL
-
-# Restantes
-- 2017-08-13 Do
 
 # TODO Para este sprint
   - Repensar: Desarrollo de la partida, Sistema de mejoras,
