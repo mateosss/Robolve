@@ -250,12 +250,13 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
 - 2017-08-11 Vi
     - 22:45 - 23:40 | use strict
     - 23:40 - 00:50 | animacion de dot a enemy
+- 2017-08-12 Sa
+    - 21:20 - 
 
     SOLUCIONAR BUG DE LOS ROBOTS QUE SE VAN
     SLIDER O BOTON CON SPEED EN TIEMPO REAL
 
 # Restantes
-- 2017-08-12 Sa
 - 2017-08-13 Do
 
 # TODO Para este sprint
