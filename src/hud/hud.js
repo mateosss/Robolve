@@ -59,7 +59,7 @@ var Hud = cc.Layer.extend({
     this.dsBtnOk = new ccui.Button(r.ui.okBtnM, r.ui.okBtnDM);
     this.dsBtnOk.setAnchorPoint(0, 0);
     this.dsBtnOk.setTouchEnabled(true);
-    var dsBtnOkPos = cc.p(-s.width, dsSize.height + dsPos.y);
+    var dsBtnOkPos = cc.p(-s.width + 16, dsSize.height + dsPos.y);  // TODO button padding (16) hardcoded
     this.dsBtnOk.inScreen = false;
     this.dsBtnOk.setPosition(dsBtnOkPos);
     this.dsBtnOk.show = function() {
@@ -107,7 +107,7 @@ var Hud = cc.Layer.extend({
 
     this.dsBtnCancel = new ccui.Button(r.ui.cancelBtnM, r.ui.cancelBtnDM);
     this.dsBtnCancel.setAnchorPoint(0, 0);
-    var dsBtnCancelPos = cc.p(-s.width + s.width - this.dsBtnCancel.width, dsSize.height + dsPos.y);
+    var dsBtnCancelPos = cc.p(-s.width + s.width - this.dsBtnCancel.width - 16, dsSize.height + dsPos.y);  // TODO button padding (16) hardcoded
     this.dsBtnCancel.inScreen = false;
     this.dsBtnCancel.setTouchEnabled(true);
     this.dsBtnCancel.setPosition(dsBtnCancelPos);
@@ -148,7 +148,7 @@ var Hud = cc.Layer.extend({
     var dsEvent = function(btn, level, type) {
       var hud = btn.getParent().getParent().getParent();
       hud.it.message("Place " + type[0].toUpperCase() + type.slice(1) + " Tower - $300");
-      var life = 2;//0,1,2
+      var life = 0;//0,1,2
       var range = 0;//0,1,2
       var element = type;//water,fire,electric
       var terrain = 0;//0,1
@@ -165,11 +165,12 @@ var Hud = cc.Layer.extend({
     };
     for (var i = 0; i < buttons.length; i++) {
       var btn = buttons[i].button;
-      var img = buttons[i].image;
+      // TODO remove img and buttons.image references
+      // var img = buttons[i].image;
       var type = buttons[i].type;
       btn.setTouchEnabled(true);
-      btn.addChild(img);
-      img.setPosition(btn.width / 2, btn.height / 2);
+      // btn.addChild(img);
+      // img.setPosition(btn.width / 2, btn.height / 2);
       easyTouchButton(btn, dsEvent, this.level, type);
 
       this.ds.addChild(btn);

@@ -254,5 +254,6 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
     - 21:20 - 23:20 | pasando todos los blends a freestyle
 - 2017-08-13 Do - 01:00 hs
     - 11:00 - 12:00 | terminando de reemplazar sprites con freestyle
-- 2017-08-17 Ju - 01:00 hs
+- 2017-08-17 Ju - 02:00 hs
     - 21:00 - 22:00 | intentando implementar scrum for one con trello
+    - 22:00 - 23:00 | pequeños detalles en botones para ubicar torretas

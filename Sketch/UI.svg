@@ -15,7 +15,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="0.92.1 r15371"
-   sodipodi:docname="inkscape.svg">
+   sodipodi:docname="UI.svg">
   <defs
      id="defs2" />
   <sodipodi:namedview
@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35355339"
-     inkscape:cx="358.4001"
-     inkscape:cy="379.11761"
+     inkscape:zoom="1.4281695"
+     inkscape:cx="218.28572"
+     inkscape:cy="444.91201"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -85,99 +85,6 @@
      id="layer1"
      transform="translate(-551.13333,-1112.5001)">
     <g
-       id="g4913"
-       inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/blueBtnM.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"
-       transform="translate(640,-255.99989)">
-      <rect
-         ry="20.999985"
-         y="1636.4999"
-         x="39.133331"
-         height="83.999985"
-         width="96"
-         id="rect4519"
-         style="opacity:1;fill:#1976d2;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         style="opacity:1;fill:#2196f3;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4521"
-         width="96"
-         height="83.999985"
-         x="39.133331"
-         y="1624.4999"
-         ry="20.999985" />
-      <rect
-         ry="0"
-         y="1624.4999"
-         x="39.133331"
-         height="96"
-         width="96"
-         id="rect4523"
-         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.64999962;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
-    <g
-       id="g4908"
-       inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/redBtnM.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"
-       transform="translate(640,-255.99989)">
-      <rect
-         style="opacity:1;fill:#e64a19;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4525"
-         width="96"
-         height="83.999985"
-         x="167.13333"
-         y="1636.5"
-         ry="20.999985" />
-      <rect
-         ry="20.999985"
-         y="1624.5"
-         x="167.13333"
-         height="83.999985"
-         width="96"
-         id="rect4527"
-         style="opacity:1;fill:#ff5722;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.64999962;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4529"
-         width="96"
-         height="96"
-         x="167.13333"
-         y="1624.5"
-         ry="0" />
-    </g>
-    <g
-       id="g4918"
-       inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/yellowBtnM.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96"
-       transform="translate(640,-255.99989)">
-      <rect
-         ry="20.999985"
-         y="1636.5"
-         x="295.13333"
-         height="83.999985"
-         width="96"
-         id="rect4531"
-         style="opacity:1;fill:#fbc02d;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         style="opacity:1;fill:#ffeb3b;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4533"
-         width="96"
-         height="83.999985"
-         x="295.13333"
-         y="1624.5"
-         ry="20.999985" />
-      <rect
-         ry="0"
-         y="1624.5"
-         x="295.13333"
-         height="96"
-         width="96"
-         id="rect4535"
-         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.64999962;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
-    <g
        id="g4923"
        transform="translate(640,-255.99989)">
       <rect
@@ -232,99 +139,6 @@
          width="96"
          id="rect4547"
          style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
-    <g
-       id="g4888"
-       transform="translate(640,-127.9999)"
-       inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/blueBtnDM.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96">
-      <rect
-         style="opacity:1;fill:#1976d2;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4638-3"
-         width="96"
-         height="83.999985"
-         x="39.133331"
-         y="1380.5"
-         ry="20.999987" />
-      <rect
-         ry="20.999987"
-         y="1377.5"
-         x="39.133331"
-         height="83.999985"
-         width="96"
-         id="rect4640-6"
-         style="opacity:1;fill:#1e88e5;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4642-7"
-         width="96"
-         height="96"
-         x="39.133331"
-         y="1368.5"
-         ry="0" />
-    </g>
-    <g
-       id="g4883"
-       transform="translate(640,-127.9999)"
-       inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/redBtnDM.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96">
-      <rect
-         ry="20.999987"
-         y="1380.5"
-         x="167.13333"
-         height="83.999985"
-         width="96"
-         id="rect4646-5"
-         style="opacity:1;fill:#e64a19;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         style="opacity:1;fill:#f4511e;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4648-3"
-         width="96"
-         height="83.999985"
-         x="167.13333"
-         y="1377.5"
-         ry="20.999987" />
-      <rect
-         ry="0"
-         y="1368.5"
-         x="167.13333"
-         height="96"
-         width="96"
-         id="rect4650-5"
-         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
-    <g
-       id="g4878"
-       transform="translate(640,-127.9999)"
-       inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/yellowBtnDM.png"
-       inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96">
-      <rect
-         style="opacity:1;fill:#fbc02d;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4654-6"
-         width="96"
-         height="83.999985"
-         x="295.13333"
-         y="1380.5"
-         ry="20.999987" />
-      <rect
-         ry="20.999987"
-         y="1377.5"
-         x="295.13333"
-         height="83.999985"
-         width="96"
-         id="rect4656-2"
-         style="opacity:1;fill:#fdd835;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4658-9"
-         width="96"
-         height="96"
-         x="295.13333"
-         y="1368.5"
-         ry="0" />
     </g>
     <g
        id="g4873"
@@ -802,6 +616,298 @@
            d="M 0,0 H 24 V 24 H 0 Z"
            inkscape:connector-curvature="0"
            style="fill:none" />
+      </g>
+    </g>
+    <g
+       id="g4717">
+      <g
+         transform="translate(640,-255.99989)"
+         inkscape:export-ydpi="96"
+         inkscape:export-xdpi="96"
+         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/yellowBtnM.png"
+         id="g4918">
+        <rect
+           style="opacity:1;fill:#fbc02d;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4531"
+           width="96"
+           height="83.999985"
+           x="295.13333"
+           y="1636.5"
+           ry="20.999985" />
+        <rect
+           ry="20.999985"
+           y="1624.5"
+           x="295.13333"
+           height="83.999985"
+           width="96"
+           id="rect4533"
+           style="opacity:1;fill:#ffeb3b;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <rect
+           style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.64999962;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4535"
+           width="96"
+           height="96"
+           x="295.13333"
+           y="1624.5"
+           ry="0" />
+      </g>
+      <g
+         transform="matrix(2.6666667,0,0,2.6666667,951.13333,1378.5001)"
+         id="g4634"
+         style="fill:#000000">
+        <path
+           style="fill:none"
+           inkscape:connector-curvature="0"
+           d="M 0,0 H 24 V 24 H 0 Z"
+           id="path4620" />
+        <path
+           style="fill:#ffffff;fill-opacity:1"
+           inkscape:connector-curvature="0"
+           d="m 7,2 v 11 h 3 v 9 l 7,-12 h -4 l 4,-8 z"
+           id="path4622" />
+      </g>
+    </g>
+    <g
+       id="g4744">
+      <g
+         transform="translate(640,-255.99989)"
+         inkscape:export-ydpi="96"
+         inkscape:export-xdpi="96"
+         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/redBtnM.png"
+         id="g4908">
+        <rect
+           ry="20.999985"
+           y="1636.5"
+           x="167.13333"
+           height="83.999985"
+           width="96"
+           id="rect4525"
+           style="opacity:1;fill:#e64a19;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <rect
+           style="opacity:1;fill:#ff5722;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4527"
+           width="96"
+           height="83.999985"
+           x="167.13333"
+           y="1624.5"
+           ry="20.999985" />
+        <rect
+           ry="0"
+           y="1624.5"
+           x="167.13333"
+           height="96"
+           width="96"
+           id="rect4529"
+           style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.64999962;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      </g>
+      <g
+         transform="matrix(2.6666667,0,0,2.6666667,823.13333,1378.5001)"
+         id="g4650"
+         style="fill:#000000">
+        <path
+           style="fill:#ffffff;fill-opacity:1"
+           inkscape:connector-curvature="0"
+           d="m 13.5,0.67 c 0,0 0.74,2.65 0.74,4.8 0,2.06 -1.35,3.73 -3.41,3.73 C 8.76,9.2 7.2,7.53 7.2,5.47 L 7.23,5.11 C 5.21,7.51 4,10.62 4,14 c 0,4.42 3.58,8 8,8 4.42,0 8,-3.58 8,-8 C 20,8.61 17.41,3.8 13.5,0.67 Z M 11.71,19 c -1.78,0 -3.22,-1.4 -3.22,-3.14 0,-1.62 1.05,-2.76 2.81,-3.12 1.77,-0.36 3.6,-1.21 4.62,-2.58 0.39,1.29 0.59,2.65 0.59,4.04 0,2.65 -2.15,4.8 -4.8,4.8 z"
+           id="path4636" />
+        <path
+           style="fill:none"
+           inkscape:connector-curvature="0"
+           d="M 0,0 H 24 V 24 H 0 Z"
+           id="path4638" />
+      </g>
+    </g>
+    <g
+       id="g4753">
+      <g
+         transform="translate(640,-255.99989)"
+         inkscape:export-ydpi="96"
+         inkscape:export-xdpi="96"
+         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/blueBtnM.png"
+         id="g4913">
+        <rect
+           style="opacity:1;fill:#1976d2;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4519"
+           width="96"
+           height="83.999985"
+           x="39.133331"
+           y="1636.4999"
+           ry="20.999985" />
+        <rect
+           ry="20.999985"
+           y="1624.4999"
+           x="39.133331"
+           height="83.999985"
+           width="96"
+           id="rect4521"
+           style="opacity:1;fill:#2196f3;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <rect
+           style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.64999962;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4523"
+           width="96"
+           height="96"
+           x="39.133331"
+           y="1624.4999"
+           ry="0" />
+      </g>
+      <g
+         transform="matrix(2.6666667,0,0,2.6666667,-2513.9955,-2860.1667)"
+         id="g4662">
+        <path
+           style="fill:#ffffff;fill-opacity:1"
+           id="path4609"
+           d="m 1215.4233,1609.21 a 6,6 0 0 1 -6,-6 c 0,-4 6,-10.75 6,-10.75 0,0 6,6.75 6,10.75 a 6,6 0 0 1 -6,6 z"
+           inkscape:connector-curvature="0" />
+        <path
+           id="path4654"
+           d="m 1203.4233,1589.5 h 24 v 24 h -24 z"
+           inkscape:connector-curvature="0"
+           style="fill:none" />
+      </g>
+    </g>
+    <g
+       id="g4762">
+      <g
+         inkscape:export-ydpi="96"
+         inkscape:export-xdpi="96"
+         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/blueBtnDM.png"
+         transform="translate(640,-127.9999)"
+         id="g4888">
+        <rect
+           ry="20.999987"
+           y="1380.5"
+           x="39.133331"
+           height="83.999985"
+           width="96"
+           id="rect4638-3"
+           style="opacity:1;fill:#1976d2;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <rect
+           style="opacity:1;fill:#1e88e5;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4640-6"
+           width="96"
+           height="83.999985"
+           x="39.133331"
+           y="1377.5"
+           ry="20.999987" />
+        <rect
+           ry="0"
+           y="1368.5"
+           x="39.133331"
+           height="96"
+           width="96"
+           id="rect4642-7"
+           style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      </g>
+      <g
+         id="g4696"
+         transform="matrix(2.6666667,0,0,2.6666667,-2513.9955,-2979.1666)">
+        <path
+           inkscape:connector-curvature="0"
+           d="m 1215.4233,1609.21 a 6,6 0 0 1 -6,-6 c 0,-4 6,-10.75 6,-10.75 0,0 6,6.75 6,10.75 a 6,6 0 0 1 -6,6 z"
+           id="path4692"
+           style="fill:#ffffff;fill-opacity:1" />
+        <path
+           style="fill:none"
+           inkscape:connector-curvature="0"
+           d="m 1203.4233,1589.5 h 24 v 24 h -24 z"
+           id="path4694" />
+      </g>
+    </g>
+    <g
+       id="g4735">
+      <g
+         inkscape:export-ydpi="96"
+         inkscape:export-xdpi="96"
+         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/redBtnDM.png"
+         transform="translate(640,-127.9999)"
+         id="g4883">
+        <rect
+           style="opacity:1;fill:#e64a19;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4646-5"
+           width="96"
+           height="83.999985"
+           x="167.13333"
+           y="1380.5"
+           ry="20.999987" />
+        <rect
+           ry="20.999987"
+           y="1377.5"
+           x="167.13333"
+           height="83.999985"
+           width="96"
+           id="rect4648-3"
+           style="opacity:1;fill:#f4511e;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <rect
+           style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4650-5"
+           width="96"
+           height="96"
+           x="167.13333"
+           y="1368.5"
+           ry="0" />
+      </g>
+      <g
+         style="fill:#000000"
+         id="g4702"
+         transform="matrix(2.6666667,0,0,2.6666667,823.13333,1259.5001)">
+        <path
+           id="path4698"
+           d="m 13.5,0.67 c 0,0 0.74,2.65 0.74,4.8 0,2.06 -1.35,3.73 -3.41,3.73 C 8.76,9.2 7.2,7.53 7.2,5.47 L 7.23,5.11 C 5.21,7.51 4,10.62 4,14 c 0,4.42 3.58,8 8,8 4.42,0 8,-3.58 8,-8 C 20,8.61 17.41,3.8 13.5,0.67 Z M 11.71,19 c -1.78,0 -3.22,-1.4 -3.22,-3.14 0,-1.62 1.05,-2.76 2.81,-3.12 1.77,-0.36 3.6,-1.21 4.62,-2.58 0.39,1.29 0.59,2.65 0.59,4.04 0,2.65 -2.15,4.8 -4.8,4.8 z"
+           inkscape:connector-curvature="0"
+           style="fill:#ffffff;fill-opacity:1" />
+        <path
+           id="path4700"
+           d="M 0,0 H 24 V 24 H 0 Z"
+           inkscape:connector-curvature="0"
+           style="fill:none" />
+      </g>
+    </g>
+    <g
+       id="g4726">
+      <g
+         inkscape:export-ydpi="96"
+         inkscape:export-xdpi="96"
+         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/yellowBtnDM.png"
+         transform="translate(640,-127.9999)"
+         id="g4878">
+        <rect
+           ry="20.999987"
+           y="1380.5"
+           x="295.13333"
+           height="83.999985"
+           width="96"
+           id="rect4654-6"
+           style="opacity:1;fill:#fbc02d;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+        <rect
+           style="opacity:1;fill:#fdd835;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           id="rect4656-2"
+           width="96"
+           height="83.999985"
+           x="295.13333"
+           y="1377.5"
+           ry="20.999987" />
+        <rect
+           ry="0"
+           y="1368.5"
+           x="295.13333"
+           height="96"
+           width="96"
+           id="rect4658-9"
+           style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      </g>
+      <g
+         style="fill:#000000"
+         id="g4708"
+         transform="matrix(2.6666667,0,0,2.6666667,951.13333,1259.5001)">
+        <path
+           id="path4704"
+           d="M 0,0 H 24 V 24 H 0 Z"
+           inkscape:connector-curvature="0"
+           style="fill:none" />
+        <path
+           id="path4706"
+           d="m 7,2 v 11 h 3 v 9 l 7,-12 h -4 l 4,-8 z"
+           inkscape:connector-curvature="0"
+           style="fill:#ffffff;fill-opacity:1" />
       </g>
     </g>
   </g>
