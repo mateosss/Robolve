@@ -169,21 +169,8 @@ var Hud = cc.Layer.extend({
     }
 
     // Info Text
-    this.it = new cc.LabelTTF("Defense Selector", "Arial", 32, cc.size(s.width, 32), cc.TEXT_ALIGNMENT_CENTER);
-    var itPos = cc.p(0, dsSize.height + dsPos.y); // Information text position
-    this.it.setAnchorPoint(0, 0);
-    this.it.setPosition(itPos);
-    this.it.message = function (message, duration) {
-      this.setOpacity(0);
-      duration = duration || 3;
-      var changeText = new cc.CallFunc(function(it, msg) { it.setString(msg); }, this, message);
-      var appear = new cc.FadeIn(0.2);
-      var delay = new cc.DelayTime(duration);
-      var disappear = new cc.FadeOut(0.2);
-      var actArray = [changeText, appear, delay, disappear];
-      this.runAction(new cc.Sequence(actArray));
-    };
-    this.addChild(this.it, 101);
+    this.it = new InfoText(this);
+    this.addChild(this.it);
 
     // Defense Details
     this.dd = new DefenseDetails(this);

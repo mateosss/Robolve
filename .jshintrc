@@ -27,6 +27,7 @@
     "Menu": true,
     "PropertySelector": true,
     "DefenseDetails": true,
+    "InfoText": true,
     "MainMenu": true
   },
   "strict": "implied",
