@@ -4,14 +4,6 @@ var Hud = cc.Layer.extend({
   level: null,
 
   dd: null, // Defense Details
-  ddElement: null,
-  ddRange: null,
-  ddTerrain: null,
-  ddDamage: null,
-  ddAttackSpeed: null,
-  ddDestroy: null,
-  ddDestroySure: false,
-  ddDefense: null, // Selected dd defense
 
   it: null, // Information Text
 
@@ -194,21 +186,12 @@ var Hud = cc.Layer.extend({
     this.addChild(this.it, 101);
 
     // Defense Details
-    var ddPos = cc.p(-s.width, dsSize.height + dsPos.y + this.it.height + 8); // defenseDetails Position in function of defenseSelectorPos // TODO HARDOCODE 8
-    this.dd = new DefenseDetails(this, ddPos);
+    this.dd = new DefenseDetails(this);
     this.addChild(this.dd);
 
     return true;
   },
   toString: function() {
     return "Hud";
-  },
-  ddRefresh: function() {
-    this.ddLife.refresh();
-    this.ddElement.refresh();
-    this.ddRange.refresh();
-    this.ddTerrain.refresh();
-    this.ddDamage.refresh();
-    this.ddAttackSpeed.refresh();
   },
 });

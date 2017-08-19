@@ -16,7 +16,6 @@ var r = { // resources variable
     map5: "res/map/map5.tmx",
   },
   ui:{
-    ddBackground: "res/sprites/ui/ddBackground.jpg",
     buttons: [
       "blue",
       "green",

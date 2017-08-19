@@ -37,7 +37,7 @@ var PropertySelector = ccui.Layout.extend({
     downBtn.setTouchEnabled(true);
     downBtn.setContentSize(cc.size(this.width, this.width));
     easyTouchButton(downBtn, function(downBtn){
-      var d = upBtn.getParent().getParent().getParent().getParent().ddDefense; //Defense // TODO asco
+      var d = upBtn.getParent().getParent().getParent().defense; //Defense // TODO asco
       var p = upBtn.getParent().property;  //Property name
       var pProp = d.getPossibleStats(p);
       var prop = d[p];
@@ -71,7 +71,7 @@ var PropertySelector = ccui.Layout.extend({
     upBtn.setTouchEnabled(true);
     upBtn.setContentSize(cc.size(this.width, this.width));
     easyTouchButton(upBtn, function(upBtn){
-      var d = upBtn.getParent().getParent().getParent().getParent().ddDefense; //Defense
+      var d = upBtn.getParent().getParent().getParent().defense; //Defense // TODO asco
       var p = upBtn.getParent().property;  //Property name
       var pProp = d.getPossibleStats(p);
       var prop = d[p];
@@ -100,7 +100,7 @@ var PropertySelector = ccui.Layout.extend({
     this.addChild(upBtn);
   },
   refresh: function() {
-    var defense = this.getParent().getParent().getParent().ddDefense;
+    let defense = this.getParent().getParent().defense;
     this.pValueLabel.setString(defense.getDefaultStat(this.property));
   },
 
