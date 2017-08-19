@@ -26,6 +26,7 @@
     "Hud": true,
     "Menu": true,
     "PropertySelector": true,
+    "DefenseDetails": true,
     "MainMenu": true
   },
   "strict": "implied",

@@ -22,6 +22,7 @@
       "src/hud/hud.js",
       "src/hud/menu.js",
       "src/hud/propertySelector.js",
+      "src/hud/defenseDetails.js",
       "src/level/base.js",
       "src/level/game.js",
       "src/level/level.js",

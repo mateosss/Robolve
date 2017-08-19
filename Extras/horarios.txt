@@ -257,3 +257,6 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
 - 2017-08-17 Ju - 02:00 hs
     - 21:00 - 22:00 | intentando implementar scrum for one con trello
     - 22:00 - 23:00 | pequeños detalles en botones para ubicar torretas
+- 2017-08-18 Vi -
+    - 21:15 - 21:50 - defenseDetails separado de hud
+    - 21:50

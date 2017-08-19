@@ -194,67 +194,9 @@ var Hud = cc.Layer.extend({
     this.addChild(this.it, 101);
 
     // Defense Details
-    var ddSize = cc.size(s.width, 192); // defenseDetails // TODO Height 256 hardcoded
     var ddPos = cc.p(-s.width, dsSize.height + dsPos.y + this.it.height + 8); // defenseDetails Position in function of defenseSelectorPos // TODO HARDOCODE 8
-    this.dd = new ccui.ListView();
-    this.dd.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
-    this.dd.setTouchEnabled(true); // TODO do i really need this?
-    this.dd.setBounceEnabled(true);
-    this.dd.setContentSize(ddSize);
-    this.dd.setPosition(ddPos);
-    if (cc.sys.os) { // In JS this line throws an error so we look if we are running natively
-      // this.dd.setScrollBarEnabled(false);//TODO in chrome detects Linux
-    }
-    this.dd.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
-    this.dd.setBackGroundColor(new cc.color(10, 10, 40));
-    this.dd.setBackGroundColorOpacity(80);
-    this.dd.inScreen = false;
-    this.dd.show = function(defense) {
-      if (!this.inScreen && defense) {
-        this.runAction(new cc.MoveBy(0.1, cc.p(s.width,0)));
-        this.getParent().ddDefense = defense;
-        this.getParent().ddRefresh();
-        this.inScreen = true;
-      }
-    };
-    this.dd.dismiss = function() {
-      if (this.inScreen) {
-        this.runAction(new cc.MoveBy(0.1, cc.p(-s.width,0)));
-        this.getParent().ddDestroySure = false;
-        this.inScreen = false;
-      }
-    };
-    easyTouchEnded(this.dd, function(dd){
-      dd.dismiss();
-    }, {options:{invertedArea:true}});
+    this.dd = new DefenseDetails(this, ddPos);
     this.addChild(this.dd);
-    this.ddLife = new PropertySelector(this.dd, 'life');
-    this.dd.pushBackCustomItem(this.ddLife);
-    this.ddElement = new PropertySelector(this.dd, 'element');
-    this.dd.pushBackCustomItem(this.ddElement);
-    this.ddRange = new PropertySelector(this.dd, 'range');
-    this.dd.pushBackCustomItem(this.ddRange);
-    this.ddTerrain = new PropertySelector(this.dd, 'terrain');
-    this.dd.pushBackCustomItem(this.ddTerrain);
-    this.ddDamage = new PropertySelector(this.dd, 'damage');
-    this.dd.pushBackCustomItem(this.ddDamage);
-    this.ddAttackSpeed = new PropertySelector(this.dd, 'attackSpeed');
-    this.dd.pushBackCustomItem(this.ddAttackSpeed);
-    this.ddDestroy = new ccui.Button(r.ui.cancelBtnM, r.ui.cancelBtnDM);
-    this.ddDestroy.setTouchEnabled(true);
-    this.dd.pushBackCustomItem(this.ddDestroy);
-    easyTouchButton(this.ddDestroy, function(btn){
-      var hud = btn.getParent().getParent().getParent();
-      if (hud.ddDestroySure) {
-        hud.ddDefense.die();
-        hud.level.base.money += 50;
-        hud.ig.refresh();
-        hud.ddDestroySure = false;
-      } else {
-        hud.it.message("Press again to destroy (+$50)");
-        hud.ddDestroySure = true;
-      }
-    });
 
     return true;
   },
