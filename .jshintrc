@@ -28,6 +28,7 @@
     "PropertySelector": true,
     "DefenseDetails": true,
     "InfoText": true,
+    "InfoGold": true,
     "MainMenu": true
   },
   "strict": "implied",

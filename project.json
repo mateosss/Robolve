@@ -24,6 +24,7 @@
       "src/hud/propertySelector.js",
       "src/hud/defenseDetails.js",
       "src/hud/infoText.js",
+      "src/hud/infoGold.js",
       "src/level/base.js",
       "src/level/game.js",
       "src/level/level.js",

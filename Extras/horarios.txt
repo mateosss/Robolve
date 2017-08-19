@@ -260,3 +260,4 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
 - 2017-08-18 Vi -
     - 21:15 - 22:30 - defenseDetails separado de hud
     - 22:30 - 22:45 - infoText separado de hud
+    - 22:45 - 23:05 - infoGold separado de hud

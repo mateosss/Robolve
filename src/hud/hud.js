@@ -10,7 +10,6 @@ var Hud = cc.Layer.extend({
   ds: null, // Defense Selector
   dsBtnOk: null,
   dsBtnCancel: null,
-  dsLabel: null,
   dsDefense: null, // Dummy defense on screen
 
   ig: null, // Infromationg - Gold
@@ -22,18 +21,8 @@ var Hud = cc.Layer.extend({
     var center = cc.p(s.width / 2, s.height / 2); // Screen center
 
     // Gold
-    var igt = new cc.LabelTTF("Gold:", "Arial", 32, cc.size(s.width, 32), cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_TOP);//TODO width hardcoded
-    igt.setAnchorPoint(0, 0);
-    igt.setPosition(cc.p(0, 64));
-    this.addChild(igt, 100);
-    var igPos = cc.p(0, 32);
-    this.ig = new cc.LabelTTF(this.level.base.money, "Arial", 32, cc.size(s.width, 32), cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_TOP);//TODO width hardcoded
-    this.ig.setAnchorPoint(0, 0);
-    this.ig.setPosition(igPos);
-    this.ig.refresh = function() {
-      this.setString(this.getParent().level.base.money + "");
-    };
-    this.addChild(this.ig, 100);
+    this.ig = new InfoGold(this);
+    this.addChild(this.ig);
 
     // Defense Selector
     var dsSize = cc.size(s.width, 128); // defenseSelector Height // TODO 128 hardcoded
