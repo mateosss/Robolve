@@ -1,3 +1,5 @@
+# Primera etapa
+
 Junio - 27 hs
 Do 5 - 7:30 hs
   - setup de sprites basicos 4:15 hs
@@ -151,9 +153,11 @@ DURACION: 2016-06-05 - 2016-08-31 = 88 dias => 148:25 / 88 = 1:40 hs por dia
 PROPORCION: Trabaje 39/88=0.44 dias de los totales
 LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
         Algoritmo genetico - Logica de debugging visual
+
 ---
 
-# Segunda mitad
+# Segunda etapa
+
 - 2017-06-23 Vi - 03:35 hs
     - 10:00 - 12:15 | Volviendo a ver el proyecto, jugando, viendo actualizaciones
       de tecnología, viendo por que es aburrido, agregado mapa con cientos de robots
@@ -257,7 +261,48 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
 - 2017-08-17 Ju - 02:00 hs
     - 21:00 - 22:00 | intentando implementar scrum for one con trello
     - 22:00 - 23:00 | pequeños detalles en botones para ubicar torretas
-- 2017-08-18 Vi -
-    - 21:15 - 22:30 - defenseDetails separado de hud
-    - 22:30 - 22:45 - infoText separado de hud
-    - 22:45 - 23:05 - infoGold separado de hud
+- 2017-08-18 Vi - 02:15 hs
+    - 21:15 - 22:30 | defenseDetails separado de hud
+    - 22:30 - 22:45 | infoText separado de hud
+    - 22:45 - 23:05 | infoGold separado de hud
+    - 23:05 - 23:30 | defenseSelector separado de hud
+
+---
+
+# Scrum Time
+
+- 5p ~= 4hs
+- 1p = 0.8hs
+- 1hs = 1.25p
+- (X) estimated points of the task
+- [] final points used for the task
+
+Format (variables between \<\> should be calculated after each day/task)
+
+```
+# (ESTIMATEDPOINTS) Sprint XX - SPRINTNAME [<REALPOINTS>]
+
+## (ESTIMATEDPOINTS) TASKNAME [<REALPOINTS>] - <HOURS TAKEN>
+- YYYY-MM-DD DAY - <SUM OF HOURS THAT DAY>
+    - HH:mm - HH:mm | Short description of that period's work
+```
+
+---
+
+# (463) Sprint 01 - Aesthetics []
+
+## (13) Planning sprint [8.5] - 06:20 hs
+
+- 2017-08-19 Sa - 03:00 hs
+    - 22:00 - 01:00 | planificando Sprint 01 - Aesthetics, HUD
+- 2017-08-20 Do - 03:50 hs
+    - 18:40 - 19:50 | planificando mas hud, tipografias, zoom
+    - 21:00 - 22:30 | terminando planificación
+    - 22:30 - 23:40 | transcribir ideas al backlog, configurando scrum for trello
+
+## (31) UI Design mockup [] -
+
+- 2017-08-21 Lu - 03:30 hs
+    - 14:15 - 17:45 | Jugando con las estéticas
+- 2017-08-21 Ma - 02:30 hs
+    - 20:30 - 23:00 | Terminando de jugar y definir medidas de la ui
