@@ -304,5 +304,8 @@ Format (variables between \<\> should be calculated after each day/task)
 
 - 2017-08-21 Lu - 03:30 hs
     - 14:15 - 17:45 | Jugando con las estéticas
-- 2017-08-21 Ma - 02:30 hs
+- 2017-08-22 Ma - 02:30 hs
     - 20:30 - 23:00 | Terminando de jugar y definir medidas de la ui
+- 2017-08-23 Mi - 03:10 hs
+    - 19:10 - 19:30 | Probando que tan necesario va a ser el 9patch
+    - 20:40 - 23:30 | Mockup de una bottom bar con timer, time buttons y add defense button
