@@ -315,4 +315,11 @@ Format (variables between \<\> should be calculated after each day/task)
 
 ## (11) Fonts [] -
 
-
+- 2017-08-28 Lu - 00:45 hs
+    - 11:00 - 11:45 | Learning how to use Scale9Sprite
+- 2017-08-30 Mi - 02:25 hs
+    - 21:40 - 00:05 | Posicionando 9 scale panel para ubicar las letras.
+- 2017-09-06 Mi -
+    - 20:25 - 23:40 | Funciona la font en html, intentado posicionarla, y actualizando cocos + bug report de getTileAt para que se vean bien las fuentes
+- 2017-09-15 Vi -
+    - 22:00 - 23:45 | Nuevo componente Text

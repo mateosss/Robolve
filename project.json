@@ -2,7 +2,7 @@
     "project_type": "javascript",
 
     "debugMode" : 1,
-    "showFPS" : true,
+    "showFPS" : false,
     "frameRate" : 60,
     "noCache" : false,
     "id" : "gameCanvas",
@@ -19,6 +19,7 @@
       "src/rb.js",
       "src/resource.js",
       "src/hud/easyEvents.js",
+      "src/hud/components.js",
       "src/hud/hud.js",
       "src/hud/menu.js",
       "src/hud/propertySelector.js",

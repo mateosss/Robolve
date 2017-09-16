@@ -863,11 +863,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.40299479"
-     inkscape:cx="1441.7314"
-     inkscape:cy="711.0809"
+     inkscape:zoom="1.1398414"
+     inkscape:cx="391.59787"
+     inkscape:cy="614.5333"
      inkscape:document-units="px"
-     inkscape:current-layer="g27810"
+     inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1280"
      inkscape:window-height="1000"
@@ -2821,7 +2821,10 @@
     </g>
     <g
        id="g6321"
-       transform="translate(-447.99993,-447.99998)">
+       transform="translate(-447.99993,-447.99998)"
+       inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/panel1.png"
+       inkscape:export-xdpi="128"
+       inkscape:export-ydpi="128">
       <g
          transform="translate(0,127.99998)"
          id="g6204">
@@ -8791,7 +8794,7 @@
            height="64"
            x="1448"
            y="215.99995" /></flowRegion><flowPara
-         id="flowPara6318"></flowPara></flowRoot>    <g
+         id="flowPara6318" /></flowRoot>    <g
        id="g9370">
       <g
          clip-path="url(#clipPath8138)"

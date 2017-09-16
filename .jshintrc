@@ -23,6 +23,7 @@
     "GameLevel": true,
     "Level": true,
     "TiledMap": true,
+    "Text": true,
     "Hud": true,
     "Menu": true,
     "PropertySelector": true,
