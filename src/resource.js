@@ -1,5 +1,5 @@
 var r = { // resources variable
-  baloo: {type: "font", name: "Baloo", srcs: ["res/BalooBhaijaan-Regular.ttf"]},
+  baloo: {type: "font", name: "Baloo", srcs: ["res/fonts/BalooBhaijaan-Regular.ttf"]},
   panel : "res/sprites/ui/panel1.png",
   menuBackground : "res/menuBackground.png",
   empty: "res/sprites/empty.png",
