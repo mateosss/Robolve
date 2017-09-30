@@ -324,4 +324,9 @@ Format (variables between \<\> should be calculated after each day/task)
 - 2017-09-15 Vi - 02:00 hs
     - 22:00 - 00:00 | Nuevo componente Text
 
-## (28) HUD - Gold [] - 
+## (28) HUD - Gold [] -
+
+- 2017-09-24 Sa - 02:30 hs
+    - 23:30 - 01:00 | Implementando componente Panel
+- 2017-09-29 Vi -
+    - 22:00 - 23:15 | Terminando panel

@@ -57,6 +57,9 @@ var Menu = cc.LayerGradient.extend({
       this.ls.addChild(btn);
     }
 
+    startGame(null, 0); // XXX remove line
+    setTimeout(() => rb.dev.stateRobots("still"), 10000);// XXX remove line
+
     // cc.eventManager.addListener({
     //   event: cc.EventListener.TOUCH_ONE_BY_ONE,
     //   onTouchBegan: function (touches, event) {

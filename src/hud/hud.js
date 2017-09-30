@@ -28,26 +28,11 @@ var Hud = cc.Layer.extend({
     this.dd = new DefenseDetails(this);
     this.addChild(this.dd);
 
-    // New bottom bar
-    let vw = cc.winSize.width / 100;
-    let vh = cc.winSize.height / 100;
-    let scale = 1.5;
-    let margin = 2 * vw;
-    let height = (12 * vh) / scale;
-    let width = (100 * vw) / scale;
-
-    this.layout = new ccui.Layout();
-    this.layout.scale = scale;
-    this.layout.setBackGroundImage(r.panel);
-    this.layout.setBackGroundImageScale9Enabled(true);
-    this.layout.setLayoutType(ccui.Layout.LINEAR_HORIZONTAL);
-    this.layout.setSizeType(ccui.Widget.SIZE_ABSOLUTE);
-    this.layout.setContentSize(width - (margin * 2) / scale, height);
-    this.layout.setPositionType(ccui.Widget.POSITION_ABSOLUTE);
-    this.layout.setPosition(cc.p(margin, margin));
+    // Bottom bar
+    this.layout = new Panel({width: 100, height: 12, margin: 2});
     this.addChild(this.layout, 101);
 
-    var text = new Text("Hello ccui.Text");
+    var text = new Text({text: "Hello ccui.Text"});
     this.layout.addChild(text);
 
     return true;

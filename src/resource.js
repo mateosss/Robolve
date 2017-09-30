@@ -1,6 +1,6 @@
 var r = { // resources variable
   baloo: {type: "font", name: "Baloo", srcs: ["res/fonts/BalooBhaijaan-Regular.ttf"]},
-  panel : "res/sprites/ui/panel1.png",
+  panel : "res/sprites/ui/panel.png", // TODO r.panel? This probably should have a hud sub object
   menuBackground : "res/menuBackground.png",
   empty: "res/sprites/empty.png",
   point: "res/sprites/point.png",
