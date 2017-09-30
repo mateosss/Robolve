@@ -29,8 +29,14 @@ var Hud = cc.Layer.extend({
     this.addChild(this.dd);
 
     // Bottom bar
-    this.layout = new Panel({width: 100, height: 12, margin: 2});
-    this.addChild(this.layout, 101);
+    this.layout = new Panel({width: 81.94444444444444, height: 10.9375, padding: 1.5277777777777777});
+    this.addChild(this.layout, 10);
+    window.layout = this.layout;
+
+    // Gold bar
+    this.goldbar = new Panel({width: 37.5, height: 10.9375, padding: 1.5277777777777777, y: -10.9375})
+    this.addChild(this.goldbar, 10);
+    window.goldbar = this.goldbar;
 
     var text = new Text({text: "Hello ccui.Text"});
     this.layout.addChild(text);

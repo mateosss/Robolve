@@ -1,10 +1,10 @@
 var Panel = ccui.Layout.extend({
   panel: { // Default values
-    x: 0,
-    y: 0,
-    width: 50,
-    height: 50,
-    margin: 0,
+    x: 0, // % of the screen width, can be negative to start from right
+    y: 0, // % of the screen height, can be negative to start from top
+    width: 50, // % of screen width
+    height: 50, // % of screen height
+    padding: 0, // % of screen width
     scale: 1,
     bgImage: r.panel,
     layoutType: ccui.Layout.LINEAR_HORIZONTAL,
@@ -18,7 +18,7 @@ var Panel = ccui.Layout.extend({
       y = this.panel.y,
       width = this.panel.width,
       height = this.panel.height,
-      margin = this.panel.margin,
+      padding = this.panel.padding,
       scale = this.panel.scale,
       bgImage = this.panel.bgImage,
       layoutType = this.panel.layoutType,
@@ -27,16 +27,16 @@ var Panel = ccui.Layout.extend({
       let vw = cc.winSize.width / 100;
       let vh = cc.winSize.height / 100;
 
-      this.panel.margin = margin;
+      this.panel.padding = padding;
       this.panel.x = x;
       this.panel.y = y;
       this.panel.height = height;
       this.panel.width = width;
       this.panel.scale = scale;
 
-      margin = margin * vw;
-      x = (x * vw);
-      y = (y * vh);
+      padding = padding * vw;
+      x = x >= 0 ? x * vw : 100 * vw + x * vw;
+      y = y >= 0 ? y * vh : 100 * vh + y * vh;
       height = (height * vh) / scale;
       width = (width * vw) / scale;
       this.scale = scale;
@@ -45,9 +45,9 @@ var Panel = ccui.Layout.extend({
       this.setBackGroundImageScale9Enabled(true);
       this.setLayoutType(layoutType);
       this.setSizeType(ccui.Widget.SIZE_ABSOLUTE);
-      this.setContentSize(width - margin * 2 / scale, height - margin * 2 / scale);
+      this.setContentSize(width - padding * 2 / scale, height - padding * 2 / scale);
       this.setPositionType(ccui.Widget.POSITION_ABSOLUTE);
-      this.setPosition(x + margin, y + margin);
+      this.setPosition(x + padding, y + padding);
     },
   toString: () => "Panel"
 });
