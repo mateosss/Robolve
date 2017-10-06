@@ -38,8 +38,9 @@ var Hud = cc.Layer.extend({
     this.addChild(this.goldbar, 10);
     window.goldbar = this.goldbar;
 
-    var text = new Text({text: "Hello ccui.Text"});
-    this.layout.addChild(text);
+    let text = new Text({text: "3250", fontSize: 56});
+    this.goldbar.addChild(text);
+    window.text = text;
 
     return true;
   },

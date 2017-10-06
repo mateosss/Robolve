@@ -330,3 +330,6 @@ Format (variables between \<\> should be calculated after each day/task)
     - 23:30 - 01:00 | Implementando componente Panel
 - 2017-09-29 Vi -
     - 22:00 - 23:15 | Terminando panel
+    - 23:15 - 00:45 | Problemas con el color de texto
+- 2017-10-06 Ju -
+    - 23:30 - 00:10 | Agregada DisplayManager para mayor abstracción del sistema de posicionamiento del HUD

@@ -1,53 +1,93 @@
+// TODO deberia usar LabelTTF en vez de ccui.Text por el fillColor
+
+// TODO deberia tener una clase abstracta color, que guarde la paleta de colores
+// y pueda acceder a las diferentes tonalidades de los colores facilmente
+
+var DisplayManager = cc.Class.extend({
+  owner: null, // The real ccui object that has the display manager and will be affected by it
+  x: 0, // x position in vw %, accepts negative for starting from right
+  y:  0, // y position in vh %, accepts negative for starting from top
+  width: 100, // width in vw %
+  height: 100, // height in vh %
+  padding: 0, // padding in vw %
+  scale: 1, // scale of the node, useful when adjusting texture size
+
+  ctor: function(owner, {
+    x = this.x,
+    y = this.y,
+    width = this.width,
+    height = this.height,
+    padding = this.padding,
+    scale = this.scale,
+  } = {}) {
+    // Expects the owner of the displayManager, and an object with its attributes
+    // Setup must be called in the owner class, this is just a configuration call
+    this.owner = owner;
+    this.x = x;
+    this.y = y;
+    this.height = height;
+    this.width = width;
+    this.padding = padding;
+    this.scale = scale;
+  },
+
+  setup: function({
+      x = this.x,
+      y = this.y,
+      width = this.width,
+      height = this.height,
+      padding = this.padding,
+      scale = this.scale,
+    } = {}) {
+      // Call this whenever you want to change your owner's properties
+      // If you have more attributes for your specific object, implement a custom
+      // setup class in there that expects an 'options' object, use the custom
+      // attributes from there, and send it back to this function (see Panel.setup)
+      // for reference.
+
+      // Use owner.parent's width and height percentages, or screen dimensions if none
+      let vw = (this.owner && this.owner.parent ? this.owner.parent.width : cc.winSize.width) / 100;
+      let vh = (this.owner && this.owner.parent ? this.owner.parent.height : cc.winSize.height) / 100;
+
+      this.x = x;
+      this.y = y;
+      this.height = height;
+      this.width = width;
+      this.padding = padding;
+      this.scale = scale;
+
+      x = x >= 0 ? x * vw : 100 * vw + x * vw;
+      y = y >= 0 ? y * vh : 100 * vh + y * vh;
+      height = (height * vh) / scale;
+      width = (width * vw) / scale;
+      padding = padding * vw;
+
+      this.owner.scale = scale;
+      this.owner.setSizeType(ccui.Widget.SIZE_ABSOLUTE);
+      this.owner.setContentSize(width - padding * 2 / scale, height - padding * 2 / scale);
+      this.owner.setPositionType(ccui.Widget.POSITION_ABSOLUTE);
+      this.owner.setPosition(x + padding, y + padding);
+    },
+    toString: () => "DisplayManager"
+});
+
 var Panel = ccui.Layout.extend({
   panel: { // Default values
-    x: 0, // % of the screen width, can be negative to start from right
-    y: 0, // % of the screen height, can be negative to start from top
-    width: 50, // % of screen width
-    height: 50, // % of screen height
-    padding: 0, // % of screen width
-    scale: 1,
     bgImage: r.panel,
     layoutType: ccui.Layout.LINEAR_HORIZONTAL,
   },
   ctor: function(options) {
       this._super();
+      this.displayManager = new DisplayManager(this, options);
       this.setup(options);
   },
-  setup: function({
-      x = this.panel.x,
-      y = this.panel.y,
-      width = this.panel.width,
-      height = this.panel.height,
-      padding = this.panel.padding,
-      scale = this.panel.scale,
-      bgImage = this.panel.bgImage,
-      layoutType = this.panel.layoutType,
-    } = {}) {
-
-      let vw = cc.winSize.width / 100;
-      let vh = cc.winSize.height / 100;
-
-      this.panel.padding = padding;
-      this.panel.x = x;
-      this.panel.y = y;
-      this.panel.height = height;
-      this.panel.width = width;
-      this.panel.scale = scale;
-
-      padding = padding * vw;
-      x = x >= 0 ? x * vw : 100 * vw + x * vw;
-      y = y >= 0 ? y * vh : 100 * vh + y * vh;
-      height = (height * vh) / scale;
-      width = (width * vw) / scale;
-      this.scale = scale;
-
+  setup: function(options) {
+      let bgImage = options.bgImage || this.panel.bgImage;
+      let layoutType = options.layoutType || this.panel.layoutType;
+      this.displayManager.setup(options);
       this.setBackGroundImage(bgImage);
       this.setBackGroundImageScale9Enabled(true);
       this.setLayoutType(layoutType);
-      this.setSizeType(ccui.Widget.SIZE_ABSOLUTE);
-      this.setContentSize(width - padding * 2 / scale, height - padding * 2 / scale);
-      this.setPositionType(ccui.Widget.POSITION_ABSOLUTE);
-      this.setPosition(x + padding, y + padding);
     },
   toString: () => "Panel"
 });
@@ -87,6 +127,8 @@ var Text = ccui.Text.extend({
     } else if (positionType === ccui.Widget.POSITION_ABSOLUTE) {
       this.setPosition(position);
     }
+
+    this.enableShadow(cc.color(176,190,197), cc.size(0, -6), 0);
 
   },
 
