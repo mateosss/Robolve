@@ -55,10 +55,6 @@ var DisplayManager = cc.Class.extend({
     // Use owner.parent's width and height percentages, or screen dimensions if none
     let vw = (this.owner && this.owner.parent ? this.owner.parent.width : cc.winSize.width) / 100;
     let vh = (this.owner && this.owner.parent ? this.owner.parent.height : cc.winSize.height) / 100;
-    if (this.owner.toString()=="Text"){
-      // debugger; //XXX
-    }
-
 
     this.x = x;
     this.y = y;
@@ -95,7 +91,6 @@ var DisplayManager = cc.Class.extend({
 var Panel = ccui.Layout.extend({
   panel: { // Default values
     bgImage: r.panel,
-    // layoutType: ccui.Layout.LINEAR_HORIZONTAL, // XXX
   },
   displayManager: null, // Manages the size and location of this component
   ctor: function(options) {
@@ -106,11 +101,11 @@ var Panel = ccui.Layout.extend({
   setup: function(options) {
     this.panel.bgImage = options.bgImage || this.panel.bgImage;
     this.panel.layoutType = options.layoutType || this.panel.layoutType;
-    this.displayManager.setup(options);
 
     this.setBackGroundImage(this.panel.bgImage);
     this.setBackGroundImageScale9Enabled(true);
-    // this.setLayoutType(this.panel.layoutType); // XXX
+
+    this.displayManager.setup(options);
   },
   toString: () => "Panel"
 });
@@ -137,25 +132,26 @@ var Text = ccui.Text.extend({
     this.text.text = options.text || this.text.text;
     this.text.fontName = options.fontName || this.text.fontName;
     this.text.fontSize = options.fontSize || this.text.fontSize;
-    // this.text.hAlign = options.hAlign || this.text.hAlign; // XXX
-    // this.text.vAlign = options.vAlign || this.text.vAlign; // XXX
+    this.text.hAlign = options.hAlign || this.text.hAlign;
+    this.text.vAlign = options.vAlign || this.text.vAlign;
     this.text.color = options.color || this.text.color;
     this.text.shadow = options.shadow || this.text.shadow;
-
-    this.displayManager.setup(options);
 
     this.setString(this.text.text);
     this.setFontName(this.text.fontName);
     this.setFontSize(this.text.fontSize);
-    // this.setTextHorizontalAlignment(this.text.hAlign); // XXX
-    // this.setTextVerticalAlignment(this.text.vAlign); // XXX
+    this.setTextHorizontalAlignment(this.text.hAlign);
+    this.setTextVerticalAlignment(this.text.vAlign);
     this.setTextColor(this.text.color);
     if (this.text.shadow) this.enableShadow(...this.text.shadow);
 
+    this.displayManager.setup(options);
 
-    let d = new Debugger(); // XXX
-    d.debugRect(this, {stop:true});
-    d.debugRect(this, {lineColor:cc.color(0,255,0)});
+    // if (this.parent) { // XXX Delete
+    //   let d = new Debugger();
+    //   d.debugRect(this.parent, {stop:true});
+    //   window.dtext = d.debugRect(this.parent, {rect: this,lineColor:cc.color(0,255,0)});
+    // }
   },
   toString: () => "Text"
 });
