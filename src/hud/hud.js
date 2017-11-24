@@ -34,11 +34,11 @@ var Hud = cc.Layer.extend({
     window.layout = this.layout;
 
     // Gold bar
-    this.goldbar = new Panel({width: 37.5, height: 10.9375, padding: 1.5277777777777777, y: -10.9375})
+    this.goldbar = new Panel({width: 37.5, height: 10.9375, padding: 1.5277777777777777, y: -10.9375});
     this.addChild(this.goldbar, 10);
     window.goldbar = this.goldbar;
 
-    let text = new Text({text: "3250", fontSize: 56});
+    let text = new Text({x:"center", y:"center", text: "3250", fontSize: 56, shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
     this.goldbar.addChild(text);
     window.text = text;
 

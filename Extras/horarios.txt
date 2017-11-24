@@ -328,8 +328,15 @@ Format (variables between \<\> should be calculated after each day/task)
 
 - 2017-09-24 Sa - 02:30 hs
     - 23:30 - 01:00 | Implementando componente Panel
-- 2017-09-29 Vi -
+- 2017-09-29 Vi - 02:45 hs
     - 22:00 - 23:15 | Terminando panel
     - 23:15 - 00:45 | Problemas con el color de texto
-- 2017-10-06 Ju -
+- 2017-10-06 Ju - 02:00 hs
     - 23:30 - 00:10 | Agregada DisplayManager para mayor abstracción del sistema de posicionamiento del HUD
+    - 00:10 - 01:30 | Intentando debugear el problema de getTileAt del nuevo cocos
+- 2017-10-25 Mi - 02:15 hs
+    - 21:10 - 23:25 | Intentando implementar un buen componente Text
+- 2017-11-22 Mi -
+    - 18:20 - 19:00 - Retomando
+- 2017-11-24 Vi -
+    - 14:00 - 16:00 - Debuggeando, intentado hacer que el componente Text tome su posición

@@ -29,109 +29,133 @@ var DisplayManager = cc.Class.extend({
     this.width = width;
     this.padding = padding;
     this.scale = scale;
+
+    // Overrides the setParent function of the owner, so when owner is added
+    // as a child of another node, it automatically executes setup.
+    owner.setParent = function(parent) {
+      cc.Node.prototype.setParent.call(owner, parent);
+      this.setup({});
+    };
   },
 
   setup: function({
-      x = this.x,
-      y = this.y,
-      width = this.width,
-      height = this.height,
-      padding = this.padding,
-      scale = this.scale,
-    } = {}) {
-      // Call this whenever you want to change your owner's properties
-      // If you have more attributes for your specific object, implement a custom
-      // setup class in there that expects an 'options' object, use the custom
-      // attributes from there, and send it back to this function (see Panel.setup)
-      // for reference.
+    x = this.x,
+    y = this.y,
+    width = this.width,
+    height = this.height,
+    padding = this.padding,
+    scale = this.scale,
+  } = {}) {
+    // Call this whenever you want to change your owner's properties
+    // If you have more attributes for your specific object, implement a custom
+    // setup class in there that expects an 'options' object, use the custom
+    // attributes from there, and send it back to this function (see Panel.setup)
+    // for reference.
 
-      // Use owner.parent's width and height percentages, or screen dimensions if none
-      let vw = (this.owner && this.owner.parent ? this.owner.parent.width : cc.winSize.width) / 100;
-      let vh = (this.owner && this.owner.parent ? this.owner.parent.height : cc.winSize.height) / 100;
+    // Use owner.parent's width and height percentages, or screen dimensions if none
+    let vw = (this.owner && this.owner.parent ? this.owner.parent.width : cc.winSize.width) / 100;
+    let vh = (this.owner && this.owner.parent ? this.owner.parent.height : cc.winSize.height) / 100;
+    if (this.owner.toString()=="Text"){
+      // debugger; //XXX
+    }
 
-      this.x = x;
-      this.y = y;
-      this.height = height;
-      this.width = width;
-      this.padding = padding;
-      this.scale = scale;
 
-      x = x >= 0 ? x * vw : 100 * vw + x * vw;
-      y = y >= 0 ? y * vh : 100 * vh + y * vh;
-      height = (height * vh) / scale;
-      width = (width * vw) / scale;
-      padding = padding * vw;
+    this.x = x;
+    this.y = y;
+    this.height = height;
+    this.width = width;
+    this.padding = padding;
+    this.scale = scale;
 
-      this.owner.scale = scale;
-      this.owner.setSizeType(ccui.Widget.SIZE_ABSOLUTE);
-      this.owner.setContentSize(width - padding * 2 / scale, height - padding * 2 / scale);
-      this.owner.setPositionType(ccui.Widget.POSITION_ABSOLUTE);
-      this.owner.setPosition(x + padding, y + padding);
-    },
-    toString: () => "DisplayManager"
+    padding = padding * vw;
+    height = (height * vh) / scale - padding * 2 / scale;
+    width = (width * vw) / scale - padding * 2 / scale;
+    if (x === "center") {
+      x = (vw * 100 - this.owner.width) / 2;
+    } else {
+      x = (x >= 0 ? x * vw : 100 * vw + x * vw) + padding;
+    }
+
+    if (y === "center") {
+      y = (vh * 100 - this.owner.height) / 2;
+    } else {
+      y = (y >= 0 ? y * vh : 100 * vh + y * vh) + padding;
+    }
+
+    this.owner.scale = scale;
+    this.owner.setSizeType(ccui.Widget.SIZE_ABSOLUTE);
+    this.owner.setContentSize(width, height);
+    this.owner.setPositionType(ccui.Widget.POSITION_ABSOLUTE);
+    this.owner.setPosition(x, y);
+
+  },
+  toString: () => "DisplayManager"
 });
 
 var Panel = ccui.Layout.extend({
   panel: { // Default values
     bgImage: r.panel,
-    layoutType: ccui.Layout.LINEAR_HORIZONTAL,
+    // layoutType: ccui.Layout.LINEAR_HORIZONTAL, // XXX
   },
+  displayManager: null, // Manages the size and location of this component
   ctor: function(options) {
-      this._super();
-      this.displayManager = new DisplayManager(this, options);
-      this.setup(options);
+    this._super();
+    this.displayManager = new DisplayManager(this, options);
+    this.setup(options);
   },
   setup: function(options) {
-      let bgImage = options.bgImage || this.panel.bgImage;
-      let layoutType = options.layoutType || this.panel.layoutType;
-      this.displayManager.setup(options);
-      this.setBackGroundImage(bgImage);
-      this.setBackGroundImageScale9Enabled(true);
-      this.setLayoutType(layoutType);
-    },
+    this.panel.bgImage = options.bgImage || this.panel.bgImage;
+    this.panel.layoutType = options.layoutType || this.panel.layoutType;
+    this.displayManager.setup(options);
+
+    this.setBackGroundImage(this.panel.bgImage);
+    this.setBackGroundImageScale9Enabled(true);
+    // this.setLayoutType(this.panel.layoutType); // XXX
+  },
   toString: () => "Panel"
 });
 
+
 var Text = ccui.Text.extend({
-  ctor: function({text = "", fontName = "Baloo", fontSize = 32,
-    hAlign = cc.TEXT_ALIGNMENT_CENTER, vAlign = cc.VERTICAL_TEXT_ALIGNMENT_CENTER,
-    sizeType = ccui.Widget.SIZE_PERCENT, size = cc.p(1, 1),
-    positionType = ccui.Widget.POSITION_PERCENT, position = cc.p(0.5, 0.5)
-  } = {}) {
-
-    this._super(text, fontName, fontSize);
-    this.setTextHorizontalAlignment(hAlign);
-    this.setTextVerticalAlignment(vAlign);
-
-    this.setSizeType(sizeType);
-    if (sizeType === ccui.Widget.SIZE_PERCENT) {
-      this.setSizePercent(size);
-    } else if (sizeType === ccui.Widget.SIZE_ABSOLUTE) {
-      this.setContentSize(size);
-    }
-
-    this.setPositionType(positionType);
-    if (positionType === ccui.Widget.POSITION_PERCENT) {
-      if (cc.sys.isNative) {
-        /* TODO Hay un bug extraño, no es culpa mía creo, pero basicamente no funciona
-        el setPositionPercent apenás se usa, la propiedad xPercent se resetea a 0
-        siempre, pero si lo hago desde la consola del navegador funciona bien */
-        /* Para solventarlo por ahora chequeo si estoy nativo y si es así procedo
-        normalmente, si no, si estoy en browser, pongo un timeout para que se
-        ejecute esa línea después de que todo esté bien */
-        this.setPositionPercent(position);
-      } else {
-        // TODO ver como solucionar esto o ver de mandar hacer un issue o hacer el commit yo
-        window.setTimeout(() => this.setPositionPercent(position), 1000);
-      }
-    } else if (positionType === ccui.Widget.POSITION_ABSOLUTE) {
-      this.setPosition(position);
-    }
-
-    this.enableShadow(cc.color(176,190,197), cc.size(0, -6), 0);
-
+  text: { // Default values
+    text: "",
+    fontName: "Baloo",
+    fontSize: 32,
+    hAlign: cc.TEXT_ALIGNMENT_CENTER,
+    vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER,
+    color: cc.color(255, 255, 255),
+    shadow: null, // list with color, offset, blurradius
   },
+  displayManager: null, // Manages the size and location of this component
+  ctor: function(options) {
+    this._super();
+    this.setAnchorPoint(0, 0);
+    this.displayManager = new DisplayManager(this, options);
+    this.setup(options);
+  },
+  setup: function(options) {
+    this.text.text = options.text || this.text.text;
+    this.text.fontName = options.fontName || this.text.fontName;
+    this.text.fontSize = options.fontSize || this.text.fontSize;
+    // this.text.hAlign = options.hAlign || this.text.hAlign; // XXX
+    // this.text.vAlign = options.vAlign || this.text.vAlign; // XXX
+    this.text.color = options.color || this.text.color;
+    this.text.shadow = options.shadow || this.text.shadow;
 
+    this.displayManager.setup(options);
+
+    this.setString(this.text.text);
+    this.setFontName(this.text.fontName);
+    this.setFontSize(this.text.fontSize);
+    // this.setTextHorizontalAlignment(this.text.hAlign); // XXX
+    // this.setTextVerticalAlignment(this.text.vAlign); // XXX
+    this.setTextColor(this.text.color);
+    if (this.text.shadow) this.enableShadow(...this.text.shadow);
+
+
+    let d = new Debugger(); // XXX
+    d.debugRect(this, {stop:true});
+    d.debugRect(this, {lineColor:cc.color(0,255,0)});
+  },
   toString: () => "Text"
-
 });
