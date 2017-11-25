@@ -16,10 +16,14 @@ var Hud = cc.Layer.extend({
     this.goldbar = new Panel({width: 37.5, height: 10.9375, padding: 1.5277777777777777, y: -10.9375});
     this.addChild(this.goldbar, 10);
 
-    this.ig = new InfoGold(this, {x:"center", y:"center", fontSize: 64, shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
+    this.gi = new Icon({icon:"coin", x: 7, y: 16, fontSize: 72, shadow: [cc.color(255,160,0), cc.size(0, -6), 0], color: cc.color(255,194,7)});
+    this.goldbar.addChild(this.gi);
+
+    this.ig = new InfoGold(this, {x: 38, y:"center", fontSize: 56, shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
     this.goldbar.addChild(this.ig);
 
     window.ig = this.ig; // XXX
+    window.gi = this.gi;
 
     // Defense Selector
     this.ds = new DefenseSelector(this);

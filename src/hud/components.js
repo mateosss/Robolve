@@ -1,5 +1,3 @@
-// TODO deberia usar LabelTTF en vez de ccui.Text por el fillColor
-
 // TODO deberia tener una clase abstracta color, que guarde la paleta de colores
 // y pueda acceder a las diferentes tonalidades de los colores facilmente
 
@@ -89,11 +87,10 @@ var DisplayManager = cc.Class.extend({
 });
 
 var Panel = ccui.Layout.extend({
-  panel: { // Default values
-    bgImage: r.panel,
-  },
+  panel: null, // panel specififc properties, check ctor
   displayManager: null, // Manages the size and location of this component
   ctor: function(options) {
+    this.panel = this.panel || {bgImage: r.panel};
     this._super();
     this.displayManager = new DisplayManager(this, options);
     this.setup(options);
@@ -110,19 +107,19 @@ var Panel = ccui.Layout.extend({
   toString: () => "Panel"
 });
 
-
 var Text = ccui.Text.extend({
-  text: { // Default values
-    text: "",
-    fontName: "Baloo",
-    fontSize: 32,
-    hAlign: cc.TEXT_ALIGNMENT_CENTER,
-    vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER,
-    color: cc.color(255, 255, 255),
-    shadow: null, // list with color, offset, blurradius
-  },
+  text: null, // text specififc properties, check ctor
   displayManager: null, // Manages the size and location of this component
   ctor: function(options) {
+    this.text = this.text || {
+      text: "",
+      fontName: "baloo",
+      fontSize: 32,
+      hAlign: cc.TEXT_ALIGNMENT_CENTER,
+      vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER,
+      color: cc.color(255, 255, 255),
+      shadow: null, // list with color, offset, blurradius
+    };
     this._super();
     this.setAnchorPoint(0, 0);
     this.displayManager = new DisplayManager(this, options);
@@ -154,4 +151,60 @@ var Text = ccui.Text.extend({
     // }
   },
   toString: () => "Text"
+});
+
+var Icon = Text.extend({
+  icons: {
+    'airballoon': '\ue800',
+    'arrow-left': '\ue801',
+    'arrow-right': '\ue802',
+    'castle': '\ue803',
+    'chart-donut-variant': '\ue804',
+    'cloud': '\ue805',
+    'coin': '\ue806',
+    'coins': '\ue807',
+    'currency-eth': '\ue808',
+    'database': '\ue809',
+    'diamond': '\ue80a',
+    'dna': '\ue80b',
+    'fast-forward': '\ue80c',
+    'flash': '\ue80d',
+    'flask': '\ue80e',
+    'google-circles': '\ue80f',
+    'hexagon': '\ue810',
+    'hexagon-outline': '\ue811',
+    'nfc-variant': '\ue812',
+    'nuke': '\ue813',
+    'pause': '\ue814',
+    'plus': '\ue815',
+    'rewind': '\ue816',
+    'robot': '\ue817',
+    'skip-forward': '\ue818',
+    'target': '\ue819',
+    'terrain': '\ue81a',
+    'weather-windy': '\ue81b',
+  },
+  displayManager: null, // Manages the size and location of this component
+  icon: null,
+  ctor: function(options) {
+    this.text = this.icon = this.icon || {
+      icon: "robot",
+      text: "\ue817",
+      fontName: "icons",
+      fontSize: 32,
+      hAlign: cc.TEXT_ALIGNMENT_CENTER,
+      vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER,
+      color: cc.color(255, 255, 255),
+      shadow: null, // list with color, offset, blurradius
+    };
+    options.text = this.icons[options.icon || this.icon.icon];
+    options.fontName = "icons";
+    this._super(options);
+  },
+  setup: function(options) {
+    this.icon.icon = options.icon || this.icon.icon;
+    options.text = this.icons[options.icon || this.icon.icon];
+    this._super(options);
+  },
+  toString: () => "Icon",
 });

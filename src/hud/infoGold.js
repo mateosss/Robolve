@@ -8,6 +8,6 @@ var InfoGold = Text.extend({
   },
   toString: () => "InfoGold",
   refresh: function() {
-    this.setup({text: _.format("$ {}", this.hud.level.base.money)});
+    this.setup({text: this.hud.level.base.money});
   }
 });

@@ -341,3 +341,5 @@ Format (variables between \<\> should be calculated after each day/task)
 - 2017-11-24 Vi -
     - 14:00 - 16:00 - Debuggeando, intentado hacer que el componente Text tome su posición
     - 17:00 - 17:30 - Implementado componente Text basico, sin iconos
+    - 17:30 - 19:30 - Intentando compilar para android
+    - 22:30 - 00:30 - Iconos implementados

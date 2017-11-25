@@ -25,6 +25,7 @@
     "TiledMap": true,
     "Panel": true,
     "Text": true,
+    "Icon": true,
     "Hud": true,
     "Menu": true,
     "PropertySelector": true,
