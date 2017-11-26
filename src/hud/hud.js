@@ -13,17 +13,18 @@ var Hud = cc.Layer.extend({
     this.level = level;
 
     // Gold
-    this.goldbar = new Panel({width: 37.5, height: 10.9375, padding: 1.5277777777777777, y: -10.9375});
+    this.goldbar = new Panel({width: "270px", height: "140px", padding: "11px", y: "-140px"});
     this.addChild(this.goldbar, 10);
 
-    this.gi = new Icon({icon:"coin", x: 7, y: 16, fontSize: 72, shadow: [cc.color(255,160,0), cc.size(0, -6), 0], color: cc.color(255,194,7)});
+    this.gi = new Icon({icon:"coin", x: "center", y: "center", right: "75px", bottom: "5px", fontSize: 72, shadow: [cc.color(255,160,0), cc.size(0, -6), 0], color: cc.color(255,194,7)});
     this.goldbar.addChild(this.gi);
 
-    this.ig = new InfoGold(this, {x: 38, y:"center", fontSize: 56, shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
+    this.ig = new InfoGold(this, {x: "center", y:"center", fontSize: 56, left:"30px", shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
     this.goldbar.addChild(this.ig);
 
     window.ig = this.ig; // XXX
     window.gi = this.gi;
+    window.goldbar = this.goldbar;
 
     // Defense Selector
     this.ds = new DefenseSelector(this);
@@ -38,9 +39,10 @@ var Hud = cc.Layer.extend({
     this.addChild(this.dd);
 
     // Bottom bar
-    // this.layout = new Panel({width: 81.94444444444444, height: 10.9375, padding: 1.5277777777777777});
-    // this.addChild(this.layout, 10);
-    // window.layout = this.layout;
+    // TODO make component property calc(), to calculate here calc(100vw - 120px)
+    this.layout = new Panel({width: "81.94444444444444vw", height: "140px", padding: "11px"});
+    this.addChild(this.layout, 10);
+    window.layout = this.layout;
 
     return true;
   },
