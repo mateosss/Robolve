@@ -65,8 +65,7 @@ var DefenseDetails = ccui.ListView.extend({
       let hud = dd.hud;
       if (dd.destroySure) {
         dd.defense.die();
-        hud.level.base.money += 50;
-        hud.ig.refresh();
+        hud.ig.addGold(50);
         dd.destroySure = false;
       } else {
         hud.it.message("Press again to destroy (+$50)");

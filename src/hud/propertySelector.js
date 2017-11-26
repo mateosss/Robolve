@@ -47,13 +47,12 @@ var PropertySelector = ccui.Layout.extend({
       var canMinimize = sortedKeys.indexOf(prop.toString()) > 0;
       if (canMinimize) {
         var cost = 100;
-        var hasBudget = d.level.base.money >= cost; // TODO 50 hardcoded
+        var hasBudget = d.level.base.gold >= cost; // TODO 50 hardcoded
         if (hasBudget) {
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) - 1];
           d.changeStat(p, parseInt(improvement) || improvement);
           d.factoryReset(true);
-          d.level.base.money -= cost;
-          d.level.hud.ig.refresh();
+          d.level.hud.ig.removeGold(cost);
           upBtn.getParent().refresh();
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
         } else {
@@ -81,13 +80,12 @@ var PropertySelector = ccui.Layout.extend({
       var canMaximize = sortedKeys.indexOf(prop.toString()) < sortedKeys.length - 1;
       if (canMaximize) {
         var cost = 100;
-        var hasBudget = d.level.base.money >= cost; // TODO 50 hardcoded
+        var hasBudget = d.level.base.gold >= cost; // TODO 50 hardcoded
         if (hasBudget) {
           var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) + 1];
           d.changeStat(p, parseInt(improvement) || improvement);
-          d.level.base.money -= cost;
+          d.level.hud.ig.removeGold(cost);
           d.factoryReset(true);
-          d.level.hud.ig.refresh();
           upBtn.getParent().refresh();
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
         } else {

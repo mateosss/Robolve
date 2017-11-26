@@ -231,7 +231,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     var color;
     var tint;
 
-    if (this.dummyDefense.canBePlacedOn(pos).result && this.base.money >= 300) { //TODO 300 defense price hardcoded TODO
+    if (this.dummyDefense.canBePlacedOn(pos).result && this.base.gold >= 300) { //TODO 300 defense price hardcoded TODO
       color = cc.color(0, 255, 100, 50);
     } else {
       color = cc.color(255, 50, 50, 50);

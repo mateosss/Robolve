@@ -38,7 +38,7 @@ var DefenseSelector = ccui.ListView.extend({
       /// TODO ALL THIS CODE IS REPEATED FROM GAME.JS and MAP.JS
       var pos = level.map.tileCoordFromChild(level.dummyDefense);
       var canBePlaced = level.dummyDefense.canBePlacedOn(pos);
-      if (canBePlaced.result && level.base.money >= 300) {
+      if (canBePlaced.result && level.base.gold >= 300) {
         let hud = ok.getParent();
         level.dummyDefense.setColor(cc.color(255, 255, 255));
         level.defenses.push(level.dummyDefense);
@@ -51,8 +51,7 @@ var DefenseSelector = ccui.ListView.extend({
         newDefense.factoryReset(); // This makes possible to the idle animation to execute the idle animation
         newDefense.scheduleUpdate();
 
-        level.base.money -= 300; //TODO 300 hardcoded
-        hud.ig.refresh();
+        hud.ig.removeGold(300);
         hud.it.message(canBePlaced.cause);
 
       } else {

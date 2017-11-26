@@ -28,10 +28,7 @@ var rb = {
       this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
     },
     debugAllRobotsScore: (i) => rb.dev.allRobots((r) => r.schedule(rb.dev.debugScoreRobot, isNaN(i) ? 0.5 : i)),
-    addGold: (amount) => {
-      rb.dev.getLevel().base.money += amount || 0;
-      rb.dev.getHud().ig.refresh();
-    }
+    addGold: amount => rb.dev.getHud().ig.addGold(amount)
   },
 
   animations: {
