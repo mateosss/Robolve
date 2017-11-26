@@ -5,7 +5,8 @@
 // si son %, px, rem, vw, vh, o lo que sea tipo css.
 
 // TODO display manager is being executed twice (first time and after being added as a child)
-// should look for a way to prevent that duplication
+// should look for a way to prevent that duplication, sometimes like with InfoGold, that
+// inherits from Text, it is being executed three times
 
 var DisplayManager = cc.Class.extend({
   owner: null, // The real ccui object that has the display manager and will be affected by it
@@ -18,18 +19,6 @@ var DisplayManager = cc.Class.extend({
   width: "100pw", // width
   height: "100ph", // height
   padding: "0px", // padding
-
-  // TODO backup delete
-  // x: 0, // x position, accepts negative for starting from right
-  // y: 0, // y position, accepts negative for starting from top
-  // top: 0, // top offset
-  // right: 0, // right offset
-  // bottom: 0, // bottom offset
-  // left: 0, // left offset
-  // width: 100, // width
-  // height: 100, // height
-  // padding: 0, // padding
-
   scale: 1, // scale of the node, useful when adjusting texture size
 
   ctor: function(owner, {
@@ -98,49 +87,36 @@ var DisplayManager = cc.Class.extend({
     let w = this.getParentWidth();
     let h = this.getParentHeight();
 
-    padding = this.measureToPix(padding);
-    height = this.measureToPix(height) / scale - padding * 2 / scale;
-    width = this.measureToPix(width) / scale - padding * 2 / scale;
+    padding = this.propToPix(padding);
+    height = this.propToPix(height) / scale - padding * 2 / scale;
+    width = this.propToPix(width) / scale - padding * 2 / scale;
 
     if (x === "center") {
       x = (w - this.owner.width) / 2; // TODO backup
-      // x = (w - width) / 2; // TODO implement this
+      // x = (w - width) / 2; // TODO this should be here instead, see y==="center" section
     } else {
-      x = this.measureToPix(x);
+      x = this.propToPix(x);
       x = (x >= 0 ? x : w + x) + padding;
     }
 
     if (y === "center") {
       y = (h - this.owner.height) / 2; // TODO backup
-      // y = (h - height) / 2; // TODO Implement this
+
+      // y = (h - height) / 2;
+      // TODO This should be the real line, but it is a pretty big problem
+      // when this line is used the default height value is 100ph, but in Text
+      // objects that's not true, because after setting everything here, cocos
+      // will replace the height with whatever the fontSize determines.
+      // A solution for this could be to make a converter from the current component
+      // values before it having a displayManager (I am not even sure if that's the real problem)
+      // This should be applied in the case of x==="center" too.
     } else {
-      y = this.measureToPix(y);
+      y = this.propToPix(y);
       y = (y >= 0 ? y : h + y) + padding;
     }
 
-    y += this.measureToPix(bottom) - this.measureToPix(top);
-    x += this.measureToPix(left) - this.measureToPix(right);
-
-    // XXX Backup, delete when done
-    // let vw = (this.owner && this.owner.parent ? this.owner.parent.width : cc.winSize.width) / 100;
-    // let vh = (this.owner && this.owner.parent ? this.owner.parent.height : cc.winSize.height) / 100;
-    // padding = padding * vw;
-    // height = (height * vh) / scale - padding * 2 / scale;
-    // width = (width * vw) / scale - padding * 2 / scale;
-    // if (x === "center") {
-    //   x = (vw * 100 - this.owner.width) / 2;
-    // } else {
-    //   x = (x >= 0 ? x * vw : 100 * vw + x * vw) + padding;
-    // }
-    //
-    // if (y === "center") {
-    //   y = (vh * 100 - this.owner.height) / 2;
-    // } else {
-    //   y = (y >= 0 ? y * vh : 100 * vh + y * vh) + padding;
-    // }
-    //
-    // y += (bottom - top) * vh;
-    // x += (left - right) * vw;
+    y += this.propToPix(bottom) - this.propToPix(top);
+    x += this.propToPix(left) - this.propToPix(right);
 
     this.owner.scale = scale;
     this.owner.setSizeType(ccui.Widget.SIZE_ABSOLUTE);
@@ -157,7 +133,7 @@ var DisplayManager = cc.Class.extend({
     // Returns this.owner.parent's height, or screen dimensions if none
     return this.owner && this.owner.parent ? this.owner.parent.height : cc.winSize.height;
   },
-  measureToPix: function(prop) {
+  propToPix: function(prop) {
     // Translate a property into the final pixels that the display manager will use
     // AApx: Real screen pixels,
     // AArem = 16px * AA
@@ -170,6 +146,7 @@ var DisplayManager = cc.Class.extend({
     // AApmin = AA * (pw > ph ? ph : pw)
     // AApmax = AA * (pw > ph ? pw : ph)
     // TODO: AA% = AApw (AAph if property is height, top or bottom)
+    // TODO make component property calc(), i.e. calc(100vw - 120px)
     prop = prop.match(/(-?\d+(?:\.?\d+)?)(?: *)?(.*)/);
     let magnitude = parseFloat(prop[1]);
     let unit = prop[2];

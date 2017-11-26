@@ -344,4 +344,5 @@ Format (variables between \<\> should be calculated after each day/task)
     - 17:30 - 19:30 - Intentando compilar para android
     - 22:30 - 00:30 - Iconos implementados
 - 2017-11-26 Do -
-    - 10:20 - 
+    - 10:20 - 14:30 - Implementando sistema parecido a css para longitudes en el hud
+    - 16:40 - 18:15 - Terminando de corregir bugs del sistema de longitudes
