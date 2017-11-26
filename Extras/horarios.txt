@@ -336,10 +336,12 @@ Format (variables between \<\> should be calculated after each day/task)
     - 00:10 - 01:30 | Intentando debugear el problema de getTileAt del nuevo cocos
 - 2017-10-25 Mi - 02:15 hs
     - 21:10 - 23:25 | Intentando implementar un buen componente Text
-- 2017-11-22 Mi -
+- 2017-11-22 Mi - 00:40 hs
     - 18:20 - 19:00 - Retomando
 - 2017-11-24 Vi -
     - 14:00 - 16:00 - Debuggeando, intentado hacer que el componente Text tome su posición
     - 17:00 - 17:30 - Implementado componente Text basico, sin iconos
     - 17:30 - 19:30 - Intentando compilar para android
     - 22:30 - 00:30 - Iconos implementados
+- 2017-11-26 Do -
+    - 10:20 - 

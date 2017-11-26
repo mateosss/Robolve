@@ -1,18 +1,41 @@
 // TODO deberia tener una clase abstracta color, que guarde la paleta de colores
 // y pueda acceder a las diferentes tonalidades de los colores facilmente
 
+// TODO hacer que todas las propiedades sean strings y darse cuenta con regex o parecido
+// si son %, px, rem, vw, vh, o lo que sea tipo css.
+
 var DisplayManager = cc.Class.extend({
   owner: null, // The real ccui object that has the display manager and will be affected by it
-  x: 0, // x position in vw %, accepts negative for starting from right
-  y:  0, // y position in vh %, accepts negative for starting from top
-  width: 100, // width in vw %
-  height: 100, // height in vh %
-  padding: 0, // padding in vw %
+  x: "0%", // x position, accepts negative for starting from right
+  y: "0%", // y position, accepts negative for starting from top
+  top: "0px", // top offset
+  right: "0px", // right offset
+  bottom: "0px", // bottom offset
+  left: "0px", // left offset
+  width: "100pw", // width
+  height: "100ph", // height
+  padding: "0px", // padding
+
+  // TODO backup delete
+  // x: 0, // x position, accepts negative for starting from right
+  // y: 0, // y position, accepts negative for starting from top
+  // top: 0, // top offset
+  // right: 0, // right offset
+  // bottom: 0, // bottom offset
+  // left: 0, // left offset
+  // width: 100, // width
+  // height: 100, // height
+  // padding: 0, // padding
+
   scale: 1, // scale of the node, useful when adjusting texture size
 
   ctor: function(owner, {
     x = this.x,
     y = this.y,
+    top = this.top,
+    right = this.right,
+    bottom = this.bottom,
+    left = this.left,
     width = this.width,
     height = this.height,
     padding = this.padding,
@@ -23,6 +46,10 @@ var DisplayManager = cc.Class.extend({
     this.owner = owner;
     this.x = x;
     this.y = y;
+    this.top = top;
+    this.right = right;
+    this.bottom = bottom;
+    this.left = left;
     this.height = height;
     this.width = width;
     this.padding = padding;
@@ -39,6 +66,10 @@ var DisplayManager = cc.Class.extend({
   setup: function({
     x = this.x,
     y = this.y,
+    top = this.top,
+    right = this.right,
+    bottom = this.bottom,
+    left = this.left,
     width = this.width,
     height = this.height,
     padding = this.padding,
@@ -50,31 +81,63 @@ var DisplayManager = cc.Class.extend({
     // attributes from there, and send it back to this function (see Panel.setup)
     // for reference.
 
-    // Use owner.parent's width and height percentages, or screen dimensions if none
-    let vw = (this.owner && this.owner.parent ? this.owner.parent.width : cc.winSize.width) / 100;
-    let vh = (this.owner && this.owner.parent ? this.owner.parent.height : cc.winSize.height) / 100;
-
     this.x = x;
     this.y = y;
+    this.top = top;
+    this.right = right;
+    this.bottom = bottom;
+    this.left = left;
     this.height = height;
     this.width = width;
     this.padding = padding;
     this.scale = scale;
 
-    padding = padding * vw;
-    height = (height * vh) / scale - padding * 2 / scale;
-    width = (width * vw) / scale - padding * 2 / scale;
+    let w = this.getParentWidth();
+    let h = this.getParentHeight();
+
+    padding = this.measureToPix(padding);
+    height = this.measureToPix(height) / scale - padding * 2 / scale;
+    width = this.measureToPix(width) / scale - padding * 2 / scale;
+
     if (x === "center") {
-      x = (vw * 100 - this.owner.width) / 2;
+      // x = (w - this.owner.width) / 2; // TODO backup
+      x = (w - width) / 2;
     } else {
-      x = (x >= 0 ? x * vw : 100 * vw + x * vw) + padding;
+      x = this.measureToPix(x);
+      x = (x >= 0 ? x : w + x) + padding;
     }
 
     if (y === "center") {
-      y = (vh * 100 - this.owner.height) / 2;
+      // y = (h - this.owner.height) / 2; // TODO backup
+      y = (h - height) / 2;
     } else {
-      y = (y >= 0 ? y * vh : 100 * vh + y * vh) + padding;
+      y = this.measureToPix(y);
+      y = (y >= 0 ? y : h) + padding;
     }
+
+    y += this.measureToPix(bottom) - this.measureToPix(top);
+    x += this.measureToPix(left) - this.measureToPix(right);
+
+    // XXX Backup, delete when done
+    // let vw = (this.owner && this.owner.parent ? this.owner.parent.width : cc.winSize.width) / 100;
+    // let vh = (this.owner && this.owner.parent ? this.owner.parent.height : cc.winSize.height) / 100;
+    // padding = padding * vw;
+    // height = (height * vh) / scale - padding * 2 / scale;
+    // width = (width * vw) / scale - padding * 2 / scale;
+    // if (x === "center") {
+    //   x = (vw * 100 - this.owner.width) / 2;
+    // } else {
+    //   x = (x >= 0 ? x * vw : 100 * vw + x * vw) + padding;
+    // }
+    //
+    // if (y === "center") {
+    //   y = (vh * 100 - this.owner.height) / 2;
+    // } else {
+    //   y = (y >= 0 ? y * vh : 100 * vh + y * vh) + padding;
+    // }
+    //
+    // y += (bottom - top) * vh;
+    // x += (left - right) * vw;
 
     this.owner.scale = scale;
     this.owner.setSizeType(ccui.Widget.SIZE_ABSOLUTE);
@@ -82,6 +145,63 @@ var DisplayManager = cc.Class.extend({
     this.owner.setPositionType(ccui.Widget.POSITION_ABSOLUTE);
     this.owner.setPosition(x, y);
 
+  },
+  getParentWidth: function() {
+    // Returns this.owner.parent's width, or screen dimensions if none
+    return this.owner && this.owner.parent ? this.owner.parent.width : cc.winSize.width;
+  },
+  getParentHeight: function() {
+    // Returns this.owner.parent's height, or screen dimensions if none
+    return this.owner && this.owner.parent ? this.owner.parent.height : cc.winSize.height;
+  },
+  measureToPix: function(prop) {
+    // Translate a property into the final pixels that the display manager will use
+    // AApx: Real screen pixels,
+    // AArem = 16px * AA
+    // AAvw = cc.winSize.width * 0.01
+    // AAvh = cc.winSize.height * 0.01
+    // AAvmin = AA * (vw > vh ? vh : vw)
+    // AAvmax = AA * (vw > vh ? vw : vh)
+    // AApw = this.owner.parent.width * 0.01
+    // AAph = this.owner.parent.height * 0.01
+    // AApmin = AA * (pw > ph ? ph : pw)
+    // AApmax = AA * (pw > ph ? pw : ph)
+    // AA% = AApw
+    prop = prop.match(/(-?\d+(?:\.?\d+)?)(?: *)?(.*)/);
+    let magnitude = parseInt(prop[1]);
+    let unit = prop[2];
+    if (isNaN(magnitude)) throw _.format("DisplayManager - {}: {} has an incorrect magnitude", this.owner.toString(), prop[0]);
+    switch (unit) {
+      case "px": return magnitude;
+      case "rem": return magnitude * 16;
+      case "vw": return magnitude * cc.winSize.width * 0.01;
+      case "vh": return magnitude * cc.winSize.height * 0.01;
+      case "vmin": {
+        let w = cc.winSize.width;
+        let h = cc.winSize.height;
+        return magnitude * (w > h ? h : w) * 0.01;
+      }
+      case "vmax": {
+        let w = cc.winSize.width;
+        let h = cc.winSize.height;
+        return magnitude * (w > h ? h : w) * 0.01;
+      }
+      case "pw": case "%":
+        return magnitude * this.getParentWidth() * 0.01;
+      case "ph": return magnitude * this.getParentHeight() * 0.01;
+      case "pmin": {
+        let w = this.getParentWidth();
+        let h = this.getParentHeight();
+        return magnitude * (w > h ? h : w) * 0.01;
+      }
+      case "pmax": {
+        let w = this.getParentWidth();
+        let h = this.getParentHeight();
+        return magnitude * (w > h ? w : h) * 0.01;
+      }
+      default:
+        throw _.format("DisplayManager - {}: {} has an incorrect unit", this.owner.toString(), prop[0]);
+    }
   },
   toString: () => "DisplayManager"
 });
