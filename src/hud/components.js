@@ -4,10 +4,13 @@
 // TODO hacer que todas las propiedades sean strings y darse cuenta con regex o parecido
 // si son %, px, rem, vw, vh, o lo que sea tipo css.
 
+// TODO display manager is being executed twice (first time and after being added as a child)
+// should look for a way to prevent that duplication
+
 var DisplayManager = cc.Class.extend({
   owner: null, // The real ccui object that has the display manager and will be affected by it
-  x: "0%", // x position, accepts negative for starting from right
-  y: "0%", // y position, accepts negative for starting from top
+  x: "0px", // x position, accepts negative for starting from right
+  y: "0px", // y position, accepts negative for starting from top
   top: "0px", // top offset
   right: "0px", // right offset
   bottom: "0px", // bottom offset
@@ -100,19 +103,19 @@ var DisplayManager = cc.Class.extend({
     width = this.measureToPix(width) / scale - padding * 2 / scale;
 
     if (x === "center") {
-      // x = (w - this.owner.width) / 2; // TODO backup
-      x = (w - width) / 2;
+      x = (w - this.owner.width) / 2; // TODO backup
+      // x = (w - width) / 2; // TODO implement this
     } else {
       x = this.measureToPix(x);
       x = (x >= 0 ? x : w + x) + padding;
     }
 
     if (y === "center") {
-      // y = (h - this.owner.height) / 2; // TODO backup
-      y = (h - height) / 2;
+      y = (h - this.owner.height) / 2; // TODO backup
+      // y = (h - height) / 2; // TODO Implement this
     } else {
       y = this.measureToPix(y);
-      y = (y >= 0 ? y : h) + padding;
+      y = (y >= 0 ? y : h + y) + padding;
     }
 
     y += this.measureToPix(bottom) - this.measureToPix(top);
@@ -166,7 +169,7 @@ var DisplayManager = cc.Class.extend({
     // AAph = this.owner.parent.height * 0.01
     // AApmin = AA * (pw > ph ? ph : pw)
     // AApmax = AA * (pw > ph ? pw : ph)
-    // AA% = AApw
+    // TODO: AA% = AApw (AAph if property is height, top or bottom)
     prop = prop.match(/(-?\d+(?:\.?\d+)?)(?: *)?(.*)/);
     let magnitude = parseFloat(prop[1]);
     let unit = prop[2];
@@ -186,8 +189,7 @@ var DisplayManager = cc.Class.extend({
         let h = cc.winSize.height;
         return magnitude * (w > h ? h : w) * 0.01;
       }
-      case "pw": case "%":
-        return magnitude * this.getParentWidth() * 0.01;
+      case "pw": return magnitude * this.getParentWidth() * 0.01;
       case "ph": return magnitude * this.getParentHeight() * 0.01;
       case "pmin": {
         let w = this.getParentWidth();
