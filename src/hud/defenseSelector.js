@@ -57,6 +57,7 @@ var DefenseSelector = ccui.ListView.extend({
       } else {
         if (canBePlaced.result) {
           ok.getParent().it.message("You don't have 300 bucks");
+          ok.getParent().ig.notEnoughGold();
         } else {
           ok.getParent().it.message(canBePlaced.cause);
         }

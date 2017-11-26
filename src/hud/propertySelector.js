@@ -57,6 +57,7 @@ var PropertySelector = ccui.Layout.extend({
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
         } else {
           d.level.hud.it.message("You don't have 100 bucks");
+          d.level.hud.ig.notEnoughGold();
         }
       } else {
         d.level.hud.it.message("You only can go up for $100");
@@ -90,6 +91,7 @@ var PropertySelector = ccui.Layout.extend({
           d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
         } else {
           d.level.hud.it.message("You don't have 100 bucks");
+          d.level.hud.ig.notEnoughGold();
         }
       } else {
         d.level.hud.it.message("You only can go down for $100");
