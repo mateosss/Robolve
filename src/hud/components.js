@@ -168,7 +168,7 @@ var DisplayManager = cc.Class.extend({
     // AApmax = AA * (pw > ph ? pw : ph)
     // AA% = AApw
     prop = prop.match(/(-?\d+(?:\.?\d+)?)(?: *)?(.*)/);
-    let magnitude = parseInt(prop[1]);
+    let magnitude = parseFloat(prop[1]);
     let unit = prop[2];
     if (isNaN(magnitude)) throw _.format("DisplayManager - {}: {} has an incorrect magnitude", this.owner.toString(), prop[0]);
     switch (unit) {
