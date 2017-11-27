@@ -1,0 +1,4 @@
+Use this command in a folder with all your map tiles, to generate the spritesheet
+
+    montage *.png -tile 7x -geometry 132x132+0+0 -background transparent salida/mapSpriteSheet.png
+

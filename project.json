@@ -2,7 +2,7 @@
     "project_type": "javascript",
 
     "debugMode" : 1,
-    "showFPS" : true,
+    "showFPS" : false,
     "frameRate" : 60,
     "noCache" : false,
     "id" : "gameCanvas",
@@ -12,15 +12,28 @@
     "modules" : ["cocos2d", "extensions"],
 
     "jsList" : [
-        "src/resource.js",
-        "src/app.js",
-        "src/game.js",
-        "src/debugger.js",
-        "src/robot.js",
-        "src/map.js",
-        "src/deffense.js",
-        "src/base.js",
-        "src/hud.js",
-        "src/easyEvents.js"
+      "src/app.js",
+      "src/debugger.js",
+      "src/jsu.js",
+      "src/robot/state.js",
+      "src/rb.js",
+      "src/resource.js",
+      "src/hud/easyEvents.js",
+      "src/hud/components.js",
+      "src/hud/hud.js",
+      "src/hud/menu.js",
+      "src/hud/propertySelector.js",
+      "src/hud/defenseDetails.js",
+      "src/hud/defenseSelector.js",
+      "src/hud/infoText.js",
+      "src/hud/infoGold.js",
+      "src/level/base.js",
+      "src/level/game.js",
+      "src/level/level.js",
+      "src/level/map.js",
+      "src/robot/part.js",
+      "src/robot/computer.js",
+      "src/robot/defense.js",
+      "src/robot/robot.js"
     ]
 }

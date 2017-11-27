@@ -13,8 +13,8 @@ var Debugger = cc.Class.extend({
     }
   },
   debugText: function(object, options){
-    debugName = "debugText";
-    stop = options.stop || false;
+    var debugName = "debugText";
+    var stop = options.stop || false;
     if(stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var updateLabel = object.getChildByName(debugName);
@@ -22,7 +22,7 @@ var Debugger = cc.Class.extend({
         updateLabel.string = options.text || "";
       } else {
         var text = options.text || "debugText";
-        var fontName = options.fontName || "Arial";
+        var fontName = options.fontName || r.getDefaultFont();
         var fontSize = options.fontSize || 32;
         var dimensions = options.dimensions || cc.size(object.width, object.height);
         var hAlignment = options.hAlignment || cc.TEXT_ALIGNMENT_LEFT;
@@ -37,19 +37,28 @@ var Debugger = cc.Class.extend({
     }
   },
   debugLine: function(object, options){
-    //TODO Draw a line from object to target with distance label in pixels
-    debugName = "debugLine";
-    stop = options.stop || false;
+    // Draws a line between from object to options.target
+    var debugName = "debugLine";
+    var stop = options.stop || false; // TODO STOP DOESNT WORK. maybe stop should be default, and cleanup should be the option
     if(stop) {object.removeChild(object.getChildByName(debugName));}
     else {
-      target = options.target || null;
-      //TODO DRAW A LINE TO TARGET AND LABEL WITH PIXELS DISTANCE ABOVE THAT
+      var pos = object.getAnchorPointInPoints();
+      if (!options.target) return;
+      var target = object.convertToNodeSpace(object.level.map.convertToWorldSpace(options.target));
+      var color = options.color || cc.color(255, 255, 255, 255);
+      var width = options.width || 2;
+      var offset = options.offset || cc.p(0, 0);
+      var line = new cc.DrawNode();
+      line.drawSegment(cc.pAdd(pos, offset), cc.pAdd(target, offset), width, color);
+      line.setName(debugName);
+      object.addChild(line, 1000);//TODO hacer nivel z opcional tambien
+      return line;
     }
   },
   debugRange: function(object, options){
     // Draws a circle from the center with radius sRange
-    debugName = "debugRange";
-    stop = options.stop || false;
+    var debugName = "debugRange";
+    var stop = options.stop || false;
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var pos = object.getAnchorPointInPoints();
@@ -64,8 +73,8 @@ var Debugger = cc.Class.extend({
   },
   debugAnchor: function(object, options){//TODO Unir esta funcion con debugPoint
     // Draws a circle in the object's anchor point
-    debugName = "debugAnchor";
-    stop = options.stop || false;
+    var debugName = "debugAnchor";
+    var stop = options.stop || false;
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var pos = object.getAnchorPointInPoints();
@@ -80,8 +89,8 @@ var Debugger = cc.Class.extend({
   },
   debugPoint: function(object, options){
     // Draws a point in the given options.pos
-    debugName = "debugPoint";
-    stop = options.stop || false;//TODO stop doesn't work because many repeated  names
+    var debugName = "debugPoint";
+    var stop = options.stop || false;//TODO stop doesn't work because many repeated  names
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var pos = options.point || null;
@@ -96,8 +105,8 @@ var Debugger = cc.Class.extend({
   },
   debugRect: function(object, options){
     //Draws options.rect, or the object's rect
-    debugName = "debugRect";
-    stop = options.stop || false;//TODO check in all debug functions if stop works
+    var debugName = "debugRect";
+    var stop = options.stop || false;//TODO check in all debug functions if stop works
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var square = new cc.DrawNode();
@@ -118,8 +127,8 @@ var Debugger = cc.Class.extend({
   },
   debugPoly: function(object, options){
     // Draws a polygon from vertexes in options.verts or the object's limits
-    debugName = "debugPoly";
-    stop = options.stop || false;
+    var debugName = "debugPoly";
+    var stop = options.stop || false;
     if (stop) {object.removeChild(object.getChildByName(debugName));}
     else {
       var polygon = new cc.DrawNode();

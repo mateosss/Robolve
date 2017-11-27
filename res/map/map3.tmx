@@ -4,7 +4,7 @@
   <property name="wavesCounts" value="20,25,30,50,50"/>
   <property name="wavesIntervals" value="5,5,5,5,5"/>
  </properties>
- <tileset firstgid="1" name="landscape" tilewidth="132" tileheight="132" tilecount="70">
+ <tileset firstgid="1" name="landscape" tilewidth="132" tileheight="132" tilecount="70" columns="7">
   <image source="tilesheet.png" width="924" height="1320"/>
   <tile id="0">
    <properties>
@@ -681,21 +681,23 @@
  </layer>
  <objectgroup name="Objects">
   <object id="36" name="SpawnRobot" x="64" y="0" width="64" height="64"/>
-  <object id="40" name="SpawnDeffenseWater" x="448" y="832" width="64" height="64">
+  <object id="40" name="SpawnDefenseWater" x="448" y="832" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="2"/>
     <property name="element" value="water"/>
+    <property name="life" value="0"/>
     <property name="range" value="1"/>
     <property name="terrain" value="0"/>
    </properties>
   </object>
   <object id="44" name="SpawnBase" x="1216" y="64" width="64" height="64"/>
-  <object id="54" name="SpawnDeffenseFire" x="192" y="1024" width="64" height="64">
+  <object id="54" name="SpawnDefenseFire" x="192" y="1024" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="2"/>
     <property name="element" value="fire"/>
+    <property name="life" value="1"/>
     <property name="range" value="1"/>
     <property name="terrain" value="0"/>
    </properties>
