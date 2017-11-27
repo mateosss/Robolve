@@ -22,7 +22,7 @@ var Debugger = cc.Class.extend({
         updateLabel.string = options.text || "";
       } else {
         var text = options.text || "debugText";
-        var fontName = options.fontName || "Arial";
+        var fontName = options.fontName || r.getDefaultFont();
         var fontSize = options.fontSize || 32;
         var dimensions = options.dimensions || cc.size(object.width, object.height);
         var hAlignment = options.hAlignment || cc.TEXT_ALIGNMENT_LEFT;

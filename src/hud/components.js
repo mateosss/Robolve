@@ -8,6 +8,9 @@
 // should look for a way to prevent that duplication, sometimes like with InfoGold, that
 // inherits from Text, it is being executed three times
 
+// The display manager is an object that helps in positioning and sizin components
+// WARNING: When you add a component as a child of parent don't use parent.addChild(component)
+// use component.addTo(parent) instead
 var DisplayManager = cc.Class.extend({
   owner: null, // The real ccui object that has the display manager and will be affected by it
   x: "0px", // x position, accepts negative for starting from right
@@ -21,68 +24,46 @@ var DisplayManager = cc.Class.extend({
   padding: "0px", // padding
   scale: 1, // scale of the node, useful when adjusting texture size
 
-  ctor: function(owner, {
-    x = this.x,
-    y = this.y,
-    top = this.top,
-    right = this.right,
-    bottom = this.bottom,
-    left = this.left,
-    width = this.width,
-    height = this.height,
-    padding = this.padding,
-    scale = this.scale,
-  } = {}) {
+  ctor: function(owner, options) {
     // Expects the owner of the displayManager, and an object with its attributes
     // Setup must be called in the owner class, this is just a configuration call
     this.owner = owner;
-    this.x = x;
-    this.y = y;
-    this.top = top;
-    this.right = right;
-    this.bottom = bottom;
-    this.left = left;
-    this.height = height;
-    this.width = width;
-    this.padding = padding;
-    this.scale = scale;
+    this.x = options.x || this.x;
+    this.y = options.y || this.y;
+    this.top = options.top || this.top;
+    this.right = options.right || this.right;
+    this.bottom = options.bottom || this.bottom;
+    this.left = options.left || this.left;
+    this.height = options.height || this.width;
+    this.width = options.width || this.height;
+    this.padding = options.padding || this.padding;
+    this.scale = options.scale || this.scale;
 
-    // Overrides the setParent function of the owner, so when owner is added
-    // as a child of another node, it automatically executes setup.
-    owner.setParent = function(parent) {
-      cc.Node.prototype.setParent.call(owner, parent);
+    owner.addTo = function(parent, z, tag) {
+      // Use this component.addTo(parent) instead of parent.addChild(component)
+      // So the setup function is executed after the addChild.
+      cc.Node.prototype.addChild.call(parent, this, z || null, tag || null);
       this.setup({});
     };
   },
 
-  setup: function({
-    x = this.x,
-    y = this.y,
-    top = this.top,
-    right = this.right,
-    bottom = this.bottom,
-    left = this.left,
-    width = this.width,
-    height = this.height,
-    padding = this.padding,
-    scale = this.scale,
-  } = {}) {
+  setup: function(options) {
     // Call this whenever you want to change your owner's properties
     // If you have more attributes for your specific object, implement a custom
     // setup class in there that expects an 'options' object, use the custom
     // attributes from there, and send it back to this function (see Panel.setup)
     // for reference.
 
-    this.x = x;
-    this.y = y;
-    this.top = top;
-    this.right = right;
-    this.bottom = bottom;
-    this.left = left;
-    this.height = height;
-    this.width = width;
-    this.padding = padding;
-    this.scale = scale;
+    let x = this.x = options.x || this.x;
+    let y = this.y = options.y || this.y;
+    let top = this.top = options.top || this.top;
+    let right = this.right = options.right || this.right;
+    let bottom = this.bottom = options.bottom || this.bottom;
+    let left = this.left = options.left || this.left;
+    let height = this.height = options.height || this.height;
+    let width = this.width = options.width || this.width;
+    let padding = this.padding = options.padding || this.padding;
+    let scale = this.scale = options.scale || this.scale;
 
     let w = this.getParentWidth();
     let h = this.getParentHeight();
@@ -234,7 +215,7 @@ var Text = ccui.Text.extend({
     this.text.shadow = options.shadow || this.text.shadow;
 
     this.setString(this.text.text);
-    this.setFontName(this.text.fontName);
+    this.setFontName(r.fonts[this.text.fontName].name);
     this.setFontSize(this.text.fontSize);
     this.setTextHorizontalAlignment(this.text.hAlign);
     this.setTextVerticalAlignment(this.text.vAlign);
