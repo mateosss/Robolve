@@ -1,4 +1,9 @@
 var r = { // resources variable
+  fonts: {
+    baloo: {type: "font", name: "baloo", srcs: ["res/fonts/baloo.ttf"]},
+    icons: {type: "font", name: "icons", srcs: ["res/fonts/icons.ttf"]},
+  },
+  panel: "res/sprites/ui/panel.png", // TODO r.panel? This probably should have a hud sub object
   menuBackground : "res/menuBackground.png",
   empty: "res/sprites/empty.png",
   point: "res/sprites/point.png",
@@ -16,7 +21,6 @@ var r = { // resources variable
     map5: "res/map/map5.tmx",
   },
   ui:{
-    ddBackground: "res/sprites/ui/ddBackground.jpg",
     buttons: [
       "blue",
       "green",

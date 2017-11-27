@@ -3,6 +3,7 @@ var rb = {
 
   dev: { // Helper functions for use when debuggin on the browser
     getLevel: () => cc.director.getRunningScene().children.find(c => c.toString() === "Level"),
+    getHud: () => rb.dev.getLevel().hud,
     getRobots: () => rb.dev.getLevel().robots,
     getDefenses: () => rb.dev.getLevel().defenses,
     getRobot: () => rb.dev.getRobots()[0],
@@ -27,6 +28,7 @@ var rb = {
       this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
     },
     debugAllRobotsScore: (i) => rb.dev.allRobots((r) => r.schedule(rb.dev.debugScoreRobot, isNaN(i) ? 0.5 : i)),
+    addGold: amount => rb.dev.getHud().ig.addGold(amount)
   },
 
   animations: {

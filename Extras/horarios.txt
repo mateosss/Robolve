@@ -1,3 +1,5 @@
+# Primera etapa
+
 Junio - 27 hs
 Do 5 - 7:30 hs
   - setup de sprites basicos 4:15 hs
@@ -151,9 +153,11 @@ DURACION: 2016-06-05 - 2016-08-31 = 88 dias => 148:25 / 88 = 1:40 hs por dia
 PROPORCION: Trabaje 39/88=0.44 dias de los totales
 LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
         Algoritmo genetico - Logica de debugging visual
+
 ---
 
-# Segunda mitad
+# Segunda etapa
+
 - 2017-06-23 Vi - 03:35 hs
     - 10:00 - 12:15 | Volviendo a ver el proyecto, jugando, viendo actualizaciones
       de tecnología, viendo por que es aburrido, agregado mapa con cientos de robots
@@ -257,3 +261,88 @@ LOGROS: Sistema de mapas isometricos - Robots modulares por DNA -
 - 2017-08-17 Ju - 02:00 hs
     - 21:00 - 22:00 | intentando implementar scrum for one con trello
     - 22:00 - 23:00 | pequeños detalles en botones para ubicar torretas
+- 2017-08-18 Vi - 02:15 hs
+    - 21:15 - 22:30 | defenseDetails separado de hud
+    - 22:30 - 22:45 | infoText separado de hud
+    - 22:45 - 23:05 | infoGold separado de hud
+    - 23:05 - 23:30 | defenseSelector separado de hud
+
+---
+
+# Scrum Time
+
+- 5p ~= 4hs
+- 1p = 0.8hs
+- 1hs = 1.25p
+- (X) estimated points of the task
+- [] final points used for the task
+
+Format (variables between \<\> should be calculated after each day/task)
+
+```
+# (ESTIMATEDPOINTS) Sprint XX - SPRINTNAME [<REALPOINTS>]
+
+## (ESTIMATEDPOINTS) TASKNAME [<REALPOINTS>] - <HOURS TAKEN>
+- YYYY-MM-DD DAY - <SUM OF HOURS THAT DAY>
+    - HH:mm - HH:mm | Short description of that period's work
+```
+
+---
+
+# (463) Sprint 01 - Aesthetics []
+
+## (13) Planning sprint [8.5] - 06:20 hs
+
+- 2017-08-19 Sa - 03:00 hs
+    - 22:00 - 01:00 | planificando Sprint 01 - Aesthetics, HUD
+- 2017-08-20 Do - 03:50 hs
+    - 18:40 - 19:50 | planificando mas hud, tipografias, zoom
+    - 21:00 - 22:30 | terminando planificación
+    - 22:30 - 23:40 | transcribir ideas al backlog, configurando scrum for trello
+
+## (31) UI Design mockup [18.5] - 14:50 hs
+
+- 2017-08-21 Lu - 03:30 hs
+    - 14:15 - 17:45 | Jugando con las estéticas
+- 2017-08-22 Ma - 02:30 hs
+    - 20:30 - 23:00 | Terminando de jugar y definir medidas de la ui
+- 2017-08-23 Mi - 03:10 hs
+    - 19:10 - 19:30 | Probando que tan necesario va a ser el 9patch
+    - 20:40 - 23:30 | Mockup de una bottom bar con timer, time buttons y add defense button
+- 2017-08-25 Vi - 05:40 hs
+    - 09:30 - 12:10 | Trying different hud combinations and added gold label
+    - 21:00 - 00:00 | Finished dialog/defense preview/property selector and the task
+
+## (11) Fonts [8] - 06:25 hs
+
+- 2017-08-28 Lu - 00:45 hs
+    - 11:00 - 11:45 | Learning how to use Scale9Sprite
+- 2017-08-30 Mi - 02:25 hs
+    - 21:40 - 00:05 | Posicionando 9 scale panel para ubicar las letras.
+- 2017-09-06 Mi - 01:15 hs
+    - 20:25 - 23:40 | Funciona la font en html, intentado posicionarla, y actualizando cocos + bug report de getTileAt para que se vean bien las fuentes
+- 2017-09-15 Vi - 02:00 hs
+    - 22:00 - 00:00 | Nuevo componente Text
+
+## (28) HUD - Gold [] -
+
+- 2017-09-24 Sa - 02:30 hs
+    - 23:30 - 01:00 | Implementando componente Panel
+- 2017-09-29 Vi - 02:45 hs
+    - 22:00 - 23:15 | Terminando panel
+    - 23:15 - 00:45 | Problemas con el color de texto
+- 2017-10-06 Ju - 02:00 hs
+    - 23:30 - 00:10 | Agregada DisplayManager para mayor abstracción del sistema de posicionamiento del HUD
+    - 00:10 - 01:30 | Intentando debugear el problema de getTileAt del nuevo cocos
+- 2017-10-25 Mi - 02:15 hs
+    - 21:10 - 23:25 | Intentando implementar un buen componente Text
+- 2017-11-22 Mi - 00:40 hs
+    - 18:20 - 19:00 - Retomando
+- 2017-11-24 Vi -
+    - 14:00 - 16:00 - Debuggeando, intentado hacer que el componente Text tome su posición
+    - 17:00 - 17:30 - Implementado componente Text basico, sin iconos
+    - 17:30 - 19:30 - Intentando compilar para android
+    - 22:30 - 00:30 - Iconos implementados
+- 2017-11-26 Do -
+    - 10:20 - 14:30 - Implementando sistema parecido a css para longitudes en el hud
+    - 16:40 - 18:15 - Terminando de corregir bugs del sistema de longitudes

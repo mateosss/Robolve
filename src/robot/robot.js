@@ -82,8 +82,7 @@ var Robot = Computer.extend({
   },
   destroy: function() {
     this.level.prevWaveRobots.push([this.getDNA(), this.getScore()]);
-    this.level.base.money += 30;
-    this.level.hud.ig.refresh();
+    this.level.hud.ig.addGold(30);
     this._super();
   },
   counter: 0.0, // TODO counter is being used in the attack state but it is not clear if it is here

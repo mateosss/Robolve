@@ -10,7 +10,7 @@ var TiledMap = cc.TMXTiledMap.extend({
     this.scheduleUpdate();
 
     easyTouchEnded(this, function(map, event) {
-      var btnRect = map.level.hud.dsBtnOk.getBoundingBoxToWorld();
+      var btnRect = map.level.hud.ds.ok.getBoundingBoxToWorld();
       var isNotABtn = !cc.rectContainsPoint(btnRect, event.getLocation());//TODO pretty unclean
       if (map.level.dummyDefense && map.level.dummyDefense.visible === true && isNotABtn) {
         var tile = map.tileCoordFromLocation(event.getLocation());
@@ -20,7 +20,7 @@ var TiledMap = cc.TMXTiledMap.extend({
         var color;
         var tint;
 
-        if (map.level.dummyDefense.canBePlacedOn(tile).result && map.level.base.money >= 300) { //TODO 300 defense price hardcoded TODO
+        if (map.level.dummyDefense.canBePlacedOn(tile).result && map.level.base.gold >= 300) { //TODO 300 defense price hardcoded TODO
           color = cc.color(0, 255, 100, 50);
         } else {
           color = cc.color(255, 50, 50, 50);

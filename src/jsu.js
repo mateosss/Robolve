@@ -57,5 +57,7 @@ var _ = {
     for (var i = array.length - 1; i >= 0; i--) {
       func.call(context, array[i], i, array);
     }
-  }
+  },
+  randint: (from, to) => from + Math.floor(Math.random() * (to - from + 1)),
+  randchoice: (array) => array[_.randint(0, array.length - 1)]
 };
