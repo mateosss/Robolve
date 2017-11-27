@@ -8,6 +8,9 @@
 // should look for a way to prevent that duplication, sometimes like with InfoGold, that
 // inherits from Text, it is being executed three times
 
+// The display manager is an object that helps in positioning and sizin components
+// WARNING: When you add a component as a child of parent don't use parent.addChild(component)
+// use component.addTo(parent) instead
 var DisplayManager = cc.Class.extend({
   owner: null, // The real ccui object that has the display manager and will be affected by it
   x: "0px", // x position, accepts negative for starting from right
@@ -36,10 +39,10 @@ var DisplayManager = cc.Class.extend({
     this.padding = options.padding || this.padding;
     this.scale = options.scale || this.scale;
 
-    // Overrides the setParent function of the owner, so when owner is added
-    // as a child of another node, it automatically executes setup.
-    owner.setParent = function(parent) {
-      cc.Node.prototype.setParent.call(owner, parent);
+    owner.addTo = function(parent, z, tag) {
+      // Use this component.addTo(parent) instead of parent.addChild(component)
+      // So the setup function is executed after the addChild.
+      cc.Node.prototype.addChild.call(parent, this, z || null, tag || null);
       this.setup({});
     };
   },

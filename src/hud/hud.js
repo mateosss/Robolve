@@ -14,16 +14,13 @@ var Hud = cc.Layer.extend({
 
     // Gold
     this.goldbar = new Panel({width: "270px", height: "140px", padding: "11px", y: "-140px"});
-    this.addChild(this.goldbar, 10);
+    this.goldbar.addTo(this);
 
     this.gi = new Icon({icon:"coin", x: "center", y: "center", right: "75px", bottom: "5px", fontSize: 72, shadow: [cc.color(255,160,0), cc.size(0, -6), 0], color: cc.color(255,194,7)});
-    this.goldbar.addChild(this.gi);
+    this.gi.addTo(this.goldbar);
 
     this.ig = new InfoGold(this, {x: "center", y:"center", fontSize: 56, left:"30px", shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
-    this.goldbar.addChild(this.ig);
-
-    this.ig2 = new Text({x: "center", y:"center", fontSize: 56, left:"50px", shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
-    this.goldbar.addChild(this.ig2);
+    this.ig.addTo(this.goldbar);
 
     window.ig = this.ig; // XXX
     window.gi = this.gi;
@@ -44,7 +41,7 @@ var Hud = cc.Layer.extend({
     // Bottom bar
     // TODO make component property calc(), to calculate here calc(100vw - 120px)
     this.layout = new Panel({width: "81.94444444444444vw", height: "140px", padding: "11px"});
-    this.addChild(this.layout, 10);
+    this.layout.addTo(this);
     window.layout = this.layout;
 
     return true;

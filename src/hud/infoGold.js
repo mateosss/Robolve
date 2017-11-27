@@ -16,7 +16,7 @@ var InfoGold = Text.extend({
     } else if (amount < 0) {
       this.diffFeedback = new Text({text: amount, x: "center", left: _.randint(-16, 16)+"px", top: "72px", fontSize: 56, color: cc.color(244, 67, 54), shadow: [cc.color(211,47,47), cc.size(0, -6), 0]});
     }
-    this.parent.addChild(this.diffFeedback);
+    this.diffFeedback.addTo(this.parent);
     let appear = new cc.MoveBy(0.1, cc.p(0, 32));
     let slideDown = new cc.EaseIn(new cc.MoveBy(1, cc.p(_.randint(-64, 64), -_.randint(64, 256))), 3);
     let fadeOut = new cc.EaseIn(new cc.FadeOut(1), 3);
