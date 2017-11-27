@@ -1,8 +1,9 @@
 var r = { // resources variable
   fonts: {
-    baloo: {type: "font", name: "baloo", srcs: ["res/fonts/baloo.ttf"]},
-    icons: {type: "font", name: "icons", srcs: ["res/fonts/icons.ttf"]},
+    baloo: {type: "font", name: cc.sys.isNative ? "res/fonts/baloo.ttf" : "baloo", srcs: ["res/fonts/baloo.ttf"]},
+    icons: {type: "font", name: cc.sys.isNative ? "res/fonts/icons.ttf" : "icons", srcs: ["res/fonts/icons.ttf"]},
   },
+  getDefaultFont: () => r.fonts.baloo.name,
   panel: "res/sprites/ui/panel.png", // TODO r.panel? This probably should have a hud sub object
   menuBackground : "res/menuBackground.png",
   empty: "res/sprites/empty.png",

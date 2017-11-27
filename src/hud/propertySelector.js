@@ -21,12 +21,12 @@ var PropertySelector = ccui.Layout.extend({
     this.addChild(background);
 
     var pName = this.property[0].toUpperCase() + this.property.slice(1);
-    var pNameLabel = new ccui.Text(pName, "Arial", background.width / 3);
+    var pNameLabel = new ccui.Text(pName, r.getDefaultFont(), background.width / 3);
     pNameLabel.setAnchorPoint(0, 0);
     pNameLabel.setPosition(0, background.height);
     background.addChild(pNameLabel, 99);
 
-    this.pValueLabel = new ccui.Text("--", "Arial", background.width / 2);
+    this.pValueLabel = new ccui.Text("--", r.getDefaultFont(), background.width / 2);
     this.pValueLabel.setAnchorPoint(0, 0);
     this.pValueLabel.setPosition(4, background.height / 2 - this.pValueLabel.height / 2); // TODO hardcode
     background.addChild(this.pValueLabel, 99);

@@ -11,7 +11,7 @@ var Menu = cc.LayerGradient.extend({
     }
 
     var size = cc.winSize;
-    var tapLabel = new cc.LabelTTF(text + " - Select Level", "Arial", 46);
+    var tapLabel = new cc.LabelTTF(text + " - Select Level", r.getDefaultFont(), 46);
     tapLabel.x = size.width / 2;
     tapLabel.y = size.height / 2 + 200;
     this.addChild(tapLabel, 5);

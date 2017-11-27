@@ -22,6 +22,9 @@ var Hud = cc.Layer.extend({
     this.ig = new InfoGold(this, {x: "center", y:"center", fontSize: 56, left:"30px", shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
     this.goldbar.addChild(this.ig);
 
+    this.ig2 = new Text({x: "center", y:"center", fontSize: 56, left:"50px", shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
+    this.goldbar.addChild(this.ig2);
+
     window.ig = this.ig; // XXX
     window.gi = this.gi;
     window.goldbar = this.goldbar;
