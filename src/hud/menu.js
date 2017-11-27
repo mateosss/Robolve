@@ -5,27 +5,18 @@ var Menu = cc.LayerGradient.extend({
   //en celular cada vez que spawnea hasta que todos los sprites se cargan
   sprite:null,
   ctor:function (text) {
-    this._super(cc.color(100, 100, 150), cc.color(50, 50, 100));
+    // this._super(cc.color(100, 100, 150), cc.color(50, 50, 100));
+    this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
     if (!text) {
       text = "";
     }
 
     var size = cc.winSize;
-    var tapLabel = new cc.LabelTTF(text + " - Select Level", r.getDefaultFont(), 46);
+    var tapLabel = new cc.LabelTTF(text + (text ? "\n\n" : "") + "Select Level", r.getDefaultFont(), 46);
+    tapLabel.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
     tapLabel.x = size.width / 2;
     tapLabel.y = size.height / 2 + 200;
     this.addChild(tapLabel, 5);
-
-    this.sprite = new cc.Sprite(r.menuBackground);
-    this.sprite.attr({
-      x: size.width / 2,
-      y: size.height / 2,
-      scale: 0.25
-    });
-    this.sprite.getTexture().setTexParameters({minFilter: gl.LINEAR, magFilter: gl.LINEAR, wrapS: gl.REPEAT, wrapT: gl.REPEAT});
-    this.sprite.setTextureRect(cc.rect(0, 0, size.width * 4, size.height * 4));
-    this.addChild(this.sprite, 0);
-
 
     var lsSize = cc.size(size.width, 128);// TODO 128 hardcoded
     this.ls = new ccui.ListView();
@@ -51,7 +42,9 @@ var Menu = cc.LayerGradient.extend({
     };
     for (var i = 0; i < _.size(r.maps) - 1; i++) {
       var btn = new ccui.Button(r.ui.greenBtnM, r.ui.greenBtnDM);
-      btn.titleText = "Level " + (i + 1);
+      btn.setTitleFontName(r.getDefaultFont());
+      btn.setTitleFontSize(56);
+      btn.setTitleText((i + 1).toString());
       btn.setTouchEnabled(true);
       easyTouchButton(btn, startGame, i);
       this.ls.addChild(btn);

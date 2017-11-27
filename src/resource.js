@@ -5,13 +5,9 @@ var r = { // resources variable
   },
   getDefaultFont: () => r.fonts.baloo.name,
   panel: "res/sprites/ui/panel.png", // TODO r.panel? This probably should have a hud sub object
-  menuBackground : "res/menuBackground.png",
   empty: "res/sprites/empty.png",
   point: "res/sprites/point.png",
   invalidPart: "res/sprites/invalidPart.png",
-  edBtn: "res/sprites/edBtn.png",
-  fdBtn: "res/sprites/fdBtn.png",
-  wdBtn: "res/sprites/wdBtn.png",
   base: "res/sprites/base.png",
   maps:{
     tilesheet: "res/map/tilesheet.png",

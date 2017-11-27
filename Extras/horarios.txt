@@ -324,7 +324,7 @@ Format (variables between \<\> should be calculated after each day/task)
 - 2017-09-15 Vi - 02:00 hs
     - 22:00 - 00:00 | Nuevo componente Text
 
-## (28) HUD - Gold [] -
+## (28) HUD - Gold [31.8] - 25:25 hs
 
 - 2017-09-24 Sa - 02:30 hs
     - 23:30 - 01:00 | Implementando componente Panel
@@ -338,14 +338,15 @@ Format (variables between \<\> should be calculated after each day/task)
     - 21:10 - 23:25 | Intentando implementar un buen componente Text
 - 2017-11-22 Mi - 00:40 hs
     - 18:20 - 19:00 - Retomando
-- 2017-11-24 Vi -
+- 2017-11-24 Vi - 06:30 hs
     - 14:00 - 16:00 - Debuggeando, intentado hacer que el componente Text tome su posición
     - 17:00 - 17:30 - Implementado componente Text basico, sin iconos
     - 17:30 - 19:30 - Intentando compilar para android
     - 22:30 - 00:30 - Iconos implementados
-- 2017-11-26 Do -
+- 2017-11-26 Do - 07:15 hs
     - 10:20 - 14:30 - Implementando sistema parecido a css para longitudes en el hud
     - 16:40 - 18:15 - Terminando de corregir bugs del sistema de longitudes
     - 23:30 - 01:00 - Arreglando bugs en android
-- 2017-11-27 Lu -
+- 2017-11-27 Lu - 01:30 hs
     - 12:30 - 14:00 - Ahora el componente Text funciona en android también
+    - 14:00 - 15:30 - Puliendo algunas cositas, nuevo icono!
