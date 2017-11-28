@@ -349,4 +349,13 @@ Format (variables between \<\> should be calculated after each day/task)
     - 23:30 - 01:00 - Arreglando bugs en android
 - 2017-11-27 Lu - 01:30 hs
     - 12:30 - 14:00 - Ahora el componente Text funciona en android también
-    - 14:00 - 15:30 - Puliendo algunas cositas, nuevo icono!
+
+## (10) HUD - Dialog [] -
+
+- 2017-11-27 Lu -
+    - 14:00 - 16:00 - Puliendo algunas cositas, nuevo icono, refrescado robolve.tk
+    - 18:00 - 19:00 - Al fin puedo compilar de vuelta en el nuevo lubuntu
+    - 19:00 - 20:10 - Comenzando Button component, explorando las posibilidades de ccui.Button
+    - 23:00 - 01:00 - Siguiendo con Button
+- 2017- 11-28 Ma -
+    - 11:10 - 13:30 - New icons, initial button component, new layout component, new display manager debug property

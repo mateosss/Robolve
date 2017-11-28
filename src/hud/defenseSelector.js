@@ -8,17 +8,17 @@ var DefenseSelector = ccui.ListView.extend({
     this.hud = hud;
 
     let s = cc.winSize;
-    let size = cc.size(s.width, 128); // defenseSelector Height // TODO 128 hardcoded
+    let size = cc.size(96*3 , 128); // defenseSelector Height // TODO 320,128 hardcoded
     this.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
     this.setTouchEnabled(true);
     this.setContentSize(size);
-    this.setPosition((this.width - 3 * 96) / 2, 0); // TODO TOO MUCH HARDCODE
+    this.setPosition((s.width - 3 * 96) / 2, 0); // TODO TOO MUCH HARDCODE
 
     // ok button
     this.ok = new ccui.Button(r.ui.okBtnM, r.ui.okBtnDM);
     this.ok.setAnchorPoint(0, 0);
     this.ok.setTouchEnabled(true);
-    let okPos = cc.p(-s.width + 16, this.height + this.y);  // TODO button padding (16) hardcoded
+    let okPos = cc.p(-s.width + 16, this.height + 8 + this.y);  // TODO button padding (16) hardcoded
     this.ok.inScreen = false;
     this.ok.setPosition(okPos);
     this.ok.show = function() {
@@ -68,7 +68,7 @@ var DefenseSelector = ccui.ListView.extend({
     // cancel button
     this.cancel = new ccui.Button(r.ui.cancelBtnM, r.ui.cancelBtnDM);
     this.cancel.setAnchorPoint(0, 0);
-    var cancelPos = cc.p(-s.width + s.width - this.cancel.width - 16, this.height + this.y);  // TODO button padding (16) hardcoded
+    var cancelPos = cc.p(-s.width + s.width - this.cancel.width - 16, this.height + 8 + this.y);  // TODO button padding (16) hardcoded
     this.cancel.inScreen = false;
     this.cancel.setTouchEnabled(true);
     this.cancel.setPosition(cancelPos);

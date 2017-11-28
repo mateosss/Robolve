@@ -112,7 +112,7 @@ var Debugger = cc.Class.extend({
       var square = new cc.DrawNode();
       var z = options.z || 100;
       var rect = options.rect ||
-      cc.rect(object.x, object.y, object.width, object.height);
+      cc.rect(0, 0, object.width, object.height);
       var origin = options.origin || cc.p(rect.x, rect.y);
       var destination = options.destination ||
       cc.p(rect.x + rect.width, rect.y + rect.height);

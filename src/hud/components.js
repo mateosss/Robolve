@@ -23,6 +23,7 @@ var DisplayManager = cc.Class.extend({
   height: "100ph", // height
   padding: "0px", // padding
   scale: 1, // scale of the node, useful when adjusting texture size
+  debug: false, // true for showing a square with the rect of the component
 
   ctor: function(owner, options) {
     // Expects the owner of the displayManager, and an object with its attributes
@@ -34,8 +35,8 @@ var DisplayManager = cc.Class.extend({
     this.right = options.right || this.right;
     this.bottom = options.bottom || this.bottom;
     this.left = options.left || this.left;
-    this.height = options.height || this.width;
-    this.width = options.width || this.height;
+    this.height = options.height || this.height;
+    this.width = options.width || this.width;
     this.padding = options.padding || this.padding;
     this.scale = options.scale || this.scale;
 
@@ -65,6 +66,9 @@ var DisplayManager = cc.Class.extend({
     let padding = this.padding = options.padding || this.padding;
     let scale = this.scale = options.scale || this.scale;
 
+    let changeDebug = this.debug !== options.debug;
+    let debug = this.debug = options.debug !== undefined ? options.debug : this.debug;
+
     let w = this.getParentWidth();
     let h = this.getParentHeight();
 
@@ -73,24 +77,23 @@ var DisplayManager = cc.Class.extend({
     width = this.propToPix(width) / scale - padding * 2 / scale;
 
     if (x === "center") {
-      x = (w - this.owner.width) / 2; // TODO backup
-      // x = (w - width) / 2; // TODO this should be here instead, see y==="center" section
+      // TODO this if is a little weird, it's here because text objects don't respect
+      // the width and heights displayManager gives them, cocos2d after the setup
+      // overwrites their sizes with the ones given by the fontSize and the string
+      // the nodes have, so I just check if the owner is a ccui.Text instace
+      // and if so, I just use the real owner previous width instead of the given in options
+      // also aplicable in the y === "center" section
+      if (this.owner instanceof ccui.Text) x = (w - this.owner.width) / 2;
+      else x = (w - width) / 2;
     } else {
       x = this.propToPix(x);
-      x = (x >= 0 ? x : w + x) + padding;
+      x = (x > 0 || Object.is(x, +0) ? x : w + x) + padding;
     }
 
     if (y === "center") {
-      y = (h - this.owner.height) / 2; // TODO backup
-
-      // y = (h - height) / 2;
-      // TODO This should be the real line, but it is a pretty big problem
-      // when this line is used the default height value is 100ph, but in Text
-      // objects that's not true, because after setting everything here, cocos
-      // will replace the height with whatever the fontSize determines.
-      // A solution for this could be to make a converter from the current component
-      // values before it having a displayManager (I am not even sure if that's the real problem)
-      // This should be applied in the case of x==="center" too.
+      // See x==="center" section for explanation of this if statement
+      if (this.owner instanceof ccui.Text)y = (h - this.owner.height) / 2;
+      else y = (h - height) / 2;
     } else {
       y = this.propToPix(y);
       y = (y >= 0 ? y : h + y) + padding;
@@ -104,6 +107,16 @@ var DisplayManager = cc.Class.extend({
     this.owner.setContentSize(width, height);
     this.owner.setPositionType(ccui.Widget.POSITION_ABSOLUTE);
     this.owner.setPosition(x, y);
+
+    if (this.owner.parent && changeDebug) {
+      let d = new Debugger();
+      d.debugRect(this.owner, {stop:true});
+      d.debugRect(this.owner, {stop:true}); // This double line is needed
+      if (this.debug){
+        d.debugRect(this.owner, {lineColor:cc.color(0,255,0), fillColor: cc.color(0, 0, 0, 0), lineWidth: 2});
+        if (!(this.owner instanceof ccui.Text)) d.debugRect(this.owner, {fillColor: cc.color(0, 0, 0, 0), lineWidth: 2, rect: cc.rect(-padding, -padding, width + padding * 2 / scale, height + padding * 2 / scale), lineColor:cc.color(255,0,0)});
+      }
+    }
 
   },
   getParentWidth: function() {
@@ -166,6 +179,19 @@ var DisplayManager = cc.Class.extend({
   toString: () => "DisplayManager"
 });
 
+var Layout = ccui.Layout.extend({
+  displayManager: null, // Manages the size and location of this component
+  ctor: function(options) {
+    this._super();
+    this.displayManager = new DisplayManager(this, options);
+    this.setup(options);
+  },
+  setup: function(options) {
+    this.displayManager.setup(options);
+  },
+  toString: () => "Layout"
+});
+
 var Panel = ccui.Layout.extend({
   panel: null, // panel specififc properties, check ctor
   displayManager: null, // Manages the size and location of this component
@@ -187,6 +213,13 @@ var Panel = ccui.Layout.extend({
   toString: () => "Panel"
 });
 
+var Dialog = Panel.extend({
+  ctor: function(options) {
+    this._super(options);
+  },
+  toString: () => "Dialog"
+});
+
 var Text = ccui.Text.extend({
   text: null, // text specififc properties, check ctor
   displayManager: null, // Manages the size and location of this component
@@ -206,7 +239,7 @@ var Text = ccui.Text.extend({
     this.setup(options);
   },
   setup: function(options) {
-    this.text.text = options.text || this.text.text;
+    this.text.text = options.text !== undefined ? options.text : this.text.text;
     this.text.fontName = options.fontName || this.text.fontName;
     this.text.fontSize = options.fontSize || this.text.fontSize;
     this.text.hAlign = options.hAlign || this.text.hAlign;
@@ -223,18 +256,70 @@ var Text = ccui.Text.extend({
     if (this.text.shadow) this.enableShadow(...this.text.shadow);
 
     this.displayManager.setup(options);
-
-    // if (this.parent) { // XXX Delete
-    //   let d = new Debugger();
-    //   d.debugRect(this.parent, {stop:true});
-    //   window.dtext = d.debugRect(this.parent, {rect: this,lineColor:cc.color(0,255,0)});
-    // }
   },
   toString: () => "Text"
 });
 
+var Button = ccui.Button.extend({
+  button: null, // button specififc properties, check ctor
+  displayManager: null, // Manages the size and location of this component
+  text: null, // the button title
+  icon: null, // the button icon
+  ctor: function(options) {
+    this.button = this.button || {
+      button: "blueBtn", // TODO define a naming convention for buttons (i.e. blueRectCoin)
+      callback: () => console.log("button pressed"),
+      text: "",
+      textFontName: "baloo",
+      textFontSize: 56,
+      textColor: cc.color(255, 255, 255),
+      icon: "",
+      iconFontSize: 72,
+      iconAlign: "left, right",
+      iconColor: cc.color(255, 255, 255),
+    };
+    this._super();
+    this.setAnchorPoint(0, 0);
+    this.setScale9Enabled(true);
+    this.displayManager = new DisplayManager(this, options);
+    this.setup(options);
+  },
+  setup: function(options) {
+    // TODO check the button color on press, it should be the same as the inkscape one
+    // XXX TODO problem with y property, is not refreshing instantly, only after the second setup
+    // TODO this.button.button = options.button || this.button.button;
+    // TODO this.button.callback = options.callback || this.button.callback;
+    this.button.text = options.text !== undefined ? options.text : this.button.text;
+    this.button.textFontName = options.textFontName || this.button.textFontName;
+    this.button.textFontSize = options.textFontSize || this.button.textFontSize;
+    this.button.textColor = options.textColor || this.button.textColor;
+    this.button.icon = options.icon !== undefined ? options.icon : this.button.icon;
+    this.button.iconFontSize = options.iconFontSize || this.button.iconFontSize;
+    // TODO this.button.iconAlign = options.iconAlign || this.button.iconAlign;
+    this.button.iconColor = options.iconColor || this.button.iconColor;
+
+    this.loadTextures(r.ui.greenBtnM, r.ui.greenBtnDM, r.ui.greenBtnDM, ccui.Widget.LOCAL_TEXTURE);
+
+    this.displayManager.setup(options);
+
+    this.setTitleText(this.button.text);
+    this.setTitleFontName(this.button.textFontName);
+    this.setTitleFontSize(this.button.textFontSize);
+    this.setTitleColor(this.button.textColor);
+
+    if (!this.icon) {
+      this.icon = new Icon({icon: this.button.icon, y: "center", x: "center", bottom: "6.25ph", fontSize: this.button.iconFontSize, color: this.button.iconColor});
+      this.icon.addTo(this);
+    } else {
+      this.icon.setup({icon: this.button.icon, fontSize: this.button.iconFontSize, color: this.button.iconColor});
+    }
+  },
+  toString: () => "Button"
+});
+
 var Icon = Text.extend({
   icons: {
+    '': '',
     'airballoon': '\ue800',
     'arrow-left': '\ue801',
     'arrow-right': '\ue802',
@@ -263,8 +348,11 @@ var Icon = Text.extend({
     'target': '\ue819',
     'terrain': '\ue81a',
     'weather-windy': '\ue81b',
+    'check': '\ue81c',
+    'close': '\ue81d',
+    'fire': '\ue81e',
+    'water': '\ue81f',
   },
-  displayManager: null, // Manages the size and location of this component
   icon: null,
   ctor: function(options) {
     this.text = this.icon = this.icon || {
@@ -277,13 +365,14 @@ var Icon = Text.extend({
       color: cc.color(255, 255, 255),
       shadow: null, // list with color, offset, blurradius
     };
-    options.text = this.icons[options.icon || this.icon.icon];
+    options.text = this.icons[this.icon.icon];
     options.fontName = "icons";
     this._super(options);
   },
   setup: function(options) {
-    this.icon.icon = options.icon || this.icon.icon;
-    options.text = this.icons[options.icon || this.icon.icon];
+    this.icon.icon = options.icon !== undefined ? options.icon : this.icon.icon;
+    options.text = this.icons[this.icon.icon];
+    if (options.text === undefined) throw(_.format("{} is not a valid icon name", this.icon.icon));
     this._super(options);
   },
   toString: () => "Icon",
