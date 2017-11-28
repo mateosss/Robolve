@@ -359,3 +359,5 @@ Format (variables between \<\> should be calculated after each day/task)
     - 23:00 - 01:00 - Siguiendo con Button
 - 2017- 11-28 Ma -
     - 11:10 - 13:30 - New icons, initial button component, new layout component, new display manager debug property
+    - 13:30 - 14:15 - Intendo implementar que se baje el icono cuando presiono un boton
+    - 16:00 - 18:10 - Implementado eso y avanzando con otras cosas de Button

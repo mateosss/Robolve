@@ -66,7 +66,7 @@ var DisplayManager = cc.Class.extend({
     let padding = this.padding = options.padding || this.padding;
     let scale = this.scale = options.scale || this.scale;
 
-    let changeDebug = this.debug !== options.debug;
+    let debugChange = this.debug !== options.debug;
     let debug = this.debug = options.debug !== undefined ? options.debug : this.debug;
 
     let w = this.getParentWidth();
@@ -108,7 +108,7 @@ var DisplayManager = cc.Class.extend({
     this.owner.setPositionType(ccui.Widget.POSITION_ABSOLUTE);
     this.owner.setPosition(x, y);
 
-    if (this.owner.parent && changeDebug) {
+    if (this.owner.parent && debugChange) {
       let d = new Debugger();
       d.debugRect(this.owner, {stop:true});
       d.debugRect(this.owner, {stop:true}); // This double line is needed
@@ -267,15 +267,15 @@ var Button = ccui.Button.extend({
   icon: null, // the button icon
   ctor: function(options) {
     this.button = this.button || {
-      button: "blueBtn", // TODO define a naming convention for buttons (i.e. blueRectCoin)
-      callback: () => console.log("button pressed"),
+      button: r.ui.greenBtn,
+      callback: () => console.log("Button pressed."),
       text: "",
       textFontName: "baloo",
       textFontSize: 56,
       textColor: cc.color(255, 255, 255),
       icon: "",
       iconFontSize: 72,
-      iconAlign: "left, right",
+      iconAlign: "left", // left, right, only works if there is text // TODO right option
       iconColor: cc.color(255, 255, 255),
     };
     this._super();
@@ -286,32 +286,65 @@ var Button = ccui.Button.extend({
   },
   setup: function(options) {
     // TODO check the button color on press, it should be the same as the inkscape one
-    // XXX TODO problem with y property, is not refreshing instantly, only after the second setup
     // TODO this.button.button = options.button || this.button.button;
-    // TODO this.button.callback = options.callback || this.button.callback;
+    this.button.callback = options.callback || this.button.callback;
     this.button.text = options.text !== undefined ? options.text : this.button.text;
     this.button.textFontName = options.textFontName || this.button.textFontName;
     this.button.textFontSize = options.textFontSize || this.button.textFontSize;
     this.button.textColor = options.textColor || this.button.textColor;
     this.button.icon = options.icon !== undefined ? options.icon : this.button.icon;
     this.button.iconFontSize = options.iconFontSize || this.button.iconFontSize;
-    // TODO this.button.iconAlign = options.iconAlign || this.button.iconAlign;
+    let iconAlignChange = this.button.iconAlign !== options.iconAlign;
+    this.button.iconAlign = options.iconAlign || this.button.iconAlign;
     this.button.iconColor = options.iconColor || this.button.iconColor;
 
     this.loadTextures(r.ui.greenBtnM, r.ui.greenBtnDM, r.ui.greenBtnDM, ccui.Widget.LOCAL_TEXTURE);
+    this.addClickEventListener(this.button.callback, this);
+    this.addTouchEventListener(function(button, event) {
+      if (event === ccui.Widget.TOUCH_BEGAN) {
+        if (button.icon) button.icon.setup({bottom: "0ph"});
+        button.text.y -= 7.375; //TODO the 7.375 is very hardcoded, it refers to the button sprite fake 3d height
+        return true;
+      }
+      else if (event === ccui.Widget.TOUCH_ENDED) {
+        if (button.icon) button.icon.setup({bottom: "7.375px"});
+        button.text.y += 7.375;
+        return true;
+      }
+      return false;
+    }, this);
 
     this.displayManager.setup(options);
 
-    this.setTitleText(this.button.text);
-    this.setTitleFontName(this.button.textFontName);
-    this.setTitleFontSize(this.button.textFontSize);
-    this.setTitleColor(this.button.textColor);
+    if (this.button.text) {
+      this.setTitleText(this.button.text);
+      this.setTitleFontName(this.button.textFontName);
+      this.setTitleFontSize(this.button.textFontSize);
+      this.setTitleColor(this.button.textColor);
 
-    if (!this.icon) {
-      this.icon = new Icon({icon: this.button.icon, y: "center", x: "center", bottom: "6.25ph", fontSize: this.button.iconFontSize, color: this.button.iconColor});
-      this.icon.addTo(this);
-    } else {
-      this.icon.setup({icon: this.button.icon, fontSize: this.button.iconFontSize, color: this.button.iconColor});
+      if (!this.text) this.text = this.getTitleRenderer();
+    }
+
+
+    if (this.button.icon) {
+      if (!this.icon) {
+        this.icon = new Icon({ icon: this.button.icon, y: "center", x: "center", bottom: "7.375px", fontSize: this.button.iconFontSize, color: this.button.iconColor });
+        this.icon.addTo(this);
+      } else {
+        this.icon.setup({ icon: this.button.icon, fontSize: this.button.iconFontSize, color: this.button.iconColor });
+      }
+      if (iconAlignChange && this.button.text) {
+        if (this.button.iconAlign === "left") {
+          let spacing = (this.height - this.icon.height) / 2;
+          this.icon.setup({x: "0px", left: spacing + "px"});
+          this.text.setAnchorPoint(0, 0.5);
+          this.text.x = this.icon.width + spacing * 2;
+        } else if (this.button.iconAlign === "right") {
+          // TODO make this if needed
+        } else {
+          throw _.format("{} is a wrong iconAlign option", this.button.iconAlign);
+        }
+      }
     }
   },
   toString: () => "Button"
