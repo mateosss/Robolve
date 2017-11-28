@@ -283,10 +283,25 @@ var Button = ccui.Button.extend({
     this.setScale9Enabled(true);
     this.displayManager = new DisplayManager(this, options);
     this.setup(options);
+
+    this.addTouchEventListener(function(button, event) {
+      if (event === ccui.Widget.TOUCH_BEGAN) {
+        if (button.icon) button.icon.setup({bottom: "0ph"});
+        if (button.text) button.text.y -= 7.375; //TODO the 7.375 is very hardcoded, it refers to the button sprite fake 3d height
+        return true;
+      }
+      else if (event === ccui.Widget.TOUCH_ENDED || event === ccui.Widget.TOUCH_CANCELED) { // TODO when pressing and moving the touch outside the button, the icon stay down but the button gets high again
+        if (button.icon) button.icon.setup({bottom: "7.375px"});
+        if (button.text) button.text.y += 7.375;
+        return true;
+      }
+      return false;
+    }, this);
   },
   setup: function(options) {
-    // TODO check the button color on press, it should be the same as the inkscape one
-    // TODO this.button.button = options.button || this.button.button;
+    // TODO the button color when pressed aren't material colors
+    this.button.button = options.button || this.button.button;
+    let callbackChange = this.button.callback !== options.callback;
     this.button.callback = options.callback || this.button.callback;
     this.button.text = options.text !== undefined ? options.text : this.button.text;
     this.button.textFontName = options.textFontName || this.button.textFontName;
@@ -299,20 +314,7 @@ var Button = ccui.Button.extend({
     this.button.iconColor = options.iconColor || this.button.iconColor;
 
     this.loadTextures(r.ui.greenBtnM, r.ui.greenBtnDM, r.ui.greenBtnDM, ccui.Widget.LOCAL_TEXTURE);
-    this.addClickEventListener(this.button.callback, this);
-    this.addTouchEventListener(function(button, event) {
-      if (event === ccui.Widget.TOUCH_BEGAN) {
-        if (button.icon) button.icon.setup({bottom: "0ph"});
-        button.text.y -= 7.375; //TODO the 7.375 is very hardcoded, it refers to the button sprite fake 3d height
-        return true;
-      }
-      else if (event === ccui.Widget.TOUCH_ENDED) {
-        if (button.icon) button.icon.setup({bottom: "7.375px"});
-        button.text.y += 7.375;
-        return true;
-      }
-      return false;
-    }, this);
+    if (callbackChange) this.addClickEventListener(this.button.callback, this);
 
     this.displayManager.setup(options);
 
