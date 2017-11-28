@@ -267,7 +267,7 @@ var Button = ccui.Button.extend({
   icon: null, // the button icon
   ctor: function(options) {
     this.button = this.button || {
-      button: r.ui.greenBtn,
+      button: "green",
       callback: () => console.log("Button pressed."),
       text: "",
       textFontName: "baloo",
@@ -299,7 +299,6 @@ var Button = ccui.Button.extend({
     }, this);
   },
   setup: function(options) {
-    // TODO the button color when pressed aren't material colors
     this.button.button = options.button || this.button.button;
     let callbackChange = this.button.callback !== options.callback;
     this.button.callback = options.callback || this.button.callback;
@@ -313,7 +312,7 @@ var Button = ccui.Button.extend({
     this.button.iconAlign = options.iconAlign || this.button.iconAlign;
     this.button.iconColor = options.iconColor || this.button.iconColor;
 
-    this.loadTextures(r.ui.greenBtnM, r.ui.greenBtnDM, r.ui.greenBtnDM, ccui.Widget.LOCAL_TEXTURE);
+    this.loadTextures(r.u[this.button.button], r.u[this.button.button + "P"], r.u[this.button.button + "P"], ccui.Widget.LOCAL_TEXTURE);
     if (callbackChange) this.addClickEventListener(this.button.callback, this);
 
     this.displayManager.setup(options);
@@ -387,6 +386,8 @@ var Icon = Text.extend({
     'close': '\ue81d',
     'fire': '\ue81e',
     'water': '\ue81f',
+    'chevron-down': '\ue820',
+    'chevron-up': '\ue821',
   },
   icon: null,
   ctor: function(options) {

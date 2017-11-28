@@ -29,6 +29,16 @@ var r = { // resources variable
       "plus",
     ],
   },
+  u: { // TODO XXX this is temporal until all buttons merge into the Button component
+    buttons: [
+      "blue",
+      "green",
+      "orange",
+      "pink",
+      "red",
+      "yellow",
+    ],
+  },
   parts_png_0: "res/sprites/parts_0.png",
   parts_plist_0: "res/sprites/parts_0.plist",
   parts_png_1: "res/sprites/parts_1.png",
@@ -61,6 +71,20 @@ for (var ui in r.ui){
       g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDM"]);
       g_resources.push(r.ui[r.ui.buttons[btn] + "BtnS"]);
       g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDS"]);
+    }
+  }
+}
+
+for (var u in r.u){
+  if (typeof r.u[u] === 'string') {
+    g_resources.push(r.u[u]);
+  }
+  if (u == 'buttons') {
+    for (var btn in r.u.buttons) {
+      r.u[r.u.buttons[btn]] = "res/sprites/ui/buttons/" + r.u.buttons[btn] + ".png";
+      r.u[r.u.buttons[btn] + "P"] = "res/sprites/ui/buttons/" + r.u.buttons[btn] + "P.png";
+      g_resources.push(r.u[r.u.buttons[btn]]);
+      g_resources.push(r.u[r.u.buttons[btn] + "P"]);
     }
   }
 }

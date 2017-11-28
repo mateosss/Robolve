@@ -24,7 +24,7 @@ var Hud = cc.Layer.extend({
 
     // Defense Selector
     this.ds = new DefenseSelector(this);
-    this.addChild(this.ds);
+    this.addChild(this.ds, 1);
 
     // Info Text
     this.it = new InfoText(this);

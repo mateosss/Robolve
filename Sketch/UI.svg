@@ -863,16 +863,16 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.28"
-     inkscape:cx="1740.1131"
-     inkscape:cy="684.88698"
+     inkscape:zoom="0.32"
+     inkscape:cx="2422.5853"
+     inkscape:cy="897.8535"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:window-width="1280"
-     inkscape:window-height="960"
+     inkscape:window-height="966"
      inkscape:window-x="0"
-     inkscape:window-y="30"
+     inkscape:window-y="0"
      inkscape:window-maximized="1"
      units="px"
      fit-margin-top="128"
@@ -959,162 +959,6 @@
      id="layer1"
      transform="translate(280.86667,-1464.5)"
      style="display:inline">
-    <g
-       id="g5513"
-       transform="translate(832.00003,543.99983)">
-      <rect
-         ry="20.999985"
-         y="1368.5001"
-         x="1063.1333"
-         height="83.999985"
-         width="96"
-         id="rect5490"
-         style="opacity:1;fill:#388e3c;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         style="opacity:1;fill:#388e3c;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4537"
-         width="96"
-         height="83.999985"
-         x="1063.1333"
-         y="1380.5001"
-         ry="20.999985" />
-      <rect
-         ry="20.749989"
-         y="1369.5"
-         x="1064.1333"
-         height="83"
-         width="94"
-         id="rect4539"
-         style="opacity:1;fill:#4caf50;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.64999962;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4541"
-         width="96"
-         height="96"
-         x="1063.1333"
-         y="1368.5001"
-         ry="0" />
-    </g>
-    <g
-       id="g5524"
-       transform="translate(832.00003,543.99995)">
-      <rect
-         ry="20.999987"
-         y="1380.5"
-         x="1191.1333"
-         height="83.999985"
-         width="96"
-         id="rect4543"
-         style="opacity:1;fill:#d32f2f;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         style="opacity:1;fill:#d32f2f;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect5518"
-         width="96"
-         height="83.999985"
-         x="1191.1333"
-         y="1368.5"
-         ry="20.999987" />
-      <rect
-         style="opacity:1;fill:#f44336;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4545"
-         width="94"
-         height="83"
-         x="1192.1333"
-         y="1369.5"
-         ry="20.74999" />
-      <rect
-         ry="0"
-         y="1368.5"
-         x="1191.1333"
-         height="96"
-         width="96"
-         id="rect4547"
-         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
-    <g
-       id="g5689"
-       transform="translate(832.00003,799.9999)">
-      <rect
-         style="opacity:1;fill:#388e3c;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect5683"
-         width="96"
-         height="83.999985"
-         x="1063.1333"
-         y="1249.5"
-         ry="20.999987"
-         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/greenBtnDM.png"
-         inkscape:export-xdpi="144"
-         inkscape:export-ydpi="144" />
-      <rect
-         inkscape:export-ydpi="144"
-         inkscape:export-xdpi="144"
-         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/greenBtnDM.png"
-         ry="20.999987"
-         y="1252.5001"
-         x="1063.1333"
-         height="83.999985"
-         width="96"
-         id="rect4662-1"
-         style="opacity:1;fill:#388e3c;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         inkscape:export-ydpi="144"
-         inkscape:export-xdpi="144"
-         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/greenBtnDM.png"
-         style="opacity:1;fill:#43a047;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4664-2"
-         width="94"
-         height="83"
-         x="1064.1333"
-         y="1250.5"
-         ry="20.74999" />
-      <rect
-         inkscape:export-ydpi="144"
-         inkscape:export-xdpi="144"
-         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/greenBtnDM.png"
-         ry="0"
-         y="1240.5001"
-         x="1063.1333"
-         height="96"
-         width="96"
-         id="rect4666-7"
-         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    </g>
-    <g
-       id="g5701"
-       transform="translate(832.00003,799.9997)">
-      <rect
-         ry="20.999987"
-         y="1249.5"
-         x="1191.1333"
-         height="83.999985"
-         width="96"
-         id="rect5694"
-         style="opacity:1;fill:#d32f2f;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         style="opacity:1;fill:#d32f2f;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4670-0"
-         width="96"
-         height="83.999985"
-         x="1191.1333"
-         y="1252.5001"
-         ry="20.999987" />
-      <rect
-         ry="20.74999"
-         y="1250.5"
-         x="1192.1333"
-         height="83"
-         width="94"
-         id="rect4672-9"
-         style="opacity:1;fill:#e53935;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-      <rect
-         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="rect4674-3"
-         width="96"
-         height="96"
-         x="1191.1333"
-         y="1240.5001"
-         ry="0" />
-    </g>
     <g
        id="g5546"
        transform="translate(1600,31.99995)">
@@ -4897,7 +4741,7 @@
     </g>
     <g
        id="g5407"
-       transform="translate(2304,-32.00005)">
+       transform="translate(2048.0001,-32.00005)">
       <rect
          style="opacity:1;fill:#388e3c;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect5538-6"
@@ -4951,7 +4795,7 @@
     </g>
     <g
        id="g5416"
-       transform="translate(2304,-32.00005)">
+       transform="translate(2048.0001,-32.00005)">
       <rect
          inkscape:export-ydpi="144"
          inkscape:export-xdpi="144"
@@ -22805,6 +22649,523 @@
            d="m 1395.1333,1354.5 a 2,2 0 0 1 2,2 c 0,0.74 -0.4,1.39 -1,1.73 v 1.27 h 1 a 7,7 0 0 1 7,7 h 1 a 1,1 0 0 1 1,1 v 3 a 1,1 0 0 1 -1,1 h -1 v 1 a 2,2 0 0 1 -2,2 h -14 a 2,2 0 0 1 -2,-2 v -1 h -1 a 1,1 0 0 1 -1,-1 v -3 a 1,1 0 0 1 1,-1 h 1 a 7,7 0 0 1 7,-7 h 1 v -1.27 c -0.6,-0.34 -1,-0.99 -1,-1.73 a 2,2 0 0 1 2,-2 m -4.5,11 a 2.5,2.5 0 0 0 -2.5,2.5 2.5,2.5 0 0 0 2.5,2.5 2.5,2.5 0 0 0 2.5,-2.5 2.5,2.5 0 0 0 -2.5,-2.5 m 9,0 a 2.5,2.5 0 0 0 -2.5,2.5 2.5,2.5 0 0 0 2.5,2.5 2.5,2.5 0 0 0 2.5,-2.5 2.5,2.5 0 0 0 -2.5,-2.5 z"
            id="path10388" />
       </g>
+    </g>
+    <g
+       transform="translate(128.00003,255.99983)"
+       style="display:inline"
+       id="g4859"
+       inkscape:export-filename="/home/mateo/Escritorio/green.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="opacity:1;fill:#388e3c;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5538-3"
+         width="96"
+         height="83.999985"
+         x="2279.1333"
+         y="1656.5"
+         ry="20.999985" />
+      <rect
+         ry="20.999985"
+         y="1668.5"
+         x="2279.1333"
+         height="83.999985"
+         width="96"
+         id="rect5058-6"
+         style="opacity:1;fill:#388e3c;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#4caf50;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5060-7"
+         width="94"
+         height="83"
+         x="2280.1333"
+         y="1657.5"
+         ry="20.749989" />
+      <rect
+         ry="0"
+         y="1656.5"
+         x="2279.1333"
+         height="96"
+         width="96"
+         id="rect5062-5"
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.64999962;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path4930-3"
+         d="m 2295.1334,1666.5 h 64 v 64 h -64 z"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke-width:2.66666675" />
+    </g>
+    <g
+       transform="translate(128.00003,255.99983)"
+       style="display:inline"
+       id="g4866"
+       inkscape:export-filename="/home/mateo/Escritorio/red.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         ry="20.999987"
+         y="1656.5"
+         x="2407.1333"
+         height="83.999985"
+         width="96"
+         id="rect5555-5"
+         style="opacity:1;fill:#d32f2f;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#d32f2f;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5066-6"
+         width="96"
+         height="83.999985"
+         x="2407.1333"
+         y="1668.5"
+         ry="20.999987" />
+      <rect
+         ry="20.74999"
+         y="1657.5"
+         x="2408.1333"
+         height="83"
+         width="94"
+         id="rect5068-2"
+         style="opacity:1;fill:#f44336;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5070-9"
+         width="96"
+         height="96"
+         x="2407.1333"
+         y="1656.5"
+         ry="0" />
+      <path
+         id="path4948-1"
+         d="m 2423.1334,1666.5 h 64 v 64 h -64 z"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke-width:2.66666675" />
+    </g>
+    <g
+       transform="translate(128.00003,255.99983)"
+       style="display:inline"
+       id="g4814"
+       inkscape:export-filename="/home/mateo/Escritorio/greenP.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         inkscape:export-ydpi="144"
+         inkscape:export-xdpi="144"
+         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/greenBtnDM.png"
+         ry="20.999987"
+         y="1793.5"
+         x="2279.1333"
+         height="83.999985"
+         width="96"
+         id="rect5715-2"
+         style="opacity:1;fill:#388e3c;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#388e3c;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5074-7"
+         width="96"
+         height="83.999985"
+         x="2279.1333"
+         y="1796.5"
+         ry="20.999987"
+         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/greenBtnDM.png"
+         inkscape:export-xdpi="144"
+         inkscape:export-ydpi="144" />
+      <rect
+         ry="20.74999"
+         y="1794.5"
+         x="2280.1333"
+         height="83"
+         width="94"
+         id="rect5076-0"
+         style="opacity:1;fill:#43a047;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/greenBtnDM.png"
+         inkscape:export-xdpi="144"
+         inkscape:export-ydpi="144" />
+      <rect
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5078-9"
+         width="96"
+         height="96"
+         x="2279.1333"
+         y="1784.5"
+         ry="0"
+         inkscape:export-filename="/home/mateo/Escritorio/robolve/res/sprites/ui/mediumButtons/greenBtnDM.png"
+         inkscape:export-xdpi="144"
+         inkscape:export-ydpi="144" />
+    </g>
+    <g
+       transform="translate(128.00003,255.99983)"
+       style="display:inline"
+       id="g4808"
+       inkscape:export-filename="/home/mateo/Escritorio/redP.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="opacity:1;fill:#d32f2f;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5737-3"
+         width="96"
+         height="83.999985"
+         x="2407.1333"
+         y="1793.5"
+         ry="20.999987" />
+      <rect
+         ry="20.999987"
+         y="1796.5"
+         x="2407.1333"
+         height="83.999985"
+         width="96"
+         id="rect5082-6"
+         style="opacity:1;fill:#d32f2f;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#e53935;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5084-0"
+         width="94"
+         height="83"
+         x="2408.1333"
+         y="1794.5"
+         ry="20.74999" />
+      <rect
+         ry="0"
+         y="1784.5"
+         x="2407.1333"
+         height="96"
+         width="96"
+         id="rect5086-6"
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(128.00003,255.99983)"
+       style="display:inline"
+       id="g4852"
+       inkscape:export-filename="/home/mateo/Escritorio/yellow.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="opacity:1;fill:#fbc02d;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5477-2"
+         width="96"
+         height="83.999985"
+         x="2151.1333"
+         y="1656.5002"
+         ry="20.999985" />
+      <rect
+         ry="20.999985"
+         y="1668.5002"
+         x="2151.1333"
+         height="83.999985"
+         width="96"
+         id="rect4531-6"
+         style="opacity:1;fill:#fbc02d;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#ffeb3b;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4533-1"
+         width="94"
+         height="83"
+         x="2152.1333"
+         y="1657.5001"
+         ry="20.749989" />
+      <rect
+         ry="0"
+         y="1656.5002"
+         x="2151.1333"
+         height="96"
+         width="96"
+         id="rect4535-8"
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.64999962;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path4620-7"
+         d="m 2167.1333,1666.5002 h 64 v 64 h -64 z"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke-width:2.66666675" />
+    </g>
+    <g
+       transform="translate(128.00003,255.99983)"
+       style="display:inline"
+       id="g4845"
+       inkscape:export-filename="/home/mateo/Escritorio/orange.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         ry="20.999985"
+         y="1656.5001"
+         x="2023.1333"
+         height="83.999985"
+         width="96"
+         id="rect5455-9"
+         style="opacity:1;fill:#e64a19;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#e64a19;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4525-2"
+         width="96"
+         height="83.999985"
+         x="2023.1333"
+         y="1668.5001"
+         ry="20.999985" />
+      <rect
+         ry="20.749989"
+         y="1657.5"
+         x="2024.1333"
+         height="83"
+         width="94"
+         id="rect4527-0"
+         style="opacity:1;fill:#ff5722;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.64999962;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4529-2"
+         width="96"
+         height="96"
+         x="2023.1333"
+         y="1656.5001"
+         ry="0" />
+      <path
+         id="path4638-3"
+         d="m 2039.1333,1666.5001 h 64 v 64 h -64 z"
+         inkscape:connector-curvature="0"
+         style="fill:none;stroke-width:2.66666675" />
+    </g>
+    <g
+       transform="translate(128.00003,255.99983)"
+       style="display:inline"
+       id="g4838"
+       inkscape:export-filename="/home/mateo/Escritorio/blue.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="opacity:1;fill:#1976d2;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5432-7"
+         width="96"
+         height="83.999985"
+         x="1895.1333"
+         y="1656.5001"
+         ry="20.999985" />
+      <rect
+         ry="20.999985"
+         y="1668.5001"
+         x="1895.1333"
+         height="83.999985"
+         width="96"
+         id="rect4519-5"
+         style="opacity:1;fill:#1976d2;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#2196f3;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4521-9"
+         width="94"
+         height="83"
+         x="1896.1333"
+         y="1657.5001"
+         ry="20.749989" />
+      <rect
+         ry="0"
+         y="1656.5001"
+         x="1895.1333"
+         height="96"
+         width="96"
+         id="rect4523-2"
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.64999962;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(128.00003,255.99983)"
+       style="display:inline"
+       id="g4832"
+       inkscape:export-filename="/home/mateo/Escritorio/blueP.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         ry="20.999987"
+         y="1793.4999"
+         x="1895.1333"
+         height="83.999985"
+         width="96"
+         id="rect5627-2"
+         style="opacity:1;fill:#1976d2;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#1976d2;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4638-3-8"
+         width="96"
+         height="83.999985"
+         x="1895.1333"
+         y="1796.5"
+         ry="20.999987" />
+      <rect
+         ry="20.74999"
+         y="1794.4999"
+         x="1896.1333"
+         height="83"
+         width="94"
+         id="rect4640-6-9"
+         style="opacity:1;fill:#1e88e5;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4642-7-7"
+         width="96"
+         height="96"
+         x="1895.1333"
+         y="1784.5"
+         ry="0" />
+    </g>
+    <g
+       transform="translate(128.00003,255.99983)"
+       style="display:inline"
+       id="g4826"
+       inkscape:export-filename="/home/mateo/Escritorio/orangeP.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="opacity:1;fill:#e64a19;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5649-3"
+         width="96"
+         height="83.999985"
+         x="2023.1333"
+         y="1793.5"
+         ry="20.999987" />
+      <rect
+         ry="20.999987"
+         y="1796.5001"
+         x="2023.1333"
+         height="83.999985"
+         width="96"
+         id="rect4646-5-6"
+         style="opacity:1;fill:#e64a19;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#f4511e;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4648-3-1"
+         width="94"
+         height="83"
+         x="2024.1333"
+         y="1794.5"
+         ry="20.74999" />
+      <rect
+         ry="0"
+         y="1784.5001"
+         x="2023.1333"
+         height="96"
+         width="96"
+         id="rect4650-5-2"
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(128.00003,255.99983)"
+       style="display:inline"
+       id="g4820"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       inkscape:export-filename="/home/mateo/Escritorio/yellowP.png">
+      <rect
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4658-9-9"
+         width="96"
+         height="96"
+         x="2151.1333"
+         y="1784.5001"
+         ry="0" />
+      <rect
+         ry="20.999987"
+         y="1793.4999"
+         x="2151.1333"
+         height="83.999985"
+         width="96"
+         id="rect5671-3"
+         style="opacity:1;fill:#fbc02d;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#fbc02d;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4654-6-1"
+         width="96"
+         height="83.999985"
+         x="2151.1333"
+         y="1796.5"
+         ry="20.999987" />
+      <rect
+         ry="20.74999"
+         y="1794.4999"
+         x="2152.1333"
+         height="83"
+         width="94"
+         id="rect4656-2-9"
+         style="opacity:1;fill:#fdd835;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(128.00003,255.99983)"
+       style="display:inline"
+       id="g4873"
+       inkscape:export-filename="/home/mateo/Escritorio/pink.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         style="opacity:1;fill:#c2185b;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4778"
+         width="96"
+         height="83.999985"
+         x="2535.1333"
+         y="1656.5"
+         ry="20.999987" />
+      <rect
+         ry="20.999987"
+         y="1668.5"
+         x="2535.1333"
+         height="83.999985"
+         width="96"
+         id="rect4780"
+         style="opacity:1;fill:#c2185b;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#e91e63;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4782"
+         width="94"
+         height="83"
+         x="2536.1333"
+         y="1657.5"
+         ry="20.74999" />
+      <rect
+         ry="0"
+         y="1656.5"
+         x="2535.1333"
+         height="96"
+         width="96"
+         id="rect4784"
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         style="fill:none;stroke-width:2.66666675"
+         inkscape:connector-curvature="0"
+         d="m 2551.1333,1666.5 h 64 v 64 h -64 z"
+         id="path4786" />
+    </g>
+    <g
+       transform="translate(128.00003,255.99983)"
+       style="display:inline"
+       id="g4802"
+       inkscape:export-filename="/home/mateo/Escritorio/pinkP.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96">
+      <rect
+         ry="20.999987"
+         y="1793.5"
+         x="2535.1333"
+         height="83.999985"
+         width="96"
+         id="rect4788"
+         style="opacity:1;fill:#c2185b;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#d32f2f;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4790"
+         width="96"
+         height="83.999985"
+         x="2535.1333"
+         y="1796.5"
+         ry="20.999987" />
+      <rect
+         ry="20.74999"
+         y="1794.5"
+         x="2536.1333"
+         height="83"
+         width="94"
+         id="rect4792"
+         style="opacity:1;fill:#d81b60;fill-opacity:1;stroke:none;stroke-width:7.03871155;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:7.6500001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4794"
+         width="96"
+         height="96"
+         x="2535.1333"
+         y="1784.5"
+         ry="0" />
     </g>
   </g>
   <g
