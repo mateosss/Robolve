@@ -28,26 +28,19 @@ var Menu = cc.LayerGradient.extend({
     this.addChild(this.ls, 1);//TODO z levels hardcoded
 
     // Comment for omitting level screen
-    var startGame = function(btn, i) {
-
+    var startGame = function(i) {
       cc.spriteFrameCache.addSpriteFrames(r.parts_plist_0);
       cc.spriteFrameCache.addSpriteFrames(r.parts_plist_1);
-
       var firstTime = !text;
       cc.director.runScene(new cc.TransitionFade(1, new GameLevel(r.maps['map' + (i + 1)], firstTime)));
     };
     for (var i = 0; i < _.size(r.maps) - 1; i++) {
-      var btn = new ccui.Button(r.ui.greenBtnM, r.ui.greenBtnDM);
-      btn.setTitleFontName(r.getDefaultFont());
-      btn.setTitleFontSize(56);
-      btn.setTitleText((i + 1).toString());
-      btn.setTouchEnabled(true);
-      easyTouchButton(btn, startGame, i);
-      this.ls.addChild(btn);
+      var btn = new Button({callback: _.wrap(startGame, i), text: (i + 1).toString(), button: "green", width: "96px", height: "96px",});
+      this.ls.pushBackCustomItem(btn);
     }
 
-    startGame({}, 0); // XXX Remove
-    setTimeout(() => rb.dev.stateRobots("still"), 10000);
+    // startGame({}, 0); // XXX Remove
+    // setTimeout(() => rb.dev.stateRobots("still"), 10000);
 
     return true;
   }

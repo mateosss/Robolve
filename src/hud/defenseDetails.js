@@ -57,21 +57,21 @@ var DefenseDetails = ccui.ListView.extend({
     this.pushBackCustomItem(this.damage);
     this.attackSpeed = new PropertySelector(this, 'attackSpeed');
     this.pushBackCustomItem(this.attackSpeed);
-    this.destroy = new ccui.Button(r.ui.cancelBtnM, r.ui.cancelBtnDM);
+    this.destroy = new Button({
+      callback: () => {
+        if (this.destroySure) {
+          this.defense.die();
+          this.hud.ig.addGold(50);
+          this.destroySure = false;
+          this.dismiss();
+        } else {
+          this.hud.it.message("Press again to destroy (+$50)");
+          this.destroySure = true;
+        }
+      }, button: "red", icon: "close", width: "96px", height: "96px"
+    });
     this.destroy.setTouchEnabled(true);
     this.pushBackCustomItem(this.destroy);
-    easyTouchButton(this.destroy, function(btn){
-      let dd = btn.getParent().getParent();
-      let hud = dd.hud;
-      if (dd.destroySure) {
-        dd.defense.die();
-        hud.ig.addGold(50);
-        dd.destroySure = false;
-      } else {
-        hud.it.message("Press again to destroy (+$50)");
-        dd.destroySure = true;
-      }
-    });
   },
   toString: () => "DefenseDetails",
   refresh: function() {

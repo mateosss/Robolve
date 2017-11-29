@@ -13,28 +13,8 @@ var DefenseSelector = ccui.ListView.extend({
     this.setTouchEnabled(true);
     this.setContentSize(size);
     this.setPosition((s.width - 3 * 96) / 2, 0); // TODO TOO MUCH HARDCODE
-
     // ok button
-    this.ok = new ccui.Button(r.ui.okBtnM, r.ui.okBtnDM);
-    this.ok.setAnchorPoint(0, 0);
-    this.ok.setTouchEnabled(true);
-    let okPos = cc.p(-s.width + 16, this.height + 8 + this.y);  // TODO button padding (16) hardcoded
-    this.ok.inScreen = false;
-    this.ok.setPosition(okPos);
-    this.ok.show = function() {
-      if (!this.inScreen) {
-        this.runAction(new cc.MoveBy(0.1, cc.p(s.width,0)));
-        this.inScreen = true;
-      }
-    };
-    this.ok.dismiss = function() {
-      if (this.inScreen) {
-        this.runAction(new cc.MoveBy(0.1, cc.p(-s.width,0)));
-        this.inScreen = false;
-      }
-    };
-
-    easyTouchButton(this.ok, function(ok, level) {
+    this.ok = new Button({callback: _.wrap(function(ok, level) {
       /// TODO ALL THIS CODE IS REPEATED FROM GAME.JS and MAP.JS
       var pos = level.map.tileCoordFromChild(level.dummyDefense);
       var canBePlaced = level.dummyDefense.canBePlacedOn(pos);
@@ -62,11 +42,27 @@ var DefenseSelector = ccui.ListView.extend({
           ok.getParent().it.message(canBePlaced.cause);
         }
       }
-    }, this.hud.level);
+    }, this.ok, this.hud.level), x: "-200vw", left: "16px", y:"140px",button:"green", icon: "check", width:"96px", height: "96px"});
+
+    this.ok.inScreen = false;
+    this.ok.show = function() {
+      if (!this.inScreen) {
+        this.runAction(new cc.MoveBy(0.1, cc.p(s.width,0)));
+        this.inScreen = true;
+      }
+    };
+    this.ok.dismiss = function() {
+      if (this.inScreen) {
+        this.runAction(new cc.MoveBy(0.1, cc.p(-s.width,0)));
+        this.inScreen = false;
+      }
+    };
+
+    // this.ok.addTo(this.ok); //TODO freezes the browser for some reason related to loadTextures, can bring future bugs
     this.hud.addChild(this.ok);
 
     // cancel button
-    this.cancel = new ccui.Button(r.ui.cancelBtnM, r.ui.cancelBtnDM);
+    this.cancel = new Button({callback: () => this.cancel.exec(), x: "-100vw", right: "112px", y:"140px", button:"red", icon: "close", width:"96px", height: "96px"});
     this.cancel.setAnchorPoint(0, 0);
     var cancelPos = cc.p(-s.width + s.width - this.cancel.width - 16, this.height + 8 + this.y);  // TODO button padding (16) hardcoded
     this.cancel.inScreen = false;
@@ -85,23 +81,22 @@ var DefenseSelector = ccui.ListView.extend({
 
       }
     };
-    easyTouchButton(this.cancel, cancel => cancel.exec(), this.cancel);
-    this.hud.addChild(this.cancel);
+    this.cancel.addTo(this.hud);
 
     // Defense selector defenses buttons
     var buttons = [
       {
-        button: new ccui.Button(r.ui.yellowBtnM, r.ui.yellowBtnDM),
+        button: new Button({button: "yellow", width: "96px", height: "96px", icon: "flash"}),
         image: new cc.Sprite(r.edBtn),
         type: "electric"
       },
       {
-        button: new ccui.Button(r.ui.redBtnM, r.ui.redBtnDM),
+        button: new Button({button: "orange", width: "96px", height: "96px", icon: "fire"}),
         image: new cc.Sprite(r.fdBtn),
         type: "fire"
       },
       {
-        button: new ccui.Button(r.ui.blueBtnM, r.ui.blueBtnDM),
+        button: new Button({button: "blue", width: "96px", height: "96px", icon: "water"}),
         image: new cc.Sprite(r.wdBtn),
         type: "water"
       }
@@ -126,13 +121,9 @@ var DefenseSelector = ccui.ListView.extend({
     };
     for (let i = 0; i < buttons.length; i++) {
       let btn = buttons[i].button;
-      // TODO remove img and buttons.image references
-      // var img = buttons[i].image;
       var type = buttons[i].type;
-      btn.setTouchEnabled(true);
-      // btn.addChild(img);
-      // img.setPosition(btn.width / 2, btn.height / 2);
-      easyTouchButton(btn, dsEvent, this.hud.level, type);
+      btn.setup({callback: _.wrap(dsEvent, btn, this.hud.level, type)});
+      // btn.addTo(this); // TODO another bug with addTo, should view what it is
       this.addChild(btn);
     }
 

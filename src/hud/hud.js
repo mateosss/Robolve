@@ -43,10 +43,11 @@ var Hud = cc.Layer.extend({
     this.layout = new Panel({width: "81.94444444444444vw", padding: "11px"});
     this.layout.addTo(this.bottombar, -50);
 
-    this.button = new Button({width:"100ph", icon:"plus", padding:"11px", x: "-100ph"});
+    this.button = new Button({width:"100ph", icon:"plus", padding:"11px", x: "-100ph", iconFontSize: 72});
     this.button.addTo(this.bottombar);
 
     window.ds = this.ds; // XXX
+    window.dd = this.dd;
     window.ig = this.ig;
     window.gi = this.gi;
     window.goldbar = this.goldbar;

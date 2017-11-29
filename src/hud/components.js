@@ -42,7 +42,8 @@ var DisplayManager = cc.Class.extend({
 
     owner.addTo = function(parent, z, tag) {
       // Use this component.addTo(parent) instead of parent.addChild(component)
-      // So the setup function is executed after the addChild.
+      // So the setup function is executed after the addChild. Isn't necessary
+      // If you are not using parent-dependant properties like ph or pw
       cc.Node.prototype.addChild.call(parent, this, z || null, tag || null);
       this.setup({});
     };
@@ -274,7 +275,7 @@ var Button = ccui.Button.extend({
       textFontSize: 56,
       textColor: cc.color(255, 255, 255),
       icon: "",
-      iconFontSize: 72,
+      iconFontSize: 64,
       iconAlign: "left", // left, right, only works if there is text // TODO right option
       iconColor: cc.color(255, 255, 255),
     };
