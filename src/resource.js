@@ -17,19 +17,7 @@ var r = { // resources variable
     map4: "res/map/map4.tmx",
     map5: "res/map/map5.tmx",
   },
-  ui:{
-    buttons: [
-      "blue",
-      "green",
-      "red",
-      "yellow",
-      "cancel",
-      "ok",
-      "minus",
-      "plus",
-    ],
-  },
-  u: { // TODO XXX this is temporal until all buttons merge into the Button component
+  ui: {
     buttons: [
       "blue",
       "green",
@@ -59,32 +47,10 @@ for (var ui in r.ui){
   }
   if (ui == 'buttons') {
     for (var btn in r.ui.buttons) {
-      r.ui[r.ui.buttons[btn] + "BtnL"] = "res/sprites/ui/largeButtons/" + r.ui.buttons[btn] + "BtnL.png";
-      r.ui[r.ui.buttons[btn] + "BtnDL"] = "res/sprites/ui/largeButtons/" + r.ui.buttons[btn] + "BtnDL.png";
-      r.ui[r.ui.buttons[btn] + "BtnM"] = "res/sprites/ui/mediumButtons/" + r.ui.buttons[btn] + "BtnM.png";
-      r.ui[r.ui.buttons[btn] + "BtnDM"] = "res/sprites/ui/mediumButtons/" + r.ui.buttons[btn] + "BtnDM.png";
-      r.ui[r.ui.buttons[btn] + "BtnS"] = "res/sprites/ui/smallButtons/" + r.ui.buttons[btn] + "BtnS.png";
-      r.ui[r.ui.buttons[btn] + "BtnDS"] = "res/sprites/ui/smallButtons/" + r.ui.buttons[btn] + "BtnDS.png";
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnL"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDL"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnM"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDM"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnS"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDS"]);
-    }
-  }
-}
-
-for (var u in r.u){
-  if (typeof r.u[u] === 'string') {
-    g_resources.push(r.u[u]);
-  }
-  if (u == 'buttons') {
-    for (var btn in r.u.buttons) {
-      r.u[r.u.buttons[btn]] = "res/sprites/ui/buttons/" + r.u.buttons[btn] + ".png";
-      r.u[r.u.buttons[btn] + "P"] = "res/sprites/ui/buttons/" + r.u.buttons[btn] + "P.png";
-      g_resources.push(r.u[r.u.buttons[btn]]);
-      g_resources.push(r.u[r.u.buttons[btn] + "P"]);
+      r.ui[r.ui.buttons[btn]] = "res/sprites/ui/buttons/" + r.ui.buttons[btn] + ".png";
+      r.ui[r.ui.buttons[btn] + "P"] = "res/sprites/ui/buttons/" + r.ui.buttons[btn] + "P.png";
+      g_resources.push(r.ui[r.ui.buttons[btn]]);
+      g_resources.push(r.ui[r.ui.buttons[btn] + "P"]);
     }
   }
 }

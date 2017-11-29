@@ -313,7 +313,7 @@ var Button = ccui.Button.extend({
     this.button.iconAlign = options.iconAlign || this.button.iconAlign;
     this.button.iconColor = options.iconColor || this.button.iconColor;
 
-    this.loadTextures(r.u[this.button.button], r.u[this.button.button + "P"], r.u[this.button.button + "P"], ccui.Widget.LOCAL_TEXTURE);
+    this.loadTextures(r.ui[this.button.button], r.ui[this.button.button + "P"], r.ui[this.button.button + "P"], ccui.Widget.LOCAL_TEXTURE);
     if (callbackChange) this.addClickEventListener(this.button.callback, this);
 
     this.displayManager.setup(options);
