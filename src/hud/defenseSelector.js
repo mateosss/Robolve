@@ -14,19 +14,19 @@ var DefenseSelector = ccui.ListView.extend({
     this.setContentSize(size);
     this.setPosition((s.width - 3 * 96) / 2, 0); // TODO TOO MUCH HARDCODE
     // ok button
-    this.ok = new Button({callback: _.wrap(function(ok, level) {
+    this.ok = new Button({callback: () => {
       /// TODO ALL THIS CODE IS REPEATED FROM GAME.JS and MAP.JS
-      var pos = level.map.tileCoordFromChild(level.dummyDefense);
-      var canBePlaced = level.dummyDefense.canBePlacedOn(pos);
-      if (canBePlaced.result && level.base.gold >= 300) {
-        let hud = ok.getParent();
-        level.dummyDefense.setColor(cc.color(255, 255, 255));
-        level.defenses.push(level.dummyDefense);
-        var newDefense = level.dummyDefense;
+      var pos = this.hud.level.map.tileCoordFromChild(this.hud.level.dummyDefense);
+      var canBePlaced = this.hud.level.dummyDefense.canBePlacedOn(pos);
+      if (canBePlaced.result && this.hud.level.base.gold >= 300) {
+        let hud = this.ok.getParent();
+        this.hud.level.dummyDefense.setColor(cc.color(255, 255, 255));
+        this.hud.level.defenses.push(this.hud.level.dummyDefense);
+        var newDefense = this.hud.level.dummyDefense;
         newDefense.retain();
         newDefense.isDummy = false;
         hud.ds.cancel.exec();
-        level.map.addChild(newDefense);
+        this.hud.level.map.addChild(newDefense);
         newDefense.setTouchEvent();
         newDefense.factoryReset(); // This makes possible to the idle animation to execute the idle animation
         newDefense.scheduleUpdate();
@@ -36,13 +36,13 @@ var DefenseSelector = ccui.ListView.extend({
 
       } else {
         if (canBePlaced.result) {
-          ok.getParent().it.message("You don't have 300 bucks");
-          ok.getParent().ig.notEnoughGold();
+          this.ok.getParent().it.message("You don't have 300 bucks");
+          this.ok.getParent().ig.notEnoughGold();
         } else {
-          ok.getParent().it.message(canBePlaced.cause);
+          this.ok.getParent().it.message(canBePlaced.cause);
         }
       }
-    }, this.ok, this.hud.level), x: "-200vw", left: "16px", y:"140px",button:"green", icon: "check", width:"96px", height: "96px"});
+    }, x: "-200vw", left: "16px", y:"140px",button:"green", icon: "check", width:"96px", height: "96px"});
 
     this.ok.inScreen = false;
     this.ok.show = function() {
@@ -58,8 +58,7 @@ var DefenseSelector = ccui.ListView.extend({
       }
     };
 
-    // this.ok.addTo(this.ok); //TODO freezes the browser for some reason related to loadTextures, can bring future bugs
-    this.hud.addChild(this.ok);
+    this.ok.addTo(this.hud);
 
     // cancel button
     this.cancel = new Button({callback: () => this.cancel.exec(), x: "-100vw", right: "112px", y:"140px", button:"red", icon: "close", width:"96px", height: "96px"});
@@ -123,7 +122,6 @@ var DefenseSelector = ccui.ListView.extend({
       let btn = buttons[i].button;
       var type = buttons[i].type;
       btn.setup({callback: _.wrap(dsEvent, btn, this.hud.level, type)});
-      // btn.addTo(this); // TODO another bug with addTo, should view what it is
       this.addChild(btn);
     }
 

@@ -93,7 +93,7 @@ var DisplayManager = cc.Class.extend({
 
     if (y === "center") {
       // See x==="center" section for explanation of this if statement
-      if (this.owner instanceof ccui.Text)y = (h - this.owner.height) / 2;
+      if (this.owner instanceof ccui.Text) y = (h - this.owner.height) / 2;
       else y = (h - height) / 2;
     } else {
       y = this.propToPix(y);
