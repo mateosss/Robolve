@@ -78,10 +78,9 @@ var DisplayManager = cc.Class.extend({
     let w = this.getParentWidth();
     let h = this.getParentHeight();
 
-    padding = this.propToPix(padding);
-    height = this.propToPix(height) / scale - padding * 2 / scale;
-    width = this.propToPix(width) / scale - padding * 2 / scale;
-
+    padding = this.calc(padding);
+    height = this.calc(height) / scale - padding * 2 / scale;
+    width = this.calc(width) / scale - padding * 2 / scale;
     if (x === "center") {
       // TODO this if is a little weird, it's here because text objects don't respect
       // the width and heights displayManager gives them, cocos2d after the setup
@@ -92,7 +91,7 @@ var DisplayManager = cc.Class.extend({
       if (this.owner instanceof ccui.Text) x = (w - this.owner.width) / 2;
       else x = (w - width) / 2;
     } else {
-      x = this.propToPix(x);
+      x = this.calc(x);
       x = (x > 0 || Object.is(x, +0) ? x : w + x) + padding;
     }
 
@@ -101,12 +100,12 @@ var DisplayManager = cc.Class.extend({
       if (this.owner instanceof ccui.Text) y = (h - this.owner.height) / 2;
       else y = (h - height) / 2;
     } else {
-      y = this.propToPix(y);
+      y = this.calc(y);
       y = (y >= 0 ? y : h + y) + padding;
     }
 
-    y += this.propToPix(bottom) - this.propToPix(top);
-    x += this.propToPix(left) - this.propToPix(right);
+    y += this.calc(bottom) - this.calc(top);
+    x += this.calc(left) - this.calc(right);
 
     this.owner.scale = scale;
     this.owner.setSizeType(ccui.Widget.SIZE_ABSOLUTE);
@@ -114,7 +113,7 @@ var DisplayManager = cc.Class.extend({
     this.owner.setPositionType(ccui.Widget.POSITION_ABSOLUTE);
     this.owner.setPosition(x, y);
 
-    if (this.owner.parent && debugChange) {
+    if (this.owner.parent && (debugChange || this.debug)) {
       let d = new Debugger();
       d.debugRect(this.owner, {stop:true});
       d.debugRect(this.owner, {stop:true}); // This double line is needed
@@ -182,6 +181,12 @@ var DisplayManager = cc.Class.extend({
         throw _.format("DisplayManager - {}: {} has an incorrect unit", this.owner.toString(), prop[0]);
     }
   },
+  calc: function(expression) {
+    let props = expression.split("+").map(p => p.trim());
+    let totalPixels = 0;
+    props.forEach(p => {totalPixels += this.propToPix(p);});
+    return totalPixels;
+  },
   toString: () => "DisplayManager"
 });
 
@@ -231,7 +236,7 @@ var Text = ccui.Text.extend({
       vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER,
       color: cc.color(255, 255, 255),
       shadow: null, // list with color, offset, blurradius
-      lineHeight: 32,
+      lineHeight: null, // line height in pixels
     };
     this._super();
     this.setAnchorPoint(0, 0);
@@ -255,7 +260,7 @@ var Text = ccui.Text.extend({
     this.setTextVerticalAlignment(this.text.vAlign);
     this.setTextColor(this.text.color);
     if (this.text.shadow) this.enableShadow(...this.text.shadow);
-    this.getVirtualRenderer().setLineHeight(this.text.lineHeight);
+    if (this.text.lineHeight) this.getVirtualRenderer().setLineHeight(this.text.lineHeight);
     this.displayManager.setup(options);
   },
   toString: () => "Text"
@@ -269,7 +274,7 @@ var Button = ccui.Button.extend({
   ctor: function(options) {
     this.button = this.button || {
       button: "green",
-      callback: () => console.log("Button pressed."),
+      callback: () => cc.log("Button pressed."),
       text: "",
       textFontName: "baloo",
       textFontSize: 56,
@@ -320,11 +325,12 @@ var Button = ccui.Button.extend({
 
     if (this.button.text) {
       this.setTitleText(this.button.text);
-      this.setTitleFontName(this.button.textFontName);
+      this.setTitleFontName(r.fonts[this.button.textFontName].name);
       this.setTitleFontSize(this.button.textFontSize);
       this.setTitleColor(this.button.textColor);
 
       if (!this.text) this.text = this.getTitleRenderer();
+      this.text.y += 5;
     }
 
 
@@ -403,6 +409,7 @@ var Icon = Text.extend({
     this.icon.icon = options.icon !== undefined ? options.icon : this.icon.icon;
     options.text = this.icons[this.icon.icon];
     if (options.text === undefined) throw(_.format("{} is not a valid icon name", this.icon.icon));
+    if (cc.sys.isNative && !options.right && !this.displayManager.calc(this.displayManager.right)) options.right = "8px"; // TODO Pretty weird android icon fix
     this._super(options);
   },
   toString: () => "Icon",
@@ -426,7 +433,7 @@ var Dialog = Panel.extend({
     this.dialog = this.dialog || {
       title: options.title || "Dialog Title",
       // Text maximum length is about 200-250 letters, if you want more, implement a scroll view here.
-      text: options.text || "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
+      text: options.text || "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
       type: options.type || "confirm", // basic, confirm
       okText: options.okText || "Ok",
       cancelText: options.cancelText || "Cancel",
@@ -439,14 +446,14 @@ var Dialog = Panel.extend({
 
     this.titlebar = new Layout({height: "17.5ph", width: "100pw", y: "-17.5ph"});
     this.titlebar.addTo(this);
-    this.title = new Text({text: this.dialog.title, x: "center", y: "center", top:"5px", fontSize: 42});
+    this.title = new Text({text: this.dialog.title, x: "center", y: "center", top: cc.sys.isNative ? "0px" : "5px", fontSize: 42});
     this.title.addTo(this.titlebar);
     this.close = new Button({callback: () => this.dismiss(), width: "100ph", padding: "11px", button: "red", icon: "close", x: "-100ph", scale: 0.5});
     this.close.addTo(this.titlebar);
 
     this.textPanel = new Panel({bgImage: r.panel_in_nuts, height: "62.5ph", width: "100pw", padding: "11px", y: "-75.5ph"});
     this.textPanel.addTo(this);
-    this.text = new Text({text: this.dialog.text, x:"center", y:"center"});
+    this.text = new Text({text: this.dialog.text, x:"center", y:"center", lineHeight: 32, bottom: cc.sys.isNative ? "5px" : "0px"});
     this.text.setTextAreaSize(cc.size(this.textPanel.width - 72, this.textPanel.height - 56));
     this.text.addTo(this.textPanel);
 
