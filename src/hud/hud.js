@@ -41,10 +41,10 @@ var Hud = cc.Layer.extend({
     this.bottombar = new Layout({width: "100vw", height: "140px"});
     this.bottombar.addTo(this);
 
-    this.layout = new Panel({width: "100pw + -110ph + 11px",height:"110ph", padding: "11px"});
+    this.layout = new Panel({width: "100pw + -100ph + 11px", padding: "11px"});
     this.layout.addTo(this.bottombar, -50);
 
-    this.button = new Button({callback: () => this.dialog.show(), width:"110ph", icon:"plus", padding:"11px", x: "-110ph", height:"110ph",iconFontSize: 72});
+    this.button = new Button({callback: () => this.dialog.show(), width:"100ph", icon:"plus", padding:"11px", x: "-100ph", iconFontSize: 72});
     this.button.addTo(this.bottombar);
 
     window.ds = this.ds; // XXX
