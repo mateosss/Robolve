@@ -59,15 +59,11 @@ var DefenseDetails = ccui.ListView.extend({
     this.pushBackCustomItem(this.attackSpeed);
     this.destroy = new Button({
       callback: () => {
-        if (this.destroySure) {
+        this.hud.alert("Destroy Defense", "Are you sure you want to delete this defense for 50 bucks? You just think in the money don't you?", () => {
           this.defense.die();
           this.hud.ig.addGold(50);
-          this.destroySure = false;
-          this.dismiss();
-        } else {
-          this.hud.it.message("Press again to destroy (+$50)");
-          this.destroySure = true;
-        }
+          this.hud.dialog.dismiss();
+        });
       }, button: "red", icon: "close", width: "96px", height: "96px"
     });
     this.destroy.setTouchEnabled(true);

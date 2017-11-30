@@ -476,8 +476,10 @@ var Dialog = Panel.extend({
   setup: function(options) {
     this.dialog.title = options.title !== undefined ? options.title : this.dialog.title;
     this.dialog.text = options.text !== undefined ? options.text : this.dialog.text;
+    this.dialog.okCallback = options.okCallback !== undefined ? options.okCallback : this.dialog.okCallback;
     if (this.title) this.title.setup({text: this.dialog.title});
     if (this.text) this.text.setup({text: this.dialog.text});
+    if (this.ok) this.ok.setup({callback: this.dialog.okCallback});
     this._super(options);
   },
   show: function(instant) {
