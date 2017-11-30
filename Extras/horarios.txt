@@ -350,7 +350,7 @@ Format (variables between \<\> should be calculated after each day/task)
 - 2017-11-27 Lu - 01:30 hs
     - 12:30 - 14:00 - Ahora el componente Text funciona en android también
 
-## (10) HUD - Dialog [] -
+## (10) HUD - Dialog [27.8] - 22:15 hs
 
 - 2017-11-27 Lu - 05:10 hs
     - 14:00 - 16:00 - Puliendo algunas cositas, nuevo icono, refrescado robolve.tk
@@ -365,5 +365,6 @@ Format (variables between \<\> should be calculated after each day/task)
     - 23:30 - 00:15 - Terminado de actualizar todos los botones y eliminados botones anteriores
 - 2017-11-29 Mi - 03:35 hs
     - 21:35 - 01:10 - Terminado Dialog en html, se rompieron muchas cosas en android
-- 2017-11-30 Ju -
+- 2017-11-30 Ju - 04:30 hs
     - 13:30 - 17:30 - Arreglado dialog en android, mergeado feature-dialog
+    - 17:30 - 18:00 - Separando components en diferentes archivos y preparando checkpoint

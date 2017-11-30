@@ -23,6 +23,7 @@
     "GameLevel": true,
     "Level": true,
     "TiledMap": true,
+    "DisplayManager": true,
     "Panel": true,
     "Layout": true,
     "Dialog": true,
