@@ -34,8 +34,10 @@ var Hud = cc.Layer.extend({
     this.dd = new DefenseDetails(this);
     this.addChild(this.dd);
 
+    this.dialog = new Dialog({type:"confirm", bgImage: r.panel_out, width: "80vw", height: "35vh", x: "center", y: "center"});
+    this.dialog.addTo(this);
+
     // Bottom bar
-    // TODO make layout component, for wrapping other components
     // TODO make component property calc(), to calculate here calc(100vw - 120px)
     this.bottombar = new Layout({width: "100vw", height: "140px"});
     this.bottombar.addTo(this);
@@ -43,10 +45,11 @@ var Hud = cc.Layer.extend({
     this.layout = new Panel({width: "81.94444444444444vw", padding: "11px"});
     this.layout.addTo(this.bottombar, -50);
 
-    this.button = new Button({width:"100ph", icon:"plus", padding:"11px", x: "-100ph", iconFontSize: 72});
+    this.button = new Button({callback: () => this.dialog.show(), width:"100ph", icon:"plus", padding:"11px", x: "-100ph", iconFontSize: 72});
     this.button.addTo(this.bottombar);
 
     window.ds = this.ds; // XXX
+    window.dialog = this.dialog;
     window.dd = this.dd;
     window.ig = this.ig;
     window.gi = this.gi;

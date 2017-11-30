@@ -352,14 +352,16 @@ Format (variables between \<\> should be calculated after each day/task)
 
 ## (10) HUD - Dialog [] -
 
-- 2017-11-27 Lu -
+- 2017-11-27 Lu - 05:10 hs
     - 14:00 - 16:00 - Puliendo algunas cositas, nuevo icono, refrescado robolve.tk
     - 18:00 - 19:00 - Al fin puedo compilar de vuelta en el nuevo lubuntu
     - 19:00 - 20:10 - Comenzando Button component, explorando las posibilidades de ccui.Button
     - 23:00 - 01:00 - Siguiendo con Button
-- 2017- 11-28 Ma -
+- 2017-11-28 Ma - 09:00 hs
     - 11:10 - 13:30 - New icons, initial button component, new layout component, new display manager debug property
     - 13:30 - 14:15 - Intendo implementar que se baje el icono cuando presiono un boton
     - 16:00 - 18:10 - Implementado eso y avanzando con otras cosas de Button
     - 18:10 - 21:10 - Implementando nueva convencion de botones en lugares viejos
-    - 23:30 - 00:10 - Terminado de actualizar todos los botones y eliminados botones anteriores
+    - 23:30 - 00:15 - Terminado de actualizar todos los botones y eliminados botones anteriores
+- 2017-11-29 Mi -
+    - 21:35 - 00:50 - Terminado Dialog en html

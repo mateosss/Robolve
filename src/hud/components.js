@@ -47,6 +47,11 @@ var DisplayManager = cc.Class.extend({
       cc.Node.prototype.addChild.call(parent, this, z || null, tag || null);
       this.setup({});
     };
+
+    owner.debug = function() {
+      // Debug owner rects and padding
+      this.setup({debug: !this.displayManager.debug});
+    };
   },
 
   setup: function(options) {
@@ -214,13 +219,6 @@ var Panel = ccui.Layout.extend({
   toString: () => "Panel"
 });
 
-var Dialog = Panel.extend({
-  ctor: function(options) {
-    this._super(options);
-  },
-  toString: () => "Dialog"
-});
-
 var Text = ccui.Text.extend({
   text: null, // text specififc properties, check ctor
   displayManager: null, // Manages the size and location of this component
@@ -233,6 +231,7 @@ var Text = ccui.Text.extend({
       vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER,
       color: cc.color(255, 255, 255),
       shadow: null, // list with color, offset, blurradius
+      lineHeight: 32,
     };
     this._super();
     this.setAnchorPoint(0, 0);
@@ -243,10 +242,11 @@ var Text = ccui.Text.extend({
     this.text.text = options.text !== undefined ? options.text : this.text.text;
     this.text.fontName = options.fontName || this.text.fontName;
     this.text.fontSize = options.fontSize || this.text.fontSize;
-    this.text.hAlign = options.hAlign || this.text.hAlign;
-    this.text.vAlign = options.vAlign || this.text.vAlign;
+    this.text.hAlign = options.hAlign !== undefined ? options.hAlign : this.text.hAlign;
+    this.text.vAlign = options.vAlign !== undefined ? options.vAlign : this.text.vAlign;
     this.text.color = options.color || this.text.color;
     this.text.shadow = options.shadow || this.text.shadow;
+    this.text.lineHeight = options.lineHeight || this.text.lineHeight;
 
     this.setString(this.text.text);
     this.setFontName(r.fonts[this.text.fontName].name);
@@ -255,7 +255,7 @@ var Text = ccui.Text.extend({
     this.setTextVerticalAlignment(this.text.vAlign);
     this.setTextColor(this.text.color);
     if (this.text.shadow) this.enableShadow(...this.text.shadow);
-
+    this.getVirtualRenderer().setLineHeight(this.text.lineHeight);
     this.displayManager.setup(options);
   },
   toString: () => "Text"
@@ -392,15 +392,8 @@ var Icon = Text.extend({
   },
   icon: null,
   ctor: function(options) {
-    this.text = this.icon = this.icon || {
+    this.icon = this.icon || {
       icon: "robot",
-      text: "\ue817",
-      fontName: "icons",
-      fontSize: 32,
-      hAlign: cc.TEXT_ALIGNMENT_CENTER,
-      vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER,
-      color: cc.color(255, 255, 255),
-      shadow: null, // list with color, offset, blurradius
     };
     options.text = this.icons[this.icon.icon];
     options.fontName = "icons";
@@ -413,4 +406,93 @@ var Icon = Text.extend({
     this._super(options);
   },
   toString: () => "Icon",
+});
+
+var Dialog = Panel.extend({
+  dialog: null, // dialog specififc properties, check ctor
+  displayManager: null, // Manages the size and location of this component
+  inScreen: true, // tells wether the dialog is being shown
+
+  titlebar: null, // Dialog internal elements, access to their setup by dialog.component.setup
+  title: null,
+  close: null,
+  textPanel: null,
+  text: null,
+  buttonbar: null,
+  ok: null,
+  cancel: null,
+
+  ctor: function(options) {
+    this.dialog = this.dialog || {
+      title: options.title || "Dialog Title",
+      // Text maximum length is about 200-250 letters, if you want more, implement a scroll view here.
+      text: options.text || "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
+      type: options.type || "confirm", // basic, confirm
+      okText: options.okText || "Ok",
+      cancelText: options.cancelText || "Cancel",
+      okCallback: options.okCallback || (() => {this.dismiss();}), // use this for the basic type button
+      cancelCallback: options.cancelCallback || (() => {this.dismiss();}),
+    };
+    this._super(options);
+    this.setSwallowTouches(true); // TODO This works great if below the dialog is a button, but if there is something using easyEvents it doesn't work as expected
+    this.setTouchEnabled(true);
+
+    this.titlebar = new Layout({height: "17.5ph", width: "100pw", y: "-17.5ph"});
+    this.titlebar.addTo(this);
+    this.title = new Text({text: this.dialog.title, x: "center", y: "center", top:"5px", fontSize: 42});
+    this.title.addTo(this.titlebar);
+    this.close = new Button({callback: () => this.dismiss(), width: "100ph", padding: "11px", button: "red", icon: "close", x: "-100ph", scale: 0.5});
+    this.close.addTo(this.titlebar);
+
+    this.textPanel = new Panel({bgImage: r.panel_in_nuts, height: "62.5ph", width: "100pw", padding: "11px", y: "-75.5ph"});
+    this.textPanel.addTo(this);
+    this.text = new Text({text: this.dialog.text, x:"center", y:"center"});
+    this.text.setTextAreaSize(cc.size(this.textPanel.width - 72, this.textPanel.height - 56));
+    this.text.addTo(this.textPanel);
+
+    this.buttonbar = new Layout({height: "20ph", padding: "11px"});
+    this.buttonbar.addTo(this);
+
+    if (this.dialog.type === "basic") {
+      this.ok = new Button({callback: this.dialog.okCallback, button: "green", text: this.dialog.okText, height:"21.5pw", padding: "11px", textFontSize: 42});
+      this.ok.addTo(this.buttonbar);
+    } else if (this.dialog.type === "confirm") {
+      this.ok = new Button({callback: this.dialog.okCallback, button: "green", text: this.dialog.okText, width: "40pw", height:"21.5pw", x:"-40pw", padding: "11px", textFontSize: 42});
+      this.ok.addTo(this.buttonbar);
+      this.cancel = new Button({callback: this.dialog.cancelCallback, button: "red", text: this.dialog.cancelText, width: "40pw", height:"21.5pw", padding: "11px", textFontSize: 42});
+      this.cancel.addTo(this.buttonbar);
+    } else {
+      throw _.format("{} is not a correct dialog type", this.dialog.type);
+    }
+    this.dismiss(true);
+  },
+  setup: function(options) {
+    this._super(options);
+  },
+  show: function(instant) {
+    if (this.inScreen) return;
+    if (instant) {
+      this.visible = true;
+      this.setup({right: "0vw"});
+    } else {
+      this.visible = true;
+      let move = new cc.EaseBackOut(new cc.MoveBy(0.2, cc.p(cc.winSize.width, 0)), 3);
+      let invisible = new cc.CallFunc(() => {this.setup({right: "0vw"});});
+      this.runAction(new cc.Sequence([move, invisible]));
+    }
+    this.inScreen = true;
+  },
+  dismiss: function(instant) {
+    if (!this.inScreen) return;
+    if (instant) {
+      this.visible = false;
+      this.setup({right: "100vw"});
+    } else {
+      let move = new cc.EaseBackIn(new cc.MoveBy(0.2, cc.p(-cc.winSize.width, 0)), 3);
+      let invisible = new cc.CallFunc(() => {this.visible = false; this.setup({right: "100vw"});});
+      this.runAction(new cc.Sequence([move, invisible]));
+    }
+    this.inScreen = false;
+  },
+  toString: () => "Dialog"
 });

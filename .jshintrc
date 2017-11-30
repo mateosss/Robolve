@@ -25,6 +25,7 @@
     "TiledMap": true,
     "Panel": true,
     "Layout": true,
+    "Dialog": true,
     "Text": true,
     "Icon": true,
     "Button": true,

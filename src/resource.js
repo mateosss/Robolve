@@ -5,6 +5,8 @@ var r = { // resources variable
   },
   getDefaultFont: () => r.fonts.baloo.name,
   panel: "res/sprites/ui/panel.png", // TODO r.panel? This probably should have a hud sub object
+  panel_out: "res/sprites/ui/panel_out.png", // TODO r.panel_out? This probably should have a hud sub object
+  panel_in_nuts: "res/sprites/ui/panel_in_nuts.png", // TODO r.panel_in_nuts? This probably should have a hud sub object
   empty: "res/sprites/empty.png",
   point: "res/sprites/point.png",
   invalidPart: "res/sprites/invalidPart.png",
