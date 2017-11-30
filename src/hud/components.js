@@ -314,7 +314,7 @@ var Button = ccui.Button.extend({
     this.button.iconColor = options.iconColor || this.button.iconColor;
 
     this.loadTextures(r.ui[this.button.button], r.ui[this.button.button + "P"], r.ui[this.button.button + "P"], ccui.Widget.LOCAL_TEXTURE);
-    if (callbackChange) this.addClickEventListener(this.button.callback, this);
+    if (callbackChange) this.addClickEventListener(this.button.callback);
 
     this.displayManager.setup(options);
 
@@ -467,6 +467,10 @@ var Dialog = Panel.extend({
     this.dismiss(true);
   },
   setup: function(options) {
+    this.dialog.title = options.title !== undefined ? options.title : this.dialog.title;
+    this.dialog.text = options.text !== undefined ? options.text : this.dialog.text;
+    if (this.title) this.title.setup({text: this.dialog.title});
+    if (this.text) this.text.setup({text: this.dialog.text});
     this._super(options);
   },
   show: function(instant) {

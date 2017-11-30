@@ -60,6 +60,10 @@ var Hud = cc.Layer.extend({
 
     return true;
   },
+  alert: function(title, text) {
+    this.dialog.setup({title: title, text: text});
+    this.dialog.show();
+  },
   toString: function() {
     return "Hud";
   },

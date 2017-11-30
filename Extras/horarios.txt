@@ -364,4 +364,4 @@ Format (variables between \<\> should be calculated after each day/task)
     - 18:10 - 21:10 - Implementando nueva convencion de botones en lugares viejos
     - 23:30 - 00:15 - Terminado de actualizar todos los botones y eliminados botones anteriores
 - 2017-11-29 Mi -
-    - 21:35 - 00:50 - Terminado Dialog en html
+    - 21:35 - 01:10 - Terminado Dialog en html, se rompieron muchas cosas en android
