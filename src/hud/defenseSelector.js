@@ -12,8 +12,7 @@ var DefenseSelector = ccui.ListView.extend({
     this.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
     this.setTouchEnabled(true);
     this.setContentSize(size);
-    // this.setPosition((s.width - 3 * 96) / 2, 16); // TODO TOO MUCH HARDCODE
-    this.setPosition(27, 16); // TODO TOO MUCH HARDCODE
+    this.setPosition((s.width - 3 * 96) / 2, 16); // TODO TOO MUCH HARDCODE
     // ok button
     this.ok = new Button({callback: () => {
       /// TODO ALL THIS CODE IS REPEATED FROM GAME.JS and MAP.JS
