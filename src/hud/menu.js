@@ -5,7 +5,6 @@ var Menu = cc.LayerGradient.extend({
   //en celular cada vez que spawnea hasta que todos los sprites se cargan
   sprite:null,
   ctor:function (text) {
-    // this._super(cc.color(100, 100, 150), cc.color(50, 50, 100));
     this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
     if (!text) {
       text = "";
@@ -26,38 +25,22 @@ var Menu = cc.LayerGradient.extend({
     this.ls.setContentSize(lsSize);
     this.ls.setPosition((this.ls.width - (_.size(r.maps) - 1) * 96) / 2, size.height / 2 - this.ls.height); // TODO TOO MUCH HARDCODE
     this.ls.setItemsMargin(8);
-    if (cc.sys.os) { // In JS this line throws an error so we look if we are running natively
-      // this.ls.setScrollBarEnabled(false); //TODO throws error in chrome
-    }
     this.addChild(this.ls, 1);//TODO z levels hardcoded
 
     // Comment for omitting level screen
-    var startGame = function(btn, i) {
-
+    var startGame = function(i) {
       cc.spriteFrameCache.addSpriteFrames(r.parts_plist_0);
       cc.spriteFrameCache.addSpriteFrames(r.parts_plist_1);
-
       var firstTime = !text;
       cc.director.runScene(new cc.TransitionFade(1, new GameLevel(r.maps['map' + (i + 1)], firstTime)));
     };
     for (var i = 0; i < _.size(r.maps) - 1; i++) {
-      var btn = new ccui.Button(r.ui.greenBtnM, r.ui.greenBtnDM);
-      btn.setTitleFontName(r.getDefaultFont());
-      btn.setTitleFontSize(56);
-      btn.setTitleText((i + 1).toString());
-      btn.setTouchEnabled(true);
-      easyTouchButton(btn, startGame, i);
-      this.ls.addChild(btn);
+      var btn = new Button({callback: _.wrap(startGame, i), text: (i + 1).toString(), button: "green", width: "96px", height: "96px",});
+      this.ls.pushBackCustomItem(btn);
     }
 
-    // cc.eventManager.addListener({
-    //   event: cc.EventListener.TOUCH_ONE_BY_ONE,
-    //   onTouchBegan: function (touches, event) {
-    //     // cc.director.runScene(new GameLevel());
-    //     cc.director.runScene(new cc.TransitionFade(1, new GameLevel()));
-    //     return true;
-    //   },
-    // }, this);
+    startGame(0); // XXX Remove
+    setTimeout(() => rb.dev.stateRobots("still"), 10000);
 
     return true;
   }

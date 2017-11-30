@@ -8,19 +8,43 @@ var DefenseSelector = ccui.ListView.extend({
     this.hud = hud;
 
     let s = cc.winSize;
-    let size = cc.size(s.width, 128); // defenseSelector Height // TODO 128 hardcoded
+    let size = cc.size(96*3 , 128); // defenseSelector Height // TODO 320,128 hardcoded
     this.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
     this.setTouchEnabled(true);
     this.setContentSize(size);
-    this.setPosition((this.width - 3 * 96) / 2, 0); // TODO TOO MUCH HARDCODE
-
+    this.setPosition((s.width - 3 * 96) / 2, 0); // TODO TOO MUCH HARDCODE
     // ok button
-    this.ok = new ccui.Button(r.ui.okBtnM, r.ui.okBtnDM);
-    this.ok.setAnchorPoint(0, 0);
-    this.ok.setTouchEnabled(true);
-    let okPos = cc.p(-s.width + 16, this.height + this.y);  // TODO button padding (16) hardcoded
+    this.ok = new Button({callback: () => {
+      /// TODO ALL THIS CODE IS REPEATED FROM GAME.JS and MAP.JS
+      var pos = this.hud.level.map.tileCoordFromChild(this.hud.level.dummyDefense);
+      var canBePlaced = this.hud.level.dummyDefense.canBePlacedOn(pos);
+      if (canBePlaced.result && this.hud.level.base.gold >= 300) {
+        let hud = this.ok.getParent();
+        this.hud.level.dummyDefense.setColor(cc.color(255, 255, 255));
+        this.hud.level.defenses.push(this.hud.level.dummyDefense);
+        var newDefense = this.hud.level.dummyDefense;
+        newDefense.retain();
+        newDefense.isDummy = false;
+        hud.ds.cancel.exec();
+        this.hud.level.map.addChild(newDefense);
+        newDefense.setTouchEvent();
+        newDefense.factoryReset(); // This makes possible to the idle animation to execute the idle animation
+        newDefense.scheduleUpdate();
+
+        hud.ig.removeGold(300);
+        hud.it.message(canBePlaced.cause);
+
+      } else {
+        if (canBePlaced.result) {
+          this.ok.getParent().it.message("You don't have 300 bucks");
+          this.ok.getParent().ig.notEnoughGold();
+        } else {
+          this.ok.getParent().it.message(canBePlaced.cause);
+        }
+      }
+    }, x: "-200vw", left: "16px", y:"140px",button:"green", icon: "check", width:"96px", height: "96px"});
+
     this.ok.inScreen = false;
-    this.ok.setPosition(okPos);
     this.ok.show = function() {
       if (!this.inScreen) {
         this.runAction(new cc.MoveBy(0.1, cc.p(s.width,0)));
@@ -34,41 +58,12 @@ var DefenseSelector = ccui.ListView.extend({
       }
     };
 
-    easyTouchButton(this.ok, function(ok, level) {
-      /// TODO ALL THIS CODE IS REPEATED FROM GAME.JS and MAP.JS
-      var pos = level.map.tileCoordFromChild(level.dummyDefense);
-      var canBePlaced = level.dummyDefense.canBePlacedOn(pos);
-      if (canBePlaced.result && level.base.gold >= 300) {
-        let hud = ok.getParent();
-        level.dummyDefense.setColor(cc.color(255, 255, 255));
-        level.defenses.push(level.dummyDefense);
-        var newDefense = level.dummyDefense;
-        newDefense.retain();
-        newDefense.isDummy = false;
-        hud.ds.cancel.exec();
-        level.map.addChild(newDefense);
-        newDefense.setTouchEvent();
-        newDefense.factoryReset(); // This makes possible to the idle animation to execute the idle animation
-        newDefense.scheduleUpdate();
-
-        hud.ig.removeGold(300);
-        hud.it.message(canBePlaced.cause);
-
-      } else {
-        if (canBePlaced.result) {
-          ok.getParent().it.message("You don't have 300 bucks");
-          ok.getParent().ig.notEnoughGold();
-        } else {
-          ok.getParent().it.message(canBePlaced.cause);
-        }
-      }
-    }, this.hud.level);
-    this.hud.addChild(this.ok);
+    this.ok.addTo(this.hud);
 
     // cancel button
-    this.cancel = new ccui.Button(r.ui.cancelBtnM, r.ui.cancelBtnDM);
+    this.cancel = new Button({callback: () => this.cancel.exec(), x: "-100vw", right: "112px", y:"140px", button:"red", icon: "close", width:"96px", height: "96px"});
     this.cancel.setAnchorPoint(0, 0);
-    var cancelPos = cc.p(-s.width + s.width - this.cancel.width - 16, this.height + this.y);  // TODO button padding (16) hardcoded
+    var cancelPos = cc.p(-s.width + s.width - this.cancel.width - 16, this.height + 8 + this.y);  // TODO button padding (16) hardcoded
     this.cancel.inScreen = false;
     this.cancel.setTouchEnabled(true);
     this.cancel.setPosition(cancelPos);
@@ -85,23 +80,22 @@ var DefenseSelector = ccui.ListView.extend({
 
       }
     };
-    easyTouchButton(this.cancel, cancel => cancel.exec(), this.cancel);
-    this.hud.addChild(this.cancel);
+    this.cancel.addTo(this.hud);
 
     // Defense selector defenses buttons
     var buttons = [
       {
-        button: new ccui.Button(r.ui.yellowBtnM, r.ui.yellowBtnDM),
+        button: new Button({button: "yellow", width: "96px", height: "96px", icon: "flash"}),
         image: new cc.Sprite(r.edBtn),
         type: "electric"
       },
       {
-        button: new ccui.Button(r.ui.redBtnM, r.ui.redBtnDM),
+        button: new Button({button: "orange", width: "96px", height: "96px", icon: "fire"}),
         image: new cc.Sprite(r.fdBtn),
         type: "fire"
       },
       {
-        button: new ccui.Button(r.ui.blueBtnM, r.ui.blueBtnDM),
+        button: new Button({button: "blue", width: "96px", height: "96px", icon: "water"}),
         image: new cc.Sprite(r.wdBtn),
         type: "water"
       }
@@ -126,13 +120,8 @@ var DefenseSelector = ccui.ListView.extend({
     };
     for (let i = 0; i < buttons.length; i++) {
       let btn = buttons[i].button;
-      // TODO remove img and buttons.image references
-      // var img = buttons[i].image;
       var type = buttons[i].type;
-      btn.setTouchEnabled(true);
-      // btn.addChild(img);
-      // img.setPosition(btn.width / 2, btn.height / 2);
-      easyTouchButton(btn, dsEvent, this.hud.level, type);
+      btn.setup({callback: _.wrap(dsEvent, btn, this.hud.level, type)});
       this.addChild(btn);
     }
 

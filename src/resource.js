@@ -5,6 +5,8 @@ var r = { // resources variable
   },
   getDefaultFont: () => r.fonts.baloo.name,
   panel: "res/sprites/ui/panel.png", // TODO r.panel? This probably should have a hud sub object
+  panel_out: "res/sprites/ui/panel_out.png", // TODO r.panel_out? This probably should have a hud sub object
+  panel_in_nuts: "res/sprites/ui/panel_in_nuts.png", // TODO r.panel_in_nuts? This probably should have a hud sub object
   empty: "res/sprites/empty.png",
   point: "res/sprites/point.png",
   invalidPart: "res/sprites/invalidPart.png",
@@ -17,16 +19,14 @@ var r = { // resources variable
     map4: "res/map/map4.tmx",
     map5: "res/map/map5.tmx",
   },
-  ui:{
+  ui: {
     buttons: [
       "blue",
       "green",
+      "orange",
+      "pink",
       "red",
       "yellow",
-      "cancel",
-      "ok",
-      "minus",
-      "plus",
     ],
   },
   parts_png_0: "res/sprites/parts_0.png",
@@ -49,18 +49,10 @@ for (var ui in r.ui){
   }
   if (ui == 'buttons') {
     for (var btn in r.ui.buttons) {
-      r.ui[r.ui.buttons[btn] + "BtnL"] = "res/sprites/ui/largeButtons/" + r.ui.buttons[btn] + "BtnL.png";
-      r.ui[r.ui.buttons[btn] + "BtnDL"] = "res/sprites/ui/largeButtons/" + r.ui.buttons[btn] + "BtnDL.png";
-      r.ui[r.ui.buttons[btn] + "BtnM"] = "res/sprites/ui/mediumButtons/" + r.ui.buttons[btn] + "BtnM.png";
-      r.ui[r.ui.buttons[btn] + "BtnDM"] = "res/sprites/ui/mediumButtons/" + r.ui.buttons[btn] + "BtnDM.png";
-      r.ui[r.ui.buttons[btn] + "BtnS"] = "res/sprites/ui/smallButtons/" + r.ui.buttons[btn] + "BtnS.png";
-      r.ui[r.ui.buttons[btn] + "BtnDS"] = "res/sprites/ui/smallButtons/" + r.ui.buttons[btn] + "BtnDS.png";
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnL"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDL"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnM"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDM"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnS"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDS"]);
+      r.ui[r.ui.buttons[btn]] = "res/sprites/ui/buttons/" + r.ui.buttons[btn] + ".png";
+      r.ui[r.ui.buttons[btn] + "P"] = "res/sprites/ui/buttons/" + r.ui.buttons[btn] + "P.png";
+      g_resources.push(r.ui[r.ui.buttons[btn]]);
+      g_resources.push(r.ui[r.ui.buttons[btn] + "P"]);
     }
   }
 }

@@ -59,5 +59,6 @@ var _ = {
     }
   },
   randint: (from, to) => from + Math.floor(Math.random() * (to - from + 1)),
-  randchoice: (array) => array[_.randint(0, array.length - 1)]
+  randchoice: (array) => array[_.randint(0, array.length - 1)],
+  wrap: (func, ...params) => {return () => func(...params);}
 };

@@ -23,6 +23,7 @@ var DisplayManager = cc.Class.extend({
   height: "100ph", // height
   padding: "0px", // padding
   scale: 1, // scale of the node, useful when adjusting texture size
+  debug: false, // true for showing a square with the rect of the component
 
   ctor: function(owner, options) {
     // Expects the owner of the displayManager, and an object with its attributes
@@ -34,16 +35,22 @@ var DisplayManager = cc.Class.extend({
     this.right = options.right || this.right;
     this.bottom = options.bottom || this.bottom;
     this.left = options.left || this.left;
-    this.height = options.height || this.width;
-    this.width = options.width || this.height;
+    this.height = options.height || this.height;
+    this.width = options.width || this.width;
     this.padding = options.padding || this.padding;
     this.scale = options.scale || this.scale;
 
     owner.addTo = function(parent, z, tag) {
       // Use this component.addTo(parent) instead of parent.addChild(component)
-      // So the setup function is executed after the addChild.
+      // So the setup function is executed after the addChild. Isn't necessary
+      // If you are not using parent-dependant properties like ph or pw
       cc.Node.prototype.addChild.call(parent, this, z || null, tag || null);
       this.setup({});
+    };
+
+    owner.debug = function() {
+      // Debug owner rects and padding
+      this.setup({debug: !this.displayManager.debug});
     };
   },
 
@@ -65,45 +72,56 @@ var DisplayManager = cc.Class.extend({
     let padding = this.padding = options.padding || this.padding;
     let scale = this.scale = options.scale || this.scale;
 
+    let debugChange = this.debug !== options.debug;
+    let debug = this.debug = options.debug !== undefined ? options.debug : this.debug;
+
     let w = this.getParentWidth();
     let h = this.getParentHeight();
 
-    padding = this.propToPix(padding);
-    height = this.propToPix(height) / scale - padding * 2 / scale;
-    width = this.propToPix(width) / scale - padding * 2 / scale;
-
+    padding = this.calc(padding);
+    height = this.calc(height) / scale - padding * 2 / scale;
+    width = this.calc(width) / scale - padding * 2 / scale;
     if (x === "center") {
-      x = (w - this.owner.width) / 2; // TODO backup
-      // x = (w - width) / 2; // TODO this should be here instead, see y==="center" section
+      // TODO this if is a little weird, it's here because text objects don't respect
+      // the width and heights displayManager gives them, cocos2d after the setup
+      // overwrites their sizes with the ones given by the fontSize and the string
+      // the nodes have, so I just check if the owner is a ccui.Text instace
+      // and if so, I just use the real owner previous width instead of the given in options
+      // also aplicable in the y === "center" section
+      if (this.owner instanceof ccui.Text) x = (w - this.owner.width) / 2;
+      else x = (w - width) / 2;
     } else {
-      x = this.propToPix(x);
-      x = (x >= 0 ? x : w + x) + padding;
+      x = this.calc(x);
+      x = (x > 0 || Object.is(x, +0) ? x : w + x) + padding;
     }
 
     if (y === "center") {
-      y = (h - this.owner.height) / 2; // TODO backup
-
-      // y = (h - height) / 2;
-      // TODO This should be the real line, but it is a pretty big problem
-      // when this line is used the default height value is 100ph, but in Text
-      // objects that's not true, because after setting everything here, cocos
-      // will replace the height with whatever the fontSize determines.
-      // A solution for this could be to make a converter from the current component
-      // values before it having a displayManager (I am not even sure if that's the real problem)
-      // This should be applied in the case of x==="center" too.
+      // See x==="center" section for explanation of this if statement
+      if (this.owner instanceof ccui.Text) y = (h - this.owner.height) / 2;
+      else y = (h - height) / 2;
     } else {
-      y = this.propToPix(y);
+      y = this.calc(y);
       y = (y >= 0 ? y : h + y) + padding;
     }
 
-    y += this.propToPix(bottom) - this.propToPix(top);
-    x += this.propToPix(left) - this.propToPix(right);
+    y += this.calc(bottom) - this.calc(top);
+    x += this.calc(left) - this.calc(right);
 
     this.owner.scale = scale;
     this.owner.setSizeType(ccui.Widget.SIZE_ABSOLUTE);
     this.owner.setContentSize(width, height);
     this.owner.setPositionType(ccui.Widget.POSITION_ABSOLUTE);
     this.owner.setPosition(x, y);
+
+    if (this.owner.parent && (debugChange || this.debug)) {
+      let d = new Debugger();
+      d.debugRect(this.owner, {stop:true});
+      d.debugRect(this.owner, {stop:true}); // This double line is needed
+      if (this.debug){
+        d.debugRect(this.owner, {lineColor:cc.color(0,255,0), fillColor: cc.color(0, 0, 0, 0), lineWidth: 2});
+        if (!(this.owner instanceof ccui.Text)) d.debugRect(this.owner, {fillColor: cc.color(0, 0, 0, 0), lineWidth: 2, rect: cc.rect(-padding, -padding, width + padding * 2 / scale, height + padding * 2 / scale), lineColor:cc.color(255,0,0)});
+      }
+    }
 
   },
   getParentWidth: function() {
@@ -163,7 +181,26 @@ var DisplayManager = cc.Class.extend({
         throw _.format("DisplayManager - {}: {} has an incorrect unit", this.owner.toString(), prop[0]);
     }
   },
+  calc: function(expression) {
+    let props = expression.split("+").map(p => p.trim());
+    let totalPixels = 0;
+    props.forEach(p => {totalPixels += this.propToPix(p);});
+    return totalPixels;
+  },
   toString: () => "DisplayManager"
+});
+
+var Layout = ccui.Layout.extend({
+  displayManager: null, // Manages the size and location of this component
+  ctor: function(options) {
+    this._super();
+    this.displayManager = new DisplayManager(this, options);
+    this.setup(options);
+  },
+  setup: function(options) {
+    this.displayManager.setup(options);
+  },
+  toString: () => "Layout"
 });
 
 var Panel = ccui.Layout.extend({
@@ -199,6 +236,7 @@ var Text = ccui.Text.extend({
       vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER,
       color: cc.color(255, 255, 255),
       shadow: null, // list with color, offset, blurradius
+      lineHeight: null, // line height in pixels
     };
     this._super();
     this.setAnchorPoint(0, 0);
@@ -206,13 +244,14 @@ var Text = ccui.Text.extend({
     this.setup(options);
   },
   setup: function(options) {
-    this.text.text = options.text || this.text.text;
+    this.text.text = options.text !== undefined ? options.text : this.text.text;
     this.text.fontName = options.fontName || this.text.fontName;
     this.text.fontSize = options.fontSize || this.text.fontSize;
-    this.text.hAlign = options.hAlign || this.text.hAlign;
-    this.text.vAlign = options.vAlign || this.text.vAlign;
+    this.text.hAlign = options.hAlign !== undefined ? options.hAlign : this.text.hAlign;
+    this.text.vAlign = options.vAlign !== undefined ? options.vAlign : this.text.vAlign;
     this.text.color = options.color || this.text.color;
     this.text.shadow = options.shadow || this.text.shadow;
+    this.text.lineHeight = options.lineHeight || this.text.lineHeight;
 
     this.setString(this.text.text);
     this.setFontName(r.fonts[this.text.fontName].name);
@@ -221,20 +260,107 @@ var Text = ccui.Text.extend({
     this.setTextVerticalAlignment(this.text.vAlign);
     this.setTextColor(this.text.color);
     if (this.text.shadow) this.enableShadow(...this.text.shadow);
-
+    if (this.text.lineHeight) this.getVirtualRenderer().setLineHeight(this.text.lineHeight);
     this.displayManager.setup(options);
-
-    // if (this.parent) { // XXX Delete
-    //   let d = new Debugger();
-    //   d.debugRect(this.parent, {stop:true});
-    //   window.dtext = d.debugRect(this.parent, {rect: this,lineColor:cc.color(0,255,0)});
-    // }
   },
   toString: () => "Text"
 });
 
+var Button = ccui.Button.extend({
+  button: null, // button specififc properties, check ctor
+  displayManager: null, // Manages the size and location of this component
+  text: null, // the button title
+  icon: null, // the button icon
+  ctor: function(options) {
+    this.button = this.button || {
+      button: "green",
+      callback: () => cc.log("Button pressed."),
+      text: "",
+      textFontName: "baloo",
+      textFontSize: 56,
+      textColor: cc.color(255, 255, 255),
+      icon: "",
+      iconFontSize: 64,
+      iconAlign: "left", // left, right, only works if there is text // TODO right option
+      iconColor: cc.color(255, 255, 255),
+    };
+    this._super();
+    this.setAnchorPoint(0, 0);
+    this.setScale9Enabled(true);
+    this.displayManager = new DisplayManager(this, options);
+    this.setup(options);
+
+    this.addTouchEventListener(function(button, event) {
+      if (event === ccui.Widget.TOUCH_BEGAN) {
+        if (button.icon) button.icon.setup({bottom: "0ph"});
+        if (button.text) button.text.y -= 7.375; //TODO the 7.375 is very hardcoded, it refers to the button sprite fake 3d height
+        return true;
+      }
+      else if (event === ccui.Widget.TOUCH_ENDED || event === ccui.Widget.TOUCH_CANCELED) { // TODO when pressing and moving the touch outside the button, the icon stay down but the button gets high again
+        if (button.icon) button.icon.setup({bottom: "7.375px"});
+        if (button.text) button.text.y += 7.375;
+        return true;
+      }
+      return false;
+    }, this);
+  },
+  setup: function(options) {
+    this.button.button = options.button || this.button.button;
+    let callbackChange = this.button.callback !== options.callback;
+    this.button.callback = options.callback || this.button.callback;
+    this.button.text = options.text !== undefined ? options.text : this.button.text;
+    this.button.textFontName = options.textFontName || this.button.textFontName;
+    this.button.textFontSize = options.textFontSize || this.button.textFontSize;
+    this.button.textColor = options.textColor || this.button.textColor;
+    this.button.icon = options.icon !== undefined ? options.icon : this.button.icon;
+    this.button.iconFontSize = options.iconFontSize || this.button.iconFontSize;
+    let iconAlignChange = this.button.iconAlign !== options.iconAlign;
+    this.button.iconAlign = options.iconAlign || this.button.iconAlign;
+    this.button.iconColor = options.iconColor || this.button.iconColor;
+
+    this.loadTextures(r.ui[this.button.button], r.ui[this.button.button + "P"], r.ui[this.button.button + "P"], ccui.Widget.LOCAL_TEXTURE);
+    if (callbackChange) this.addClickEventListener(this.button.callback);
+
+    this.displayManager.setup(options);
+
+    if (this.button.text) {
+      this.setTitleText(this.button.text);
+      this.setTitleFontName(r.fonts[this.button.textFontName].name);
+      this.setTitleFontSize(this.button.textFontSize);
+      this.setTitleColor(this.button.textColor);
+
+      if (!this.text) this.text = this.getTitleRenderer();
+      this.text.y += 5;
+    }
+
+
+    if (this.button.icon) {
+      if (!this.icon) {
+        this.icon = new Icon({ icon: this.button.icon, y: "center", x: "center", bottom: "7.375px", fontSize: this.button.iconFontSize, color: this.button.iconColor });
+        this.icon.addTo(this);
+      } else {
+        this.icon.setup({ icon: this.button.icon, fontSize: this.button.iconFontSize, color: this.button.iconColor });
+      }
+      if (iconAlignChange && this.button.text) {
+        if (this.button.iconAlign === "left") {
+          let spacing = (this.height - this.icon.height) / 2;
+          this.icon.setup({x: "0px", left: spacing + "px"});
+          this.text.setAnchorPoint(0, 0.5);
+          this.text.x = this.icon.width + spacing * 2;
+        } else if (this.button.iconAlign === "right") {
+          // TODO make this if needed
+        } else {
+          throw _.format("{} is a wrong iconAlign option", this.button.iconAlign);
+        }
+      }
+    }
+  },
+  toString: () => "Button"
+});
+
 var Icon = Text.extend({
   icons: {
+    '': '',
     'airballoon': '\ue800',
     'arrow-left': '\ue801',
     'arrow-right': '\ue802',
@@ -263,28 +389,121 @@ var Icon = Text.extend({
     'target': '\ue819',
     'terrain': '\ue81a',
     'weather-windy': '\ue81b',
+    'check': '\ue81c',
+    'close': '\ue81d',
+    'fire': '\ue81e',
+    'water': '\ue81f',
+    'chevron-down': '\ue820',
+    'chevron-up': '\ue821',
   },
-  displayManager: null, // Manages the size and location of this component
   icon: null,
   ctor: function(options) {
-    this.text = this.icon = this.icon || {
+    this.icon = this.icon || {
       icon: "robot",
-      text: "\ue817",
-      fontName: "icons",
-      fontSize: 32,
-      hAlign: cc.TEXT_ALIGNMENT_CENTER,
-      vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER,
-      color: cc.color(255, 255, 255),
-      shadow: null, // list with color, offset, blurradius
     };
-    options.text = this.icons[options.icon || this.icon.icon];
+    options.text = this.icons[this.icon.icon];
     options.fontName = "icons";
     this._super(options);
   },
   setup: function(options) {
-    this.icon.icon = options.icon || this.icon.icon;
-    options.text = this.icons[options.icon || this.icon.icon];
+    this.icon.icon = options.icon !== undefined ? options.icon : this.icon.icon;
+    options.text = this.icons[this.icon.icon];
+    if (options.text === undefined) throw(_.format("{} is not a valid icon name", this.icon.icon));
+    if (cc.sys.isNative && !options.right && !this.displayManager.calc(this.displayManager.right)) options.right = "8px"; // TODO Pretty weird android icon fix
     this._super(options);
   },
   toString: () => "Icon",
+});
+
+var Dialog = Panel.extend({
+  dialog: null, // dialog specififc properties, check ctor
+  displayManager: null, // Manages the size and location of this component
+  inScreen: true, // tells wether the dialog is being shown
+
+  titlebar: null, // Dialog internal elements, access to their setup by dialog.component.setup
+  title: null,
+  close: null,
+  textPanel: null,
+  text: null,
+  buttonbar: null,
+  ok: null,
+  cancel: null,
+
+  ctor: function(options) {
+    this.dialog = this.dialog || {
+      title: options.title || "Dialog Title",
+      // Text maximum length is about 200-250 letters, if you want more, implement a scroll view here.
+      text: options.text || "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.",
+      type: options.type || "confirm", // basic, confirm
+      okText: options.okText || "Ok",
+      cancelText: options.cancelText || "Cancel",
+      okCallback: options.okCallback || (() => {this.dismiss();}), // use this for the basic type button
+      cancelCallback: options.cancelCallback || (() => {this.dismiss();}),
+    };
+    this._super(options);
+    this.setSwallowTouches(true); // TODO This works great if below the dialog is a button, but if there is something using easyEvents it doesn't work as expected
+    this.setTouchEnabled(true);
+
+    this.titlebar = new Layout({height: "17.5ph", width: "100pw", y: "-17.5ph"});
+    this.titlebar.addTo(this);
+    this.title = new Text({text: this.dialog.title, x: "center", y: "center", top: cc.sys.isNative ? "0px" : "5px", fontSize: 42});
+    this.title.addTo(this.titlebar);
+    this.close = new Button({callback: () => this.dismiss(), width: "100ph", padding: "11px", button: "red", icon: "close", x: "-100ph", scale: 0.5});
+    this.close.addTo(this.titlebar);
+
+    this.textPanel = new Panel({bgImage: r.panel_in_nuts, height: "62.5ph", width: "100pw", padding: "11px", y: "-75.5ph"});
+    this.textPanel.addTo(this);
+    this.text = new Text({text: this.dialog.text, x:"center", y:"center", lineHeight: 32, bottom: cc.sys.isNative ? "5px" : "0px"});
+    this.text.setTextAreaSize(cc.size(this.textPanel.width - 72, this.textPanel.height - 56));
+    this.text.addTo(this.textPanel);
+
+    this.buttonbar = new Layout({height: "20ph", padding: "11px"});
+    this.buttonbar.addTo(this);
+
+    if (this.dialog.type === "basic") {
+      this.ok = new Button({callback: this.dialog.okCallback, button: "green", text: this.dialog.okText, height:"21.5pw", padding: "11px", textFontSize: 42});
+      this.ok.addTo(this.buttonbar);
+    } else if (this.dialog.type === "confirm") {
+      this.ok = new Button({callback: this.dialog.okCallback, button: "green", text: this.dialog.okText, width: "40pw", height:"21.5pw", x:"-40pw", padding: "11px", textFontSize: 42});
+      this.ok.addTo(this.buttonbar);
+      this.cancel = new Button({callback: this.dialog.cancelCallback, button: "red", text: this.dialog.cancelText, width: "40pw", height:"21.5pw", padding: "11px", textFontSize: 42});
+      this.cancel.addTo(this.buttonbar);
+    } else {
+      throw _.format("{} is not a correct dialog type", this.dialog.type);
+    }
+    this.dismiss(true);
+  },
+  setup: function(options) {
+    this.dialog.title = options.title !== undefined ? options.title : this.dialog.title;
+    this.dialog.text = options.text !== undefined ? options.text : this.dialog.text;
+    if (this.title) this.title.setup({text: this.dialog.title});
+    if (this.text) this.text.setup({text: this.dialog.text});
+    this._super(options);
+  },
+  show: function(instant) {
+    if (this.inScreen) return;
+    if (instant) {
+      this.visible = true;
+      this.setup({right: "0vw"});
+    } else {
+      this.visible = true;
+      let move = new cc.EaseBackOut(new cc.MoveBy(0.2, cc.p(cc.winSize.width, 0)), 3);
+      let invisible = new cc.CallFunc(() => {this.setup({right: "0vw"});});
+      this.runAction(new cc.Sequence([move, invisible]));
+    }
+    this.inScreen = true;
+  },
+  dismiss: function(instant) {
+    if (!this.inScreen) return;
+    if (instant) {
+      this.visible = false;
+      this.setup({right: "100vw"});
+    } else {
+      let move = new cc.EaseBackIn(new cc.MoveBy(0.2, cc.p(-cc.winSize.width, 0)), 3);
+      let invisible = new cc.CallFunc(() => {this.visible = false; this.setup({right: "100vw"});});
+      this.runAction(new cc.Sequence([move, invisible]));
+    }
+    this.inScreen = false;
+  },
+  toString: () => "Dialog"
 });

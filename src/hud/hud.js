@@ -22,13 +22,9 @@ var Hud = cc.Layer.extend({
     this.ig = new InfoGold(this, {x: "center", y:"center", fontSize: 56, left:"30px", shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
     this.ig.addTo(this.goldbar);
 
-    window.ig = this.ig; // XXX
-    window.gi = this.gi;
-    window.goldbar = this.goldbar;
-
     // Defense Selector
     this.ds = new DefenseSelector(this);
-    this.addChild(this.ds);
+    this.addChild(this.ds, 1);
 
     // Info Text
     this.it = new InfoText(this);
@@ -38,13 +34,35 @@ var Hud = cc.Layer.extend({
     this.dd = new DefenseDetails(this);
     this.addChild(this.dd);
 
+    this.dialog = new Dialog({type:"confirm", bgImage: r.panel_out, width: "80vw", height: "35vh", x: "center", y: "center"});
+    this.dialog.addTo(this);
+
     // Bottom bar
     // TODO make component property calc(), to calculate here calc(100vw - 120px)
-    // this.layout = new Panel({width: "81.94444444444444vw", height: "140px", padding: "11px"});
-    // this.layout.addTo(this);
-    // window.layout = this.layout;
+    this.bottombar = new Layout({width: "100vw", height: "140px"});
+    this.bottombar.addTo(this);
+
+    this.layout = new Panel({width: "81.94444444444444vw", padding: "11px"});
+    this.layout.addTo(this.bottombar, -50);
+
+    this.button = new Button({callback: () => this.dialog.show(), width:"100ph", icon:"plus", padding:"11px", x: "-100ph", iconFontSize: 72});
+    this.button.addTo(this.bottombar);
+
+    window.ds = this.ds; // XXX
+    window.dialog = this.dialog;
+    window.dd = this.dd;
+    window.ig = this.ig;
+    window.gi = this.gi;
+    window.goldbar = this.goldbar;
+    window.bottombar = this.bottombar;
+    window.button = this.button;
+    window.layout = this.layout;
 
     return true;
+  },
+  alert: function(title, text) {
+    this.dialog.setup({title: title, text: text});
+    this.dialog.show();
   },
   toString: function() {
     return "Hud";
