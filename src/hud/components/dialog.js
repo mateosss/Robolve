@@ -6,7 +6,7 @@ var Dialog = Panel.extend({
   titlebar: null, // Dialog internal elements, access to their setup by dialog.component.setup
   title: null,
   close: null,
-  textPanel: null,
+  mainPanel: null,
   text: null,
   buttonbar: null,
   ok: null,
@@ -23,6 +23,7 @@ var Dialog = Panel.extend({
       okCallback: options.okCallback || (() => {this.dismiss();}), // use this for the basic type button
       cancelCallback: options.cancelCallback || (() => {this.dismiss();}),
     };
+    options.bgImage = options.bgImage || r.panel_out;
     this._super(options);
     this.setSwallowTouches(true); // TODO This works great if below the dialog is a button, but if there is something using easyEvents it doesn't work as expected
     this.setTouchEnabled(true);
@@ -34,11 +35,11 @@ var Dialog = Panel.extend({
     this.close = new Button({callback: () => this.dismiss(), width: "100ph", padding: "11px", button: "red", icon: "close", x: "-100ph", scale: 0.5});
     this.close.addTo(this.titlebar);
 
-    this.textPanel = new Panel({bgImage: r.panel_in_nuts, height: "62.5ph", width: "100pw", padding: "11px", y: "-75.5ph"});
-    this.textPanel.addTo(this);
+    this.mainPanel = new Panel({bgImage: r.panel_in_nuts, height: "62.5ph", width: "100pw", padding: "11px", y: "-75.5ph"});
+    this.mainPanel.addTo(this);
     this.text = new Text({text: this.dialog.text, x:"center", y:"center", lineHeight: 32, bottom: cc.sys.isNative ? "5px" : "0px"});
-    this.text.setTextAreaSize(cc.size(this.textPanel.width - 72, this.textPanel.height - 56));
-    this.text.addTo(this.textPanel);
+    this.text.setTextAreaSize(cc.size(this.mainPanel.width - 72, this.mainPanel.height - 56));
+    this.text.addTo(this.mainPanel);
 
     this.buttonbar = new Layout({height: "20ph", padding: "11px"});
     this.buttonbar.addTo(this);

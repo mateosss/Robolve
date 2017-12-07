@@ -34,15 +34,21 @@ var Hud = cc.Layer.extend({
     this.dd = new DefenseDetails(this);
     this.addChild(this.dd);
 
-    this.dialog = new Dialog({type:"confirm", bgImage: r.panel_out, width: "80vw", height: "35vh", x: "center", y: "center"});
+    this.dialog = new Dialog({type:"confirm", width: "80vw", height: "35vh", x: "center", y: "center"});
     this.dialog.addTo(this);
 
     // Bottom bar
     this.bottombar = new Layout({width: "100vw", height: "140px"});
     this.bottombar.addTo(this);
 
-    this.layout = new Panel({width: "100pw + -100ph + 11px", padding: "11px"});
-    this.layout.addTo(this.bottombar, -50);
+    this.layout = new Panel({width: "100pw + -200ph + 22px", padding: "11px"});
+    this.layout.addTo(this.bottombar, -1);
+
+    this.preview = new DefenseView({width: "80vw", height: "35vh", x: "center", y: "center"});
+    this.preview.addTo(this);
+
+    this.pinkbutton = new Button({button: "pink", callback: () => this.preview.show(), width:"100ph", icon:"robot", padding:"11px", left:"11px", x: "-200ph", iconFontSize: 72});
+    this.pinkbutton.addTo(this.bottombar);
 
     this.button = new Button({callback: () => this.dialog.show(), width:"100ph", icon:"plus", padding:"11px", x: "-100ph", iconFontSize: 72});
     this.button.addTo(this.bottombar);
@@ -56,6 +62,8 @@ var Hud = cc.Layer.extend({
     window.bottombar = this.bottombar;
     window.button = this.button;
     window.layout = this.layout;
+    window.preview = this.preview;
+    window.pinkbutton = this.pinkbutton;
 
     return true;
   },

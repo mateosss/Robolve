@@ -37,6 +37,8 @@
     "DefenseSelector": true,
     "InfoText": true,
     "InfoGold": true,
+    "DefensePreview": true,
+    "DefenseView": true,
     "MainMenu": true
   },
   "strict": "implied",
