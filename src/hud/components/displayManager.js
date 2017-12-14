@@ -101,7 +101,7 @@ var DisplayManager = cc.Class.extend({
       else y = (h - height) / 2;
     } else {
       y = this.calc(y);
-      y = (y >= 0 ? y : h + y) + padding;
+      y = (y > 0 || Object.is(y, +0) ? y : h + y) + padding;
     }
 
     y += this.calc(bottom) - this.calc(top);
@@ -183,7 +183,7 @@ var DisplayManager = cc.Class.extend({
   },
   calc: function(expression) {
     let props = expression.split("+").map(p => p.trim());
-    let totalPixels = 0;
+    let totalPixels = -0; // Yep, that -0 is on purpose
     props.forEach(p => {totalPixels += this.propToPix(p);});
     return totalPixels;
   },

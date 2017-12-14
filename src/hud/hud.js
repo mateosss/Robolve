@@ -44,7 +44,7 @@ var Hud = cc.Layer.extend({
     this.layout = new Panel({width: "100pw + -200ph + 22px", padding: "11px"});
     this.layout.addTo(this.bottombar, -1);
 
-    this.preview = new DefenseView({width: "80vw", height: "35vh", x: "center", y: "center"});
+    this.preview = new DefenseView({});
     this.preview.addTo(this);
 
     this.pinkbutton = new Button({button: "pink", callback: () => this.preview.show(), width:"100ph", icon:"robot", padding:"11px", left:"11px", x: "-200ph", iconFontSize: 72});
