@@ -42,7 +42,7 @@ var Icon = Text.extend({
       icon: "robot",
     };
     options.text = this.icons[this.icon.icon];
-    options.fontName = "icons";
+    options.font = r.fonts.icons;
     this._super(options);
   },
   setup: function(options) {

@@ -4,7 +4,7 @@ var Text = ccui.Text.extend({
   ctor: function(options) {
     this.text = this.text || {
       text: "",
-      fontName: "baloo",
+      font: r.getDefaultFont(),
       fontSize: 32,
       hAlign: cc.TEXT_ALIGNMENT_CENTER,
       vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER,
@@ -19,7 +19,7 @@ var Text = ccui.Text.extend({
   },
   setup: function(options) {
     this.text.text = options.text !== undefined ? options.text : this.text.text;
-    this.text.fontName = options.fontName || this.text.fontName;
+    this.text.font = options.font || this.text.font;
     this.text.fontSize = options.fontSize || this.text.fontSize;
     this.text.hAlign = options.hAlign !== undefined ? options.hAlign : this.text.hAlign;
     this.text.vAlign = options.vAlign !== undefined ? options.vAlign : this.text.vAlign;
@@ -28,7 +28,7 @@ var Text = ccui.Text.extend({
     this.text.lineHeight = options.lineHeight || this.text.lineHeight;
 
     this.setString(this.text.text);
-    this.setFontName(r.fonts[this.text.fontName].name);
+    this.setFontName(this.text.font);
     this.setFontSize(this.text.fontSize);
     this.setTextHorizontalAlignment(this.text.hAlign);
     this.setTextVerticalAlignment(this.text.vAlign);
