@@ -10,7 +10,7 @@ var DefenseView = Dialog.extend({
 
     this.titlebar = new Layout({height: "15ph + -11px", width: "100pw", y: "-15ph + 11px"});
     this.titlebar.addTo(this);
-    this.titlebar.debug(); // XXX Remove debug
+    // this.titlebar.debug(); // XXX Remove debug
     // this.titleLevel = new Layout(); TODO
     // this.titleLevel.addTo(this.titlebar);
     this.title = new Text({text: "New Defense", x: "center", y: "center", top: cc.sys.isNative ? "0px" : "5px", fontSize: 56});
@@ -21,7 +21,7 @@ var DefenseView = Dialog.extend({
 
     this.preview = new Layout({height: "40ph", width: "50pw", y: "11px + 45ph"});
     this.preview.addTo(this);
-    this.preview.debug(); // XXX Remove debug
+    // this.preview.debug(); // XXX Remove debug
     this.previewTitle = new Text({text: "Preview", x: "center", y: "-50px", top: cc.sys.isNative ? "0px" : "5px", fontSize: 32});
     this.previewTitle.addTo(this.preview);
     this.previewMain = new Panel({bgImage: r.panel_in_nuts, height: "100ph + -33px", width: "100pw", padding: "11px", x: "center"}); // TODO real defense preview
@@ -30,7 +30,7 @@ var DefenseView = Dialog.extend({
 
     this.element = new Layout({height: "20ph", width: "50pw", y: "11px + 25ph"});
     this.element.addTo(this);
-    this.element.debug(); // XXX Remove debug
+    // this.element.debug(); // XXX Remove debug
     this.elementTitle = new Text({text: "Element", x: "center", y: "-50px", top: cc.sys.isNative ? "0px" : "5px", fontSize: 32});
     this.elementTitle.addTo(this.element);
     this.elementButtons = new Layout({x: "center", padding: "11px", height: "100ph + -39px"});
@@ -45,7 +45,7 @@ var DefenseView = Dialog.extend({
 
     this.amount = new Layout({height: "25ph", width: "50pw", y: "11px"});
     this.amount.addTo(this);
-    this.amount.debug(); // XXX Remove debug
+    // this.amount.debug(); // XXX Remove debug
     this.amountTitle = new Text({text: "Amount", x: "center", y: "-50px", top: cc.sys.isNative ? "0px" : "5px", fontSize: 32});
     this.amountTitle.addTo(this.amount);
     this.amountBar = new Panel({padding: "11px", height: "100ph + -39px"});
@@ -58,21 +58,27 @@ var DefenseView = Dialog.extend({
 
     this.level = new Layout({height: "20ph", width: "50pw", x: "-50pw", y: "11px + 65ph"});
     this.level.addTo(this);
-    this.level.debug(); // XXX Remove debug
+    // this.level.debug(); // XXX Remove debug
     this.levelTitle = new Text({text: "Level", x: "center", y: "-50px", top: cc.sys.isNative ? "0px" : "5px", fontSize: 32});
     this.levelTitle.addTo(this.level);
+    this.levelButtons = new Layout({x: "center", padding: "11px", height: "100ph + -39px"});
+    this.levelButtons.addTo(this.level);
+    // this.levelButtons.debug();
 
 
-    this.stats = new Layout({height: "40ph", width: "50pw", x: "-50pw", y: "11px + 25ph"});
+    this.stats = new Layout({height: "45ph", width: "50pw", x: "-50pw", y: "11px + 20ph"});
     this.stats.addTo(this);
-    this.stats.debug(); // XXX Remove debug
+    // this.stats.debug(); // XXX Remove debug
     this.statsTitle = new Text({text: "Stats", x: "center", y: "-50px", top: cc.sys.isNative ? "0px" : "5px", fontSize: 32});
     this.statsTitle.addTo(this.stats);
+    this.statsMain = new Panel({bgImage: r.panel_in, height: "100ph + -33px", width: "100pw", padding: "11px", x: "center"});
+    this.statsMain.addTo(this.stats);
 
-
-    this.build = new Layout({height: "25ph", width: "50pw", x: "-50pw", y: "11px"});
+    this.build = new Layout({height: "20ph", width: "50pw", x: "-50pw", y: "11px"});
     this.build.addTo(this);
-    this.build.debug(); // XXX Remove debug
+    // this.build.debug(); // XXX Remove debug
+    this.buildButton = new Button({button: "green", text: "Build", padding: "11px", callback: () => this.dismiss()});
+    this.buildButton.addTo(this.build);
   },
   setup: function(options) {
     this._super(options);
