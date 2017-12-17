@@ -8,15 +8,15 @@ var DefenseView = Dialog.extend({
 
     this._super(options);
 
-    this.titlebar = new Layout({height: "15ph + -11px", width: "100pw", y: "-15ph + 11px"});
-    this.titlebar.addTo(this);
-    // this.titlebar.debug(); // XXX Remove debug
-    // this.titleLevel = new Layout(); TODO
-    // this.titleLevel.addTo(this.titlebar);
-    this.title = new Text({text: "New Defense", x: "center", y: "center", top: cc.sys.isNative ? "0px" : "5px", fontSize: 56});
-    this.title.addTo(this.titlebar);
-    this.close = new Button({callback: () => this.dismiss(), width: "78.4px", height: "78.4px", padding: "11px", button: "red", icon: "close", y: "-78.4px", x: "-78.4px", scale: 0.5});
-    this.close.addTo(this.titlebar);
+    this.title = new Layout({height: "15ph + -11px", width: "100pw", y: "-15ph + 11px"});
+    this.title.addTo(this);
+    // this.title.debug(); // XXX Remove debug
+    this.titleLevel = new Button({button: "yellowRound", text: "4", textFontSize: 72, scale9: false, x: "11px", y: "5px"});
+    this.titleLevel.addTo(this.title);
+    this.titleText = new Text({text: "New Defense", x: "center", y: "center", top: cc.sys.isNative ? "0px" : "5px", fontSize: 56});
+    this.titleText.addTo(this.title);
+    this.titleClose = new Button({callback: () => this.dismiss(), width: "78.4px", height: "78.4px", padding: "11px", button: "red", icon: "close", y: "-78.4px", x: "-78.4px", scale: 0.5});
+    this.titleClose.addTo(this.title);
 
 
     this.preview = new Layout({height: "40ph", width: "50pw", y: "11px + 45ph"});
@@ -61,9 +61,15 @@ var DefenseView = Dialog.extend({
     // this.level.debug(); // XXX Remove debug
     this.levelTitle = new Text({text: "Level", x: "center", y: "-50px", top: cc.sys.isNative ? "0px" : "5px", fontSize: 32});
     this.levelTitle.addTo(this.level);
-    this.levelButtons = new Layout({x: "center", padding: "11px", height: "100ph + -39px"});
+    this.levelButtons = new Layout({x: "center", height: "100ph + -39px", top: "5px"});
     this.levelButtons.addTo(this.level);
     // this.levelButtons.debug();
+    this.levelLeft = new Button({button: "pinkRound", icon: "arrow-left", scale9: false, x: "22px", y: "-96px", scale: 0.6});
+    this.levelLeft.addTo(this.levelButtons);
+    this.levelCenter = new Button({button: "pinkRound", text: "4", textFontSize: 72, scale9: false, x: "50pw + -60px", scale: 1.25});
+    this.levelCenter.addTo(this.levelButtons);
+    this.levelRight = new Button({button: "pinkRound", icon: "arrow-right", scale9: false, x: "-58px + -22px", y: "-96px", scale: 0.6});
+    this.levelRight.addTo(this.levelButtons);
 
 
     this.stats = new Layout({height: "45ph", width: "50pw", x: "-50pw", y: "11px + 20ph"});

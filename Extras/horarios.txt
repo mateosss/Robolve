@@ -369,9 +369,12 @@ Format (variables between \<\> should be calculated after each day/task)
 - 2017-11-30 Ju - 04:30 hs
     - 13:30 - 17:30 | Arreglado dialog en android, mergeado feature-dialog
     - 17:30 - 18:00 | Separando components en diferentes archivos y preparando checkpoint
+
+## (60) HUD - Defense creation [] -
 - 2017-12-13 Mi -
     - 20:45 - 21:45 | Empezando con defense view
 - 2017-12-14 Ju -
     - 16:00 - 17:20 | Scaffolding defense view la primera mitad
 - 2017-12-16 Sa -
     - 22:00 - 22:40 | Finalizado scaffolding defense view
+    - 22:40 - 00:20 | Mas scaffolding on habia terminado en realidad

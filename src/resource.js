@@ -52,8 +52,12 @@ for (var ui in r.ui){
     for (var btn in r.ui.buttons) {
       r.ui[r.ui.buttons[btn]] = "res/sprites/ui/buttons/" + r.ui.buttons[btn] + ".png";
       r.ui[r.ui.buttons[btn] + "P"] = "res/sprites/ui/buttons/" + r.ui.buttons[btn] + "P.png";
+      r.ui[r.ui.buttons[btn] + "Round"] = "res/sprites/ui/buttons/" + r.ui.buttons[btn] + "Round.png";
+      r.ui[r.ui.buttons[btn] + "RoundP"] = "res/sprites/ui/buttons/" + r.ui.buttons[btn] + "RoundP.png";
       g_resources.push(r.ui[r.ui.buttons[btn]]);
       g_resources.push(r.ui[r.ui.buttons[btn] + "P"]);
+      g_resources.push(r.ui[r.ui.buttons[btn] + "Round"]);
+      g_resources.push(r.ui[r.ui.buttons[btn] + "RoundP"]);
     }
   }
 }
