@@ -5,6 +5,7 @@ var DefenseView = Dialog.extend({
     options.height = "112.5pmin";
     options.x = "center";
     options.y = "center";
+    options.bgImage = r.ui.grey;
 
     this._super(options);
 

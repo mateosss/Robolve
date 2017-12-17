@@ -24,7 +24,7 @@ var Dialog = Panel.extend({
       cancelCallback: options.cancelCallback || (() => {this.dismiss();}),
       empty: options.empty || false,
     };
-    options.bgImage = options.bgImage || r.ui.panel_out;
+    options.bgImage = options.bgImage || r.ui.grey;
     this._super(options);
     this.setSwallowTouches(true); // TODO This works great if below the dialog is a button, but if there is something using easyEvents it doesn't work as expected
     this.setTouchEnabled(true);

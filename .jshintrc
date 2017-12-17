@@ -29,6 +29,7 @@
     "Dialog": true,
     "Text": true,
     "Icon": true,
+    "Progress": true,
     "Button": true,
     "Hud": true,
     "Menu": true,

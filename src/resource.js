@@ -20,6 +20,7 @@ var r = { // resources variable
     panel: "res/sprites/ui/panel.png",
     panel_out: "res/sprites/ui/panel_out.png",
     panel_in: "res/sprites/ui/panel_in.png",
+    panel_in_soft: "res/sprites/ui/panel_in_soft.png",
     panel_in_nuts: "res/sprites/ui/panel_in_nuts.png",
     buttons: [
       "blue",
@@ -28,6 +29,7 @@ var r = { // resources variable
       "pink",
       "red",
       "yellow",
+      "grey",
     ],
   },
   parts_png_0: "res/sprites/parts_0.png",

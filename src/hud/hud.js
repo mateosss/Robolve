@@ -53,7 +53,11 @@ var Hud = cc.Layer.extend({
     this.button = new Button({callback: () => this.dialog.show(), width:"100ph", icon:"plus", padding:"11px", x: "-100ph", iconFontSize: 72});
     this.button.addTo(this.bottombar);
 
+    this.progress = new Progress({y:"center", x:"center", width:"70pw", height:"96px", percentage: 100, });
+    this.progress.addTo(this);
+
     window.ds = this.ds; // XXX
+    window.progress = this.progress;
     window.dialog = this.dialog;
     window.dd = this.dd;
     window.ig = this.ig;
