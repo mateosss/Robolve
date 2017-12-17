@@ -2,7 +2,7 @@ var Panel = ccui.Layout.extend({
   panel: null, // panel specififc properties, check ctor
   displayManager: null, // Manages the size and location of this component
   ctor: function(options) {
-    this.panel = this.panel || {bgImage: r.panel};
+    this.panel = this.panel || {bgImage: r.ui.panel};
     this._super();
     this.displayManager = new DisplayManager(this, options);
     this.setup(options);

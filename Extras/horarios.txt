@@ -377,4 +377,6 @@ Format (variables between \<\> should be calculated after each day/task)
     - 16:00 - 17:20 | Scaffolding defense view la primera mitad
 - 2017-12-16 Sa -
     - 22:00 - 22:40 | Finalizado scaffolding defense view
-    - 22:40 - 00:20 | Mas scaffolding on habia terminado en realidad
+    - 22:40 - 00:20 | Mas scaffolding no habia terminado en realidad (round buttons)
+- 2017-12-17 Do -
+    - 12:00 - 12:30 | Resuelto el bug de firefox que no carga la primera imagen de g_resources

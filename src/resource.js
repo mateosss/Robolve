@@ -4,10 +4,6 @@ var r = { // resources variable
     icons: {type: "font", name: cc.sys.isNative ? "res/fonts/icons.ttf" : "icons", srcs: ["res/fonts/icons.ttf"]},
   },
   getDefaultFont: () => r.fonts.baloo.name,
-  panel: "res/sprites/ui/panel.png", // TODO r.panel? This probably should have a hud sub object
-  panel_out: "res/sprites/ui/panel_out.png", // TODO r.panel_out? This probably should have a hud sub object
-  panel_in: "res/sprites/ui/panel_in.png", // TODO r.panel_in? This probably should have a hud sub object
-  panel_in_nuts: "res/sprites/ui/panel_in_nuts.png", // TODO r.panel_in_nuts? This probably should have a hud sub object
   empty: "res/sprites/empty.png",
   point: "res/sprites/point.png",
   invalidPart: "res/sprites/invalidPart.png",
@@ -21,6 +17,10 @@ var r = { // resources variable
     map5: "res/map/map5.tmx",
   },
   ui: {
+    panel: "res/sprites/ui/panel.png",
+    panel_out: "res/sprites/ui/panel_out.png",
+    panel_in: "res/sprites/ui/panel_in.png",
+    panel_in_nuts: "res/sprites/ui/panel_in_nuts.png",
     buttons: [
       "blue",
       "green",
@@ -38,6 +38,11 @@ var r = { // resources variable
 
 var g_resources = [];
 
+// Charge main files
+for (var i in r) {
+  if (typeof r[i] === "string") g_resources.push(r[i]);
+}
+
 // Charge maps sheets and tmx
 for (var map in r.maps){
   g_resources.push(r.maps[map]);
@@ -48,23 +53,17 @@ for (var ui in r.ui){
   if (typeof r.ui[ui] === 'string') {
     g_resources.push(r.ui[ui]);
   }
-  if (ui == 'buttons') {
+  if (ui === 'buttons') {
+    let  form = "res/sprites/ui/buttons/{}.png";
     for (var btn in r.ui.buttons) {
-      r.ui[r.ui.buttons[btn]] = "res/sprites/ui/buttons/" + r.ui.buttons[btn] + ".png";
-      r.ui[r.ui.buttons[btn] + "P"] = "res/sprites/ui/buttons/" + r.ui.buttons[btn] + "P.png";
-      r.ui[r.ui.buttons[btn] + "Round"] = "res/sprites/ui/buttons/" + r.ui.buttons[btn] + "Round.png";
-      r.ui[r.ui.buttons[btn] + "RoundP"] = "res/sprites/ui/buttons/" + r.ui.buttons[btn] + "RoundP.png";
+      r.ui[r.ui.buttons[btn]] = _.format(form, r.ui.buttons[btn]);
+      r.ui[r.ui.buttons[btn] + "P"] = _.format(form, r.ui.buttons[btn] + "P");
+      r.ui[r.ui.buttons[btn] + "Round"] = _.format(form, r.ui.buttons[btn] + "Round");
+      r.ui[r.ui.buttons[btn] + "RoundP"] = _.format(form, r.ui.buttons[btn] + "RoundP");
       g_resources.push(r.ui[r.ui.buttons[btn]]);
       g_resources.push(r.ui[r.ui.buttons[btn] + "P"]);
       g_resources.push(r.ui[r.ui.buttons[btn] + "Round"]);
       g_resources.push(r.ui[r.ui.buttons[btn] + "RoundP"]);
     }
-  }
-}
-
-// Charge everything else
-for (var i in r) {
-  if (typeof r[i] == "string") {
-    g_resources.push(r[i]);
   }
 }

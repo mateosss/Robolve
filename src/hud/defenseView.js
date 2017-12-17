@@ -24,7 +24,7 @@ var DefenseView = Dialog.extend({
     // this.preview.debug(); // XXX Remove debug
     this.previewTitle = new Text({text: "Preview", x: "center", y: "-50px", top: cc.sys.isNative ? "0px" : "5px", fontSize: 32});
     this.previewTitle.addTo(this.preview);
-    this.previewMain = new Panel({bgImage: r.panel_in_nuts, height: "100ph + -33px", width: "100pw", padding: "11px", x: "center"}); // TODO real defense preview
+    this.previewMain = new Panel({bgImage: r.ui.panel_in_nuts, height: "100ph + -33px", width: "100pw", padding: "11px", x: "center"}); // TODO real defense preview
     this.previewMain.addTo(this.preview);
 
 
@@ -77,7 +77,7 @@ var DefenseView = Dialog.extend({
     // this.stats.debug(); // XXX Remove debug
     this.statsTitle = new Text({text: "Stats", x: "center", y: "-50px", top: cc.sys.isNative ? "0px" : "5px", fontSize: 32});
     this.statsTitle.addTo(this.stats);
-    this.statsMain = new Panel({bgImage: r.panel_in, height: "100ph + -33px", width: "100pw", padding: "11px", x: "center"});
+    this.statsMain = new Panel({bgImage: r.ui.panel_in, height: "100ph + -33px", width: "100pw", padding: "11px", x: "center"});
     this.statsMain.addTo(this.stats);
 
     this.build = new Layout({height: "20ph", width: "50pw", x: "-50pw", y: "11px"});
