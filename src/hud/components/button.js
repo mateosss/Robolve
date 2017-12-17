@@ -8,7 +8,7 @@ var Button = ccui.Button.extend({
       button: "green",
       callback: () => cc.log("Button pressed."),
       text: "",
-      textFont: r.getDefaultFont(),
+      textFontName: "baloo",
       textFontSize: 56,
       textColor: cc.color(255, 255, 255),
       icon: "",
@@ -41,7 +41,7 @@ var Button = ccui.Button.extend({
     let callbackChange = this.button.callback !== options.callback;
     this.button.callback = options.callback || this.button.callback;
     this.button.text = options.text !== undefined ? options.text : this.button.text;
-    this.button.textFont = options.textFont || this.button.textFont;
+    this.button.textFontName = options.textFontName || this.button.textFontName;
     this.button.textFontSize = options.textFontSize || this.button.textFontSize;
     this.button.textColor = options.textColor || this.button.textColor;
     this.button.icon = options.icon !== undefined ? options.icon : this.button.icon;
@@ -59,7 +59,7 @@ var Button = ccui.Button.extend({
 
     if (this.button.text) {
       this.setTitleText(this.button.text);
-      this.setTitleFontName(this.button.textFont);
+      this.setTitleFontName(r.fonts[this.button.textFontName].name);
       this.setTitleFontSize(this.button.textFontSize);
       this.setTitleColor(this.button.textColor);
 
