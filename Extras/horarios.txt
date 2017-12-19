@@ -386,3 +386,4 @@ Format (variables between \<\> should be calculated after each day/task)
 - 2017-12-18 Lu -
     - 14:00 - 17:00 | Progress: botones, cantChange animacion
     - 20:15 - 21:25 | Progress: animacion de carga de barra (hermite spline)
+    - 22:15 - 23:00 | Progress: pulido de animacion de carga de barra

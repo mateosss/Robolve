@@ -13,7 +13,7 @@ var Progress = Panel.extend({
     this.progress = this.progress || {
       text: options.text || "{}%", // text to apply _.format(text, percent)
       percentage: options.percentage || 0,
-      fontName: options.fontName || r.getDefaultFont(),
+      fontName: options.fontName || "baloo",
       fontSize: options.fontSize || 32,
       predefinedValues: options.predefinedValues || null, // array with predefined values to set with setValue
       selectedValue: options.selectedValue || 0, // If using predefinedValues this will have the index of the current one
@@ -64,15 +64,16 @@ var Progress = Panel.extend({
     return this.proress.selectedValue;
   },
   changePercent: function(value, time) { // Animated version of setPercent
-    this.from = this.progress.percentage;
-    this.to = value;
-    this.t = time || 0.2;
+    this.targetValue = value;
+    if (!this.isUpdating) this.from = cc.lerp(4, 100, (this.progress.percentage) / 100) / 100 * this.width * (1 / this.bar.scale);
+    this.to = (cc.lerp(4, 100, (value) / 100) / 100 * this.width - this.bar.displayManager.calc(this.bar.displayManager.padding) * 2) * (1 / this.bar.scale);
+    this.time = (this.isUpdating ? this.time : 0) +  (time || 0.2);
     this.scheduleUpdate();
   },
   changeValue: function(i, time) { // Animated version of setValue
-    this.from = (this.progress.selectedValue + 1) * 100 / this.progress.predefinedValues.length;
-    this.to = (i + 1) * 100 / this.progress.predefinedValues.length;
-    this.t = time || 0.2;
+    if (!this.isUpdating) this.from = cc.lerp(4, 100, ((this.progress.selectedValue + 1) * 100 / this.progress.predefinedValues.length) / 100) / 100 * this.width * (1 / this.bar.scale);
+    this.to = (cc.lerp(4, 100, ((i + 1) * 100 / this.progress.predefinedValues.length) / 100) / 100 * this.width - this.bar.displayManager.calc(this.bar.displayManager.padding) * 2) * (1 / this.bar.scale);
+    this.time = (this.isUpdating ? this.time : 0) +  (time || 0.2);
     this.progress.selectedValue = i;
     this.scheduleUpdate();
   },
@@ -103,22 +104,30 @@ var Progress = Panel.extend({
     this.text.runAction(shake);
   },
   toString: () => "Progress",
+  scheduleUpdate: function() {
+    this._super();
+    this.isUpdating = true;
+  },
+  unscheduleUpdate: function() {
+    this._super();
+    this.isUpdating = false;
+  },
+  isUpdating: false, // Tells wether update is scheduled or not
   from: 0, // See change-like and update methods
   to: 0,
-  t: 0,
-  timer: 0,
+  targetValue: 0,
+  time: 0,
+  elapsed: 0,
   update: function(dt) {
-    if (this.timer < this.t) {
-      let minWidth = cc.lerp(4, 100, this.from / 100) / 100 * this.width * (1 / this.bar.scale);
-      let maxWidth = (cc.lerp(4, 100, this.to / 100) / 100 * this.width - this.bar.displayManager.calc(this.bar.displayManager.padding) * 2) * (1 / this.bar.scale);
-      this.timer += dt;
-      let t = Math.min(1.0, this.timer / this.t);
-      let newWidth = (2*t*t*t - 3*t*t + 1) * minWidth + (-2*t*t*t + 3*t*t) * maxWidth; // Cubic hermite spline
+    if (this.elapsed < this.time) {
+      this.elapsed += dt;
+      let t = Math.min(1.0, this.elapsed / this.time);
+      let newWidth = (2*t*t*t - 3*t*t + 1) * this.from + (-2*t*t*t + 3*t*t) * this.to; // Cubic hermite spline
       this.bar.width = newWidth;
     } else {
-      if (!this.progress.predefinedValues) this.setPercent(this.to); // otherwise the predefined value was set in changeValue
+      if (!this.progress.predefinedValues) this.setPercent(this.targetValue); // otherwise the predefined value was set in changeValue
       else this.setup({});
-      this.timer = 0;
+      this.elapsed = 0;
       this.unscheduleUpdate();
     }
 
