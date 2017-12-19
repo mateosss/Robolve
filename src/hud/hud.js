@@ -53,8 +53,11 @@ var Hud = cc.Layer.extend({
     this.button = new Button({callback: () => this.dialog.show(), width:"100ph", icon:"plus", padding:"11px", x: "-100ph", iconFontSize: 72});
     this.button.addTo(this.bottombar);
 
-    this.progress = new Progress({y:"center", x:"center", width:"70pw", height:"96px", percentage: 100, });
+    // this.progress = new Progress({y:"center", x:"center", width:"70pw", height:"96px", percentage: 100, });
+    // this.progress = new Progress({y:"center", x:"center", width:"70pw", height:"96px", predefinedValues:["electric", "fire", "water", "air"], text:"selected element: {}", selectedValue:1});
+    this.progress = new Progress({buttons: true, y:"center", x:"center", width:"70pw", height:"96px", predefinedValues:["electric", "fire", "water", "air"], text:"Selected: {}", selectedValue:1});
     this.progress.addTo(this);
+    // progress.setup({predefinedValues:["electric", "fire", "water", "air"], text:"selected element: {}", selectedValue:1})
 
     window.ds = this.ds; // XXX
     window.progress = this.progress;

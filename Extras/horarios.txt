@@ -383,3 +383,6 @@ Format (variables between \<\> should be calculated after each day/task)
     - 16:40 - 17:40 | Construyendo componente progress
     - 19:15 - 20:45 | Siguiendo con componente progress
     - 21:20 - 21:40 | Componente progress predefinedValues
+- 2017-12-18 Lu -
+    - 14:00 - 17:00 | Progress: botones, cantChange animacion
+    - 20:15 - 21:25 | Progress: animacion de carga de barra (hermite spline)

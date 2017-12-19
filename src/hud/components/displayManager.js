@@ -89,7 +89,7 @@ var DisplayManager = cc.Class.extend({
       // and if so, I just use the real owner previous width instead of the given in options
       // also aplicable in the y === "center" section
       if (this.owner instanceof ccui.Text) x = (w - this.owner.width) / 2;
-      else x = (w - width) / 2;
+      else x = (w  - width * scale) / 2;
     } else {
       x = this.calc(x);
       x = (x > 0 || Object.is(x, +0) ? x : w + x) + padding;
@@ -98,7 +98,7 @@ var DisplayManager = cc.Class.extend({
     if (y === "center") {
       // See x==="center" section for explanation of this if statement
       if (this.owner instanceof ccui.Text) y = (h - this.owner.height) / 2;
-      else y = (h - height) / 2;
+      else y = (h - height * scale) / 2;
     } else {
       y = this.calc(y);
       y = (y > 0 || Object.is(y, +0) ? y : h + y) + padding;
