@@ -22,7 +22,7 @@ var Progress = Panel.extend({
     options.bgImage = options.bgImage || r.ui.panel_in_soft;
     this._super(options);
 
-    this.bar = new Panel({padding: "6px", top: "2px", width: cc.lerp(4, 100, this.progress.percentage / 100) + "pw", bgImage: r.ui.pink, scale: 0.6});
+    this.bar = new Panel({padding: "6px", top: "1px", width: cc.lerp(4, 100, this.progress.percentage / 100) + "pw", bgImage: r.ui.pink, scale: 0.6});
     this.bar.addTo(this);
 
     this.text = new Text({text: _.format(this.progress.text, [this.progress.percentage], true), x: "center", y: "center", bottom: "2px", top: cc.sys.isNative ? "0px" : "5px", fontSize: this.progress.fontSize, fontName: this.progress.fontName});
@@ -70,10 +70,10 @@ var Progress = Panel.extend({
     this.scheduleUpdate();
   },
   changeValue: function(i, time) { // Animated version of setValue
-    this.progress.selectedValue = i;
-    this.from = this.progress.percentage;
+    this.from = (this.progress.selectedValue + 1) * 100 / this.progress.predefinedValues.length;
     this.to = (i + 1) * 100 / this.progress.predefinedValues.length;
     this.t = time || 0.2;
+    this.progress.selectedValue = i;
     this.scheduleUpdate();
   },
   nextValue: function() {
@@ -116,7 +116,8 @@ var Progress = Panel.extend({
       let newWidth = (2*t*t*t - 3*t*t + 1) * minWidth + (-2*t*t*t + 3*t*t) * maxWidth; // Cubic hermite spline
       this.bar.width = newWidth;
     } else {
-      this.setPercent(this.to);
+      if (!this.progress.predefinedValues) this.setPercent(this.to); // otherwise the predefined value was set in changeValue
+      else this.setup({});
       this.timer = 0;
       this.unscheduleUpdate();
     }
