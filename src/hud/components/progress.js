@@ -18,20 +18,21 @@ var Progress = Panel.extend({
       predefinedValues: options.predefinedValues || null, // array with predefined values to set with setValue
       selectedValue: options.selectedValue || 0, // If using predefinedValues this will have the index of the current one
       buttons: options.buttons || false, // If using change buttons
+      color: options.color || "pink"
     };
     options.bgImage = options.bgImage || r.ui.panel_in_soft;
     this._super(options);
 
-    this.bar = new Panel({padding: "6px", top: "1px", width: cc.lerp(4, 100, this.progress.percentage / 100) + "pw", bgImage: r.ui.pink, scale: 0.6});
+    this.bar = new Panel({padding: "6px", top: "1px", width: cc.lerp(4, 100, this.progress.percentage / 100) + "pw", bgImage: r.ui[this.progress.color], scale: 0.6});
     this.bar.addTo(this);
 
     this.text = new Text({text: _.format(this.progress.text, [this.progress.percentage], true), x: "center", y: "center", bottom: "2px", top: cc.sys.isNative ? "0px" : "5px", fontSize: this.progress.fontSize, fontName: this.progress.fontName});
     this.text.addTo(this);
 
     if (this.progress.buttons) {
-      this.previous = new Button({callback: () => this.previousValue(), button: "pinkRound", icon: "arrow-left", right: "65ph", width: "133ph", height:"133ph", y:"center", scale9: false, scale: 1.33});
+      this.previous = new Button({callback: () => this.previousValue(), button: this.progress.color + "Round", icon: "arrow-left", right: "65ph", width: "133ph", height:"133ph", y:"center", scale9: false, scale: 1.33});
       this.previous.addTo(this);
-      this.next = new Button({callback: () => this.nextValue(), button: "pinkRound", icon: "arrow-right", x: "-65ph", width: "133ph", height: "133ph", y: "center", scale9: false, scale: 1.33});
+      this.next = new Button({callback: () => this.nextValue(), button: this.progress.color + "Round", icon: "arrow-right", x: "-65ph", width: "133ph", height: "133ph", y: "center", scale9: false, scale: 1.33});
       this.next.addTo(this);
     }
   },
@@ -40,6 +41,9 @@ var Progress = Panel.extend({
     this.progress.text = options.text !== undefined ? options.text : this.progress.text;
     this.progress.predefinedValues = options.predefinedValues || this.progress.predefinedValues;
     this.progress.selectedValue = options.selectedValue !== undefined ? options.selectedValue : this.progress.selectedValue;
+    let colorChange = this.progress.color !== options.color && options.color;
+    this.progress.color = options.color || this.progress.color;
+
     if (this.progress.predefinedValues) {
       if (this.bar) this.bar.setup({width: cc.lerp(4, 100, ((this.progress.selectedValue + 1)/ this.progress.predefinedValues.length)) + "pw"});
       if (this.text) this.text.setup({text: _.format(this.progress.text, [this.progress.predefinedValues[this.progress.selectedValue]], true)});
@@ -47,6 +51,15 @@ var Progress = Panel.extend({
       if (this.bar) this.bar.setup({width: cc.lerp(4, 100, this.progress.percentage / 100) + "pw"});
       if (this.text) this.text.setup({text: _.format(this.progress.text, [this.progress.percentage], true)});
     }
+
+    if (colorChange) {
+      this.bar.setup({bgImage: r.ui[this.progress.color]});
+      if (this.progress.buttons) {
+        this.previous.setup({button: this.progress.color + "Round"});
+        this.next.setup({button: this.progress.color + "Round"});
+      }
+    }
+
     this._super(options);
   },
   setPercent: function(value) {
