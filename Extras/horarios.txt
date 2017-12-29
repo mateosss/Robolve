@@ -389,3 +389,5 @@ Format (variables between \<\> should be calculated after each day/task)
     - 22:15 - 23:00 | Progress: pulido de animacion de carga de barra
 - 2017-12-19 Ma -
   - 10:20 - 11:50 | Progress: intentando meterlo a defense view y propiedad color
+- 2017-12-29 Vi -
+  - 16:30 - 17:30 | Progress: Debugeando y resolviendo por que el texto salía mal en preview, agregadas 6 propiedades de padding a displayManager

@@ -13,6 +13,10 @@ Map.prototype.seti = function(i, value) { // Sets the value of an index
   this.set(this.getki(i), value);
 };
 
+Object.values = Object.values || function (object) {
+  return Object.keys(object).map(key => object[key]);
+};
+
 var _ = {
   size: object => Object.keys(object).length, // length of an object
   props: Class => new Class(), // new empty class, used for getting constants
@@ -58,5 +62,6 @@ var _ = {
   },
   randint: (from, to) => from + Math.floor(Math.random() * (to - from + 1)),
   randchoice: (array) => array[_.randint(0, array.length - 1)],
-  wrap: (func, ...params) => {return () => func(...params);}
+  wrap: (func, ...params) => {return () => func(...params);},
+  assert: console.assert,
 };

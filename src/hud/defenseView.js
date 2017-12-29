@@ -80,7 +80,7 @@ var DefenseView = Dialog.extend({
     this.statsTitle.addTo(this.stats);
     this.statsMain = new Panel({bgImage: r.ui.panel_in, height: "100ph + -33px", width: "100pw", padding: "11px", x: "center"});
     this.statsMain.addTo(this.stats);
-    this.statsLife = new Progress({y:"center", padding: "11px", width:"100pw", height:"80px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("life")), text:"Life: {}", selectedValue:0, fontSize: 24});
+    this.statsLife = new Progress({y:"center", scale: 0.5, padding: "11px", paddingHorizontal: "6px", width:"100pw", height:"80px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("life")), text:"Life: {}", selectedValue:0, fontSize: 48});
     this.statsLife.addTo(this.statsMain);
 
     this.build = new Layout({height: "20ph", width: "50pw", x: "-50pw", y: "11px"});

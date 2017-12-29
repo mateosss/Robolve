@@ -37,6 +37,8 @@ var Progress = Panel.extend({
     }
   },
   setup: function(options) {
+    this._super(options);
+
     this.progress.percentage = options.percentage !== undefined ? options.percentage : this.progress.percentage;
     this.progress.text = options.text !== undefined ? options.text : this.progress.text;
     this.progress.predefinedValues = options.predefinedValues || this.progress.predefinedValues;
@@ -59,8 +61,6 @@ var Progress = Panel.extend({
         this.next.setup({button: this.progress.color + "Round"});
       }
     }
-
-    this._super(options);
   },
   setPercent: function(value) {
     this.progress.percentage = value;
