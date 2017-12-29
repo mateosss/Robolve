@@ -12,7 +12,7 @@ var DefenseView = Dialog.extend({
     this.title = new Layout({height: "15ph + -11px", width: "100pw", y: "-15ph + 11px"});
     this.title.addTo(this);
     // this.title.debug(); // XXX Remove debug
-    this.titleLevel = new Button({button: "yellowRound", text: "4", textFontSize: 72, scale9: false, x: "11px", y: "5px"});
+    this.titleLevel = new Button({button: "yellowRound", text: "4", textFontSize: 72, scale9: false, x: "11px", top: "11px"});
     this.titleLevel.addTo(this.title);
     this.titleText = new Text({text: "New Defense", x: "center", y: "center", top: cc.sys.isNative ? "0px" : "5px", fontSize: 56});
     this.titleText.addTo(this.title);
@@ -65,11 +65,11 @@ var DefenseView = Dialog.extend({
     this.levelButtons = new Layout({x: "center", height: "100ph + -39px", top: "5px"});
     this.levelButtons.addTo(this.level);
     // this.levelButtons.debug();
-    this.levelLeft = new Button({button: "pinkRound", icon: "arrow-left", scale9: false, x: "22px", y: "-96px", scale: 0.6});
+    this.levelLeft = new Button({button: "pinkRound", icon: "arrow-left", scale9: false, y: "center", x: "center", right: "50ph + 30ph + 11px", height:"60ph", width: "60ph"});
     this.levelLeft.addTo(this.levelButtons);
-    this.levelCenter = new Button({button: "pinkRound", text: "4", textFontSize: 72, scale9: false, x: "50pw + -60px", scale: 1.25});
+    this.levelCenter = new Button({button: "pinkRound", text: "4", textFontSize: 72, scale9: false, x: "50pw + -50ph", width: "100ph"});
     this.levelCenter.addTo(this.levelButtons);
-    this.levelRight = new Button({button: "pinkRound", icon: "arrow-right", scale9: false, x: "-58px + -22px", y: "-96px", scale: 0.6});
+    this.levelRight = new Button({button: "pinkRound", icon: "arrow-right", scale9: false, y: "center", x: "center", left: "50ph + 30ph + 11px", height:"60ph", width: "60ph"});
     this.levelRight.addTo(this.levelButtons);
 
 
@@ -80,8 +80,14 @@ var DefenseView = Dialog.extend({
     this.statsTitle.addTo(this.stats);
     this.statsMain = new Panel({bgImage: r.ui.panel_in, height: "100ph + -33px", width: "100pw", padding: "11px", x: "center"});
     this.statsMain.addTo(this.stats);
-    this.statsLife = new Progress({y:"center", scale: 0.5, padding: "11px", paddingHorizontal: "6px", width:"100pw", height:"80px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("life")), text:"Life: {}", selectedValue:0, fontSize: 48});
+    this.statsLife = new Progress({buttons: true, y:"220px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("life")), text:"Life: {}", selectedValue:0, fontSize: 36});
     this.statsLife.addTo(this.statsMain);
+    this.statsRange = new Progress({buttons: true, y:"152px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("range")), text:"Range: {}", selectedValue:0, fontSize: 36});
+    this.statsRange.addTo(this.statsMain);
+    this.statsDamage = new Progress({buttons: true, y:"84px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("damage")), text:"Damage: {}", selectedValue:0, fontSize: 36});
+    this.statsDamage.addTo(this.statsMain);
+    this.statsAttackSpeed = new Progress({buttons: true, y:"16px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("attackSpeed")), text:"Attack Speed: {}", selectedValue:0, fontSize: 36});
+    this.statsAttackSpeed.addTo(this.statsMain);
 
     this.build = new Layout({height: "20ph", width: "50pw", x: "-50pw", y: "11px"});
     this.build.addTo(this);

@@ -53,12 +53,12 @@ var Hud = cc.Layer.extend({
     this.button = new Button({callback: () => this.dialog.show(), width:"100ph", icon:"plus", padding:"11px", x: "-100ph", iconFontSize: 72});
     this.button.addTo(this.bottombar);
 
-    this.progress1 = new Progress({color: "orange", buttons: true, y:"center", x:"center", bottom: "128px", width:"70pw", height:"96px", predefinedValues:["electric", "fire", "water", "air"], text:"selected element: {}", selectedValue:1});
-    this.progress1.addTo(this);
-    this.progress2 = new Progress({y:"center", x:"center", width:"70pw", height:"96px", percentage: 100, });
-    this.progress2.addTo(this);
-    this.progress = new Progress({color:"blue", buttons: true, y:"center", x:"center", top: "128px", width:"70pw", height:"96px", predefinedValues:["electric", "fire", "water", "air"], text:"Selected: {}", selectedValue:1});
-    this.progress.addTo(this);
+    // this.progress1 = new Progress({color: "orange", buttons: true, y:"center", x:"center", bottom: "128px", width:"70pw", height:"96px", predefinedValues:["electric", "fire", "water", "air"], text:"selected element: {}", selectedValue:1});
+    // this.progress1.addTo(this);
+    // this.progress2 = new Progress({y:"center", x:"center", width:"70pw", height:"96px", percentage: 100, });
+    // this.progress2.addTo(this);
+    // this.progress = new Progress({color:"blue", buttons: true, y:"center", x:"center", top: "128px", width:"70pw", height:"96px", predefinedValues:["electric", "fire", "water", "air"], text:"Selected: {}", selectedValue:1});
+    // this.progress.addTo(this);
 
     window.ds = this.ds; // XXX
     window.hud = this;

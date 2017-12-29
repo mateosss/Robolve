@@ -65,7 +65,7 @@ var Button = ccui.Button.extend({
       this.setTitleColor(this.button.textColor);
 
       if (!this.text) this.text = this.getTitleRenderer();
-      this.text.y += 5;
+      this.text.y += 5; // TODO Doesn't correct the text in the levelCenter button of defense preview
     }
 
 
