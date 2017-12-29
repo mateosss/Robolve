@@ -61,6 +61,7 @@ var Hud = cc.Layer.extend({
     this.progress.addTo(this);
 
     window.ds = this.ds; // XXX
+    window.hud = this;
     window.progress = this.progress;
     window.dialog = this.dialog;
     window.dd = this.dd;

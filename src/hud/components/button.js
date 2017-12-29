@@ -52,6 +52,7 @@ var Button = ccui.Button.extend({
     this.button.scale9 = options.scale9 !== undefined ? options.scale9 : this.button.scale9;
 
     this.setScale9Enabled(this.button.scale9);
+    if (!this.button.scale9) options.scale = this.displayManager.calc(options.height || this.displayManager.height ) / new cc.Sprite(r.ui[this.button.button]).width;
     this.loadTextures(r.ui[this.button.button], r.ui[this.button.button + "P"], r.ui[this.button.button + "P"], ccui.Widget.LOCAL_TEXTURE);
     if (callbackChange) this.addClickEventListener(this.button.callback);
 

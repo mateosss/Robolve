@@ -54,6 +54,11 @@ var Progress = Panel.extend({
       if (this.text) this.text.setup({text: _.format(this.progress.text, [this.progress.percentage], true)});
     }
 
+    if (this.progress.buttons && options.height) { // Refreshing buttons height if progress height changed
+      if (this.previous) this.previous.setup({});
+      if (this.next) this.next.setup({});
+    }
+
     if (colorChange) {
       this.bar.setup({bgImage: r.ui[this.progress.color]});
       if (this.progress.buttons) {

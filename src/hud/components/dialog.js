@@ -26,8 +26,7 @@ var Dialog = Panel.extend({
     };
     options.bgImage = options.bgImage || r.ui.grey;
     this._super(options);
-    this.setSwallowTouches(true); // TODO This works great if below the dialog is a button, but if there is something using easyEvents it doesn't work as expected
-    this.setTouchEnabled(true);
+
     if (this.dialog.type !== "empty") {
 
       this.titlebar = new Layout({height: "17.5ph", width: "100pw", y: "-17.5ph"});
