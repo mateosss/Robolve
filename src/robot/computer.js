@@ -24,7 +24,7 @@ var Computer = cc.Sprite.extend({
   // STATS constant defines the structure of this Robot based class
   // Take into account that if for example turnProb is in STATS, the properties
   // turnProb and sTurnProb will be created directly on the object, with
-  // turnProb having the gene, and sTinfligedDamageurnProb the current real stat the robot
+  // turnProb having the gene, and sTurnProb the current real stat the robot
   // is having that can be modified and resetted by setDefaultStat
   STATS: null, // Map that contains the stats of this computer and its possibilities, see Robot class
   PARTS: null, // Object that contains the parts, and part options of this computer, see Robot class

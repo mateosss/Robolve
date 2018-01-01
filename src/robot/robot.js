@@ -4,9 +4,9 @@ var Robot = Computer.extend({
     ['turnProb', {0: 0.25, 1: 0.5, 2: 0.9}],
     ['life', {0: 500, 1: 600, 2: 700}],
     ['element', {
-      electric: cc.color(255, 231, 0 ,255),
-      fire: cc.color(227, 43, 0, 255),
-      water: cc.color(1, 179, 255, 255)
+      electric: "Electro",
+      fire: "Fire",
+      water: "Water"
     }],
     ['range', {0: 75, 1: 150}],
     ['terrain', {0: 'walk',1: 'fly'}],

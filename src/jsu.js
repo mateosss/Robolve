@@ -62,6 +62,18 @@ var _ = {
   },
   randint: (from, to) => from + Math.floor(Math.random() * (to - from + 1)),
   randchoice: (array) => array[_.randint(0, array.length - 1)],
-  wrap: (func, ...params) => {return () => func(...params);},
+  wrap: (func, ...params) => {return () => func(...params);}, // Returns a function that executes a function with specific params
   assert: console.assert,
+  formatVarName: name => { // from "someVarName" to "Some Var Name"
+    let res = name[0].toUpperCase();
+    for (let l of name.slice(1)) {
+      res += l === l.toUpperCase() ? " " + l : l;
+    }
+    return res;
+  },
+  invert: object => { // from {a: 1, b: 2} to {1: 'a', 2: 'b'}
+    let res = {};
+    Object.keys(object).forEach((key) => { res[object[key]] = key; });
+    return res;
+  },
 };
