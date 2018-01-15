@@ -396,3 +396,5 @@ Format (variables between \<\> should be calculated after each day/task)
   - 13:00 - 14:30 | Intentando hacer property selector a partir de progress
 - 2017-12-31 Do -
   - 18:45 - 21:00 | Muchas cosas alrededor de hacer que ande el new property selector (statTweak)
+- 2018-01-15 Lu -
+  - 14:25 - 

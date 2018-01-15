@@ -30,6 +30,7 @@
       "src/hud/hud.js",
       "src/hud/menu.js",
       "src/hud/propertySelector.js",
+      "src/hud/statTweak.js",
       "src/hud/defenseDetails.js",
       "src/hud/defenseSelector.js",
       "src/hud/infoText.js",

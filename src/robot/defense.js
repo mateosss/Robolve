@@ -116,7 +116,7 @@ var Defense = Computer.extend({
           return {result: false, cause: "There is already a tower there"};
         }
       }
-      return {result: true, cause: "Placed - $300"}; // TODO estos mensajes no estan muy bien aca
+      return {result: true, cause: _.format("Placed - ${}", rb.prices.newDefense)}; // TODO estos mensajes no estan muy bien aca
     }
   },
   counter: 0.0, // TODO counter is being used in the attack state but it is not clear if it is here

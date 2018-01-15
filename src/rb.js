@@ -41,6 +41,16 @@ var rb = {
     fire: cc.color(227, 43, 0, 255),
     water: cc.color(1, 179, 255, 255)
   },
+
+  prices: {
+    // Spend
+    createDefense: 300,
+    increaseStat: 100,
+    // Gain
+    destroyDefense: 50,
+    killRobot: 30,
+  },
+
   states: {
     defense: {
       still: {

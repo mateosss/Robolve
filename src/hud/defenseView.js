@@ -1,5 +1,61 @@
 var DefenseView = Dialog.extend({
-  ctor: function(options) {
+
+  selectedDefense: null, // null for a new defense, TODO allow defense modification (a.k.a only works if selectedDefense is null)
+
+  level: 1,
+  element: "fire",
+  life: 0,
+  range: 0,
+  damage: 0,
+  attackSpeed: 0,
+  amount: null, // This is the base price TODO prices should be in a separated file
+
+  // UI Components Structure
+
+  titleContainer: null,
+  titleLevel: null,
+  titleText: null,
+  titleClose: null,
+
+  previewContainer: null,
+  previewTitle  : null,
+  previewMain: null,
+
+  elementContainer: null,
+  elementTitle: null,
+  elementButtons: null,
+  elementFire: null,
+  elementWater: null,
+  elementElectric: null,
+
+  amountContainer: null,
+  amountTitle: null,
+  amountBar: null,
+  amountGi: null,
+  amountIg: null,
+
+  levelContainer: null,
+  levelTitle: null,
+  levelButtons: null,
+  levelLeft: null,
+  levelCenter: null,
+  levelRight: null,
+
+  statsContainer: null,
+  statsTitle: null,
+  statsMain: null,
+  statsLife: null,
+  statsRange: null,
+  statsDamage: null,
+  statsAttackSpeed: null,
+
+  buildContainer: null,
+  buildButton: null,
+
+  ctor: function(options, selectedDefense) {
+
+    this.selectedDefense = selectedDefense; // TODO Make it possible to create a defense from defenseView (the case where selectedDefense is null)
+
     options.type = "empty";
     options.width = "90pmin";
     options.height = "112.5pmin";
@@ -86,7 +142,8 @@ var DefenseView = Dialog.extend({
     this.statsRange.addTo(this.statsMain);
     this.statsDamage = new Progress({buttons: true, y:"84px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("damage")), text:"Damage: {}", selectedValue:0, fontSize: 36});
     this.statsDamage.addTo(this.statsMain);
-    this.statsAttackSpeed = new Progress({buttons: true, y:"16px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("attackSpeed")), text:"Attack Speed: {}", selectedValue:0, fontSize: 36});
+    // this.statsAttackSpeed = new Progress({buttons: true, y:"16px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("attackSpeed")), text:"Attack Speed: {}", selectedValue:0, fontSize: 36});
+    this.statsAttackSpeed = new StatTweak(selectedDefense, 'attackSpeed', {y:"16px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", fontSize: 36});
     this.statsAttackSpeed.addTo(this.statsMain);
 
     this.build = new Layout({height: "20ph", width: "50pw", x: "-50pw", y: "11px"});
