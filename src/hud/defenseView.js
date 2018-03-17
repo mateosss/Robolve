@@ -8,7 +8,7 @@ var DefenseView = Dialog.extend({
   range: 0,
   damage: 0,
   attackSpeed: 0,
-  amount: rb.prices.newDefense,
+  amount: rb.prices.createDefense,
 
   // UI Components Structure
 
@@ -142,8 +142,8 @@ var DefenseView = Dialog.extend({
     this.statsRange.addTo(this.statsMain);
     this.statsDamage = new Progress({buttons: true, y:"84px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("damage")), text:"Damage: {}", selectedValue:0, fontSize: 36});
     this.statsDamage.addTo(this.statsMain);
-    // this.statsAttackSpeed = new Progress({buttons: true, y:"16px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("attackSpeed")), text:"Attack Speed: {}", selectedValue:0, fontSize: 36});
-    this.statsAttackSpeed = new StatTweak(selectedDefense, 'attackSpeed', {y:"16px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", fontSize: 36});
+    this.statsAttackSpeed = new Progress({buttons: true, y:"16px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("attackSpeed")), text:"Attack Speed: {}", selectedValue:0, fontSize: 36});
+    // this.statsAttackSpeed = new StatTweak(selectedDefense, 'attackSpeed', {y:"16px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", fontSize: 36});
     this.statsAttackSpeed.addTo(this.statsMain);
 
     this.buildContainer = new Layout({height: "20ph", width: "50pw", x: "-50pw", y: "11px"});
@@ -155,7 +155,7 @@ var DefenseView = Dialog.extend({
 
   build: function() { // Hides the defense view and lets the player locate the tweaked new defense
     let hud = this.getParent();
-    hud.it.message("Place " + _.capitalize(this.element) + " Tower - $" + rb.prices.newDefense);
+    hud.it.message("Place " + _.capitalize(this.element) + " Tower - $" + rb.prices.createDefense);
     let terrain = 0; // TODO Terrain is here just because it is needed in the old game style, change when new gameplay is designed
     let customDefense = new Defense(hud.level, this.life, this.element, this.range, terrain, this.damage, this.attackSpeed);
     customDefense.retain();

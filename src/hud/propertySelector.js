@@ -36,20 +36,20 @@ var PropertySelector = ccui.Layout.extend({
         var sortedKeys = Object.keys(pProp).sort();
         var canMinimize = sortedKeys.indexOf(prop.toString()) > 0;
         if (canMinimize) {
-          var hasBudget = d.level.base.gold >= rb.prices.increaseStat;
+          var hasBudget = d.level.base.gold >= rb.prices.decreaseStat;
           if (hasBudget) {
             var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) - 1];
             d.changeStat(p, parseInt(improvement) || improvement);
             d.factoryReset(true);
-            d.level.hud.ig.removeGold(rb.prices.increaseStat);
+            d.level.hud.ig.removeGold(rb.prices.decreaseStat);
             upBtn.getParent().refresh();
             d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
           } else {
-            d.level.hud.it.message(_.format("You don't have {} bucks", rb.prices.increaseStat));
+            d.level.hud.it.message(_.format("You don't have {} bucks", rb.prices.decreaseStat));
             d.level.hud.ig.notEnoughGold();
           }
         } else {
-          d.level.hud.it.message(_.format("You only can go up for ${}", rb.prices.increaseStat));
+          d.level.hud.it.message(_.format("You only can go up for ${}", rb.prices.decreaseStat));
         }
       }, downBtn), button: "blue", icon: "chevron-down", width: "48px", height: "48px", x: "center", y: "8px", scale:0.5, left:"24px",
     });

@@ -1,6 +1,6 @@
 // Global rb variable (stands for RoBolve), that saves global things
 var rb = {
-
+  global: window, // jshint ignore:line
   dev: { // Helper functions for use when debuggin on the browser
     getLevel: () => cc.director.getRunningScene().children.find(c => c.toString() === "Level"),
     getHud: () => rb.dev.getLevel().hud,

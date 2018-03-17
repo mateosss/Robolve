@@ -59,18 +59,18 @@ var Hud = cc.Layer.extend({
     // this.progress2.addTo(this);
     // this.progress = new Progress({color:"blue", buttons: true, y:"center", x:"center", top: "128px", width:"70pw", height:"96px", percentageStep: 20});
     // this.progress.addTo(this);
-    
-    this.progress = new StatTweak(null, "life", {y:"20ph", x:"4ph", width:"36pw", height:"5ph"});
+
+    this.progress = new StatTweak("Robot", "life", {y:"20ph", x:"4ph", width:"36pw", height:"5ph"});
     this.progress.addTo(this);
-    this.progress = new StatTweak(null, "element", {y:"20ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
+    this.progress = new StatTweak("Robot", "element", {y:"20ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
     this.progress.addTo(this);
-    this.progress = new StatTweak(null, "range", {y:"28ph", x:"4ph", width:"36pw", height:"5ph"});
+    this.progress = new StatTweak("Robot", "range", {y:"28ph", x:"4ph", width:"36pw", height:"5ph"});
     this.progress.addTo(this);
-    this.progress = new StatTweak(null, "terrain", {y:"28ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
+    this.progress = new StatTweak("Robot", "terrain", {y:"28ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
     this.progress.addTo(this);
-    this.progress = new StatTweak(null, "damage", {y:"36ph", x:"4ph", width:"36pw", height:"5ph"});
+    this.progress = new StatTweak("Robot", "damage", {y:"36ph", x:"4ph", width:"36pw", height:"5ph"});
     this.progress.addTo(this);
-    this.progress = new StatTweak(null, "attackSpeed", {y:"36ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
+    this.progress = new StatTweak("Robot", "attackSpeed", {y:"36ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
     this.progress.addTo(this);
 
     window.ds = this.ds; // XXX

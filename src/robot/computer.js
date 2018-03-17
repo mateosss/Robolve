@@ -148,9 +148,11 @@ var Computer = cc.Sprite.extend({
   // General section
   factoryReset: function(soft) {
     this.assembleParts();
-    if (!soft) this.refreshStats();
-    this.removeAllStates();
-    this.setState(this.states[0]);
+    if (!soft) {
+      this.refreshStats();
+      this.removeAllStates();
+      this.setState(this.states[0]);
+    }
     this.createHealthBar();
     if (this.DEBUG) this.debug();
   },
