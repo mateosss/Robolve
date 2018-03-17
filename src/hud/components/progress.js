@@ -94,6 +94,7 @@ var Progress = Panel.extend({
     this.time = (this.isUpdating ? this.time : 0) +  (time || 0.2);
     this.progress.percentage = value;
     this.scheduleUpdate();
+    return value;
   },
   changeValue: function(i, time) { // Animated version of setValue
     if (!this.isUpdating) this.from = cc.lerp(4, 100, ((this.progress.selectedValue + 1) * 100 / this.progress.predefinedValues.length) / 100) / 100 * this.width * (1 / this.bar.scale);
@@ -101,23 +102,24 @@ var Progress = Panel.extend({
     this.time = (this.isUpdating ? this.time : 0) +  (time || 0.2);
     this.progress.selectedValue = i;
     this.scheduleUpdate();
+    return i;
   },
   nextValue: function() {
     if (this.progress.predefinedValues) {
-      if (this.progress.selectedValue + 1 < this.progress.predefinedValues.length) this.changeValue(this.progress.selectedValue + 1);
-      else this.cantChange();
+      if (this.progress.selectedValue + 1 < this.progress.predefinedValues.length) return this.changeValue(this.progress.selectedValue + 1);
+      else return this.cantChange();
     } else {
-      if (this.progress.percentage + this.progress.percentageStep <= 100) this.changePercent(this.progress.percentage + this.progress.percentageStep);
-      else this.cantChange();
+      if (this.progress.percentage + this.progress.percentageStep <= 100) return this.changePercent(this.progress.percentage + this.progress.percentageStep);
+      else return this.cantChange();
     }
   },
   previousValue: function() {
     if (this.progress.predefinedValues) {
-      if (this.progress.selectedValue - 1 >= 0) this.changeValue(this.progress.selectedValue - 1);
-      else this.cantChange();
+      if (this.progress.selectedValue - 1 >= 0) return this.changeValue(this.progress.selectedValue - 1);
+      else return this.cantChange();
     } else {
-      if (this.progress.percentage - this.progress.percentageStep >= 0) this.changePercent(this.progress.percentage - this.progress.percentageStep);
-      else this.cantChange();
+      if (this.progress.percentage - this.progress.percentageStep >= 0) return this.changePercent(this.progress.percentage - this.progress.percentageStep);
+      else return this.cantChange();
     }
   },
   postChange: function() { // Override this for executing stuff after all animations and values had been correctly set
@@ -131,6 +133,7 @@ var Progress = Panel.extend({
       new cc.MoveBy(0.1, cc.p(-10, 0))
     );
     this.text.runAction(shake);
+    return false;
   },
   toString: () => "Progress",
   scheduleUpdate: function() {

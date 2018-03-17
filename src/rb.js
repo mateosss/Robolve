@@ -46,6 +46,7 @@ var rb = {
     // Spend
     createDefense: 300,
     increaseStat: 100,
+    decreaseStat: 100,
     // Gain
     destroyDefense: 50,
     killRobot: 30,

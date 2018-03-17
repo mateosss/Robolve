@@ -397,4 +397,8 @@ Format (variables between \<\> should be calculated after each day/task)
 - 2017-12-31 Do -
   - 18:45 - 21:00 | Muchas cosas alrededor de hacer que ande el new property selector (statTweak)
 - 2018-01-15 Lu -
-  - 14:25 - 
+  - 14:30 - 16:30 | rb.prices, haciendo statTweak independiente de defenseView
+- 2018-03-16 Vi -
+  - 20:00 - 21:00 | Reviendo que estaba haciendo y tocando código
+- 2018-03-17 Sa -
+  - 07:30 - 09:00 | Stat tweak works on defense

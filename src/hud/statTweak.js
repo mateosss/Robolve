@@ -4,86 +4,66 @@
 
 var StatTweak = Progress.extend({
   stat: null, // The stat name which this selector modifies
-  defense: null, // The defense to which this selector modifies
+  defense: null, // The defense to which this selector modifies // TODO Should be computer
 
   ctor: function(defense, stat, options) {
-    this.stat = stat;
+    // defense: Defense to modify stat
+    // stat: the stat name to modify
+    // options: options object for the UI Component Progress
     this.defense = defense;
+    this.stat = stat;
     this._super(_.concat(
       { buttons: true, predefinedValues: Object.values(Defense.prototype.getPossibleStats(stat)), text: _.formatVarName(stat) + ": {}", selectedValue:0 },
-      options || {}
+      options || {y:"20ph", x:"center", width:"80pw", height:"96px"}
     ));
   },
 
-  preChange: function() {
-    //TODO to check for budget
-  },
-  postChange: function() {
-    if (!this.defense) return;
-    let newStatValue = this.getSelectedValue();
-    let newStatIndex = _.invert(this.defense.STATS.get("element"))[newStatValue];
-    this.defense.changeStat(this.stat, parseInt(newStatIndex) || newStatIndex);
-    this.defense.factoryReset(true);
-    this.defense.level.hud.ig.removeGold(cost);
-    this.defense.level.hud.it.message("Tower " + _.formatVarName(this.stat) + " to: " + newStatValue);
-  },
-  previousValueOld: function() {
-    this._super();
+  previousValue: function() {
+    let d = rb.dev.getDefense(); // XXX Remove
+    let hasBudget = d.level.base.gold >= rb.prices.increaseStat;
 
-    let defense = this.defense;
-    let stat = this.stat;
-
-    if (defense) { // Modifying existing defense
-      let pStat = defense.getPossibleStats(stat);
-      let prop = defense[stat];
-
-      let sortedKeys = Object.keys(pStat).sort();
-      let canMinimize = sortedKeys.indexOf(prop.toString()) > 0;
-
-      if (canMinimize) {
-        let hasBudget = defense.level.base.gold >= rb.prices.increaseStat;
-        if (hasBudget) {
-          var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) - 1];
-          defense.changeStat(stat, parseInt(improvement) || improvement);
-          defense.factoryReset(true);
-          defense.level.hud.ig.removeGold(rb.prices.increaseStat);
-          defense.level.hud.it.message("Tower " + stat[0].toUpperCase() + stat.slice(1) + " to: " + pStat[defense[stat]]);
-        } else {
-          defense.level.hud.it.message(_.format("You don't have {} bucks", rb.prices.increaseStat));
-          defense.level.hud.ig.notEnoughGold();
-        }
+    if (hasBudget) {
+      let canMinimizeTo = this._super(); // Can Minimize? see StatTweak.nextValue
+      if (canMinimizeTo !== false) {
+        let p = this.stat;
+        let pProp = d.getPossibleStats(p);
+        let newStatIndex = Object.keys(pProp).sort()[canMinimizeTo]; // The sort is to ensure key order
+        d.changeStat(p, parseInt(newStatIndex) || newStatIndex);
+        d.factoryReset(true);
+        d.level.hud.ig.removeGold(rb.prices.increaseStat);
+        d.level.hud.it.message(_.format("Tower {} changed to {}", _.capitalize(p), pProp[d[p]]));
       } else {
-        defense.level.hud.it.message(_.format("You only can go up for ${}", rb.prices.increaseStat));
+        d.level.hud.it.message(_.format("You only can go up for ${}", rb.prices.decreaseStat));
       }
+    } else {
+      d.level.hud.it.message(_.format("You don't have {} bucks", rb.prices.decreaseStat));
+      d.level.hud.ig.notEnoughGold();
+      this.cantChange();
     }
   },
+
   nextValue: function() {
-    this._super();
-    // let nextCallback = () => {
-    //     var d = this.getParent().getParent().defense; //Defense // TODO asco
-    //     var p = this.stat;  //Stat name
-    //     var pProp = d.getPossibleStats(p);
-    //     var prop = d[p];
-    //     var sProp = pProp[prop];
-    //
-    //     var sortedKeys = Object.keys(pProp).sort();
-    //     var canMaximize = sortedKeys.indexOf(prop.toString()) < sortedKeys.length - 1;
-    //     if (canMaximize) {
-    //       var hasBudget = d.level.base.gold >= rb.prices.increaseStat;
-    //       if (hasBudget) {
-    //         var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) + 1];
-    //         d.changeStat(p, parseInt(improvement) || improvement);
-    //         d.level.hud.ig.removeGold(rb.prices.increaseStat);
-    //         d.factoryReset(true);
-    //         d.level.hud.it.message("Tower " + p[0].toUpperCase() + p.slice(1) + " to: " + pProp[d[p]]);
-    //       } else {
-    //         d.level.hud.it.message(_.format("You don't have {} bucks", rb.prices.increaseStat));
-    //         d.level.hud.ig.notEnoughGold();
-    //       }
-    //     } else {
-    //       d.level.hud.it.message(_.format("You only can go down for ${}", rb.prices.increaseStat));
-    //     }
-    //   };
+    let d = rb.dev.getDefense(); // XXX Remove
+    let hasBudget = d.level.base.gold >= rb.prices.increaseStat;
+
+    if (hasBudget) {
+      let canMaximizeTo = this._super(); // Can Maximize? Execute Progress.nextValue that returns a boolean saying wether it could go to the next value
+      if (canMaximizeTo !== false) {
+        let p = this.stat;  // Stat name
+        let pProp = d.getPossibleStats(p); // Possible stats
+        let newStatIndex = Object.keys(pProp).sort()[canMaximizeTo]; // The sort is to ensure key order
+        d.changeStat(p, parseInt(newStatIndex) || newStatIndex);
+        d.factoryReset(true);
+        d.level.hud.ig.removeGold(rb.prices.increaseStat);
+        d.level.hud.it.message(_.format("Tower {} changed to {}", _.capitalize(p), pProp[d[p]]));
+      } else {
+        d.level.hud.it.message(_.format("You only can go down for ${}", rb.prices.increaseStat));
+      }
+    } else {
+      d.level.hud.it.message(_.format("You don't have {} bucks", rb.prices.increaseStat));
+      d.level.hud.ig.notEnoughGold();
+      this.cantChange();
+    }
   }
 
 });

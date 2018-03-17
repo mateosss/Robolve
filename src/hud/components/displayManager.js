@@ -157,7 +157,7 @@ var DisplayManager = cc.Class.extend({
     // Returns this.owner.parent's height, or screen dimensions if none
     return this.owner && this.owner.parent ? this.owner.parent.height : cc.winSize.height;
   },
-  propToPix: function(prop) {
+  propToPix: function(rawProp) {
     // Translate a property into the final pixels that the display manager will use
     // AApx: Real screen pixels,
     // AArem = 16px * AA
@@ -171,7 +171,8 @@ var DisplayManager = cc.Class.extend({
     // AApmax = AA * (pw > ph ? pw : ph)
     // TODO: AA% = AApw (AAph if property is height, top or bottom)
     // TODO make component property calc(), i.e. calc(100vw - 120px)
-    prop = prop.match(/(-?\d+(?:\.?\d+)?)(?: *)?(.*)/);
+    // if (prop.length < 2) throw _.format("DisplayManager - {}: {} evaluated to {} doesn't have the correct format", this.owner.toString(), rawProp, prop);
+    let prop = rawProp.match(/(-?\d+(?:\.?\d+)?)(?: *)?(.*)/);
     let magnitude = parseFloat(prop[1]);
     let unit = prop[2];
     if (isNaN(magnitude)) throw _.format("DisplayManager - {}: {} has an incorrect magnitude", this.owner.toString(), prop[0]);
