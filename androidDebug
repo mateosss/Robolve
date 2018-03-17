@@ -1,4 +1,0 @@
-#sh Extras/copyfiles.sh
-#cd $HOME/Escritorio/Robolve
-#cocos run -p android
-adb logcat | grep "cocos"
