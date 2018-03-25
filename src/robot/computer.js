@@ -150,9 +150,14 @@ var Computer = cc.Sprite.extend({
     this.assembleParts();
     if (!soft) {
       this.refreshStats();
-      this.removeAllStates();
-      this.setState(this.states[0]);
     }
+    // TODO this two lines will bring problems because we are using factoryReset when changing stats,
+    // and changing stats should not clean all states, removeAllStates and setState
+    // should be inside the if (!soft) statement, and changing stats should PAUSE all
+    // states and resume them, for that there should be a way of pausing states
+    this.removeAllStates();
+    this.setState(this.states[0]);
+
     this.createHealthBar();
     if (this.DEBUG) this.debug();
   },

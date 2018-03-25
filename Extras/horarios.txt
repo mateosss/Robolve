@@ -403,3 +403,5 @@ Format (variables between \<\> should be calculated after each day/task)
 - 2018-03-17 Sa -
   - 07:30 - 09:00 | Stat tweak works on defense
   - 09:00 - 10:00 | Stat tweak now works on any Computer
+- 2018-03-24 Sa -
+  - 22:30 - 12:00 | Stat tweak on defense preview modifies existing turrets

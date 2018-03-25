@@ -60,18 +60,24 @@ var Hud = cc.Layer.extend({
     // this.progress = new Progress({color:"blue", buttons: true, y:"center", x:"center", top: "128px", width:"70pw", height:"96px", percentageStep: 20});
     // this.progress.addTo(this);
 
-    this.progress = new StatTweak("Robot", "life", {y:"20ph", x:"4ph", width:"36pw", height:"5ph"});
-    this.progress.addTo(this);
-    this.progress = new StatTweak("Robot", "element", {y:"20ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
-    this.progress.addTo(this);
-    this.progress = new StatTweak("Robot", "range", {y:"28ph", x:"4ph", width:"36pw", height:"5ph"});
-    this.progress.addTo(this);
-    this.progress = new StatTweak("Robot", "terrain", {y:"28ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
-    this.progress.addTo(this);
-    this.progress = new StatTweak("Robot", "damage", {y:"36ph", x:"4ph", width:"36pw", height:"5ph"});
-    this.progress.addTo(this);
-    this.progress = new StatTweak("Robot", "attackSpeed", {y:"36ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
-    this.progress.addTo(this);
+    // this.progress1 = new StatTweak("Robot", "life", {fontSize: 24, y:"20ph", x:"4ph", width:"36pw", height:"5ph"});
+    // setTimeout(() => this.progress1.computer = rb.dev.getDefense(), 3000);
+    // this.progress1.addTo(this);
+    // this.progress2 = new StatTweak("Robot", "element", {fontSize: 24, y:"20ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
+    // setTimeout(() => this.progress2.computer = rb.dev.getDefense(), 3000);
+    // this.progress2.addTo(this);
+    // this.progress3 = new StatTweak("Robot", "range", {fontSize: 24, y:"28ph", x:"4ph", width:"36pw", height:"5ph"});
+    // setTimeout(() => this.progress3.computer = rb.dev.getDefense(), 3000);
+    // this.progress3.addTo(this);
+    // this.progress4 = new StatTweak("Robot", "terrain", {fontSize: 24, y:"28ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
+    // setTimeout(() => this.progress4.computer = rb.dev.getDefense(), 3000);
+    // this.progress4.addTo(this);
+    // this.progress5 = new StatTweak("Robot", "damage", {fontSize: 24, y:"36ph", x:"4ph", width:"36pw", height:"5ph"});
+    // setTimeout(() => this.progress5.computer = rb.dev.getDefense(), 3000);
+    // this.progress5.addTo(this);
+    // this.progress6 = new StatTweak("Robot", "attackSpeed", {fontSize: 24, y:"36ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
+    // setTimeout(() => this.progress6.computer = rb.dev.getDefense(), 3000);
+    // this.progress6.addTo(this);
 
     window.ds = this.ds; // XXX
     window.hud = this;

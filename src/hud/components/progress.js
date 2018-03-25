@@ -78,7 +78,8 @@ var Progress = Panel.extend({
   getPercent: function() {
     return this.progress.percentage;
   },
-  setValue: function(i) {
+  setValue: function(i) { // Used when predefinedValues is on
+    _.assert(i in this.progress.predefinedValues, _.format("index {} is not in [{}]", i, this.progress.predefinedValues.toString()));
     this.progress.selectedValue = i;
     this.setup({});
   },

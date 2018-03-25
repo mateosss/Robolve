@@ -45,7 +45,8 @@ var Defense = Computer.extend({
           var increase = new cc.ScaleBy(0.1, 1.2);
           var decrease = new cc.ScaleBy(0.1, 1 / 1.2);
           defense.runAction(new cc.Sequence(increase, decrease));
-          defense.level.hud.dd.show(defense);
+          // defense.level.hud.dd.show(defense);
+          defense.level.hud.preview.show(defense);
         }
       }
     });

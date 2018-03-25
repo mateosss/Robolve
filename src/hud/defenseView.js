@@ -136,14 +136,13 @@ var DefenseView = Dialog.extend({
     this.statsTitle.addTo(this.statsContainer);
     this.statsMain = new Panel({bgImage: r.ui.panel_in, height: "100ph + -33px", width: "100pw", padding: "11px", x: "center"});
     this.statsMain.addTo(this.statsContainer);
-    this.statsLife = new Progress({buttons: true, y:"220px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("life")), text:"Life: {}", selectedValue:0, fontSize: 36});
+    this.statsLife = new StatTweak("Defense", "life", {y:"220px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", fontSize: 36});
     this.statsLife.addTo(this.statsMain);
-    this.statsRange = new Progress({buttons: true, y:"152px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("range")), text:"Range: {}", selectedValue:0, fontSize: 36});
+    this.statsRange = new StatTweak("Defense", "range", {y:"152px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", fontSize: 36});
     this.statsRange.addTo(this.statsMain);
-    this.statsDamage = new Progress({buttons: true, y:"84px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("damage")), text:"Damage: {}", selectedValue:0, fontSize: 36});
+    this.statsDamage = new StatTweak("Defense", "damage", {y:"84px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", fontSize: 36});
     this.statsDamage.addTo(this.statsMain);
-    this.statsAttackSpeed = new Progress({buttons: true, y:"16px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", predefinedValues: Object.values(Defense.prototype.getPossibleStats("attackSpeed")), text:"Attack Speed: {}", selectedValue:0, fontSize: 36});
-    // this.statsAttackSpeed = new StatTweak(selectedDefense, 'attackSpeed', {y:"16px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", fontSize: 36});
+    this.statsAttackSpeed = new StatTweak("Defense", 'attackSpeed', {y:"16px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", width:"100pw", height:"68px", fontSize: 36});
     this.statsAttackSpeed.addTo(this.statsMain);
 
     this.buildContainer = new Layout({height: "20ph", width: "50pw", x: "-50pw", y: "11px"});
@@ -169,6 +168,19 @@ var DefenseView = Dialog.extend({
 
   buildConfirm: function() {
     // TODO
+  },
+
+  show: function(defense) {
+    this._super();
+    this.setSelectedDefense(defense);
+  },
+
+  setSelectedDefense: function(defense) {
+    this.selectedDefense = defense;
+    this.statsLife.setComputer(defense);
+    this.statsRange.setComputer(defense);
+    this.statsDamage.setComputer(defense);
+    this.statsAttackSpeed.setComputer(defense);
   },
 
   toString: () => "DefenseView"
