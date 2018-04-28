@@ -371,14 +371,14 @@ Format (variables between \<\> should be calculated after each day/task)
     - 17:30 - 18:00 | Separando components en diferentes archivos y preparando checkpoint
 
 ## (60) HUD - Defense creation [] -
-- 2017-12-13 Mi -
+- 2017-12-13 Mi - 01:00 hs
     - 20:45 - 21:45 | Empezando con defense view
-- 2017-12-14 Ju -
+- 2017-12-14 Ju - 01:20 hs
     - 16:00 - 17:20 | Scaffolding defense view la primera mitad
-- 2017-12-16 Sa -
+- 2017-12-16 Sa - 02:40 hs
     - 22:00 - 22:40 | Finalizado scaffolding defense view
     - 22:40 - 00:20 | Mas scaffolding no habia terminado en realidad (round buttons)
-- 2017-12-17 Do -
+- 2017-12-17 Do - 03:20 hs
     - 12:00 - 12:30 | Resuelto el bug de firefox que no carga la primera imagen de g_resources
     - 16:40 - 17:40 | Construyendo componente progress
     - 19:15 - 20:45 | Siguiendo con componente progress
@@ -387,21 +387,26 @@ Format (variables between \<\> should be calculated after each day/task)
     - 14:00 - 17:00 | Progress: botones, cantChange animacion
     - 20:15 - 21:30 | Progress: animacion de carga de barra (hermite spline)
     - 22:15 - 23:00 | Progress: pulido de animacion de carga de barra
-- 2017-12-19 Ma -
+- 2017-12-19 Ma - 01:30 hs
   - 10:20 - 11:50 | Progress: intentando meterlo a defense view y propiedad color
-- 2017-12-29 Vi -
+- 2017-12-29 Vi - 03:15 hs
   - 16:30 - 17:30 | Progress: Debugeando y resolviendo por que el texto salía mal en preview, agregadas 6 propiedades de padding a displayManager
   - 17:30 - 19:45 | Progress: Puestos los 4 futuros selectores de stats en preview
-- 2017-12-30 Sa -
+- 2017-12-30 Sa - 01:30 hs
   - 13:00 - 14:30 | Intentando hacer property selector a partir de progress
-- 2017-12-31 Do -
+- 2017-12-31 Do - 02:15 hs
   - 18:45 - 21:00 | Muchas cosas alrededor de hacer que ande el new property selector (statTweak)
-- 2018-01-15 Lu -
+- 2018-01-15 Lu - 02:00 hs
   - 14:30 - 16:30 | rb.prices, haciendo statTweak independiente de defenseView
-- 2018-03-16 Vi -
+- 2018-03-16 Vi - 01:00 hs
   - 20:00 - 21:00 | Reviendo que estaba haciendo y tocando código
-- 2018-03-17 Sa -
+- 2018-03-17 Sa - 02:30 hs
   - 07:30 - 09:00 | Stat tweak works on defense
   - 09:00 - 10:00 | Stat tweak now works on any Computer
-- 2018-03-24 Sa -
-  - 22:30 - 12:00 | Stat tweak on defense preview modifies existing turrets
+- 2018-03-24 Sa - 01:30 hs
+  - 22:30 - 00:00 | Stat tweak on defense preview modifies existing turrets
+
+Estimación EVA Córdoba
+- 2018-04-28 Sa -
+  - 18:00 - 18:45
+  - 19:00 -
