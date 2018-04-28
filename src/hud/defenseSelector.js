@@ -12,13 +12,13 @@ var DefenseSelector = ccui.ListView.extend({
     this.setDirection(ccui.ScrollView.DIR_HORIZONTAL);
     this.setTouchEnabled(true);
     this.setContentSize(size);
-    this.setPosition((s.width - 3 * 96) / 2, 16); // TODO TOO MUCH HARDCODE
+    this.setPosition(27, 16); // TODO TOO MUCH HARDCODE
     // ok button
     this.ok = new Button({callback: () => {
       /// TODO ALL THIS CODE IS REPEATED FROM GAME.JS and MAP.JS
       var pos = this.hud.level.map.tileCoordFromChild(this.hud.level.dummyDefense);
       var canBePlaced = this.hud.level.dummyDefense.canBePlacedOn(pos);
-      if (canBePlaced.result && this.hud.level.base.gold >= 300) {
+      if (canBePlaced.result && this.hud.level.base.gold >= rb.prices.createDefense) {
         let hud = this.ok.getParent();
         this.hud.level.dummyDefense.setColor(cc.color(255, 255, 255));
         this.hud.level.defenses.push(this.hud.level.dummyDefense);
@@ -31,12 +31,12 @@ var DefenseSelector = ccui.ListView.extend({
         newDefense.factoryReset(); // This makes possible to the idle animation to execute the idle animation
         newDefense.scheduleUpdate();
 
-        hud.ig.removeGold(300);
+        hud.ig.removeGold(rb.prices.createDefense);
         hud.it.message(canBePlaced.cause);
 
       } else {
         if (canBePlaced.result) {
-          this.ok.getParent().it.message("You don't have 300 bucks");
+          this.ok.getParent().it.message(_.format("You don't have {} bucks", rb.prices.createDefense));
           this.ok.getParent().ig.notEnoughGold();
         } else {
           this.ok.getParent().it.message(canBePlaced.cause);
@@ -102,7 +102,7 @@ var DefenseSelector = ccui.ListView.extend({
     ];
     var dsEvent = function(btn, level, type) {
       var hud = btn.getParent().getParent().getParent();
-      hud.it.message("Place " + type[0].toUpperCase() + type.slice(1) + " Tower - $300");
+      hud.it.message("Place " + type[0].toUpperCase() + type.slice(1) + " Tower - $" + rb.prices.createDefense);
       var life = 0;//0,1,2
       var range = 0;//0,1,2
       var element = type;//water,fire,electric

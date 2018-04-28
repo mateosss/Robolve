@@ -15,10 +15,10 @@ var Button = ccui.Button.extend({
       iconFontSize: 64,
       iconAlign: "left", // left, right, only works if there is text // TODO right option
       iconColor: cc.color(255, 255, 255),
+      scale9: true,
     };
     this._super();
     this.setAnchorPoint(0, 0);
-    this.setScale9Enabled(true);
     this.displayManager = new DisplayManager(this, options);
     this.setup(options);
 
@@ -49,7 +49,10 @@ var Button = ccui.Button.extend({
     let iconAlignChange = this.button.iconAlign !== options.iconAlign;
     this.button.iconAlign = options.iconAlign || this.button.iconAlign;
     this.button.iconColor = options.iconColor || this.button.iconColor;
+    this.button.scale9 = options.scale9 !== undefined ? options.scale9 : this.button.scale9;
 
+    this.setScale9Enabled(this.button.scale9);
+    if (!this.button.scale9) options.scale = this.displayManager.calc(options.height || this.displayManager.height ) / new cc.Sprite(r.ui[this.button.button]).width;
     this.loadTextures(r.ui[this.button.button], r.ui[this.button.button + "P"], r.ui[this.button.button + "P"], ccui.Widget.LOCAL_TEXTURE);
     if (callbackChange) this.addClickEventListener(this.button.callback);
 
@@ -62,7 +65,7 @@ var Button = ccui.Button.extend({
       this.setTitleColor(this.button.textColor);
 
       if (!this.text) this.text = this.getTitleRenderer();
-      this.text.y += 5;
+      this.text.y += 5; // TODO Doesn't correct the text in the levelCenter button of defense preview
     }
 
 

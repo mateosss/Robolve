@@ -45,7 +45,8 @@ var Defense = Computer.extend({
           var increase = new cc.ScaleBy(0.1, 1.2);
           var decrease = new cc.ScaleBy(0.1, 1 / 1.2);
           defense.runAction(new cc.Sequence(increase, decrease));
-          defense.level.hud.dd.show(defense);
+          // defense.level.hud.dd.show(defense);
+          defense.level.hud.preview.show(defense);
         }
       }
     });
@@ -116,7 +117,7 @@ var Defense = Computer.extend({
           return {result: false, cause: "There is already a tower there"};
         }
       }
-      return {result: true, cause: "Placed - $300"}; // TODO estos mensajes no estan muy bien aca
+      return {result: true, cause: _.format("Placed - ${}", rb.prices.createDefense)}; // TODO estos mensajes no estan muy bien aca
     }
   },
   counter: 0.0, // TODO counter is being used in the attack state but it is not clear if it is here

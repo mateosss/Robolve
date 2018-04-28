@@ -59,9 +59,9 @@ var DefenseDetails = ccui.ListView.extend({
     this.pushBackCustomItem(this.attackSpeed);
     this.destroy = new Button({
       callback: () => {
-        this.hud.alert("Destroy Defense", "Are you sure you want to delete this defense for 50 bucks? You just think in the money don't you?", () => {
+        this.hud.alert("Recycle Defense", _.format("Are you sure you want to delete this defense for {} bucks? You just think about money don't you?", rb.prices.destroyDefense), () => {
           this.defense.die();
-          this.hud.ig.addGold(50);
+          this.hud.ig.addGold(rb.prices.destroyDefense);
           this.hud.dialog.dismiss();
         });
       }, button: "red", icon: "close", width: "96px", height: "96px"

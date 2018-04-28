@@ -22,6 +22,12 @@ var DisplayManager = cc.Class.extend({
   width: "100pw", // width
   height: "100ph", // height
   padding: "0px", // padding
+  paddingTop: "0px", //padding top
+  paddingRight: "0px", //padding right
+  paddingBottom: "0px", //padding bottom
+  paddingLeft: "0px", //padding left
+  paddingVertical: "0px", //padding vertical
+  paddingHorizontal: "0px", //padding horizontal
   scale: 1, // scale of the node, useful when adjusting texture size
   debug: false, // true for showing a square with the rect of the component
 
@@ -38,6 +44,12 @@ var DisplayManager = cc.Class.extend({
     this.height = options.height || this.height;
     this.width = options.width || this.width;
     this.padding = options.padding || this.padding;
+    this.paddingTop = options.paddingTop || this.paddingTop;
+    this.paddingRight = options.paddingRight || this.paddingRight;
+    this.paddingBottom = options.paddingBottom || this.paddingBottom;
+    this.paddingLeft = options.paddingLeft || this.paddingLeft;
+    this.paddingVertical = options.paddingVertical || this.paddingVertical;
+    this.paddingHorizontal = options.paddingHorizontal || this.paddingHorizontal;
     this.scale = options.scale || this.scale;
 
     owner.addTo = function(parent, z, tag) {
@@ -70,6 +82,12 @@ var DisplayManager = cc.Class.extend({
     let height = this.height = options.height || this.height;
     let width = this.width = options.width || this.width;
     let padding = this.padding = options.padding || this.padding;
+    let paddingTop = this.paddingTop = options.paddingTop || this.paddingTop;
+    let paddingRight = this.paddingRight = options.paddingRight || this.paddingRight;
+    let paddingBottom = this.paddingBottom = options.paddingBottom || this.paddingBottom;
+    let paddingLeft = this.paddingLeft = options.paddingLeft || this.paddingLeft;
+    let paddingVertical = this.paddingVertical = options.paddingVertical || this.paddingVertical;
+    let paddingHorizontal = this.paddingHorizontal = options.paddingHorizontal || this.paddingHorizontal;
     let scale = this.scale = options.scale || this.scale;
 
     let debugChange = this.debug !== options.debug;
@@ -79,8 +97,15 @@ var DisplayManager = cc.Class.extend({
     let h = this.getParentHeight();
 
     padding = this.calc(padding);
-    height = this.calc(height) / scale - padding * 2 / scale;
-    width = this.calc(width) / scale - padding * 2 / scale;
+    paddingTop = this.calc(paddingTop);
+    paddingRight = this.calc(paddingRight);
+    paddingBottom = this.calc(paddingBottom);
+    paddingLeft = this.calc(paddingLeft);
+    paddingVertical = this.calc(paddingVertical);
+    paddingHorizontal = this.calc(paddingHorizontal);
+
+    height = this.calc(height) / scale - (padding * 2 + paddingVertical * 2 + paddingTop + paddingBottom) / scale;
+    width = this.calc(width) / scale - (padding * 2 + paddingHorizontal * 2 + paddingRight + paddingLeft) / scale;
     if (x === "center") {
       // TODO this if is a little weird, it's here because text objects don't respect
       // the width and heights displayManager gives them, cocos2d after the setup
@@ -89,19 +114,19 @@ var DisplayManager = cc.Class.extend({
       // and if so, I just use the real owner previous width instead of the given in options
       // also aplicable in the y === "center" section
       if (this.owner instanceof ccui.Text) x = (w - this.owner.width) / 2;
-      else x = (w - width) / 2;
+      else x = (w  - width * scale) / 2;
     } else {
       x = this.calc(x);
-      x = (x > 0 || Object.is(x, +0) ? x : w + x) + padding;
+      x = (x > 0 || Object.is(x, +0) ? x : w + x) + padding + paddingLeft + paddingHorizontal;
     }
 
     if (y === "center") {
       // See x==="center" section for explanation of this if statement
       if (this.owner instanceof ccui.Text) y = (h - this.owner.height) / 2;
-      else y = (h - height) / 2;
+      else y = (h - height * scale) / 2;
     } else {
       y = this.calc(y);
-      y = (y >= 0 ? y : h + y) + padding;
+      y = (y > 0 || Object.is(y, +0) ? y : h + y) + padding + paddingBottom + paddingVertical;
     }
 
     y += this.calc(bottom) - this.calc(top);
@@ -132,7 +157,7 @@ var DisplayManager = cc.Class.extend({
     // Returns this.owner.parent's height, or screen dimensions if none
     return this.owner && this.owner.parent ? this.owner.parent.height : cc.winSize.height;
   },
-  propToPix: function(prop) {
+  propToPix: function(rawProp) {
     // Translate a property into the final pixels that the display manager will use
     // AApx: Real screen pixels,
     // AArem = 16px * AA
@@ -146,7 +171,8 @@ var DisplayManager = cc.Class.extend({
     // AApmax = AA * (pw > ph ? pw : ph)
     // TODO: AA% = AApw (AAph if property is height, top or bottom)
     // TODO make component property calc(), i.e. calc(100vw - 120px)
-    prop = prop.match(/(-?\d+(?:\.?\d+)?)(?: *)?(.*)/);
+    // if (prop.length < 2) throw _.format("DisplayManager - {}: {} evaluated to {} doesn't have the correct format", this.owner.toString(), rawProp, prop);
+    let prop = rawProp.match(/(-?\d+(?:\.?\d+)?)(?: *)?(.*)/);
     let magnitude = parseFloat(prop[1]);
     let unit = prop[2];
     if (isNaN(magnitude)) throw _.format("DisplayManager - {}: {} has an incorrect magnitude", this.owner.toString(), prop[0]);
@@ -183,7 +209,7 @@ var DisplayManager = cc.Class.extend({
   },
   calc: function(expression) {
     let props = expression.split("+").map(p => p.trim());
-    let totalPixels = 0;
+    let totalPixels = -0; // Yep, that -0 is on purpose
     props.forEach(p => {totalPixels += this.propToPix(p);});
     return totalPixels;
   },

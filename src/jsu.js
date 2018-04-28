@@ -13,17 +13,19 @@ Map.prototype.seti = function(i, value) { // Sets the value of an index
   this.set(this.getki(i), value);
 };
 
+Object.values = Object.values || function (object) {
+  return Object.keys(object).map(key => object[key]);
+};
+
 var _ = {
   size: object => Object.keys(object).length, // length of an object
   props: Class => new Class(), // new empty class, used for getting constants
-  format: function(string, params) { // similar to python str.format
+  format: function(string, params, flexible) { // similar to python str.format
     if (typeof params !== "object") params = Array.prototype.slice.call(arguments, 1);
     var chunks = string.split("{}");
     var final = "";
-    if (chunks.length - 1 !== params.length) throw "jsu: _.format arguments length doesn't match the given string expected params";
-    for (var i = 0; i < chunks.length - 1; i++) {
-      final += chunks[i] + params[i];
-    }
+    if (!flexible && chunks.length - 1 !== params.length) throw "jsu: _.format arguments length doesn't match the given string expected params";
+    for (var i = 0; i < chunks.length - 1; i++) final += chunks[i] + params[i];
     final += _.last(chunks);
     return final;
   },
@@ -60,5 +62,18 @@ var _ = {
   },
   randint: (from, to) => from + Math.floor(Math.random() * (to - from + 1)),
   randchoice: (array) => array[_.randint(0, array.length - 1)],
-  wrap: (func, ...params) => {return () => func(...params);}
+  wrap: (func, ...params) => {return () => func(...params);}, // Returns a function that executes a function with specific params
+  assert: console.assert || ((bool, error) => { if (bool) console.log(error); }),
+  formatVarName: name => { // from "someVarName" to "Some Var Name"
+    let res = name[0].toUpperCase();
+    for (let l of name.slice(1)) {
+      res += l === l.toUpperCase() ? " " + l : l;
+    }
+    return res;
+  },
+  invert: object => { // from {a: 1, b: 2} to {1: 'a', 2: 'b'}
+    let res = {};
+    Object.keys(object).forEach((key) => { res[object[key]] = key; });
+    return res;
+  },
 };
