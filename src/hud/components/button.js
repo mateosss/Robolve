@@ -5,7 +5,7 @@ var Button = ccui.Button.extend({
   icon: null, // the button icon
   ctor: function(options) {
     this.button = this.button || {
-      button: "green",
+      button: "green", // color, colorRound
       callback: () => cc.log("Button pressed."),
       text: "",
       textFontName: "baloo",
@@ -65,7 +65,7 @@ var Button = ccui.Button.extend({
       this.setTitleColor(this.button.textColor);
 
       if (!this.text) this.text = this.getTitleRenderer();
-      this.text.y += 5; // TODO Doesn't correct the text in the levelCenter button of defense preview
+      this.text.y += 5; // TODO Doesn't correct the text in the levelCenter button of DefenseView
     }
 
 

@@ -70,7 +70,12 @@ var Dialog = Panel.extend({
     this._super(options);
   },
   show: function(instant) {
-    if (this.inScreen) return;
+    if (this.inScreen) { // Re-show
+      let moveDown = new cc.EaseBackOut(new cc.MoveBy(0.2, cc.p(0, -cc.winSize.width)), 3);
+      let moveUp = new cc.EaseBackOut(new cc.MoveBy(0.2, cc.p(0, cc.winSize.width)), 3);
+      this.runAction(new cc.Sequence([moveDown, moveUp]));
+      return;
+    }
     if (instant) {
       this.visible = true;
       this.setup({right: "0vw"});
