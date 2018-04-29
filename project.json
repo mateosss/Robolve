@@ -36,6 +36,7 @@
       "src/hud/infoText.js",
       "src/hud/infoGold.js",
       "src/hud/defensePreview.js",
+      "src/hud/basicDefenseView.js",
       "src/hud/defenseView.js",
       "src/level/base.js",
       "src/level/game.js",

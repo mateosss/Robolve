@@ -39,6 +39,7 @@
     "InfoText": true,
     "InfoGold": true,
     "DefensePreview": true,
+    "BasicDefenseView": true,
     "DefenseView": true,
     "StatTweak": true,
     "MainMenu": true

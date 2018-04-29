@@ -11,6 +11,7 @@ var Text = ccui.Text.extend({
       color: cc.color(255, 255, 255),
       shadow: null, // list with color, offset, blurradius
       lineHeight: null, // line height in pixels
+      width: "0px", // text bounding width in pixels, 0px for no limits
     };
     this._super();
     this.setAnchorPoint(0, 0);
@@ -26,6 +27,7 @@ var Text = ccui.Text.extend({
     this.text.color = options.color || this.text.color;
     this.text.shadow = options.shadow || this.text.shadow;
     this.text.lineHeight = options.lineHeight || this.text.lineHeight;
+    this.text.width = options.width || this.text.width;
 
     this.setString(this.text.text);
     this.setFontName(r.fonts[this.text.fontName].name);
@@ -35,6 +37,8 @@ var Text = ccui.Text.extend({
     this.setTextColor(this.text.color);
     if (this.text.shadow) this.enableShadow(...this.text.shadow);
     if (this.text.lineHeight) this.getVirtualRenderer().setLineHeight(this.text.lineHeight);
+    let width = this.displayManager.calc(this.text.width);
+    if (width) this.boundingWidth = width;
     this.displayManager.setup(options);
   },
   toString: () => "Text"
