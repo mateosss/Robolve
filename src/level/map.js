@@ -10,7 +10,7 @@ var TiledMap = cc.TMXTiledMap.extend({
     this.scheduleUpdate();
 
     easyTouchEnded(this, function(map, event) {
-      var btnRect = map.level.hud.ds.ok.getBoundingBoxToWorld();
+      var btnRect = map.level.hud.ds.getBoundingBoxToWorld();
       var isNotABtn = !cc.rectContainsPoint(btnRect, event.getLocation());//TODO pretty unclean
       if (map.level.dummyDefense && map.level.dummyDefense.visible === true && isNotABtn) {
         var tile = map.tileCoordFromLocation(event.getLocation());

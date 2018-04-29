@@ -33,6 +33,7 @@
       "src/hud/statTweak.js",
       "src/hud/defenseDetails.js",
       "src/hud/defenseSelector.js",
+      "src/hud/basicDefenseSelector.js",
       "src/hud/infoText.js",
       "src/hud/infoGold.js",
       "src/hud/defensePreview.js",

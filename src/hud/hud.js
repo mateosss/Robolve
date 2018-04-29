@@ -1,7 +1,6 @@
 var Hud = cc.Layer.extend({
-  // TODO El hud es muy inestable, hay mucho hardcode de numeros en pixeles, hay que
-  // buscar un buen metodo para hacer menues mas estables
   level: null,
+  activeDialog: null,
 
   ig: null, // Information Gold
   ds: null, // Defense Selector
@@ -23,8 +22,10 @@ var Hud = cc.Layer.extend({
     this.ig.addTo(this.goldbar);
 
     // Defense Selector
-    this.ds = new DefenseSelector(this);
-    this.addChild(this.ds, 1);
+    // this.ds = new DefenseSelector(this);
+    // this.addChild(this.ds, 1);
+    this.ds = new BasicDefenseSelector(this, {});
+    this.ds.addTo(this, 1);
 
     // Info Text
     this.it = new InfoText(this);
@@ -34,7 +35,7 @@ var Hud = cc.Layer.extend({
     this.dd = new DefenseDetails(this);
     this.addChild(this.dd);
 
-    this.dialog = new Dialog({type:"confirm", width: "80vw", height: "35vh", x: "center", y: "center"});
+    this.dialog = new Dialog(this, {type:"confirm", width: "80vw", height: "35vh", x: "center", y: "center"});
     this.dialog.addTo(this);
 
     // Bottom bar
@@ -47,13 +48,13 @@ var Hud = cc.Layer.extend({
     // this.preview = new DefenseView({});
     // this.preview.addTo(this);
 
-    this.preview = new BasicDefenseView({y: "140px"});
+    this.preview = new BasicDefenseView(this, {});
     this.preview.addTo(this, -5);
 
     // this.pinkbutton = new Button({button: "pink", callback: () => this.preview.show(), width:"100ph", icon:"robot", padding:"11px", left:"11px", x: "-200ph", iconFontSize: 72});
     // this.pinkbutton.addTo(this.bottombar); TODO Developer view
 
-    this.button = new Button({callback: () => this.dialog.show(), width:"100ph", icon:"plus", padding:"11px", x: "-100ph", iconFontSize: 72});
+    this.button = new Button({callback: () => this.ds.show(), width:"100ph", icon:"plus", padding:"11px", x: "-100ph", iconFontSize: 72});
     this.button.addTo(this.bottombar);
 
     // this.progress1 = new Progress({color: "orange", buttons: true, y:"center", x:"center", bottom: "128px", width:"70pw", height:"96px", predefinedValues:["electric", "fire", "water", "air"], text:"Selected: {}", selectedValue:1});

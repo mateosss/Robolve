@@ -219,11 +219,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.defenses.push(defense);
   },
   showDummyDefense: function(defense) { // TODO when the map doesn't fill all the space, there are problems when selecting a tile that is outside the map
-    if (this.dummyDefense) {
-      this.dummyDefense.removeFromParent();
-      this.dummyDefense.release();
-      this.dummyDefense = null;
-    }
+    this.removeDummyDefense();
     this.dummyDefense = defense;
     var ms = this.map.getMapSize();
     var pos = cc.p(ms.width / 2, ms.height / 2);
@@ -239,6 +235,14 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     tint = new cc.TintTo(0.2, color.r, color.g, color.b);
     this.dummyDefense.runAction(tint);
     this.map.selectTile(pos, color);
+  },
+  removeDummyDefense: function() {
+    if (this.dummyDefense) {
+      this.dummyDefense.removeFromParent();
+      this.dummyDefense.release();
+      this.dummyDefense = null;
+      this.map.debugger.debugTile(this.map, {stop: true});
+    }
   },
   prepareNextWave: function() {// TODO no estoy teniendo en cuenta el orden en el que salen
     var robotsAmount;

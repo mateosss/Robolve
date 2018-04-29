@@ -1,6 +1,6 @@
 var BasicDefenseView = Dialog.extend({
-
   selectedDefense: null,
+  hud: null,
 
   // UI Components Structure
 
@@ -19,7 +19,7 @@ var BasicDefenseView = Dialog.extend({
   statsDamage: null,
   statsAttackSpeed: null,
 
-  ctor: function(options, selectedDefense) {
+  ctor: function(hud, options, selectedDefense) {
 
     this.selectedDefense = selectedDefense;
 
@@ -28,10 +28,10 @@ var BasicDefenseView = Dialog.extend({
     options.height = options.height || "280px";
     options.paddingHorizontal = options.paddingHorizontal || "11px";
     options.x = options.x || "center";
-    options.y = options.y || "center";
+    options.y = options.y || "140px";
     options.bgImage = r.ui.grey;
 
-    this._super(options);
+    this._super(hud, options);
 
     this.titleContainer = new Layout({height: "80px", width: "100pw", y: "-80px"});
     this.titleContainer.addTo(this);

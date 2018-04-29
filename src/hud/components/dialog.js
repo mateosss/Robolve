@@ -1,4 +1,5 @@
 var Dialog = Panel.extend({
+  hud: null,
   dialog: null, // dialog specififc properties, check ctor
   displayManager: null, // Manages the size and location of this component
   inScreen: true, // tells wether the dialog is being shown
@@ -12,7 +13,8 @@ var Dialog = Panel.extend({
   ok: null,
   cancel: null,
 
-  ctor: function(options) {
+  ctor: function(hud, options) {
+    this.hud = hud;
     this.dialog = this.dialog || {
       title: options.title || "Dialog Title",
       // Text maximum length is about 200-250 letters, if you want more, implement a scroll view here.
@@ -70,6 +72,9 @@ var Dialog = Panel.extend({
     this._super(options);
   },
   show: function(instant) {
+    if (this.hud.activeDialog !== this && this.hud.activeDialog !== null) this.hud.activeDialog.dismiss();
+    this.hud.activeDialog = this;
+
     if (this.inScreen) { // Re-show
       let moveDown = new cc.EaseBackOut(new cc.MoveBy(0.2, cc.p(0, -cc.winSize.width)), 3);
       let moveUp = new cc.EaseBackOut(new cc.MoveBy(0.2, cc.p(0, cc.winSize.width)), 3);
@@ -88,6 +93,7 @@ var Dialog = Panel.extend({
     this.inScreen = true;
   },
   dismiss: function(instant) {
+    this.hud.activeDialog = null;
     if (!this.inScreen) return;
     if (instant) {
       this.visible = false;

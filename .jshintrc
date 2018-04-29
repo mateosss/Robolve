@@ -36,6 +36,7 @@
     "PropertySelector": true,
     "DefenseDetails": true,
     "DefenseSelector": true,
+    "BasicDefenseSelector": true,
     "InfoText": true,
     "InfoGold": true,
     "DefensePreview": true,
