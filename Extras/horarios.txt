@@ -407,8 +407,12 @@ Format (variables between \<\> should be calculated after each day/task)
   - 22:30 - 00:00 | Stat tweak on defense preview modifies existing turrets
 
 Estimación EVA Córdoba
+
 - 2018-04-28 Sa - 06:30 hs
   - 18:00 - 00:30 | New BasicDefenseView created and finished
-- 2018-04-29 Do -
+- 2018-04-29 Do - 04:00 hs
   - 09:00 - 12:00 | Implementing BasicDefenseSelector
   - 14:15 - 15:15 | Finishing BasicDefenseSelector
+
+  - 15:25 - 15:30 | Started and done removing terrain property
+  - 15:30 - 16:00 | Adjusting minimum things for sending to juan

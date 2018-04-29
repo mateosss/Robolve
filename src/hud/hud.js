@@ -27,9 +27,16 @@ var Hud = cc.Layer.extend({
     this.ds = new BasicDefenseSelector(this, {});
     this.ds.addTo(this, 1);
 
+    // Bottom bar
+    this.bottombar = new Layout({width: "100vw", height: "140px"});
+    this.bottombar.addTo(this);
+
+    this.bottombarLayout = new Panel({width: "100pw + -100ph + 11px", padding: "11px"});
+    this.bottombarLayout.addTo(this.bottombar, -1);
+
     // Info Text
     this.it = new InfoText(this);
-    this.addChild(this.it);
+    this.addChild(this.it, 10);
 
     // Defense Details
     this.dd = new DefenseDetails(this);
@@ -38,12 +45,6 @@ var Hud = cc.Layer.extend({
     this.dialog = new Dialog(this, {type:"confirm", width: "80vw", height: "35vh", x: "center", y: "center"});
     this.dialog.addTo(this);
 
-    // Bottom bar
-    this.bottombar = new Layout({width: "100vw", height: "140px"});
-    this.bottombar.addTo(this);
-
-    this.layout = new Panel({width: "100pw + -100ph + 11px", padding: "11px"});
-    this.layout.addTo(this.bottombar, -1);
 
     // this.preview = new DefenseView({});
     // this.preview.addTo(this);
@@ -93,7 +94,7 @@ var Hud = cc.Layer.extend({
     window.goldbar = this.goldbar;
     window.bottombar = this.bottombar;
     window.button = this.button;
-    window.layout = this.layout;
+    window.layout = this.bottombarLayout;
     window.preview = this.preview;
     window.pinkbutton = this.pinkbutton;
 

@@ -6,9 +6,7 @@ var Menu = cc.LayerGradient.extend({
   sprite:null,
   ctor:function (text) {
     this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
-    if (!text) {
-      text = "";
-    }
+    if (!text) text = "Robolve";
 
     var size = cc.winSize;
     var tapLabel = new cc.LabelTTF(text + (text ? "\n\n" : "") + "Select Level", r.getDefaultFont(), 46);

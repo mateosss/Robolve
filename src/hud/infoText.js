@@ -9,10 +9,11 @@ var InfoText = cc.LabelTTF.extend({
     this.setString("Defense Selector");
     this.setFontName(r.getDefaultFont());
     this.setFontSize(32);
-    this.setDimensions(cc.size(s.width, 48));
+    this.setDimensions(this.hud.bottombarLayout.getSize());
     this.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+    this.setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER);
     this.setAnchorPoint(0, 0);
-    this.setPosition(cc.p(0, this.hud.ds.height + this.hud.ds.y));
+    this.setPosition(0, 11);
   },
   toString: () => "InfoText",
   message: function(message, duration) {
