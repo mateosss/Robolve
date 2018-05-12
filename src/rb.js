@@ -12,8 +12,8 @@ var rb = {
     allDefenses: (func) => rb.dev.getDefenses().forEach(func),
     killRobots: (notKill) => rb.dev.getRobots().slice(notKill).forEach((r) => r.die()),
     killDefenses: (notKill) => rb.dev.getDefenses().slice(notKill).forEach((d) => d.die()),
-    stateRobots: (state) => rb.dev.allRobots((r) => r.setState(state)),
-    stateDefenses: (state) => rb.dev.allDefenses((d) => d.setState(state)),
+    stateRobots: (state) => rb.dev.allRobots((r) => r.sm.setState(state)),
+    stateDefenses: (state) => rb.dev.allDefenses((d) => d.sm.setState(state)),
     debugScoreRobot: function() {
       if (!this.debugger) this.debug();
       this.debugger.debugTile(this.level.map, { stop: true });// TODO stop doesn't work

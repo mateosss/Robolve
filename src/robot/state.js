@@ -15,6 +15,7 @@
 var State = cc.Node.extend({
   name: null, // name of the state i.e. 'walk'
   owner: null, // The node owner of the state, to which the state will affect
+  sm: null, // The owner.sm stateMachine to which this state belongs
   newProps: null, // {} an object with property name to change and new value, i.e. {sSpeed: 0}
   oldProps: null, // {} will backup the old properties on start
   local: null, // {} use this to save variables through state moments
@@ -35,10 +36,11 @@ var State = cc.Node.extend({
   lifespan: 0, // amount of seconds the event should last until it finish itself
 
 
-  ctor: function(owner, options) {
+  ctor: function(sm, owner, options) {
     this._super();
     this.retain();
     this.owner = owner;
+    this.sm = sm;
     this.newProps = options.props || {};
     this.oldProps = {};
     this.local = {};
@@ -57,7 +59,7 @@ var State = cc.Node.extend({
     // The states checks it is already active, if thats the case, exit
     if (this.active) return;
     // 1. The states adds itself to the cStates of the owner
-    this.owner.cStates.push(this);
+    this.sm.cStates.push(this);
     this.owner.addChild(this);
     // 2. The properties of the owner that are in new Props
     // are backed up in oldProps, and are replaced with the new
@@ -86,12 +88,12 @@ var State = cc.Node.extend({
     for (var prop in this.oldProps) this.owner[prop] = this.oldProps[prop];
     // -5. Be sure to unscheduleUpdate, we don't want this to be running anymore
     this.unscheduleUpdate();
-    // -4. the state removes itself from the owner cStates and is removed from the owner
-    var index = this.owner.cStates.indexOf(this);
-    this.owner.cStates.splice(index, 1);
+    // -4. the state removes itself from the owner's stateMachine cStates and is removed from the owner
+    var index = this.sm.cStates.indexOf(this);
+    this.sm.cStates.splice(index, 1);
     this.removeFromParent();
     // -3. If this state was the last (the one with higher priority), set the animation of the new higher priority state
-    if (index && index === this.owner.cStates.length) _.last(this.owner.cStates).animation.call(this.owner, this);
+    if (index && index === this.sm.cStates.length) _.last(this.sm.cStates).animation.call(this.owner, this);
     // -2. Mark that this state is not active anymore
     this.active = false;
     // -1. Mark that this state is now ended

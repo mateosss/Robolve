@@ -61,7 +61,7 @@ var Defense = Computer.extend({
     //if no robot in range return null
     if (inRange.length === 0) {
       this.target = null;
-      if (this.isInState('attack')) this.setState('idle');
+      if (this.sm.isInState('attack')) this.sm.setState('idle');
       return null;
     }
     //If there are robots in range proceed to detect which of them is closest
@@ -126,7 +126,7 @@ var Defense = Computer.extend({
     this.debugger.debugLine(this, {stop: true});
     this.debugger.debugLine(this, {target: target, offset: cc.p(0, 128), color: rb.palette[this.element]});
     if (!this.isDummy && target) {
-      this.setState('attack', {target: target});
+      this.sm.setState('attack', {target: target});
     }
   }
 });

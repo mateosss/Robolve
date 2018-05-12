@@ -5,18 +5,12 @@
 // maybe there could be other sprites with parts that doesn't necessarily battle
 // the solution would be to make a new class called BattleComputer that requires those two states and the hurt/die/attack/etc methods
 
-// TODO IF NEEDED - The concept of states is very powerfull, we need one more level of abstraction
-// from it, It can be used for gui elements, tutorials, etc. So making a class called
-// something like StateNode would be really useful, so that we could create sprites,
-// buttons, and so on with states already working on them without special initialization
-
 var Computer = cc.Sprite.extend({
   level: null, // Level where this object is placed
   pointing: 2, // Looking direction 0:North, 1:East, 2:South, 3:West
   cAnimation: null, // Current cc.Action being played
   cTilePos: cc.p(0, 0), // Current tile Position of the robot // TODO estoy hardcodeando esto
-  cStates: null, // [] array with applied states, from older to newer
-  states: null, // [] Automatically generated array, with all the STATES instances
+  sm: null, // The computer state machine
   creationTime: null,
   hitsReceived: 0,
   infligedDamage: 0,
@@ -48,11 +42,7 @@ var Computer = cc.Sprite.extend({
       this[this.STATS.getki(i)] = dna[i];
     }
 
-    this.states = [];
-    this.cStates = [];
-    for (let i = 0; i < this.STATES.length; i++) {
-      this.states.push(new State(this, this.STATES[i]));
-    }
+    this.sm = new StateMachine(this);
 
     this.factoryReset();
   },
@@ -116,35 +106,6 @@ var Computer = cc.Sprite.extend({
     this.allParts(function(part) { part.setAnimation(animation, speed); });
   },
 
-  // State section
-  getState: function(state) { // Gets a state from STATES by name
-    if (typeof state === 'string') state = this.states.find(aState => aState.name == state);
-    return state;
-  },
-  addState: function(state, extra) { // adds a state to cStates and starts it, expects a state or a string with its name, extra is an {}, adds everything that is in extra to state.local
-    state = this.getState(state);
-    if (!state) return cc.log("addState: State " + state + " doesn't exists for a " + this.toString());
-    _.concat(state.local, extra);
-    state.start();
-    return state;
-  },
-  removeState: function(state) { // removes a state from cStates and ends it, expects a state or a string with its name
-    this.getState(state).end();
-  },
-  removeAllStates: function() {
-    this.cStates.forEach((state) => state.end());
-  },
-  setState: function(state, extra) { // stops all states and add the provided one
-    var preserve = this.getState(state);
-    if (!preserve) return cc.log("setState: State " + state + " doesn't exists for a " + this.toString());
-    for (var i = this.cStates.length - 1; i >= 0; i--) {
-      if (this.cStates[i] !== preserve) this.removeState(this.cStates[i]);
-    }
-    this.addState(preserve, extra);
-  },
-  isInState: function(state) {
-    return this.getState(state).active;
-  },
   // General section
   factoryReset: function(soft) {
     this.assembleParts();
@@ -155,8 +116,8 @@ var Computer = cc.Sprite.extend({
     // and changing stats should not clean all states, removeAllStates and setState
     // should be inside the if (!soft) statement, and changing stats should PAUSE all
     // states and resume them, for that there should be a way of pausing states
-    this.removeAllStates();
-    this.setState(this.states[0]);
+    this.sm.removeAllStates();
+    this.sm.setDefaultState();
 
     this.createHealthBar();
     if (this.DEBUG) this.debug();
@@ -339,7 +300,7 @@ var Computer = cc.Sprite.extend({
     var computers = this.level[this.toStringP()];
     var i = computers.indexOf(this);
     if (i != -1) {
-      this.states.forEach((s) => s.destroy());
+      this.sm.destroy();
       this.removeFromParent();
       this.release();
       computers.splice(i, 1);
@@ -348,7 +309,7 @@ var Computer = cc.Sprite.extend({
   },
   die: function() {
     // Sets the die state that will reproduce some animations and then kill the computer
-    this.setState('die');
+    this.sm.setState('die');
   },
   livedTimeScore: function() {
     // Returns a float, being 0.0 == 0 ms, 1.0 lived more or equal ms to maxTime

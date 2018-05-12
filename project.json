@@ -44,6 +44,7 @@
       "src/level/level.js",
       "src/level/map.js",
       "src/robot/part.js",
+      "src/stateMachine.js",
       "src/robot/computer.js",
       "src/robot/defense.js",
       "src/robot/robot.js"

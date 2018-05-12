@@ -48,7 +48,7 @@ var Robot = Computer.extend({
     //if no defense in range return null
     if (inRange.length === 0) {
       this.target = null;
-      if (this.isInState('attack')) this.setState('walk');
+      if (this.sm.isInState('attack')) this.sm.setState('walk');
       return null;
     }
     //If there are defenses in range proceed to detect which of them is closest
@@ -88,6 +88,6 @@ var Robot = Computer.extend({
   counter: 0.0, // TODO counter is being used in the attack state but it is not clear if it is here
   update: function(delta) {
     var target = this.getTarget();
-    if (target && this.isInState('walk')) this.setState('attack', {target: target});
+    if (target && this.sm.isInState('walk')) this.sm.setState('attack', {target: target});
   },
 });

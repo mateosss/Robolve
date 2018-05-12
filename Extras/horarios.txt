@@ -371,6 +371,7 @@ Format (variables between \<\> should be calculated after each day/task)
     - 17:30 - 18:00 | Separando components en diferentes archivos y preparando checkpoint
 
 ## (60) HUD - Defense creation [] -
+
 - 2017-12-13 Mi - 01:00 hs
     - 20:45 - 21:45 | Empezando con defense view
 - 2017-12-14 Ju - 01:20 hs
@@ -406,13 +407,52 @@ Format (variables between \<\> should be calculated after each day/task)
 - 2018-03-24 Sa - 01:30 hs
   - 22:30 - 00:00 | Stat tweak on defense preview modifies existing turrets
 
-Estimación EVA Córdoba
+
+# TODO: Nueva Etapa EVA - Seccionar correctamente
+
+# (08:00 hs) Abril Semana 22 [11:00 hs]
 
 - 2018-04-28 Sa - 06:30 hs
   - 18:00 - 00:30 | New BasicDefenseView created and finished
-- 2018-04-29 Do - 04:00 hs
+- 2018-04-29 Do - 04:30 hs
   - 09:00 - 12:00 | Implementing BasicDefenseSelector
   - 14:15 - 15:15 | Finishing BasicDefenseSelector
-
   - 15:25 - 15:30 | Started and done removing terrain property
-  - 15:30 - 16:00 | Adjusting minimum things for sending to juan
+  - 15:30 - 15:55 | Adjusting minimum things for sending to juan
+
+# (08:00 hs) Abril Semana del 29 [01:30 hs]
+
+- 2017-05-05 Sa - 01:30 hs
+- 10:00 - 11:30 | Desglosando, hasta Char Improve Towers
+
+# (08:00 hs) Mayo Semana 6 []
+
+- 2017-05-06 Do - 01:00 hs
+  - 18:45 - 19:00 | Desglosando basic inventory
+  - 21:45 - 22:30 | Desglosando hasta chest
+- 2017-05-11 Vi -
+  - 08:40 - 09:40 | Implementando character, viendo que necesito modularizar statemachine fuera de computer
+- 2017-05-12 Sa -
+  - 09:40 - 10:40 | Modularizado stateMachines fuera de Computer
+
+# (08:00 hs) Mayo Semana 13 []
+
+# (08:00 hs) Mayo Semana 20 []
+
+# (08:00 hs) Mayo Semana 27 []
+
+# (08:00 hs) Junio Semana 3 []
+
+# (08:00 hs) Junio Semana 10 []
+
+# (08:00 hs) Junio Semana 17 []
+
+# (08:00 hs) Junio Semana 24 []
+
+# (40:00 hs) Julio Semana 1 []
+
+# (40:00 hs) Julio Semana 8 []
+
+# (40:00 hs) Julio Semana 15 []
+
+# (40:00 hs) Julio Semana 22 []
