@@ -61,7 +61,7 @@ var Defense = Computer.extend({
   },
   createBuildBar: function() {
     let color = {fire: "orange", electric: "yellow", water: "blue"}[this.element];
-    this.buildBar = new Progress({text:"{}%", color: color, x: "0px", y:"64px", scale: 0.5, height:"32px", width:"128px", fontSize: 56});
+    this.buildBar = new Progress({swallow: false, text: "{}%", color: color, x: "0px", y:"64px", scale: 0.5, height:"32px", width:"128px", fontSize: 56});
     this.buildBar.setAnchorPoint(0.5, 0.5);
     this.buildBar.addTo(this, 10);
     this.buildBar.titleContainer = new Panel({swallow: false, x: "center", width: "150pw", top: "48px", height: "350ph", bgImage: r.ui.panel, scale: 2});

@@ -66,7 +66,7 @@ var _ = {
   sequence: (self, ...funcs) => { return () => { // Returns a function that executes funcs (with no params) (with self context) in sequence
     for (var i = 0; i < funcs.length; i++) funcs[i].apply(self);
   };},
-  assert: console.assert || ((bool, error) => { if (bool) console.log(error); }),
+  assert: console.assert || ((bool, error) => { if (!bool) console.log(error); }),
   formatVarName: name => { // from "someVarName" to "Some Var Name"
     let res = name[0].toUpperCase();
     for (let l of name.slice(1)) {

@@ -4,8 +4,8 @@ var Panel = ccui.Layout.extend({
   ctor: function(options) {
     this.panel = this.panel || {bgImage: r.ui.panel};
     this._super();
-    this.setSwallowTouches(true); // TODO This works great if below the dialog is a button, but if there is something using easyEvents it doesn't work as expected
-    this.setTouchEnabled(true);
+    this.setSwallowTouches(options.swallow !== undefined ? options.swallow : true); // TODO This works great if below the dialog is a button, but if there is something using easyEvents it doesn't work as expected
+    this.setTouchEnabled(options.swallow !== undefined ? options.swallow : true);
     this.displayManager = new DisplayManager(this, options);
     this.setup(options);
   },
