@@ -2,6 +2,8 @@ var Defense = Computer.extend({
   target: null,// Target robot to fire
   animAttackSpeed: 1.0,// Attack speed animation
   isDummy: false, // If it is a dummy defense, (a.k.a. a defense preview in the map)
+  built: 0, // Built percentage of the defense
+  buildBar: null, // The progress bar showing defense build progress
   DEBUG: true,
   STATS: new Map([
     ['life', {0: 500, 1: 600, 2: 700}],
@@ -21,23 +23,58 @@ var Defense = Computer.extend({
     base: {plural: "bases", z: 0, partName: defense => defense.element + ["Walk", "Fly"][defense.terrain]}
   },
   STATES: [ // Possible states for this defense
+    rb.states.defense.build,
     rb.states.defense.idle,
     rb.states.defense.still,
     rb.states.defense.attack,
-    rb.states.defense.die
+    rb.states.defense.die,
   ],
-  ctor:function(level, life, element, range, terrain, damage, attackSpeed) {
+  ctor:function(level, life, element, range, terrain, damage, attackSpeed, isDummy) {
     if (arguments.length === 0) return;
     this._super.apply(this, arguments);
     this.setAnchorPoint(0.5, 0.1); // TODO quirk because of the bad tiles proportions
-    if (!this.isDummy) {
-      this.setTouchEvent();
-      this.scheduleUpdate();
+    if (!isDummy) this.realDefenseInit();
+    this.isDummy = isDummy;
+  },
+  realDefenseInit: function() { // Things that dummy defenses should not execute
+    this.setTouchEvent();
+    this.scheduleUpdate();
+    if (!this.isBuilt()) this.createBuildBar();
+  },
+  // Build related things
+  addBuilt: function(amount) {
+    this.built += amount;
+    if (this.built >= 100) {
+      this.built = 100;
+      this.sm.setState('idle');
+
+      let scaleDown = new cc.EaseBackIn(new cc.ScaleTo(0.5, 0, 0));
+      this.buildBar.runAction(scaleDown);
     }
+    this.buildBar.changePercent(Math.floor(this.built));
   },
-  toString: function() {
-    return "Defense";
+  setBuilt: function() {
+    this.addBuilt(100);
   },
+  isBuilt: function() {
+    return this.built == 100;
+  },
+  createBuildBar: function() {
+    let color = {fire: "orange", electric: "yellow", water: "blue"}[this.element];
+    this.buildBar = new Progress({text:"{}%", color: color, x: "0px", y:"64px", scale: 0.5, height:"32px", width:"128px", fontSize: 56});
+    this.buildBar.setAnchorPoint(0.5, 0.5);
+    this.buildBar.addTo(this, 10);
+    this.buildBar.titleContainer = new Panel({x: "center", width: "150pw", top: "48px", height: "350ph", bgImage: r.ui.panel, scale: 2});
+    this.buildBar.titleContainer.addTo(this.buildBar, -1);
+    this.buildBar.title = new Text({text: "building", x: "center", y: "64px", top: cc.sys.isNative ? "0px" : "5px", fontSize: 56});
+    this.buildBar.title.addTo(this.buildBar);
+
+    this.buildBar.scale = 0;
+    let scaleUp = new cc.EaseBackOut(new cc.ScaleTo(0.5, 0.5, 0.5));
+    this.buildBar.runAction(scaleUp);
+  },
+
+  toString: () => "Defense",
   setTouchEvent: function() {
     easyTouchEnded(this, function(defense) {
       if (defense.getNumberOfRunningActions() === 0) {
@@ -45,8 +82,12 @@ var Defense = Computer.extend({
           var increase = new cc.ScaleBy(0.1, 1.2);
           var decrease = new cc.ScaleBy(0.1, 1 / 1.2);
           defense.runAction(new cc.Sequence(increase, decrease));
-          // defense.level.hud.dd.show(defense);
-          defense.level.hud.preview.show(defense);
+          if (!defense.isBuilt()) {
+            defense.level.character.goBuild(defense);
+          } else {
+            // defense.level.hud.dd.show(defense);
+            defense.level.hud.preview.show(defense);
+          }
         }
       }
     });
@@ -122,10 +163,11 @@ var Defense = Computer.extend({
   },
   counter: 0.0, // TODO counter is being used in the attack state but it is not clear if it is here
   update: function(delta) {
+    if (this.isDummy) return;
     var target = this.getTarget();
     this.debugger.debugLine(this, {stop: true});
-    this.debugger.debugLine(this, {target: target, offset: cc.p(0, 128), color: rb.palette[this.element]});
-    if (!this.isDummy && target) {
+    if (target && !this.sm.isInState('build')) {
+      this.debugger.debugLine(this, {target: target, offset: cc.p(0, 128), color: rb.palette[this.element]});
       this.sm.setState('attack', {target: target});
     }
   }

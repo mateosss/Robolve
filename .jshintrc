@@ -15,6 +15,7 @@
     "console": true,
 
     "StateMachine": true,
+    "Character": true,
     "Computer": true,
     "State": true,
     "Part": true,

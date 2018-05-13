@@ -31,6 +31,7 @@ var Robot = Computer.extend({
 
   ctor: function(level, dna) {
     //TODO que funcione el balanceo, poder hacer que un robot sea de tipo +1 y eso
+    // TODO creo que este hack ya no es necesario por Robot.prototype.STATS, croe que nadie lo usa, quitar
     if (arguments.length === 0) return; // Hack for getting only the properties defined above
     this._super.apply(this, arguments);
     this.scheduleUpdate();

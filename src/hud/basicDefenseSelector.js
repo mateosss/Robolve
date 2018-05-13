@@ -11,6 +11,8 @@ var BasicDefenseSelector = cc.Node.extend({
   buttons: null, // List of three buttons
 
   confirm: null, // Confirmation after selection
+  confirmOk: null,
+  confirmCancel: null,
 
   ctor: function(hud, options) {
     this._super();
@@ -75,9 +77,8 @@ var BasicDefenseSelector = cc.Node.extend({
       let terrain = 0;//0,1
       let damage = 0;//0,1,2
       let attackSpeed = 0;//0,1,2
-      let customDefense = new Defense(level, life, element, range, terrain, damage, attackSpeed);
+      let customDefense = new Defense(level, life, element, range, terrain, damage, attackSpeed, true);
       customDefense.retain();
-      customDefense.isDummy = true;
       level.showDummyDefense(customDefense);
       if (!bds.confirm.inScreen) bds.showConfirm();
     };
@@ -92,20 +93,11 @@ var BasicDefenseSelector = cc.Node.extend({
     let pos = level.map.tileCoordFromChild(level.dummyDefense);
     let canBePlaced = level.dummyDefense.canBePlacedOn(pos);
     if (canBePlaced.result && level.base.gold >= rb.prices.createDefense) {
-      level.dummyDefense.setColor(cc.color(255, 255, 255));
-      level.defenses.push(level.dummyDefense);
-      let newDefense = level.dummyDefense;
-      newDefense.retain();
-      newDefense.isDummy = false;
+      level.character.goBuild(level.dummyDefense);
+      let newDefense = level.dummyToDefense();
       hud.ds.confirm.dismiss(); // This doesn't only hides the bds, this also clears the dummy defense from map
-      level.map.addChild(newDefense);
-      newDefense.setTouchEvent();
-      newDefense.factoryReset(); // This makes possible to the idle animation to execute the idle animation
-      newDefense.scheduleUpdate();
-
       hud.ig.removeGold(rb.prices.createDefense);
       hud.it.message(canBePlaced.cause);
-
     } else {
       if (canBePlaced.result) {
         hud.it.message(_.format("You don't have {} bucks", rb.prices.createDefense));

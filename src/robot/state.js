@@ -1,5 +1,5 @@
 // A state simulates a state of a robot which consist in basically changing properties
-// and executing things on the robot when the states initiates / every frame / when the states ends
+// and executing things on the robot when the states initiates / every frame / custom interval with scheduleItems / when the states ends
 // every property that should be changed and reseted to its previous state should be passed
 // through newProps object, with the name of the property and the new value, the state
 // will automatically backup the previous values, and restore them on .end() execution
@@ -8,8 +8,6 @@
 
 // TODO IF NEEDED
 // options.delay, delay before starting the state
-// options.schedule list, use parent.schedule to execute something with lots of options
-//    use http://www.cocos2d-x.org/docs/api-ref/js/v3x/symbols/cc.Node.html#schedule with the exact same parameters
 
 
 var State = cc.Node.extend({
@@ -31,6 +29,7 @@ var State = cc.Node.extend({
   animation: null, // a function to be executed to set the animation for this state
   postStart: null, // executed inmediately after start
   everyFrame: null, // executed every frame (if present, a scheduleUpdate() will be made), first argument is deltatime
+  scheduleItems: null, // a list of objects with functions and parameters to send to cc.Node.schedule
   beforeEnd: null, // executed just before exit
 
   lifespan: 0, // amount of seconds the event should last until it finish itself
@@ -48,6 +47,7 @@ var State = cc.Node.extend({
     this.animation = options.animation;
     this.postStart = options.postStart;
     this.everyFrame = options.everyFrame;
+    this.scheduleItems = options.schedule || [];
     this.beforeEnd = options.beforeEnd;
     this.lifespan = options.lifespan;
   },
@@ -58,26 +58,31 @@ var State = cc.Node.extend({
   start: function() {
     // The states checks it is already active, if thats the case, exit
     if (this.active) return;
-    // 1. The states adds itself to the cStates of the owner
+    // The states adds itself to the cStates of the owner
     this.sm.cStates.push(this);
     this.owner.addChild(this);
-    // 2. The properties of the owner that are in new Props
+    // The properties of the owner that are in new Props
     // are backed up in oldProps, and are replaced with the new
     for (var prop in this.newProps) {
       this.oldProps[prop] = this.owner[prop];
       this.owner[prop] = this.newProps[prop];
     }
-    // 3. If setAnimation was given, then call it
+    // If setAnimation was given, then call it
     if (this.animation) this.animation.call(this.owner, this);
-    // 4. If postStart was given, then call it
+    // If postStart was given, then call it
     if (this.postStart) this.postStart.call(this.owner, this);
-    // 5. If everyFrame was given, then scheduleUpdate
+    // If everyFrame was given, then scheduleUpdate
     if (this.everyFrame || this.lifespan) this.scheduleUpdate();
-    // 6. If lifespan was given, increase set timeToEnd value
+    // Schedule every schedule item
+    this.scheduleItems.forEach((s) => this.schedule(
+      (dt) => s.callback.call(this.owner, dt, this),
+      s.interval || 0, s.repeat || cc.REPEAT_FOREVER, s.delay || 0, s.key || this.name
+    ));
+    // If lifespan was given, increase set timeToEnd value
     if (this.lifespan) this.timeToEnd = this.lifespan;
-    // 7. mark that this is at least the first run
+    // mark that this is at least the first run
     this.first = false;
-    // 8. mark that this state is now active and it hasn't ended yet (it just started)
+    // mark that this state is now active and it hasn't ended yet (it just started)
     this.active = true;
     this.ended = false;
   },
@@ -103,5 +108,6 @@ var State = cc.Node.extend({
     if (this.everyFrame) this.everyFrame.call(this.owner, dt, this);
     if (this.lifespan) this.timeToEnd -= dt;
     if (this.timeToEnd < 0) this.end();
-  }
+  },
+  toString: () => "State",
 });

@@ -434,7 +434,8 @@ Format (variables between \<\> should be calculated after each day/task)
   - 08:40 - 09:40 | Implementando character, viendo que necesito modularizar statemachine fuera de computer
 - 2017-05-12 Sa -
   - 09:40 - 10:40 | Modularizado stateMachines fuera de Computer
-
+  - 10:40 - 12:40 | Character ya se mueve para ir a construir defensas, no construye
+  - 17:15 - 
 # (08:00 hs) Mayo Semana 13 []
 
 # (08:00 hs) Mayo Semana 20 []

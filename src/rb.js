@@ -85,6 +85,13 @@ var rb = {
           this.runAction(new cc.Sequence(actArray));
         }
       },
+      build: {
+        name: 'build',
+        animation: function() { this.setAnimation('still'); },
+        postStart: function() {
+
+        }
+      }
     },
     robot: {
       still: {
@@ -122,6 +129,30 @@ var rb = {
           this.runAction(new cc.Sequence(actArray));
         }
       },
+    },
+    character: {
+      still: {
+        name: 'still',
+      },
+      move: {
+        name: 'move',
+        everyFrame: function() {
+          this.move();
+        }
+      },
+      build: {
+        name: 'build',
+        schedule: [{
+           callback: function(dt) {
+             if (!this.target.sm.isInState('build')) this.sm.setDefaultState();
+             else this.target.addBuilt(dt * 100 / this.buildTime);
+           },
+           interval: 0.5,
+        }],
+        beforeEnd: function() {
+            this.cleanTarget();
+        },
+      }
     }
   },
 };

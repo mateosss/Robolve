@@ -23,7 +23,7 @@ var StateMachine = cc.Class.extend({
   },
   addState: function(state, extra) { // adds a state to cStates and starts it, expects a state or a string with its name, extra is an {}, adds everything that is in extra to state.local
     state = this.getState(state);
-    if (!state) return cc.log("addState: State " + state + " doesn't exists for a " + this.toString());
+    if (!state) return cc.log("addState: State " + state + " doesn't exists for a " + this.owner.toString());
     _.concat(state.local, extra);
     state.start();
     return state;
@@ -36,7 +36,7 @@ var StateMachine = cc.Class.extend({
   },
   setState: function(state, extra) { // stops all states and add the provided one
     var preserve = this.getState(state);
-    if (!preserve) return cc.log("setState: State " + state + " doesn't exists for a " + this.toString());
+    if (!preserve) return cc.log("setState: State " + state + " doesn't exists for a " + this.owner.toString());
     for (var i = this.cStates.length - 1; i >= 0; i--) {
       if (this.cStates[i] !== preserve) this.removeState(this.cStates[i]);
     }

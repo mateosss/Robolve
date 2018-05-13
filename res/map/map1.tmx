@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" renderorder="right-down" width="20" height="20" tilewidth="128" tileheight="64" nextobjectid="54">
+<map version="1.0" tiledversion="1.0.2" orientation="isometric" renderorder="right-down" width="20" height="20" tilewidth="128" tileheight="64" nextobjectid="56">
  <properties>
   <property name="wavesCounts" value="10,10,20,20,25,25,28,29,30,34,36,38,40,50"/>
   <property name="wavesIntervals" value="0,5,5,5,5,5,5,5,5,5,5,5,5,5"/>
@@ -672,5 +672,6 @@
     <property name="terrain" value="0"/>
    </properties>
   </object>
+  <object id="55" name="SpawnCharacter" x="576" y="704" width="64" height="64"/>
  </objectgroup>
 </map>

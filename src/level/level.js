@@ -1,6 +1,7 @@
 var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   hud: null,
   map: null,
+  character: null,
   base: null,
   speed: 1, // Keep speed on 1 for normal speed, modify it with setSpeed for accelerate
   crossoverRate: 0.7, //the influence of the strongest parent to let its genes
@@ -33,6 +34,10 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     // Set base
     var base = new Base(this);
     this.setBase(base);
+
+    // Character initialization
+    let character = new Character();
+    this.setCharacter(character);
 
     // Add Robot
     // turnProb = 1; //0,1,2
@@ -201,6 +206,10 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.map.spawn(base, null, 7);
     this.base = base;
   },
+  setCharacter: function(character) {
+    this.map.spawn(character, null, 7);
+    this.character = character;
+  },
   addRobot: function(robot) {
     this.map.spawn(robot, null, 6);
     this.robots.push(robot);
@@ -243,6 +252,18 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
       this.dummyDefense = null;
       this.map.debugger.debugTile(this.map, {stop: true});
     }
+  },
+  dummyToDefense: function() {
+    let newDefense = this.dummyDefense;
+    newDefense.setColor(cc.color(255, 255, 255));
+    this.defenses.push(newDefense);
+    newDefense.retain(); // Retain is needed I don't remeber why
+    newDefense.isDummy = false;
+    this.removeDummyDefense();
+    this.map.addChild(newDefense);
+    newDefense.factoryReset(); // This makes possible to the idle animation to execute the idle animation
+    newDefense.realDefenseInit();
+    return newDefense;
   },
   prepareNextWave: function() {// TODO no estoy teniendo en cuenta el orden en el que salen
     var robotsAmount;
