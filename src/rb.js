@@ -152,6 +152,10 @@ var rb = {
         beforeEnd: function() {
             this.cleanTarget();
         },
+        // everyFrame: function(dt) {
+        //   if (!this.target.sm.isInState('build')) this.sm.setDefaultState();
+        //   else this.target.addBuilt(dt * 100 / this.buildTime);
+        // },
       }
     }
   },

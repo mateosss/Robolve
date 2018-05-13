@@ -12,7 +12,7 @@ var StatTweak = Progress.extend({
     this.stat = stat;
 
     let Class = rb.global[computer.toString()]; // toString will return class name if computer or the same string if string
-    _.assert(Class.prototype.STATS.has(stat), _.format("{} doesn't have {} stat", computer.toString(), stat));
+    _.assert(Defense.prototype.STATS.has(stat), _.format("{} doesn't have {} stat", computer.toString(), stat));
 
     this._super(_.concat(
       { buttons: true, predefinedValues: Object.values(Class.prototype.getPossibleStats(stat)), text: _.formatVarName(stat) + ": {}"},

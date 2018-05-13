@@ -74,10 +74,12 @@ var State = cc.Node.extend({
     // If everyFrame was given, then scheduleUpdate
     if (this.everyFrame || this.lifespan) this.scheduleUpdate();
     // Schedule every schedule item
-    this.scheduleItems.forEach((s) => this.schedule(
-      (dt) => s.callback.call(this.owner, dt, this),
-      s.interval || 0, s.repeat || cc.REPEAT_FOREVER, s.delay || 0, s.key || this.name
-    ));
+    // this.schedule(function() {console.log("SCHEDULED SHIT");}, 0, cc.REPEAT_FOREVER, 0);
+    this.scheduleItems.forEach((s, i) => {
+      this.schedule((dt) => {
+        s.callback.call(this.owner, dt, this);
+      }, s.interval || 0, s.repeat || cc.REPEAT_FOREVER, s.delay || 0);
+    });
     // If lifespan was given, increase set timeToEnd value
     if (this.lifespan) this.timeToEnd = this.lifespan;
     // mark that this is at least the first run
@@ -93,6 +95,8 @@ var State = cc.Node.extend({
     for (var prop in this.oldProps) this.owner[prop] = this.oldProps[prop];
     // -5. Be sure to unscheduleUpdate, we don't want this to be running anymore
     this.unscheduleUpdate();
+    // Unschedule all the rest of things scheduled with scheduleItems
+    this.unscheduleAllCallbacks();
     // -4. the state removes itself from the owner's stateMachine cStates and is removed from the owner
     var index = this.sm.cStates.indexOf(this);
     this.sm.cStates.splice(index, 1);

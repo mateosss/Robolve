@@ -34,7 +34,7 @@ var Hud = cc.Layer.extend({
     this.bottombarLayout = new Panel({width: "100pw + -100ph + 11px", padding: "11px"});
     this.bottombarLayout.addTo(this.bottombar, -1);
 
-    this.cancelActions = new Button({button: "pink", callback: () => this.level.character.sm.setDefaultState(), width:"100ph", icon:"close", padding:"11px", iconFontSize: 72});
+    this.cancelActions = new Button({button: "pink", callback: () => this.level.character.sm.setDefaultState(), width:"100ph", icon:"close", padding:"22px", iconFontSize: 72, scale: 0.75});
     this.cancelActions.addTo(this.bottombarLayout);
 
     // Info Text

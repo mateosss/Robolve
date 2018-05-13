@@ -430,12 +430,13 @@ Format (variables between \<\> should be calculated after each day/task)
 - 2017-05-06 Do - 01:00 hs
   - 18:45 - 19:00 | Desglosando basic inventory
   - 21:45 - 22:30 | Desglosando hasta chest
-- 2017-05-11 Vi -
+- 2017-05-11 Vi - 01:00 hs
   - 08:40 - 09:40 | Implementando character, viendo que necesito modularizar statemachine fuera de computer
 - 2017-05-12 Sa -
   - 09:40 - 10:40 | Modularizado stateMachines fuera de Computer
   - 10:40 - 12:40 | Character ya se mueve para ir a construir defensas, no construye
-  - 17:15 - 
+  - 17:15 - 21:15 | Character ya construye genial, perdí mucho tiempo retocando el panel de building
+  - 22:15 - 00:15 | Debugging android
 # (08:00 hs) Mayo Semana 13 []
 
 # (08:00 hs) Mayo Semana 20 []
