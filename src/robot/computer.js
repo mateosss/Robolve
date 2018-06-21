@@ -57,11 +57,13 @@ var Computer = cc.Sprite.extend({
   setStat: function(stat, value) {
     this['s' + _.capitalize(stat)] = value;
   },
-  changeStat: function(stat, newValue) { // sets a new stat maintaining the proportion that existed between the sStat and the default stat before the change
+  changeStat: function(stat, newValue) { // sets a new stat maintaining the proportion that existed between the sStat and the default stat before the change, also updates the sprite parts
     var sProportion = (this.getStat(stat) / this.getDefaultStat(stat));
     this[stat] = newValue;
     var newStatValueProportioned = sProportion * this.getDefaultStat(stat);
     this.setStat(stat, newStatValueProportioned);
+    this.assembleParts();
+    this.sm.reanimateAllStates();
     return newStatValueProportioned;
   },
   getDefaultStat: function(stat) { // Returns the original stat

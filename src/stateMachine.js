@@ -34,6 +34,11 @@ var StateMachine = cc.Class.extend({
   removeAllStates: function() {
     this.cStates.forEach((state) => state.end());
   },
+  reanimateAllStates: function(state) {
+    this.cStates.forEach(state => {
+      if (state.animation) state.animation.call(this.owner, state);
+    });
+  },
   setState: function(state, extra) { // stops all states and add the provided one
     var preserve = this.getState(state);
     if (!preserve) return cc.log("setState: State " + state + " doesn't exists for a " + this.owner.toString());

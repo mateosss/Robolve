@@ -79,4 +79,9 @@ var _ = {
     Object.keys(object).forEach((key) => { res[object[key]] = key; });
     return res;
   },
+  tryParseInt: i => {
+    let j = parseInt(i);
+    return isNaN(j) ? i : j;
+  },
+  mapNumbers: arr => arr.map(_.tryParseInt),
 };

@@ -187,20 +187,14 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   },
   getRandomRobot: function() {
     //Add Robot
-    var turnProb = Math.floor((Math.random() * 3)); //0,1,2
-    var life = Math.floor((Math.random() * 3)); //0,1,2
-    var elements = ['electric', 'water', 'fire'];
-    var range = Math.floor((Math.random() * 2));//0,1
-    var element = elements[Math.floor((Math.random() * 3))];//water,fire,electric
-    var terrain = Math.floor((Math.random() * 2));
-    var speed = Math.floor((Math.random() * 3));
-    var damage = Math.floor((Math.random() * 3));
-    var attackSpeed = Math.floor((Math.random() * 3));
-    var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
-    return customRobot;
+    let dna = [];
+    Robot.prototype.STATS.forEach(p => dna.push(_.randchoice(_.mapNumbers(Object.keys(p)))));
+    return new Robot(this, dna);
   },
   getRandomDefense: function() {
-    //TODO las defensas van a ser por partes?
+    let dna = [];
+    Defense.prototype.STATS.forEach(p => dna.push(_.randchoice(_.mapNumbers(Object.keys(p)))));
+    return new Defense(this, dna);
   },
   setBase: function(base) {
     this.map.spawn(base, null, 7);
