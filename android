@@ -1,8 +1,9 @@
 DEVICE_IP="192.168.0.98"
 PACKAGE_NAME="com.sadjockerking.robolve"
+robolve_root=$(xdg-user-dir DOCUMENTS)
 
 sh Extras/copyfiles.sh
-cd $HOME/Escritorio/Robolve/
+cd $robolve_root/projects/Robolve/
 
 # Chech if there are devices connected, if not connect to the default ip, if not exit
 adb devices | grep "device$" ||

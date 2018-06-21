@@ -51,7 +51,6 @@ var Icon = Text.extend({
     this.icon.icon = options.icon !== undefined ? options.icon : this.icon.icon;
     options.text = this.icons[this.icon.icon];
     if (options.text === undefined) throw(_.format("{} is not a valid icon name", this.icon.icon));
-    if (cc.sys.isNative && !options.right && !this.displayManager.calc(this.displayManager.right)) options.right = "8px"; // TODO Pretty weird android icon fix
     this._super(options);
   },
   toString: () => "Icon",
