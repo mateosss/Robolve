@@ -48,7 +48,7 @@ var Computer = cc.Sprite.extend({
   },
 
   // Stat section
-  refreshStats: function() { // sets the initial value to all stats in sStats
+  resetStats: function() { // sets the initial value to all stats in sStats
     this.STATS.forEach((possibles, stat) => {this.setDefaultStat(stat);});
   },
   getStat: function(stat) {
@@ -110,7 +110,7 @@ var Computer = cc.Sprite.extend({
   factoryReset: function(soft) {
     this.assembleParts();
     if (!soft) {
-      this.refreshStats();
+      this.resetStats();
     }
     // TODO this two lines will bring problems because we are using factoryReset when changing stats,
     // and changing stats should not clean all states, removeAllStates and setState

@@ -182,8 +182,8 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     for (i in def.get('attackSpeed')) {
       def.get('attackSpeed')[i] *= this.speed;
     }
-    this.robots.forEach(r=>r.refreshStats());
-    this.defenses.forEach(d=>d.refreshStats());
+    this.robots.forEach(r=>r.resetStats());
+    this.defenses.forEach(d=>d.resetStats());
   },
   getRandomRobot: function() {
     //Add Robot
