@@ -1,5 +1,6 @@
+robolve_root=$(xdg-user-dir DOCUMENTS)
 sh Extras/copyfiles.sh
-cd $HOME/Escritorio/Robolve/
+cd $robolve_root/projects/Robolve/
 cocos run -p linux
 #cocos compile -p linux
 RETVAL=$?
