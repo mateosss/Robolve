@@ -39,7 +39,7 @@ var PropertySelector = ccui.Layout.extend({
           var hasBudget = d.level.base.gold >= rb.prices.decreaseStat;
           if (hasBudget) {
             var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) - 1];
-            d.changeStat(p, parseInt(improvement) || improvement);
+            d.changeStat(p, _.tryParseInt(improvement));
             d.factoryReset(true);
             d.level.hud.ig.removeGold(rb.prices.decreaseStat);
             upBtn.getParent().refresh();
@@ -69,7 +69,7 @@ var PropertySelector = ccui.Layout.extend({
           var hasBudget = d.level.base.gold >= rb.prices.increaseStat;
           if (hasBudget) {
             var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) + 1];
-            d.changeStat(p, parseInt(improvement) || improvement);
+            d.changeStat(p, _.tryParseInt(improvement));
             d.level.hud.ig.removeGold(rb.prices.increaseStat);
             d.factoryReset(true);
             upBtn.getParent().refresh();

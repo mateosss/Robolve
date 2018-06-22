@@ -45,24 +45,19 @@ var TiledMap = cc.TMXTiledMap.extend({
   },
   getMapDefenses: function() {
     // customRobot.retain();
-    var allObjects = this.getObjectGroup("Objects").getObjects();
-    var defenses = [];
-    for (var i = 0; i < allObjects.length; i++) {
+    let allObjects = this.getObjectGroup("Objects").getObjects();
+    let defenses = [];
+    for (let i = 0; i < allObjects.length; i++) {
       if (allObjects[i].name.startsWith("SpawnDefense")) {
         // Creates the new defense
-        var defense = new Defense(
-          this.level,
-          parseInt(allObjects[i].life),
-          allObjects[i].element,
-          parseInt(allObjects[i].range),
-          parseInt(allObjects[i].terrain),
-          parseInt(allObjects[i].damage),
-          parseInt(allObjects[i].attackSpeed)
-        );
+        let dna = [];
+        // TODO ignoring jshint warning, for jshint bug: https://github.com/jshint/jshint/issues/3100
+        Defense.prototype.STATS.forEach((__, stat) => dna.push(_.tryParseInt(allObjects[i][stat]))); // jshint ignore:line
+        let defense = new Defense(this.level, dna);
         defense.retain();
         defense.setBuilt();
         // Calculates the new defense position
-        var p = this.tileCoordFromObject(allObjects[i]);
+        let p = this.tileCoordFromObject(allObjects[i]);
         // Push the defense and location
         defenses.push({defense: defense, position: p});
       }

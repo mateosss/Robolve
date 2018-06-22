@@ -40,8 +40,7 @@ var StatTweak = Progress.extend({
         let p = this.stat;
         let pProp = c.getPossibleStats(p);
         let newStatIndex = Object.keys(pProp).sort()[canMinimizeTo]; // The sort is to ensure key order
-        newStatIndex = isNaN(newStatIndex) ? newStatIndex : parseInt(newStatIndex); // Check if the index is text
-        c.changeStat(p, newStatIndex);
+        c.changeStat(p, _.tryParseInt(newStatIndex));
         c.level.hud.ig.removeGold(rb.prices.decreaseStat);
         c.level.hud.it.message(_.format("Tower {} changed to {}", _.formatVarName(p), pProp[c[p]]));
       } else {
@@ -67,8 +66,7 @@ var StatTweak = Progress.extend({
         let p = this.stat;  // Stat name
         let pProp = c.getPossibleStats(p); // Possible stats
         let newStatIndex = Object.keys(pProp).sort()[canMaximizeTo]; // The sort is to ensure key order
-        newStatIndex = isNaN(newStatIndex) ? newStatIndex : parseInt(newStatIndex); // Check if the index is text
-        c.changeStat(p, newStatIndex);
+        c.changeStat(p, _.tryParseInt(newStatIndex));
         c.level.hud.ig.removeGold(rb.prices.increaseStat);
         c.level.hud.it.message(_.format("Tower {} changed to {}", _.formatVarName(p), pProp[c[p]]));
       } else {

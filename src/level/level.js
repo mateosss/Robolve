@@ -319,7 +319,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     sonsCount = sonsCount || 2;
     var possible = [];
     _.props(Robot).STATS.forEach(oPossibles => possible.push(
-      Object.keys(oPossibles).map((p) => isNaN(p) ? p : parseInt(p))
+      _.mapNumbers(Object.keys(oPossibles))
     ));
     var sons = [];
     for (var j = 0; j < sonsCount; j++) {

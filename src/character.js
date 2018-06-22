@@ -7,7 +7,7 @@ var Character = cc.Sprite.extend({
   ],
 
   // Stats
-  speed: 1,
+  speed: 4,
   buildRange: 75,
   buildTime: 5,
 
