@@ -6,6 +6,7 @@ var rb = {
     getHud: () => rb.dev.getLevel().hud,
     getRobots: () => rb.dev.getLevel().robots,
     getDefenses: () => rb.dev.getLevel().defenses,
+    getCharacter: () => rb.dev.getLevel().character,
     getRobot: () => rb.dev.getRobots()[0],
     getDefense: () => rb.dev.getDefenses()[0],
     allRobots: (func) => rb.dev.getRobots().forEach(func),

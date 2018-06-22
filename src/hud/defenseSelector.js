@@ -1,3 +1,5 @@
+// TODO Not in use
+
 var DefenseSelector = ccui.ListView.extend({
   hud: null, // The hud which contains this DefenseSelector
   ok: null, // ok button

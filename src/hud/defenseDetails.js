@@ -1,3 +1,5 @@
+// TODO Not in use
+
 var DefenseDetails = ccui.ListView.extend({
   hud: null, // hud parent to which the defensedetails are appended
   inScreen: false, // true when the component is on screen

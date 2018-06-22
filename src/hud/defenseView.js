@@ -1,3 +1,5 @@
+// TODO Not in use
+
 var DefenseView = Dialog.extend({
 
   selectedDefense: null, // null for a new defense, TODO allow defense modification (a.k.a only works if selectedDefense is null)
