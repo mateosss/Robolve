@@ -38,7 +38,7 @@ var Menu = cc.LayerGradient.extend({
     }
 
     startGame(0); // XXX Remove
-    setTimeout(() => rb.dev.stateRobots("still"), 10000);
+    // setTimeout(() => rb.dev.stateRobots("still"), 10000);
 
     return true;
   }

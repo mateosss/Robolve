@@ -453,9 +453,11 @@ Format (variables between \<\> should be calculated after each day/task)
 - 2017-06-22 Vi - 02:00 hs
   - 09:45 - 11:00 | Counter de attack de defense y robot pasados a sus respectivos attack states
   - 21:30 - 22:15 | Haciendo que el char ataque y persiga mas o menos a los robots
-- 2017-06-22 Sa -
+- 2017-06-22 Sa - 04:40 hs
   - 11:30 - 12:40 | Despues de matar a un robot char se fija si hay mas en su rango para seguir atacando, done Char Attack
-  - 15:45 - 17:25 | Base ahora es una Defense
+  - 15:45 - 17:25 | Base towering done: Base ahora es una Defense
+  - 19:10 - 21:00 | starting Char sheet, hice un mockup pensando a futuro, no era la idea, pero bueno.
+
 # (08:00 hs) Junio Semana 24 []
 
 # (40:00 hs) Julio Semana 1 []
