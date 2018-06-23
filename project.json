@@ -39,7 +39,6 @@
       "src/hud/defensePreview.js",
       "src/hud/basicDefenseView.js",
       "src/hud/defenseView.js",
-      "src/level/base.js",
       "src/level/game.js",
       "src/level/level.js",
       "src/level/map.js",
@@ -48,6 +47,7 @@
       "src/character.js",
       "src/robot/computer.js",
       "src/robot/defense.js",
-      "src/robot/robot.js"
+      "src/robot/robot.js",
+      "src/level/base.js"
     ]
 }
