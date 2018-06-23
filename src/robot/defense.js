@@ -161,7 +161,6 @@ var Defense = Computer.extend({
       return {result: true, cause: _.format("Placed - ${}", rb.prices.createDefense)}; // TODO estos mensajes no estan muy bien aca
     }
   },
-  counter: 0.0, // TODO counter is being used in the attack state but it is not clear if it is here
   update: function(delta) {
     if (this.isDummy) return;
     var target = this.getTarget();

@@ -65,11 +65,15 @@ var rb = {
       },
       attack: {
         name: 'attack',
+        target: {
+          target: null, // Attacking target
+          charge: 0, // If full charge, attack
+        },
         animation: function() { this.setAnimation('attack', 1 / (this.sAttackSpeed * 12)); },
         everyFrame: function(delta, state) {
-          if (this.counter < 1 / this.sAttackSpeed) this.counter += delta;
+          if (state.local.charge < 1 / this.sAttackSpeed) state.local.charge += delta;
           else {
-            this.counter = 0.0;
+            state.local.charge = 0.0;
             this.attack(state.local.target);
           }
         }
@@ -110,11 +114,15 @@ var rb = {
       },
       attack: {
         name: 'attack',
+        target: {
+          target: null, // Attacking target
+          charge: 0, // If full charge, attack
+        },
         animation: function() { this.setAnimation('attack', 1 / (this.sAttackSpeed * 6)); },
         everyFrame: function(delta, state) {
-          if (this.counter < 1 / this.sAttackSpeed) this.counter += delta;
+          if (state.local.charge < 1 / this.sAttackSpeed) state.local.charge += delta;
           else {
-            this.counter = 0.0;
+            state.local.charge = 0.0;
             this.attack(state.local.target);
           }
         }

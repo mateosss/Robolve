@@ -437,17 +437,21 @@ Format (variables between \<\> should be calculated after each day/task)
   - 10:40 - 12:40 | Character ya se mueve para ir a construir defensas, no construye
   - 17:15 - 21:15 | Character ya construye genial, perdí mucho tiempo retocando el panel de building
   - 22:15 - 00:15 | Debugging android done
-# (08:00 hs) Mayo Semana 13 []
 
-# (08:00 hs) Mayo Semana 20 []
+# (08:00 hs) Mayo Semana 13 [00:00 hs]
 
-# (08:00 hs) Mayo Semana 27 []
+# (08:00 hs) Mayo Semana 20 [00:00 hs]
 
-# (08:00 hs) Junio Semana 3 []
+# (08:00 hs) Mayo Semana 27 [00:00 hs]
 
-# (08:00 hs) Junio Semana 10 []
+# (08:00 hs) Junio Semana 3 [00:00 hs]
+
+# (08:00 hs) Junio Semana 10 [00:00 hs]
 
 # (08:00 hs) Junio Semana 17 []
+
+- 2017-06-22 Vi -
+  - 09:45 - 11:00 | Counter de attack de defense y robot pasados a sus respectivos attack states
 
 # (08:00 hs) Junio Semana 24 []
 
