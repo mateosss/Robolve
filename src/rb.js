@@ -154,18 +154,34 @@ var rb = {
         schedule: [{
            callback: function(dt) {
              if (!this.target.sm.isInState('build')) this.sm.setDefaultState();
-             else this.target.addBuilt(dt * 100 / this.buildTime);
+             else this.target.addBuilt(dt * 100 / this.sBuildTime);
            },
            interval: 0.5,
         }],
         beforeEnd: function() {
             this.cleanTarget();
         },
-        // everyFrame: function(dt) {
-        //   if (!this.target.sm.isInState('build')) this.sm.setDefaultState();
-        //   else this.target.addBuilt(dt * 100 / this.buildTime);
-        // },
-      }
+      },
+      attack: {
+        name: 'attack',
+        target: {
+          target: null, // Attacking target
+          charge: 0, // If full charge, attack
+        },
+        everyFrame: function(delta, state) {
+          if (this.isTargetInRange()) {
+            if (state.local.charge < 1 / this.sAttackSpeed) state.local.charge += delta;
+            else {
+              state.local.charge = 0.0;
+              this.attack(state.local.target);
+              if (state.local.target.sLife == 0) {
+                this.sm.setDefaultState();
+                this.cleanTarget();
+              }
+            }
+          } else this.sm.setState('move');
+        },
+      },
     }
   },
 };

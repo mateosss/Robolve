@@ -34,10 +34,19 @@ var Robot = Computer.extend({
     // TODO creo que este hack ya no es necesario por Robot.prototype.STATS, croe que nadie lo usa, quitar
     if (arguments.length === 0) return; // Hack for getting only the properties defined above
     this._super.apply(this, arguments);
+    this.setTouchEvent();
     this.scheduleUpdate();
   },
-  toString: function() {
-    return "Robot";
+  toString: () => "Robot",
+  setTouchEvent: function() {
+    easyTouchEnded(this, function(robot) {
+      if (robot.getNumberOfRunningActions() === 0) {
+        var increase = new cc.ScaleBy(0.05, 1.2);
+        var decrease = new cc.ScaleBy(0.15, 1 / 1.2);
+        robot.runAction(new cc.Sequence(increase, decrease));
+        robot.level.character.goAttack(robot);
+      }
+    });
   },
   getTarget: function() {
     // This function returns the defense to which this robot has to attack

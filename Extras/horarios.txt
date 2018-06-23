@@ -452,6 +452,7 @@ Format (variables between \<\> should be calculated after each day/task)
 
 - 2017-06-22 Vi -
   - 09:45 - 11:00 | Counter de attack de defense y robot pasados a sus respectivos attack states
+  - 21:30 - 22:15 | Haciendo que el char ataque y persiga mas o menos a los robots
 
 # (08:00 hs) Junio Semana 24 []
 

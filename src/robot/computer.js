@@ -272,23 +272,15 @@ var Computer = cc.Sprite.extend({
     // This function calculates the total damage of the received attack depending
     // on the attacker properties, and does some things in reaction
     this.hitsReceived += 1;
-    var mod;
-    if (this.element == "electric") {
-      if (attacker.element == "electric") mod = 1;
-      else if (attacker.element == "fire") mod = 2;
-      else if (attacker.element == "water") mod = 0.5;
+    let ratio = 1;
+    if (this.element && attacker.element) { // Apply difference if elements are present
+      let mod = (a, m) => a < 0 ? m + a % m : a % m;
+      let elements = ["electric", "fire", "water"];
+      // ratios = [attacker == this, atacker > this, atacker < this]
+      let ratios = [1, 2, 0.5];
+      ratio = ratios[mod(elements.indexOf(attacker.element) - elements.indexOf(this.element), elements.length)];
     }
-    else if (this.element == "fire") {
-      if (attacker.element == "electric") mod = 0.5;
-      else if (attacker.element == "fire") mod = 1;
-      else if (attacker.element == "water") mod = 2;
-    }
-    else if (this.element == "water") {
-      if (attacker.element == "electric") mod = 2;
-      else if (attacker.element == "fire") mod = 0.5;
-      else if (attacker.element == "water") mod = 1;
-    }
-    var totalDamage = attacker.sDamage * mod;
+    var totalDamage = attacker.sDamage * ratio;
     this.sLife -= totalDamage;
     if (this.sLife <= 0) {
       this.sLife = 0;
