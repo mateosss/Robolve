@@ -175,11 +175,19 @@ var rb = {
               state.local.charge = 0.0;
               this.attack(state.local.target);
               if (state.local.target.sLife == 0) {
-                this.sm.setDefaultState();
-                this.cleanTarget();
+                let newTarget = this.getNewTarget();
+                if (newTarget) {
+                  this.setTarget(newTarget);
+                  this.sm.setState('move');
+                } else {
+                  this.sm.setDefaultState();
+                  this.cleanTarget();
+                }
               }
             }
-          } else this.sm.setState('move');
+          } else {
+            this.sm.setState('move');
+          }
         },
       },
     }

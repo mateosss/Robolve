@@ -36,7 +36,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.setBase(base);
 
     // Character initialization
-    let character = new Character();
+    let character = new Character(this);
     this.setCharacter(character);
 
     // Add Robot
