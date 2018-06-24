@@ -42,7 +42,7 @@ var Character = cc.Sprite.extend({
 
     //Looks for robots in character range
     let inRange = this.level.robots.filter(function(robot) {
-      return this.getDistanceTo(robot) <= this.sAttackRange;
+      return this.getDistanceTo(robot) <= this.sAttackRange && robot.sLife > 0;
     }, this);
 
     // If there are robots in range proceed to detect which of them is closest

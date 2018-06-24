@@ -143,6 +143,7 @@ var rb = {
     character: {
       still: {
         name: 'still',
+        postStart: function() { this.cleanTarget(); }
       },
       move: {
         name: 'move',

@@ -97,7 +97,7 @@ var Defense = Computer.extend({
 
     //Looks for robots in tower range
     var inRange = this.level.robots.filter(function(robot) {
-      return this.getDistanceTo(robot) <= this.sRange && robot.terrain == this.terrain;
+      return this.getDistanceTo(robot) <= this.sRange && robot.terrain == this.terrain && robot.sLife > 0;
     }, this);
     //if no robot in range return null
     if (inRange.length === 0) {

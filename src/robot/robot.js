@@ -53,7 +53,7 @@ var Robot = Computer.extend({
 
     //Looks for defenses or the base in robot range
     var inRange = this.level.defenses.concat(this.level.base).filter(function(target) {
-      return this.getDistanceTo(target) <= this.sRange;
+      return this.getDistanceTo(target) <= this.sRange && target.sLife > 0;
     }, this);
     //if no defense in range return null
     if (inRange.length === 0) {

@@ -66,7 +66,6 @@ var Hud = cc.Layer.extend({
 
     this.cs = new CharacterSheet(this, {}, level.character);
     this.cs.addTo(this);
-    this.cs.show();
 
     // TODO XXX Remove
     window.ds = this.ds; // jshint ignore:line
