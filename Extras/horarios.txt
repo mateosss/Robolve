@@ -461,6 +461,8 @@ Format (variables between \<\> should be calculated after each day/task)
 # (08:00 hs) Junio Semana 24 []
   - 09:25 - 11:00 | haciendo char sheet
   - 11:25 - 12:55 | charsheet basica, funcional, pero sin scroll
+  - 17:00 - 18:00 | Proyectando el plan para estos meses, y las respectivas deadlines
+  - 18:00 -  | Debugging android
 
 # (40:00 hs) Julio Semana 1 []
 

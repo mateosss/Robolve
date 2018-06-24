@@ -12,7 +12,7 @@ var Badge = Button.extend({
   setup: function(options) {
     this._super(options);
     this.badge.bgImage = options.bgImage || this.badge.bgImage;
-    this.loadTextures(this.badge.bgImage);
+    this.loadTextureNormal(this.badge.bgImage);
   },
   toString: () => "Badge"
 });
