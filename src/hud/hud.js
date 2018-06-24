@@ -34,8 +34,11 @@ var Hud = cc.Layer.extend({
     this.bottombarLayout = new Panel({width: "100pw + -100ph + 11px", padding: "11px"});
     this.bottombarLayout.addTo(this.bottombar, -1);
 
-    this.cancelActions = new Button({button: "pink", callback: () => this.level.character.sm.setDefaultState(), width:"100ph", icon:"close", padding:"22px", iconFontSize: 72, scale: 0.75});
+    this.cancelActions = new Button({button: "blue", callback: () => this.level.character.sm.setDefaultState(), bottom: "20px", left: "16px", height: "65ph", width: "65ph", icon:"close", iconFontSize: 72, scale: 0.75});
     this.cancelActions.addTo(this.bottombarLayout);
+
+    this.openCharSheet = new Button({button: "pink", callback: () => this.cs.show(), x: "-62.5ph", bottom: "20px", right: "20px", height: "65ph", width: "65ph", icon:"robot", iconFontSize: 72, scale: 0.75});
+    this.openCharSheet.addTo(this.bottombarLayout);
 
     // Info Text
     this.it = new InfoText(this);
@@ -61,46 +64,26 @@ var Hud = cc.Layer.extend({
     this.button = new Button({callback: () => this.ds.show(), width:"100ph", icon:"plus", padding:"11px", x: "-100ph", iconFontSize: 72});
     this.button.addTo(this.bottombar);
 
-    // this.progress1 = new Progress({color: "orange", buttons: true, y:"center", x:"center", bottom: "128px", width:"70pw", height:"96px", predefinedValues:["electric", "fire", "water", "air"], text:"Selected: {}", selectedValue:1});
-    // this.progress1.addTo(this);
-    // this.progress2 = new Progress({y:"center", x:"center", width:"70pw", height:"96px", percentage: 100, });
-    // this.progress2.addTo(this);
-    // this.progress = new Progress({color:"blue", buttons: true, y:"center", x:"center", top: "128px", width:"70pw", height:"96px", percentageStep: 20});
-    // this.progress.addTo(this);
+    this.cs = new CharacterSheet(this, {}, level.character);
+    this.cs.addTo(this);
+    this.cs.show();
 
-    // this.progress1 = new StatTweak("Robot", "life", {fontSize: 24, y:"20ph", x:"4ph", width:"36pw", height:"5ph"});
-    // setTimeout(() => this.progress1.computer = rb.dev.getDefense(), 3000);
-    // this.progress1.addTo(this);
-    // this.progress2 = new StatTweak("Robot", "element", {fontSize: 24, y:"20ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
-    // setTimeout(() => this.progress2.computer = rb.dev.getDefense(), 3000);
-    // this.progress2.addTo(this);
-    // this.progress3 = new StatTweak("Robot", "range", {fontSize: 24, y:"28ph", x:"4ph", width:"36pw", height:"5ph"});
-    // setTimeout(() => this.progress3.computer = rb.dev.getDefense(), 3000);
-    // this.progress3.addTo(this);
-    // this.progress4 = new StatTweak("Robot", "terrain", {fontSize: 24, y:"28ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
-    // setTimeout(() => this.progress4.computer = rb.dev.getDefense(), 3000);
-    // this.progress4.addTo(this);
-    // this.progress5 = new StatTweak("Robot", "damage", {fontSize: 24, y:"36ph", x:"4ph", width:"36pw", height:"5ph"});
-    // setTimeout(() => this.progress5.computer = rb.dev.getDefense(), 3000);
-    // this.progress5.addTo(this);
-    // this.progress6 = new StatTweak("Robot", "attackSpeed", {fontSize: 24, y:"36ph", x:"-36pw + -4ph", width:"36pw", height:"5ph"});
-    // setTimeout(() => this.progress6.computer = rb.dev.getDefense(), 3000);
-    // this.progress6.addTo(this);
-
-    window.ds = this.ds; // XXX
-    window.hud = this;
-    window.progress = this.progress;
-    window.dialog = this.dialog;
-    window.dd = this.dd;
-    window.ig = this.ig;
-    window.gi = this.gi;
-    window.goldbar = this.goldbar;
-    window.bottombar = this.bottombar;
-    window.cancelActions = this.cancelActions;
-    window.button = this.button;
-    window.layout = this.bottombarLayout;
-    window.preview = this.preview;
-    window.pinkbutton = this.pinkbutton;
+    // TODO XXX Remove
+    window.ds = this.ds; // jshint ignore:line
+    window.cs = this.cs; // jshint ignore:line
+    window.hud = this; // jshint ignore:line
+    window.progress = this.progress; // jshint ignore:line
+    window.dialog = this.dialog; // jshint ignore:line
+    window.dd = this.dd; // jshint ignore:line
+    window.ig = this.ig; // jshint ignore:line
+    window.gi = this.gi; // jshint ignore:line
+    window.goldbar = this.goldbar; // jshint ignore:line
+    window.bottombar = this.bottombar; // jshint ignore:line
+    window.cancelActions = this.cancelActions; // jshint ignore:line
+    window.button = this.button; // jshint ignore:line
+    window.layout = this.bottombarLayout; // jshint ignore:line
+    window.preview = this.preview; // jshint ignore:line
+    window.pinkbutton = this.pinkbutton; // jshint ignore:line
 
     return true;
   },

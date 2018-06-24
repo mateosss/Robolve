@@ -33,6 +33,7 @@
     "Icon": true,
     "Progress": true,
     "Button": true,
+    "Badge": true,
     "Hud": true,
     "Menu": true,
     "PropertySelector": true,
@@ -44,6 +45,7 @@
     "DefensePreview": true,
     "BasicDefenseView": true,
     "DefenseView": true,
+    "CharacterSheet": true,
     "StatTweak": true,
     "MainMenu": true
   },
