@@ -28,6 +28,7 @@
     "DisplayManager": true,
     "Panel": true,
     "Layout": true,
+    "ScrollLayout": true,
     "Dialog": true,
     "Text": true,
     "Icon": true,

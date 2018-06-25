@@ -463,6 +463,7 @@ Format (variables between \<\> should be calculated after each day/task)
   - 11:25 - 12:55 | charsheet basica, funcional, pero sin scroll
   - 17:00 - 18:00 | Proyectando el plan para estos meses, y las respectivas deadlines
   - 18:00 - 19:40 | Debugging android
+  - 19:40 - 21:30 | Basic scrollLayout working, but not in use
 
 # (40:00 hs) Julio Semana 1 []
 

@@ -23,6 +23,7 @@
       "src/hud/components/button.js",
       "src/hud/components/badge.js",
       "src/hud/components/layout.js",
+      "src/hud/components/scrollLayout.js",
       "src/hud/components/panel.js",
       "src/hud/components/text.js",
       "src/hud/components/dialog.js",

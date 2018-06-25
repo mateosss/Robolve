@@ -56,7 +56,8 @@ var DisplayManager = cc.Class.extend({
       // Use this component.addTo(parent) instead of parent.addChild(component)
       // So the setup function is executed after the addChild. Isn't necessary
       // If you are not using parent-dependant properties like ph or pw
-      cc.Node.prototype.addChild.call(parent, this, z || null, tag || null);
+      if (parent instanceof ccui.Widget) ccui[parent.getDescription()].prototype.addChild.call(parent, this, z || null, tag || null);
+      else cc.Node.prototype.addChild.call(parent, this, z || null, tag || null);
       this.setup({});
     };
 
