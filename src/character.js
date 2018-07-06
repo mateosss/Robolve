@@ -5,6 +5,7 @@ var Character = cc.Sprite.extend({
     rb.states.character.still, // default state
     rb.states.character.move,
     rb.states.character.build,
+    rb.states.character.repair,
     rb.states.character.attack,
   ],
 
@@ -12,6 +13,7 @@ var Character = cc.Sprite.extend({
   sSpeed: 4.0,
   sBuildRange: 75,
   sBuildTime: 5.0,
+  sRepairAmount: 25,
   sAttackRange: 75,
   sAttackSpeed: 2.0,
   sDamage: 100,
@@ -29,6 +31,10 @@ var Character = cc.Sprite.extend({
 
   // Action Triggers
   goBuild: function(defense) {
+    this.sm.setState('move');
+    this.setTarget(defense);
+  },
+  goRepair: function(defense) {
     this.sm.setState('move');
     this.setTarget(defense);
   },
@@ -95,7 +101,10 @@ var Character = cc.Sprite.extend({
   },
   update: function() {
     if (this.isTargetInRange() && this.sm.isInState('move')) {
-      if (this.target instanceof Defense) this.sm.setState('build');
+      if (this.target instanceof Defense) {
+        if (this.target.isBuilt()) this.sm.setState('repair');
+        else this.sm.setState('build');
+      }
       else if (this.target instanceof Robot) this.sm.setState('attack', {target: this.target});
       else this.sm.setDefaultState();
     }

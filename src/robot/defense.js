@@ -24,6 +24,7 @@ var Defense = Computer.extend({
   },
   STATES: [ // Possible states for this defense
     rb.states.defense.build,
+    rb.states.defense.repair,
     rb.states.defense.idle,
     rb.states.defense.still,
     rb.states.defense.attack,
@@ -41,15 +42,16 @@ var Defense = Computer.extend({
     this.scheduleUpdate();
     if (!this.isBuilt()) this.createBuildBar();
   },
-  // Build related things
+  // Build and Repair related things
+  getLifePercentage: function() {
+    return this.sLife / this.getDefaultStat('life') * 100;
+  },
   addBuilt: function(amount) {
     this.built += amount;
     if (this.built >= 100) {
       this.built = 100;
       this.sm.setState('idle');
-
-      let scaleDown = new cc.EaseBackIn(new cc.ScaleTo(0.5, 0, 0));
-      this.buildBar.runAction(scaleDown);
+      this.hideBuildBar();
     }
     this.buildBar.changePercent(Math.floor(this.built));
   },
@@ -58,6 +60,23 @@ var Defense = Computer.extend({
   },
   isBuilt: function() {
     return this.built == 100;
+  },
+  addRepaired: function(amount) {
+    this.sLife += amount;
+    let fullLife = this.getDefaultStat('life');
+    if (this.sLife >= fullLife) {
+      this.sLife = fullLife;
+      this.sm.setState('idle');
+      this.hideBuildBar();
+    }
+    this.buildBar.changePercent(Math.floor(this.sLife / fullLife * 100));
+    this.updateHealthBar();
+  },
+  setRepaired: function() {
+    this.addRepaired(this.getDefaultStat('life'));
+  },
+  isRepaired: function() {
+    return this.sLife == this.getDefaultStat('life');
   },
   createBuildBar: function() {
     let color = {fire: "orange", electric: "yellow", water: "blue"}[this.element];
@@ -70,8 +89,16 @@ var Defense = Computer.extend({
     this.buildBar.title.addTo(this.buildBar);
 
     this.buildBar.scale = 0;
+    this.showBuildBar();
+  },
+  showBuildBar: function(initialPercentage) {
+    this.buildBar.changePercent(Math.floor(initialPercentage) || 0);
     let scaleUp = new cc.EaseBackOut(new cc.ScaleTo(0.5, 0.5, 0.5));
     this.buildBar.runAction(scaleUp);
+  },
+  hideBuildBar: function() {
+    let scaleDown = new cc.EaseBackIn(new cc.ScaleTo(0.5, 0, 0));
+    this.buildBar.runAction(scaleDown);
   },
 
   toString: () => "Defense",
@@ -165,7 +192,7 @@ var Defense = Computer.extend({
     if (this.isDummy) return;
     var target = this.getTarget();
     this.debugger.debugLine(this, {stop: true});
-    if (target && !this.sm.isInState('build')) {
+    if (target && !this.sm.isInState('build') && !this.sm.isInState('repair')) {
       this.debugger.debugLine(this, {target: target, offset: cc.p(0, 128), color: rb.palette[this.element]});
       this.sm.setState('attack', {target: target});
     }

@@ -97,6 +97,13 @@ var rb = {
         postStart: function() {
 
         }
+      },
+      repair: {
+        name: 'repair',
+        animation: function() { this.setAnimation('still'); },
+        postStart: function(state) {
+          this.showBuildBar(state.local.initialRepair);
+        }
       }
     },
     robot: {
@@ -162,6 +169,24 @@ var rb = {
         }],
         beforeEnd: function() {
             this.cleanTarget();
+        },
+      },
+      repair: {
+        name: 'repair',
+        schedule: [{
+           callback: function(dt) {
+             if (!this.target.sm.isInState('repair')) this.sm.setDefaultState();
+             else this.target.addRepaired(this.sRepairAmount);
+           },
+           interval: 0.5,
+        }],
+        postStart: function() {
+          this.target.sm.setState('repair', { initialRepair: this.target.getLifePercentage() });
+        },
+        beforeEnd: function() {
+          this.target.sm.setState('idle');
+          this.target.hideBuildBar();
+          this.cleanTarget();
         },
       },
       attack: {

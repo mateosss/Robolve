@@ -7,6 +7,7 @@ var BasicDefenseView = Dialog.extend({
   titleContainer: null,
   titleElement: null,
   titleText: null,
+  titleRepair: null,
   titleDestroy: null,
   titleClose: null,
 
@@ -39,6 +40,9 @@ var BasicDefenseView = Dialog.extend({
     this.titleElement.addTo(this.titleContainer);
     this.titleText = new Text({text: "Manage Defense", hAlign:cc.TEXT_ALIGNMENT_LEFT, width:"40pw", x: "100ph + 22px", y: "center", top: cc.sys.isNative ? "8px" : "13px", fontSize: 32});
     this.titleText.addTo(this.titleContainer);
+    this.titleRepair = new Button({x: "-200ph + -78.4px + -11px", top:"11px", button: "green", width: "100ph", icon: "delete", scale:0.75});
+    this.titleRepair.addTo(this.titleContainer);
+    this.titleRepair.setVisible(false);
     this.titleDestroy = new Button({x: "-100ph + -78.4px", top:"11px", button: "red", width: "100ph", icon: "delete", scale:0.75});
     this.titleDestroy.addTo(this.titleContainer);
     this.titleClose = new Button({callback: () => this.dismiss(), width: "78.4px", height: "78.4px", padding: "11px", button: "red", icon: "close", y: "-78.4px", x: "-78.4px", scale: 0.5});
@@ -92,6 +96,16 @@ var BasicDefenseView = Dialog.extend({
         });
       }
     });
+    let isDamaged = !defense.isRepaired();
+    this.titleRepair.setVisible(isDamaged);
+    if (isDamaged) {
+      this.titleRepair.setup({
+        callback: () => {
+          this.dismiss();
+          defense.level.character.goRepair(defense);
+        }
+      });
+    }
   },
 
   toString: () => "BasicDefenseView"
