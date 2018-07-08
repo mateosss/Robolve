@@ -15,7 +15,7 @@ var StatTweak = Progress.extend({
     _.assert(Defense.prototype.STATS.has(stat), _.format("{} doesn't have {} stat", computer.toString(), stat));
 
     this._super(_.concat(
-      { buttons: true, predefinedValues: Object.values(Class.prototype.getPossibleStats(stat)), text: _.formatVarName(stat) + ": {}"},
+      { buttons: {previous: { visible: false }}, predefinedValues: Object.values(Class.prototype.getPossibleStats(stat)), text: _.formatVarName(stat) + ": {}"},
       options || {y:"20ph", x:"center", width:"80pw", height:"96px"}
     ));
 
