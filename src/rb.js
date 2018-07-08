@@ -104,7 +104,15 @@ var rb = {
         postStart: function(state) {
           this.showBuildBar(state.local.initialRepair);
         }
-      }
+      },
+      improve: {
+        name: 'improve',
+        animation: function() { this.setAnimation('still'); },
+        postStart: function() {
+          this.resetImproved();
+          this.showBuildBar();
+        }
+      },
     },
     robot: {
       still: {
@@ -186,6 +194,22 @@ var rb = {
         beforeEnd: function() {
           this.target.sm.setState('idle');
           this.target.hideBuildBar();
+          this.cleanTarget();
+        },
+      },
+      improve: {
+        name: 'improve',
+        schedule: [{
+          callback: function(dt) {
+            if (!this.target.sm.isInState('improve')) this.sm.setDefaultState();
+            else this.target.addImproved(dt * 100 / this.sImproveTime);
+          },
+          interval: 0.5,
+        }],
+        postStart: function() {
+
+        },
+        beforeEnd: function() {
           this.cleanTarget();
         },
       },

@@ -479,6 +479,8 @@ Format (variables between \<\> should be calculated after each day/task)
 
 # (40:00 hs) Julio Semana 8 []
 
+  - 2017-07-08 Do -
+    - 16:15 - 18:55 | Haciendo char improving
 # (40:00 hs) Julio Semana 15 []
 
 # (40:00 hs) Julio Semana 22 []

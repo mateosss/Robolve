@@ -6,6 +6,7 @@ var Character = cc.Sprite.extend({
     rb.states.character.move,
     rb.states.character.build,
     rb.states.character.repair,
+    rb.states.character.improve,
     rb.states.character.attack,
   ],
 
@@ -13,6 +14,7 @@ var Character = cc.Sprite.extend({
   sSpeed: 4.0,
   sBuildRange: 75,
   sBuildTime: 5.0,
+  sImproveTime: 2.5,
   sRepairAmount: 25,
   sAttackRange: 75,
   sAttackSpeed: 2.0,
@@ -23,7 +25,6 @@ var Character = cc.Sprite.extend({
   ctor: function(level) {
     this._super(r.character);
     this.level = level;
-    window.c = this; // XXX
     this.setAnchorPoint(0.5, 0.0);
     this.sm = new StateMachine(this);
     this.scheduleUpdate();
@@ -35,6 +36,10 @@ var Character = cc.Sprite.extend({
     this.setTarget(defense);
   },
   goRepair: function(defense) {
+    this.sm.setState('move');
+    this.setTarget(defense);
+  },
+  goImprove: function(defense) {
     this.sm.setState('move');
     this.setTarget(defense);
   },
@@ -102,8 +107,10 @@ var Character = cc.Sprite.extend({
   update: function() {
     if (this.isTargetInRange() && this.sm.isInState('move')) {
       if (this.target instanceof Defense) {
-        if (this.target.isBuilt()) this.sm.setState('repair');
-        else this.sm.setState('build');
+        if (this.target.isBuilt()) {
+          if (this.target.sm.isInState('improve')) this.sm.setState('improve');
+          else this.sm.setState('repair');
+        } else this.sm.setState('build');
       }
       else if (this.target instanceof Robot) this.sm.setState('attack', {target: this.target});
       else this.sm.setDefaultState();
