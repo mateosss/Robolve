@@ -470,11 +470,12 @@ Format (variables between \<\> should be calculated after each day/task)
   - 2017-06-28 Ju - 00:25 hs
     - 18:40 - 19:05 | Pensando como hacer el char repairing, un poco de mockup
 
-# (40:00 hs) Julio Semana 1 []
+# (40:00 hs) Julio Semana 1 [03:40 hs]
 
-  - 2017-07-06 Vi -
+  - 2017-07-06 Vi - 03:40 hs
     - 11:05 - 12:40 | Haciendo que el personaje pueda reparar torretas
-    - 13:35 - 14:20 | Char repairing terminado
+    - 13:35 - 14:20 | Char repairing casi list, falta testear android e icono
+    - 18:30 - 19:40 | Char repairing done. Added full material design icon fonts and tested on android
 
 # (40:00 hs) Julio Semana 8 []
 

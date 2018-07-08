@@ -40,7 +40,7 @@ var BasicDefenseView = Dialog.extend({
     this.titleElement.addTo(this.titleContainer);
     this.titleText = new Text({text: "Manage Defense", hAlign:cc.TEXT_ALIGNMENT_LEFT, width:"40pw", x: "100ph + 22px", y: "center", top: cc.sys.isNative ? "8px" : "13px", fontSize: 32});
     this.titleText.addTo(this.titleContainer);
-    this.titleRepair = new Button({x: "-200ph + -78.4px + -11px", top:"11px", button: "green", width: "100ph", icon: "delete", scale:0.75});
+    this.titleRepair = new Button({x: "-200ph + -78.4px + -11px", top:"11px", button: "green", width: "100ph", icon: "wrench", scale:0.75});
     this.titleRepair.addTo(this.titleContainer);
     this.titleRepair.setVisible(false);
     this.titleDestroy = new Button({x: "-100ph + -78.4px", top:"11px", button: "red", width: "100ph", icon: "delete", scale:0.75});
