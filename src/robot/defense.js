@@ -105,14 +105,15 @@ var Defense = Computer.extend({
     this.buildBar.addTo(this, 10);
     this.buildBar.titleContainer = new Panel({swallow: false, x: "center", width: "150pw", top: "48px", height: "350ph", bgImage: r.ui.panel, scale: 2});
     this.buildBar.titleContainer.addTo(this.buildBar, -1);
-    this.buildBar.title = new Text({text: "building", x: "center", y: "64px", top: cc.sys.isNative ? "0px" : "5px", fontSize: 56});
+    this.buildBar.title = new Text({text: "Building", x: "center", y: "64px", top: cc.sys.isNative ? "0px" : "5px", fontSize: 56});
     this.buildBar.title.addTo(this.buildBar);
 
     this.buildBar.scale = 0;
-    this.showBuildBar();
+    this.showBuildBar("Building");
   },
-  showBuildBar: function(initialPercentage) {
+  showBuildBar: function(text, initialPercentage) {
     this.buildBar.changePercent(Math.floor(initialPercentage) || 0);
+    this.buildBar.title.setup({text: text});
     let scaleUp = new cc.EaseBackOut(new cc.ScaleTo(0.5, 0.5, 0.5));
     this.buildBar.runAction(scaleUp);
   },

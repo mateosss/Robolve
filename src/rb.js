@@ -102,7 +102,7 @@ var rb = {
         name: 'repair',
         animation: function() { this.setAnimation('still'); },
         postStart: function(state) {
-          this.showBuildBar(state.local.initialRepair);
+          this.showBuildBar("Repairing", state.local.initialRepair);
         }
       },
       improve: {
@@ -110,7 +110,7 @@ var rb = {
         animation: function() { this.setAnimation('still'); },
         postStart: function() {
           this.resetImproved();
-          this.showBuildBar();
+          this.showBuildBar("Improving");
         }
       },
     },
