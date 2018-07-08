@@ -29,6 +29,8 @@ var DisplayManager = cc.Class.extend({
   paddingVertical: "0px", //padding vertical
   paddingHorizontal: "0px", //padding horizontal
   scale: 1, // scale of the node, useful when adjusting texture size
+  visible: true, // the visibility of the node, false for hidden
+
   debug: false, // true for showing a square with the rect of the component
 
   ctor: function(owner, options) {
@@ -51,6 +53,7 @@ var DisplayManager = cc.Class.extend({
     this.paddingVertical = options.paddingVertical || this.paddingVertical;
     this.paddingHorizontal = options.paddingHorizontal || this.paddingHorizontal;
     this.scale = options.scale || this.scale;
+    this.visible = options.visible || this.visible;
 
     owner.addTo = function(parent, z, tag) {
       // Use this component.addTo(parent) instead of parent.addChild(component)
@@ -90,6 +93,7 @@ var DisplayManager = cc.Class.extend({
     let paddingVertical = this.paddingVertical = options.paddingVertical || this.paddingVertical;
     let paddingHorizontal = this.paddingHorizontal = options.paddingHorizontal || this.paddingHorizontal;
     let scale = this.scale = options.scale || this.scale;
+    let visible = this.visible = options.visible !== undefined ? options.visible : this.visible;
 
     let debugChange = this.debug !== options.debug;
     let debug = this.debug = options.debug !== undefined ? options.debug : this.debug;
@@ -138,6 +142,7 @@ var DisplayManager = cc.Class.extend({
     this.owner.setContentSize(width, height);
     this.owner.setPositionType(ccui.Widget.POSITION_ABSOLUTE);
     this.owner.setPosition(x, y);
+    this.owner.setVisible(visible);
 
     if (this.owner.parent && (debugChange || this.debug)) {
       let d = new Debugger();
