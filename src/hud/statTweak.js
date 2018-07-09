@@ -15,7 +15,7 @@ var StatTweak = Progress.extend({
     _.assert(Defense.prototype.STATS.has(stat), _.format("{} doesn't have {} stat", computer.toString(), stat));
 
     this._super(_.concat(
-      { buttons: true, predefinedValues: Object.values(Class.prototype.getPossibleStats(stat)), text: _.formatVarName(stat) + ": {}"},
+      { buttons: {previous: { visible: false }}, predefinedValues: Object.values(Class.prototype.getPossibleStats(stat)), text: _.formatVarName(stat) + ": {}"},
       options || {y:"20ph", x:"center", width:"80pw", height:"96px"}
     ));
 
@@ -58,6 +58,12 @@ var StatTweak = Progress.extend({
 
     _.assert(c instanceof Computer, _.format("{} computer in statTweak of stat {} is not a computer", c, this.stat));
 
+    if (c.sm.isInState('improve')) {
+      c.level.hud.it.message("Take it easy, I'm on it");
+      this.cantChange();
+      return;
+    }
+
     let hasBudget = c.level.base.gold >= rb.prices.increaseStat;
 
     if (hasBudget) {
@@ -68,12 +74,14 @@ var StatTweak = Progress.extend({
         let newStatIndex = Object.keys(pProp).sort()[canMaximizeTo]; // The sort is to ensure key order
         c.changeStat(p, _.tryParseInt(newStatIndex));
         c.level.hud.ig.removeGold(rb.prices.increaseStat);
-        c.level.hud.it.message(_.format("Tower {} changed to {}", _.formatVarName(p), pProp[c[p]]));
+        c.level.hud.it.message("That improvement will look finna woke");
+        c.sm.setState('improve');
+        c.level.character.goImprove(c);
       } else {
-        c.level.hud.it.message(_.format("You only can go down for ${}", rb.prices.increaseStat));
+        c.level.hud.it.message("Damn, it is never good enough for you, is it?");
       }
     } else {
-      c.level.hud.it.message(_.format("You don't have {} bucks", rb.prices.increaseStat));
+      c.level.hud.it.message("You're just a kid spending money aren't ya");
       c.level.hud.ig.notEnoughGold();
       this.cantChange();
     }

@@ -9,7 +9,7 @@ var Robot = Computer.extend({
       water: "Water"
     }],
     ['range', {0: 75, 1: 150}],
-    ['terrain', {0: 'walk',1: 'fly'}],
+    ['terrain', {0: 'walk'}],
     ['speed', {0: 0.35, 1: 0.75, 2: 1.0}],
     ['damage', {0: 5, 1: 15, 2:20}],
     ['attackSpeed', {0: 0.5, 1: 1.0, 2: 2.0}],

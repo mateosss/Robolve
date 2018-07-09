@@ -6,24 +6,25 @@ var Character = cc.Sprite.extend({
     rb.states.character.move,
     rb.states.character.build,
     rb.states.character.repair,
+    rb.states.character.improve,
     rb.states.character.attack,
   ],
 
   // Stats
-  sSpeed: 4.0,
-  sBuildRange: 75,
-  sBuildTime: 5.0,
-  sRepairAmount: 25,
-  sAttackRange: 75,
-  sAttackSpeed: 2.0,
-  sDamage: 100,
+  sSpeed: 4.0, // Speed of movement in units per second
+  sBuildRange: 75, // Range for starting to build/repair/improve in units
+  sBuildTime: 5.0, // Amount of seconds that it takes to build an new defense
+  sImproveTime: 2.5, // Amount of seconds that it takes to improve a defense's stat
+  sRepairAmount: 50, // Amount of life healed (repaired) to a defense in one second
+  sAttackRange: 75, // Attack range in units, it is used half of this for reaching a target, and then this one is used
+  sAttackSpeed: 2.0, // Amount of hits per seconds to a robot
+  sDamage: 100, // Amount of damage per hit
 
   pointing: 2, // Looking direction 0:North, 1:East, 2:South, 3:West
   target: null, // Target defense/robot/position of the character
   ctor: function(level) {
     this._super(r.character);
     this.level = level;
-    window.c = this; // XXX
     this.setAnchorPoint(0.5, 0.0);
     this.sm = new StateMachine(this);
     this.scheduleUpdate();
@@ -35,6 +36,10 @@ var Character = cc.Sprite.extend({
     this.setTarget(defense);
   },
   goRepair: function(defense) {
+    this.sm.setState('move');
+    this.setTarget(defense);
+  },
+  goImprove: function(defense) {
     this.sm.setState('move');
     this.setTarget(defense);
   },
@@ -102,8 +107,10 @@ var Character = cc.Sprite.extend({
   update: function() {
     if (this.isTargetInRange() && this.sm.isInState('move')) {
       if (this.target instanceof Defense) {
-        if (this.target.isBuilt()) this.sm.setState('repair');
-        else this.sm.setState('build');
+        if (this.target.isBuilt()) {
+          if (this.target.sm.isInState('improve')) this.sm.setState('improve');
+          else this.sm.setState('repair');
+        } else this.sm.setState('build');
       }
       else if (this.target instanceof Robot) this.sm.setState('attack', {target: this.target});
       else this.sm.setDefaultState();

@@ -69,7 +69,7 @@ var Base = Defense.extend({
         var increase = new cc.ScaleBy(0.05, 1.2);
         var decrease = new cc.ScaleBy(0.15, 1 / 1.2);
         base.runAction(new cc.Sequence(increase, decrease));
-        base.level.hud.it.message("This is your base, protect it!");
+        base.level.hud.it.message("Don't let those pieces of trash destroy my base");
       }
     });
   },

@@ -16,7 +16,7 @@ var Progress = Panel.extend({
       fontSize: options.fontSize || 32,
       predefinedValues: options.predefinedValues || null, // array with predefined values to set with setValue
       selectedValue: options.selectedValue || 0, // If using predefinedValues this will have the index of the current one
-      buttons: options.buttons || false, // If using change buttons
+      buttons: options.buttons || false, // If not falsey set buttons, object of the form {previous: options, next: options}
       previousCallback: options.previousCallback || (() => this.previousValue()), // previous button callback if buttons is enabled
       nextCallback: options.nextCallback || (() => this.nextValue()), // next button callback if buttons is enabled
       color: options.color || "pink"
@@ -31,9 +31,9 @@ var Progress = Panel.extend({
     this.text.addTo(this);
 
     if (this.progress.buttons) {
-      this.previous = new Button({callback: this.progress.previousCallback, button: this.progress.color + "Round", icon: "arrow-left", right: "65ph", width: "133ph", height:"133ph", y:"center", scale9: false, scale: 1.33});
+      this.previous = new Button(_.concat({callback: this.progress.previousCallback, button: this.progress.color + "Round", icon: "arrow-left", right: "65ph", width: "133ph", height:"133ph", y:"center", scale9: false, scale: 1.33}, this.progress.buttons.previous));
       this.previous.addTo(this);
-      this.next = new Button({callback: this.progress.nextCallback, button: this.progress.color + "Round", icon: "arrow-right", x: "-65ph", width: "133ph", height: "133ph", y: "center", scale9: false, scale: 1.33});
+      this.next = new Button(_.concat({callback: this.progress.nextCallback, button: this.progress.color + "Round", icon: "arrow-right", x: "-65ph", width: "133ph", height: "133ph", y: "center", scale9: false, scale: 1.33}, this.progress.buttons.next));
       this.next.addTo(this);
     }
   },

@@ -19,13 +19,23 @@ var CharacterSheet = Dialog.extend({
   statsAttackSpeed: null,
   statsDamage: null,
 
+  STATS: [ // TODO Should get the stats of the character programatically, here are hardcoded
+        {stat: 'sSpeed', description: "In units per second", unit: " U/sec", rightZeros: 0},
+        {stat: 'sBuildRange', description: "In units round", unit: " U", rightZeros: 0},
+        {stat: 'sBuildTime', description: "In seconds per new defense", unit: " sec", rightZeros: 2},
+        {stat: 'sImproveTime', description: "In seconds per improvement", unit: " sec", rightZeros: 2},
+        {stat: 'sRepairAmount', description: "Defense HP repaired per second", unit: " HP/sec", rightZeros: 0},
+        {stat: 'sAttackRange', description: "In units round", unit: " U", rightZeros: 0},
+        {stat: 'sAttackSpeed', description: "Amount of hits per second", unit: "/sec", rightZeros: 2},
+        {stat: 'sDamage', description: "Damage per hit", unit: "/hit", rightZeros: 0},
+  ],
   ctor: function(hud, options, char) {
 
     this.char = char;
 
     options.type = "empty";
     options.width = options.width || "70pmin";
-    options.height = options.height || "490px";
+    options.height = options.height || this.STATS.length * 50 + 140 + "px";
     options.paddingHorizontal = options.paddingHorizontal || "11px";
     options.x = options.x || "center";
     options.y = options.y || "center";
@@ -47,34 +57,18 @@ var CharacterSheet = Dialog.extend({
     this.statsContainer.addTo(this);
     this.statsMain = new Panel({bgImage: r.ui.panel_in, height: "100ph", width: "100pw", padding: "11px", x: "center"});
     this.statsMain.addTo(this.statsContainer);
-    this.statsSpeedLabel = new Text({text: "Speed", width: "100pw", y: "300px", bottom: "11px", hAlign: cc.TEXT_ALIGNMENT_LEFT, paddingHorizontal: "22px"});
-    this.statsSpeedLabel.addTo(this.statsMain);
-    this.statsSpeedValue = new Badge({bgImage: r.ui.panel_in_soft, text: "—", scale: 0.3, width: "128px", paddingVertical: "2px", height: "48px", x: "-128px + -22px", y: "300px", bottom: "16px", textFontSize: 80});
-    this.statsSpeedValue.addTo(this.statsMain);
-    this.statsBuildRangeLabel = new Text({text: "Build Range", width: "100pw", y: "250px", bottom: "11px", hAlign: cc.TEXT_ALIGNMENT_LEFT, paddingHorizontal: "22px"});
-    this.statsBuildRangeLabel.addTo(this.statsMain);
-    this.statsBuildRangeValue = new Badge({bgImage: r.ui.panel_in_soft, text: "—", scale: 0.3, width: "128px", paddingVertical: "2px", height: "48px", x: "-128px + -22px", y: "250px", bottom: "16px", textFontSize: 80});
-    this.statsBuildRangeValue.addTo(this.statsMain);
-    this.statsBuildTimeLabel = new Text({text: "Build Time", width: "100pw", y: "200px", bottom: "11px", hAlign: cc.TEXT_ALIGNMENT_LEFT, paddingHorizontal: "22px"});
-    this.statsBuildTimeLabel.addTo(this.statsMain);
-    this.statsBuildTimeValue = new Badge({bgImage: r.ui.panel_in_soft, text: "—", scale: 0.3, width: "128px", paddingVertical: "2px", height: "48px", x: "-128px + -22px", y: "200px", bottom: "16px", textFontSize: 80});
-    this.statsBuildTimeValue.addTo(this.statsMain);
-    this.statsRepairAmountLabel = new Text({text: "Repair Amount", width: "100pw", y: "150px", bottom: "11px", hAlign: cc.TEXT_ALIGNMENT_LEFT, paddingHorizontal: "22px"});
-    this.statsRepairAmountLabel.addTo(this.statsMain);
-    this.statsRepairAmountValue = new Badge({bgImage: r.ui.panel_in_soft, text: "—", scale: 0.3, width: "128px", paddingVertical: "2px", height: "48px", x: "-128px + -22px", y: "150px", bottom: "16px", textFontSize: 80});
-    this.statsRepairAmountValue.addTo(this.statsMain);
-    this.statsAttackRangeLabel = new Text({text: "Attack Range", width: "100pw", y: "100px", bottom: "11px", hAlign: cc.TEXT_ALIGNMENT_LEFT, paddingHorizontal: "22px"});
-    this.statsAttackRangeLabel.addTo(this.statsMain);
-    this.statsAttackRangeValue = new Badge({bgImage: r.ui.panel_in_soft, text: "—", scale: 0.3, width: "128px", paddingVertical: "2px", height: "48px", x: "-128px + -22px", y: "100px", bottom: "16px", textFontSize: 80});
-    this.statsAttackRangeValue.addTo(this.statsMain);
-    this.statsAttackSpeedLabel = new Text({text: "Attack Speed", width: "100pw", y: "50px", bottom: "11px", hAlign: cc.TEXT_ALIGNMENT_LEFT, paddingHorizontal: "22px"});
-    this.statsAttackSpeedLabel.addTo(this.statsMain);
-    this.statsAttackSpeedValue = new Badge({bgImage: r.ui.panel_in_soft, text: "—", scale: 0.3, width: "128px", paddingVertical: "2px", height: "48px", x: "-128px + -22px", y: "50px", bottom: "16px", textFontSize: 80});
-    this.statsAttackSpeedValue.addTo(this.statsMain);
-    this.statsDamageLabel = new Text({text: "Damage", width: "100pw", y: "0px", bottom: "11px", hAlign: cc.TEXT_ALIGNMENT_LEFT, paddingHorizontal: "22px"});
-    this.statsDamageLabel.addTo(this.statsMain);
-    this.statsDamageValue = new Badge({bgImage: r.ui.panel_in_soft, text: "—", scale: 0.3, width: "128px", paddingVertical: "2px", height: "48px", x: "-128px + -22px", y: "0px", bottom: "16px", textFontSize: 80});
-    this.statsDamageValue.addTo(this.statsMain);
+
+    for (var i = 0; i < this.STATS.length; i++) {
+      let sStat = this.STATS[i].stat;
+      let Stat = this.STATS[i].stat.substr(1);
+      let ypos = (this.STATS.length - 1 - i) * 50;
+      this["stats" + Stat + "Label"] = new Text({text: _.formatVarName(Stat), width: "100pw", y: ypos + "px", bottom: "20px", hAlign: cc.TEXT_ALIGNMENT_LEFT, paddingHorizontal: "22px", fontSize: 28});
+      this["stats" + Stat + "Label"].addTo(this.statsMain);
+      this["stats" + Stat + "Description"] = new Text({text: this.STATS[i].description, width: "100pw", y: ypos + "px", bottom: "7px", hAlign: cc.TEXT_ALIGNMENT_LEFT, paddingHorizontal: "22px", fontSize: 18});
+      this["stats" + Stat + "Description"].addTo(this.statsMain);
+      this["stats" + Stat + "Value"] = new Badge({bgImage: r.ui.panel_in_soft, text: "—", scale: 0.3, width: "128px", paddingVertical: "2px", height: "48px", x: "-128px + -22px", y: ypos + "px", bottom: "16px", textFontSize: 80});
+      this["stats" + Stat + "Value"].addTo(this.statsMain);
+    }
   },
 
   show: function() {
@@ -83,13 +77,13 @@ var CharacterSheet = Dialog.extend({
   },
 
   refresh: function() { // Refreshes stat texts based on character real stats
-    this.statsSpeedValue.setup({text: _.format("{} u / s", this.char.sSpeed),});
-    this.statsBuildRangeValue.setup({text: _.format("{} units", this.char.sBuildRange),});
-    this.statsBuildTimeValue.setup({text: _.format("{} % / s", this.char.sBuildTime),});
-    this.statsRepairAmountValue.setup({text: _.format("{} hp / s", this.char.sRepairAmount),});
-    this.statsAttackRangeValue.setup({text: _.format("{} units", this.char.sAttackRange),});
-    this.statsAttackSpeedValue.setup({text: _.format("{} / s", this.char.sAttackSpeed),});
-    this.statsDamageValue.setup({text: _.format("{} hp", this.char.sDamage),});
+    for (var i = 0; i < this.STATS.length; i++) {
+      let sStat = this.STATS[i].stat;
+      let Stat = this.STATS[i].stat.substr(1);
+      let unit = this.STATS[i].unit;
+      let rightZeros = this.STATS[i].rightZeros;
+      this["stats" + Stat + "Value"].setup({text: _.format("{}" + unit, this.char[sStat].toFixed(rightZeros))});
+    }
   },
 
   toString: () => "CharSheet"

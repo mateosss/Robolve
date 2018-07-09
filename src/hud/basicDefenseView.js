@@ -38,8 +38,10 @@ var BasicDefenseView = Dialog.extend({
     this.titleContainer.addTo(this);
     this.titleElement = new Button({left: "11px", top:"11px", button: "pink", width: "100ph", icon: "robot", scale:0.75});
     this.titleElement.addTo(this.titleContainer);
-    this.titleText = new Text({text: "Manage Defense", hAlign:cc.TEXT_ALIGNMENT_LEFT, width:"40pw", x: "100ph + 22px", y: "center", top: cc.sys.isNative ? "8px" : "13px", fontSize: 32});
+    this.titleText = new Text({text: "Manage Defense", hAlign:cc.TEXT_ALIGNMENT_LEFT, bottom: "12px", width:"40pw", x: "100ph + 22px", y: "center", top: cc.sys.isNative ? "8px" : "13px", fontSize: 32});
     this.titleText.addTo(this.titleContainer);
+    this.titlePrice = new Text({text: _.format("Improve for ${}", rb.prices.increaseStat), bottom:"-16px", x: "100ph + 22px", y: "center", top: cc.sys.isNative ? "8px" : "13px", fontSize: 24});
+    this.titlePrice.addTo(this.titleContainer);
     this.titleRepair = new Button({x: "-200ph + -78.4px + -11px", top:"11px", button: "green", width: "100ph", icon: "wrench", scale:0.75});
     this.titleRepair.addTo(this.titleContainer);
     this.titleRepair.setVisible(false);
@@ -53,9 +55,9 @@ var BasicDefenseView = Dialog.extend({
     this.statsContainer.addTo(this);
     this.statsMain = new Panel({bgImage: r.ui.panel_in, height: "100ph", width: "100pw", padding: "11px", x: "center"});
     this.statsMain.addTo(this.statsContainer);
-    this.statsMainLeft = new Layout({width: "50pw", left:"11px"});
+    this.statsMainLeft = new Layout({width: "50pw"});
     this.statsMainLeft.addTo(this.statsMain);
-    this.statsMainRight = new Layout({left: "50pw", width: "50pw", right:"11px"});
+    this.statsMainRight = new Layout({left: "50pw", width: "50pw", right:"32px"});
     this.statsMainRight.addTo(this.statsMain);
     this.statsLife = new StatTweak("Defense", "life", {y:"84px", scale: 0.6, padding: "11px", paddingHorizontal: "36px", height:"68px", fontSize: 36});
     this.statsLife.addTo(this.statsMainLeft);
@@ -84,7 +86,7 @@ var BasicDefenseView = Dialog.extend({
       water: {button: "blue", icon: "water"},
     }[defense.element];
     this.titleElement.setup(titleElementOptions);
-    this.titleText.setup({text: _.format("Manage {} Defense", _.capitalize(defense.element))});
+    this.titleText.setup({text: _.format("{} Defense", _.capitalize(defense.element))});
     let hud = this.getParent();
     this.titleDestroy.setup({
       callback: () => {

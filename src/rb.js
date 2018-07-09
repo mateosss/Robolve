@@ -85,7 +85,7 @@ var rb = {
           var hud = this.level.hud;
           var burn = new cc.TintTo(0.2, 0, 0, 0);
           var disappear = new cc.FadeOut(0.2);
-          var message = new cc.CallFunc(function(){ hud.it.message("Turret destroyed"); });
+          var message = new cc.CallFunc(function(){ hud.it.message("You can't simply destroy a piece of art like that"); });
           var destroy = new cc.CallFunc(function(){ this.destroy(); }, this);
           var actArray = [burn, disappear, message, destroy];
           this.runAction(new cc.Sequence(actArray));
@@ -102,9 +102,17 @@ var rb = {
         name: 'repair',
         animation: function() { this.setAnimation('still'); },
         postStart: function(state) {
-          this.showBuildBar(state.local.initialRepair);
+          this.showBuildBar("Repairing", state.local.initialRepair);
         }
-      }
+      },
+      improve: {
+        name: 'improve',
+        animation: function() { this.setAnimation('still'); },
+        postStart: function() {
+          this.resetImproved();
+          this.showBuildBar("Improving");
+        }
+      },
     },
     robot: {
       still: {
@@ -176,7 +184,7 @@ var rb = {
         schedule: [{
            callback: function(dt) {
              if (!this.target.sm.isInState('repair')) this.sm.setDefaultState();
-             else this.target.addRepaired(this.sRepairAmount);
+             else this.target.addRepaired(this.sRepairAmount / 2); // TODO: Divided by two because of the refresh interval of 0.5, a little hardcoded
            },
            interval: 0.5,
         }],
@@ -186,6 +194,22 @@ var rb = {
         beforeEnd: function() {
           this.target.sm.setState('idle');
           this.target.hideBuildBar();
+          this.cleanTarget();
+        },
+      },
+      improve: {
+        name: 'improve',
+        schedule: [{
+          callback: function(dt) {
+            if (!this.target.sm.isInState('improve')) this.sm.setDefaultState();
+            else this.target.addImproved(dt * 100 / this.sImproveTime);
+          },
+          interval: 0.5,
+        }],
+        postStart: function() {
+
+        },
+        beforeEnd: function() {
           this.cleanTarget();
         },
       },
