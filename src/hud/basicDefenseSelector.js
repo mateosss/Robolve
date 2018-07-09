@@ -70,7 +70,7 @@ var BasicDefenseSelector = cc.Node.extend({
       while (bds.toString() !== "BasicDefenseSelector") bds = bds.getParent(); // Search for basicDefenseSelector in parent three
       let hud = bds.getParent();
 
-      hud.it.message("Place " + type[0].toUpperCase() + type.slice(1) + " Tower - $" + rb.prices.createDefense);
+      hud.it.message("Tell me where, and I'll do my thing");
       let life = 0;//0,1,2
       let range = 0;//0,1,2
       let element = type;//water,fire,electric
@@ -100,7 +100,7 @@ var BasicDefenseSelector = cc.Node.extend({
       hud.it.message(canBePlaced.cause);
     } else {
       if (canBePlaced.result) {
-        hud.it.message(_.format("You don't have {} bucks", rb.prices.createDefense));
+        hud.it.message("You seem pretty broke");
         hud.ig.notEnoughGold();
       } else {
         hud.it.message(canBePlaced.cause);

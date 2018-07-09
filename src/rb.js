@@ -85,7 +85,7 @@ var rb = {
           var hud = this.level.hud;
           var burn = new cc.TintTo(0.2, 0, 0, 0);
           var disappear = new cc.FadeOut(0.2);
-          var message = new cc.CallFunc(function(){ hud.it.message("Turret destroyed"); });
+          var message = new cc.CallFunc(function(){ hud.it.message("You can't simply destroy a piece of art like that"); });
           var destroy = new cc.CallFunc(function(){ this.destroy(); }, this);
           var actArray = [burn, disappear, message, destroy];
           this.runAction(new cc.Sequence(actArray));

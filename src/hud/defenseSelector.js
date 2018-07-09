@@ -38,7 +38,7 @@ var DefenseSelector = ccui.ListView.extend({
 
       } else {
         if (canBePlaced.result) {
-          this.ok.getParent().it.message(_.format("You don't have {} bucks", rb.prices.createDefense));
+          this.ok.getParent().it.message("You are pretty damn broke my dear player");
           this.ok.getParent().ig.notEnoughGold();
         } else {
           this.ok.getParent().it.message(canBePlaced.cause);
@@ -104,7 +104,7 @@ var DefenseSelector = ccui.ListView.extend({
     ];
     var dsEvent = function(btn, level, type) {
       var hud = btn.getParent().getParent().getParent();
-      hud.it.message("Place " + type[0].toUpperCase() + type.slice(1) + " Tower - $" + rb.prices.createDefense);
+      hud.it.message("Tell me where, and I'll do my thing");
       var life = 0;//0,1,2
       var range = 0;//0,1,2
       var element = type;//water,fire,electric

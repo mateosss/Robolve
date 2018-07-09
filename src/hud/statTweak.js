@@ -59,7 +59,7 @@ var StatTweak = Progress.extend({
     _.assert(c instanceof Computer, _.format("{} computer in statTweak of stat {} is not a computer", c, this.stat));
 
     if (c.sm.isInState('improve')) {
-      c.level.hud.it.message(_.format("Take it easy, I'm on it"));
+      c.level.hud.it.message("Take it easy, I'm on it");
       this.cantChange();
       return;
     }
@@ -74,14 +74,14 @@ var StatTweak = Progress.extend({
         let newStatIndex = Object.keys(pProp).sort()[canMaximizeTo]; // The sort is to ensure key order
         c.changeStat(p, _.tryParseInt(newStatIndex));
         c.level.hud.ig.removeGold(rb.prices.increaseStat);
-        c.level.hud.it.message(_.format("That improvement will look finna woke", _.formatVarName(p), pProp[c[p]]));
+        c.level.hud.it.message("That improvement will look finna woke");
         c.sm.setState('improve');
         c.level.character.goImprove(c);
       } else {
-        c.level.hud.it.message(_.format("You only can go down for ${}", rb.prices.increaseStat));
+        c.level.hud.it.message("Damn, it is never good enough for you, is it?");
       }
     } else {
-      c.level.hud.it.message(_.format("You don't have {} bucks", rb.prices.increaseStat));
+      c.level.hud.it.message("You're just a kid spending money aren't ya");
       c.level.hud.ig.notEnoughGold();
       this.cantChange();
     }

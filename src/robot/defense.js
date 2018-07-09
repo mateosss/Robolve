@@ -198,17 +198,17 @@ var Defense = Computer.extend({
     var tileProps = this.level.map.getPropertiesForGID(tile) || {};
     var isRoad = tileProps.hasOwnProperty('road');
     if (isRoad && tileProps.road == "1") {
-      return {result: false, cause: "Can't place on here"};
+      return {result: false, cause: "My art ain't gonna be lying there"};
     } else {
       for (var i = 0; i < this.level.defenses.length; i++) {
         if (cc.pointEqualToPoint(
           this.level.map.tileCoordFromChild(this.level.defenses[i]),
           tilePos
         )) {
-          return {result: false, cause: "There is already a tower there"};
+          return {result: false, cause: "Ain't no tetris wiz"};
         }
       }
-      return {result: true, cause: _.format("Placed - ${}", rb.prices.createDefense)}; // TODO estos mensajes no estan muy bien aca
+      return {result: true, cause: _.format("It came out hella lit", rb.prices.createDefense)}; // TODO estos mensajes no estan muy bien aca
     }
   },
   update: function(delta) {
