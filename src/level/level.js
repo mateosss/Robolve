@@ -361,7 +361,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   },
   mutate: function(gen, possibles) {
     // Mutates a gen within the possibles array
-    var leftPossibles = possibles.filter(function(a) { return a != gen; });
+    var leftPossibles = possibles.length > 1 ? possibles.filter(function(a) { return a != gen; }) : possibles;
     var mutatedGen = leftPossibles[Math.floor((Math.random() * leftPossibles.length))];
     return mutatedGen;
   },

@@ -481,6 +481,8 @@ Format (variables between \<\> should be calculated after each day/task)
 
   - 2017-07-08 Do -
     - 16:15 - 18:55 | Haciendo char improving
+    - 19:35 - 20:20 | characterSheet mas automatica, y solo walk terrain
+    - 20:35 - 22:15 | arreglando solo walk terrain, y jugando
 # (40:00 hs) Julio Semana 15 []
 
 # (40:00 hs) Julio Semana 22 []

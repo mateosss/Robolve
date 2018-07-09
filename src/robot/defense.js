@@ -14,7 +14,7 @@ var Defense = Computer.extend({
       water: "Water",
     }],
     ['range', {0: 200, 1: 300, 2: 500}],
-    ['terrain', {0: 'walk', 1: 'fly'}],
+    ['terrain', {0: 'walk'}],
     ['damage', {0: 25, 1: 50, 2:75}],
     ['attackSpeed', {0: 0.5, 1: 1.0, 2: 2.0}],
   ]),
