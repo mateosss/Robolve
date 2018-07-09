@@ -184,7 +184,7 @@ var rb = {
         schedule: [{
            callback: function(dt) {
              if (!this.target.sm.isInState('repair')) this.sm.setDefaultState();
-             else this.target.addRepaired(this.sRepairAmount);
+             else this.target.addRepaired(this.sRepairAmount / 2); // TODO: Divided by two because of the refresh interval of 0.5, a little hardcoded
            },
            interval: 0.5,
         }],
