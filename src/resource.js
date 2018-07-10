@@ -11,11 +11,13 @@ var r = { // resources variable
   base: "res/sprites/base.png",
   maps:{
     tilesheet: "res/map/tilesheet.png",
+    tileset: "res/map/tileset.png",
     map1: "res/map/map1.tmx",
     map2: "res/map/map2.tmx",
     map3: "res/map/map3.tmx",
     map4: "res/map/map4.tmx",
     map5: "res/map/map5.tmx",
+    map6: "res/map/map6.tmx",
   },
   ui: {
     panel: "res/sprites/ui/panel.png",

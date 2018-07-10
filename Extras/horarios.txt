@@ -422,17 +422,17 @@ Format (variables between \<\> should be calculated after each day/task)
 
 # (08:00 hs) Abril Semana del 29 [01:30 hs]
 
-- 2017-05-05 Sa - 01:30 hs
+- 2018-05-05 Sa - 01:30 hs
 - 10:00 - 11:30 | Desglosando, hasta Char Improve Towers
 
 # (08:00 hs) Mayo Semana 6 [11:00 hs]
 
-- 2017-05-06 Do - 01:00 hs
+- 2018-05-06 Do - 01:00 hs
   - 18:45 - 19:00 | Desglosando basic inventory
   - 21:45 - 22:30 | Desglosando hasta chest
-- 2017-05-11 Vi - 01:00 hs
+- 2018-05-11 Vi - 01:00 hs
   - 08:40 - 09:40 | Implementando character, viendo que necesito modularizar statemachine fuera de computer
-- 2017-05-12 Sa - 09:00 hs
+- 2018-05-12 Sa - 09:00 hs
   - 09:40 - 10:40 | Modularizado stateMachines fuera de Computer
   - 10:40 - 12:40 | Character ya se mueve para ir a construir defensas, no construye
   - 17:15 - 21:15 | Character ya construye genial, perdí mucho tiempo retocando el panel de building
@@ -450,40 +450,45 @@ Format (variables between \<\> should be calculated after each day/task)
 
 # (08:00 hs) Junio Semana 17 [06:40 hs]
 
-- 2017-06-22 Vi - 02:00 hs
+- 2018-06-22 Vi - 02:00 hs
   - 09:45 - 11:00 | Counter de attack de defense y robot pasados a sus respectivos attack states
   - 21:30 - 22:15 | Haciendo que el char ataque y persiga mas o menos a los robots
-- 2017-06-23 Sa - 04:40 hs
+- 2018-06-23 Sa - 04:40 hs
   - 11:30 - 12:40 | Despues de matar a un robot char se fija si hay mas en su rango para seguir atacando, done Char Attack
   - 15:45 - 17:25 | Base towering done: Base ahora es una Defense
   - 19:10 - 21:00 | starting Char sheet, hice un mockup pensando a futuro, no era la idea, pero bueno.
 
 # (08:00 hs) Junio Semana 24 [08:00 hs]
 
-  - 2017-06-24 Do - 07:35 hs
+  - 2018-06-24 Do - 07:35 hs
     - 09:25 - 11:00 | haciendo char sheet
     - 11:25 - 12:55 | charsheet basica, funcional, pero sin scroll
     - 17:00 - 18:00 | Proyectando el plan para estos meses, y las respectivas deadlines
     - 18:00 - 19:40 | Debugging android
     - 19:40 - 21:30 | Basic scrollLayout working, but not in use, saved usage example in robolve-extras/charSheet.js
 
-  - 2017-06-28 Ju - 00:25 hs
+  - 2018-06-28 Ju - 00:25 hs
     - 18:40 - 19:05 | Pensando como hacer el char repairing, un poco de mockup
 
 # (40:00 hs) Julio Semana 1 [03:40 hs]
 
-  - 2017-07-06 Vi - 03:40 hs
+  - 2018-07-06 Vi - 03:40 hs
     - 11:05 - 12:40 | Haciendo que el personaje pueda reparar torretas
     - 13:35 - 14:20 | Char repairing casi list, falta testear android e icono
     - 18:30 - 19:40 | Char repairing done. Added full material design icon fonts and tested on android
 
 # (40:00 hs) Julio Semana 8 []
 
-  - 2017-07-08 Do -
+  - 2018-07-08 Do - 06:00 hs
     - 16:15 - 18:55 | Haciendo char improving
     - 19:35 - 20:20 | characterSheet mas automatica, y solo walk terrain
-    - 20:35 - 22:15 | arreglando solo walk terrain, y jugando
-    - 22:25 -
+    - 20:35 - 22:25 | arreglando solo walk terrain, y jugando
+    - 22:25 - 23:10 | Char improving DONE, Mas slang, y testeado en android y linux, salto un pequeño bug no letal
+
+  - 2018-07-09 Lu - 05:00 hs
+    - 15:50 - 19:50 | Tile.blend con tiles basicas y script de render automatizado
+    - 20:30 - 21:30 | Implementando en el juego nuevos custom tiles
+
 # (40:00 hs) Julio Semana 15 []
 
 # (40:00 hs) Julio Semana 22 []

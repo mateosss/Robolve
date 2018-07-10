@@ -32,7 +32,7 @@ var Menu = cc.LayerGradient.extend({
       var firstTime = !text;
       cc.director.runScene(new cc.TransitionFade(1, new GameLevel(r.maps['map' + (i + 1)], firstTime)));
     };
-    for (var i = 0; i < _.size(r.maps) - 1; i++) {
+    for (var i = 0; i < _.size(r.maps) - 2; i++) {
       var btn = new Button({callback: _.wrap(startGame, i), text: (i + 1).toString(), button: "green", width: "96px", height: "96px",});
       this.ls.pushBackCustomItem(btn);
     }
