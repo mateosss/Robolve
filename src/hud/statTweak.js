@@ -62,6 +62,10 @@ var StatTweak = Progress.extend({
       c.level.hud.it.message("Take it easy, I'm on it");
       this.cantChange();
       return;
+    } else if (c.sm.isInState('repair')) {
+      c.level.hud.it.message("I'm doing something here wait a minute");
+      this.cantChange();
+      return;
     }
 
     let hasBudget = c.level.base.gold >= rb.prices.increaseStat;
