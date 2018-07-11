@@ -208,7 +208,7 @@ var Defense = Computer.extend({
           return {result: false, cause: "Ain't no tetris wiz"};
         }
       }
-      return {result: true, cause: _.format("It came out hella lit", rb.prices.createDefense)}; // TODO estos mensajes no estan muy bien aca
+      return {result: true, cause: _.format("It'll came out hella lit")}; // TODO estos mensajes no estan muy bien aca
     }
   },
   update: function(delta) {
