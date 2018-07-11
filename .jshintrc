@@ -47,6 +47,8 @@
     "BasicDefenseView": true,
     "DefenseView": true,
     "CharacterSheet": true,
+    "Item": true,
+    "ItemPickup": true,
     "StatTweak": true,
     "MainMenu": true
   },

@@ -60,6 +60,14 @@ var _ = {
       func.call(context, array[i], i, array);
     }
   },
+  clamp: (n, min, max) => n > max ? max : (n < min ? min : n),
+  randn: (n) => { // Normal distribution approximation random, n=6 is pretty good, see http://jsfiddle.net/xx9bh8Lz/127/
+  	let rand = 0;
+    for (let i = 0; i < n; i++) rand += Math.random();
+    return rand / n;
+  },
+  randnint: (n, from, to) => from + Math.floor(_.randn(n) * (to - from + 1)),
+  rand6intCenter: (center) => Math.floor(_.randn(6) * 2 * center),
   randint: (from, to) => from + Math.floor(Math.random() * (to - from + 1)),
   randchoice: (array) => array[_.randint(0, array.length - 1)],
   wrap: (func, ...params) => {return () => func(...params);}, // Returns a function that executes a function with specific params

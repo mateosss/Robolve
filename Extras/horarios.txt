@@ -489,6 +489,11 @@ Format (variables between \<\> should be calculated after each day/task)
     - 15:50 - 19:50 | Tile.blend con tiles basicas y script de render automatizado
     - 20:30 - 21:30 | Implementando en el juego nuevos custom tiles
 
+  - 2018-07-10 Ma -
+    - 14:25 - 15:15 | Pensando clase item, y ícono gold
+    - 15:40 - 16:40 | Programando item
+    - 20:00 - 22:40
+
 # (40:00 hs) Julio Semana 15 []
 
 # (40:00 hs) Julio Semana 22 []

@@ -243,4 +243,15 @@ var rb = {
       },
     }
   },
+
+  items: {
+    gold: new Item({
+      name: "Gold",
+      description: "Use this to buy things",
+      image: r.items.gold,
+      stackLimit: Infinity,
+      consumable: false,
+      equipable: false,
+    }),
+  },
 };

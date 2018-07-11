@@ -90,9 +90,15 @@ var Robot = Computer.extend({
     ];
     this.debugger.debug();
   },
+  drop: function() { // Drops a pickable item to the ground
+    new ItemPickup(this.level.map, this.getPosition(), rb.items.gold, _.rand6intCenter(rb.prices.killRobot));
+  },
+  die: function() {
+    this._super();
+    this.drop();
+  },
   destroy: function() {
     this.level.prevWaveRobots.push([this.getDNA(), this.getScore()]);
-    this.level.hud.ig.addGold(rb.prices.killRobot);
     this._super();
   },
   update: function(delta) {

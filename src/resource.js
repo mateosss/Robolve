@@ -35,6 +35,10 @@ var r = { // resources variable
       "grey",
     ],
   },
+  items: {
+    default: "res/sprites/items/default.png",
+    gold: "res/sprites/items/gold.png",
+  },
   parts_png_0: "res/sprites/parts_0.png",
   parts_plist_0: "res/sprites/parts_0.plist",
   parts_png_1: "res/sprites/parts_1.png",
@@ -71,4 +75,10 @@ for (var ui in r.ui){
       g_resources.push(r.ui[r.ui.buttons[btn] + "RoundP"]);
     }
   }
+
+}
+
+// Charge item sprites
+for (let item in r.items){
+  g_resources.push(r.items[item]);
 }
