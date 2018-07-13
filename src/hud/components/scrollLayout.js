@@ -20,6 +20,7 @@ var ScrollLayout = ccui.ScrollView.extend({
 
     this.setDirection(ccui.ScrollView.DIR_VERTICAL);
     this.setBounceEnabled(true);
+    this.setInertiaScrollEnabled(false);
   },
   setup: function(options) {
     this.scrollView.innerHeight = options.innerHeight !== undefined ? options.innerHeight : this.scrollView.innerHeight;

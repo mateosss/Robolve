@@ -26,6 +26,7 @@
     "Level": true,
     "TiledMap": true,
     "DisplayManager": true,
+    "Grid": true,
     "Panel": true,
     "Layout": true,
     "ScrollLayout": true,

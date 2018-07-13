@@ -30,6 +30,7 @@
       "src/hud/components/dialog.js",
       "src/hud/components/icon.js",
       "src/hud/components/progress.js",
+      "src/hud/components/grid.js",
       "src/hud/hud.js",
       "src/hud/menu.js",
       "src/hud/propertySelector.js",

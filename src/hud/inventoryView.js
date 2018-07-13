@@ -40,9 +40,27 @@ var InventoryView = Dialog.extend({
     this.midContainer = new Layout({height: "100ph + -80px"});
     this.midContainer.addTo(this);
     // this.midContainer.debug(); // XXX
-    this.gridContainer = new Panel({bgImage: r.ui.panel_in_nuts, height: "100ph", width: "70pw", padding: "11px"});
+
+    this.gridContainer = new Panel({bgImage: r.ui.panel_in, height: "100ph", width: "70pw", padding: "11px"});
     this.gridContainer.addTo(this.midContainer);
     // this.gridContainer.debug(); // XXX
+    this.gridScrollContainer = new Layout({paddingVertical: "11px"});
+    this.gridScrollContainer.addTo(this.gridContainer);
+    // this.gridScrollContainer.debug();
+    this.gridScroll = new ScrollLayout({innerHeight: "100pw", innerWidth: "100pw", height: "100ph + -5px"});
+    this.gridScroll.addTo(this.gridScrollContainer);
+    // this.gridScroll.debug();
+
+    let amountOfCells = 25; // TODO hardcodeadaso should be the inventory max capacity
+    let cells = [];
+    for (var i = 0; i < amountOfCells; i++) {
+      cells.push(new Panel({bgImage: r.ui.panel_in_soft, padding: "4px"}));
+    }
+    this.grid = new Grid(cells, {cols: 5, padding: "11px", paddingHorizontal: "5px", height: "100ph + -11px"});
+    this.grid.addTo(this.gridScroll);
+    this.grid.setup({});
+
+
     this.infoContainer = new Layout({height: "100ph", width: "30pw + 11px", padding: "11px", x: "-30pw + -22px"});
     this.infoContainer.addTo(this.midContainer);
     // this.infoContainer.debug(); // XXX
