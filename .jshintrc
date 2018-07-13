@@ -44,11 +44,13 @@
     "InfoText": true,
     "InfoGold": true,
     "DefensePreview": true,
+    "InventoryView": true,
     "BasicDefenseView": true,
     "DefenseView": true,
     "CharacterSheet": true,
     "Item": true,
     "ItemPickup": true,
+    "Inventory": true,
     "StatTweak": true,
     "MainMenu": true
   },

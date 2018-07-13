@@ -67,7 +67,11 @@ var Hud = cc.Layer.extend({
     this.cs = new CharacterSheet(this, {}, level.character);
     this.cs.addTo(this);
 
+    this.inventory = new InventoryView(this, null, {});
+    this.inventory.addTo(this);
+
     // TODO XXX Remove
+    window.inv = this.inventory; // jshint ignore:line
     window.ds = this.ds; // jshint ignore:line
     window.cs = this.cs; // jshint ignore:line
     window.hud = this; // jshint ignore:line
