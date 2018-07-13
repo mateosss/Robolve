@@ -51,7 +51,7 @@ var InventoryView = Dialog.extend({
     this.gridScroll.addTo(this.gridScrollContainer);
     // this.gridScroll.debug();
 
-    let amountOfCells = 25; // TODO hardcodeadaso should be the inventory max capacity
+    let amountOfCells = inventory.capacity;
     let cells = [];
     for (var i = 0; i < amountOfCells; i++) {
       cells.push(new Panel({bgImage: r.ui.panel_in_soft, padding: "4px"}));
@@ -87,39 +87,14 @@ var InventoryView = Dialog.extend({
   },
 
   setInventory: function(inventory) {
+    // TODO Refresh grid with inventory capacity
     this.inventory = inventory;
-    // this.statsLife.setComputer(defense);
-    // this.statsRange.setComputer(defense);
-    // this.statsDamage.setComputer(defense);
-    // this.statsAttackSpeed.setComputer(defense);
-    // let titleElementOptions = {
-    //   electric: {button: "yellow", icon: "flash"},
-    //   fire: {button: "orange", icon: "fire"},
-    //   water: {button: "blue", icon: "water"},
-    // }[defense.element];
-    // this.titleElement.setup(titleElementOptions);
-    // this.titleText.setup({text: _.format("{} Defense", _.capitalize(defense.element))});
-    // let hud = this.getParent();
-    // this.titleDestroy.setup({
-    //   callback: () => {
-    //     this.dismiss();
-    //     hud.alert("Recycle Defense", _.format("Are you sure you want to delete this defense for {} bucks? You just think about money don't you?", rb.prices.destroyDefense), () => {
-    //       defense.die();
-    //       hud.ig.addGold(rb.prices.destroyDefense);
-    //       hud.dialog.dismiss();
-    //     });
-    //   }
-    // });
-    // let isDamaged = !defense.isRepaired();
-    // this.titleRepair.setVisible(isDamaged);
-    // if (isDamaged) {
-    //   this.titleRepair.setup({
-    //     callback: () => {
-    //       this.dismiss();
-    //       defense.level.character.goRepair(defense);
-    //     }
-    //   });
-    // }
+    for (var i = 0; i < inventory.items.length; i++) {
+      let itemInventoryThumb = new Badge({bgImage: inventory.items[i].item.image, scale9: false, padding: "13px",});
+      itemInventoryThumb.addTo(this.grid.cells[i]);
+      let itemInventoryQuantity = new Text({text: inventory.items[i].quantity, fontSize: 24, x: "center", top: "5px"});
+      itemInventoryQuantity.addTo(this.grid.cells[i]);
+    }
   },
 
   toString: () => "InventoryView"

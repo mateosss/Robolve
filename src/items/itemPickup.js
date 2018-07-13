@@ -35,8 +35,9 @@ var ItemPickup = cc.Sprite.extend({
       let fly = new cc.EaseBackIn(new cc.MoveTo(0.2, this.map.level.character.getPosition()), 3);
       let shrink = new cc.EaseBackIn(new cc.ScaleBy(0.2, 0.5), 3);
       let destroy = new cc.RemoveSelf();
-      let addGold = new cc.CallFunc(() => this.map.level.hud.ig.addGold(this.quantity));
-      let actArray = [new cc.Spawn([fly, shrink]), destroy, addGold];
+      // let addGold = new cc.CallFunc(() => this.map.level.hud.ig.addGold(this.quantity));TODO, affect the gold property in some way
+      let addItem = new cc.CallFunc(() => this.map.level.character.inventory.addItem(this.item, this.quantity));
+      let actArray = [new cc.Spawn([fly, shrink]), destroy, addItem];
       this.runAction(new cc.Sequence(actArray));
     }
   },

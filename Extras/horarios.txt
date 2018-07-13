@@ -498,12 +498,18 @@ Format (variables between \<\> should be calculated after each day/task)
     - 14:15 - 15:15 | STORY: Definiendo el background de Maghju
     - 20:40 - 22:40 | Empezando con InventoryView, layout basico con item description
 
-  - 2018-07-13 Vi -
-    09:45 -  13:00 | Scrollable grid for inventoryview
+  - 2018-07-13 Vi - 04:30 hs
+    - 09:45 - 13:00 | Scrollable grid for inventoryview
+    - 16:00 - 17:15 | Initial item pickup to inventory->inventoryview
+
 
 # (40:00 hs) Julio Semana 15 []
 
 # (40:00 hs) Julio Semana 22 []
+
+# Current TODO's
+
+- Inform the player when max capacity reached
 
 # BUG's
 

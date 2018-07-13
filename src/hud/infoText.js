@@ -11,11 +11,11 @@ var InfoText = cc.LabelTTF.extend({
     this.setFontSize(32);
     let d = this.hud.bottombarLayout.getSize();
     if (!cc.sys.isNative) this.setLineHeight(32); // TODO Hack
-    this.setDimensions(d.width - 208, d.height); // TODO Hardcoded dimensions
+    this.setDimensions(d.width - 278, d.height); // TODO Hardcoded dimensions
     this.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
     this.setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER);
     this.setAnchorPoint(0, 0);
-    this.setPosition(104, 11); // TODO Hardcoded x
+    this.setPosition(112, 11); // TODO Hardcoded x
   },
   toString: () => "InfoText",
   message: function(message, duration) {

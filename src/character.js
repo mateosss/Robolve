@@ -1,6 +1,7 @@
 var Character = cc.Sprite.extend({
   level: null, // Level where this character is placed
   sm: null, // Character StateMachine
+  inventory: null,
   STATES: [ // Possible states for this robot
     rb.states.character.still, // default state
     rb.states.character.move,
@@ -27,6 +28,7 @@ var Character = cc.Sprite.extend({
     this.level = level;
     this.setAnchorPoint(0.5, 0.0);
     this.sm = new StateMachine(this);
+    this.inventory = new Inventory();
     this.scheduleUpdate();
   },
 
