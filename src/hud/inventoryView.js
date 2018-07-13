@@ -58,7 +58,7 @@ var InventoryView = Dialog.extend({
     }
     this.grid = new Grid(cells, {cols: 5, padding: "11px", paddingHorizontal: "5px", height: "100ph + -11px"});
     this.grid.addTo(this.gridScroll);
-    this.grid.setup({});
+    this.grid.setup({}); // TODO Don't know why it is needed
 
 
     this.infoContainer = new Layout({height: "100ph", width: "30pw + 11px", padding: "11px", x: "-30pw + -22px"});

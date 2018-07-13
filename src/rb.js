@@ -2,6 +2,7 @@
 var rb = {
   global: window, // jshint ignore:line
   dev: { // Helper functions for use when debuggin on the browser
+    stop: () => cc.director.getScheduler().unscheduleAll(),
     getLevel: () => cc.director.getRunningScene().children.find(c => c.toString() === "Level"),
     getHud: () => rb.dev.getLevel().hud,
     getRobots: () => rb.dev.getLevel().robots,

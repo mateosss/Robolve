@@ -8,7 +8,8 @@ var Grid = ccui.Layout.extend({
       cols: 3,
     };
     this._super();
-    this.cells = cells;
+    this.cells = [];
+    cells.forEach(c => this.addCell(c));
     this.displayManager = new DisplayManager(this, options);
     this.setup(options);
   },
@@ -22,12 +23,15 @@ var Grid = ccui.Layout.extend({
       for (let j = 0; j < cols && !finished; j++) {
         if (i * cols + j < this.cells.length) {
           this.cells[i * cols + j].setup({width: width + "pw", height: width + "pw", x: (width * j) + "pw", y: -width * (i + 1) + "pw"});
-          this.cells[i * cols + j].addTo(this);
         } else finished = true;
       }
     }
 
     this.displayManager.setup(options);
+  },
+  addCell: function(cell) {
+    this.cells.push(cell);
+    cell.addTo(this);
   },
   toString: () => "Layout"
 });
