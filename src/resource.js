@@ -38,6 +38,9 @@ var r = { // resources variable
   items: {
     default: "res/sprites/items/default.png",
     gold: "res/sprites/items/gold.png",
+    electricCoin: "res/sprites/items/electricCoin.png",
+    fireCoin: "res/sprites/items/fireCoin.png",
+    waterCoin: "res/sprites/items/waterCoin.png",
   },
   parts_png_0: "res/sprites/parts_0.png",
   parts_plist_0: "res/sprites/parts_0.plist",

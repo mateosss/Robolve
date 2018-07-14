@@ -17,6 +17,9 @@ var Inventory = cc.Class.extend({
       }
     }
   },
+  removeItem: function(item, quantity) {
+    this.addItem(item, -quantity);
+  },
 
   getItemQuantity: function(item) {
     let itemToGet = this.items.find(i => i.item.isEqual(item));

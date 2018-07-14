@@ -37,7 +37,7 @@ var Hud = cc.Layer.extend({
     this.cancelActions = new Button({button: "red", callback: () => this.level.character.sm.setDefaultState(), bottom: "20px", left: "16px", height: "65ph", width: "65ph", icon:"cancel", iconFontSize: 72, scale: 0.75});
     this.cancelActions.addTo(this.bottombarLayout);
 
-    this.openInventory = new Button({button: "yellow", callback: () => this.inventory.show(this.level.character.inventory), x: "-125ph", bottom: "20px", right: "30px", height: "65ph", width: "65ph", icon:"treasure-chest", iconFontSize: 72, scale: 0.75});
+    this.openInventory = new Button({button: "yellow", callback: () => this.inventory.show(), x: "-125ph", bottom: "20px", right: "30px", height: "65ph", width: "65ph", icon:"treasure-chest", iconFontSize: 72, scale: 0.75});
     this.openInventory.addTo(this.bottombarLayout);
 
     this.openCharSheet = new Button({button: "pink", callback: () => this.cs.show(), x: "-62.5ph", bottom: "20px", right: "20px", height: "65ph", width: "65ph", icon:"robot", iconFontSize: 72, scale: 0.75});

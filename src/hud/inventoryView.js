@@ -81,19 +81,50 @@ var InventoryView = Dialog.extend({
     this.show(inventory);
   },
 
-  show: function(inventory) {
+  show: function() {
     this._super();
-    this.setInventory(inventory);
+    this.refresh();
   },
 
-  setInventory: function(inventory) {
+  refresh: function() {
     // TODO Refresh grid with inventory capacity
-    this.inventory = inventory;
-    for (var i = 0; i < inventory.items.length; i++) {
-      let itemInventoryThumb = new Badge({bgImage: inventory.items[i].item.image, scale9: false, padding: "13px",});
-      itemInventoryThumb.addTo(this.grid.cells[i]);
-      let itemInventoryQuantity = new Text({text: inventory.items[i].quantity, fontSize: 24, x: "center", top: "5px"});
-      itemInventoryQuantity.addTo(this.grid.cells[i]);
+    let inv = this.inventory;
+
+    // Update first inv.length items of grid
+    for (var i = 0; i < inv.items.length; i++) {
+      let cell = this.grid.cells[i];
+
+      let gridItem = cell.item; // Reference
+      let gridItemQuantity = cell.quantity; // Value
+      let invItem = inv.items[i].item; // Reference
+      let invItemQuantity = inv.items[i].quantity; // Value
+
+      if (!cell.item) { // Empty cell, initialize it
+        cell.item = inv.items[i]; // Saves the {item: Item, quantity: Number} pair reference
+        cell.quantity = inv.items[i].quantity; // The quantity *value* to compare later
+        cell.itemThumb = new Badge({bgImage: inv.items[i].item.image, scale9: false, padding: "13px",});
+        cell.itemThumb.addTo(cell);
+        cell.itemQuantity = new Text({text: inv.items[i].quantity, fontSize: 24, x: "center", top: "5px"});
+        cell.itemQuantity.addTo(cell);
+      } else if (gridItem === invItem && gridItemQuantity !== invItemQuantity) { // Same item on filled cell, with different quantity, update it
+        cell.quantity = invItemQuantity;
+        cell.itemQuantity.setup({text: invItemQuantity});
+      } else if (gridItem !== invItem) { // New item on filled cell, update cell ui
+        cell.item = inv.items[i];
+        cell.quantity = inv.items[i].quantity;
+        cell.itemThumb.setup({bgImage: inv.items[i].item.image});
+        cell.itemQuantity.setup({text: inv.items[i].quantity});
+      } // else nothing has changed at all
+    }
+
+    // Remove all items outside this for (inv.length)
+    let cell = this.grid.cells[i];
+    while (cell.item != null && i < this.grid.cells.length) {
+      cell.item = null;
+      cell.quantity = null;
+      cell.itemThumb.removeFromParent();
+      cell.itemQuantity.removeFromParent();
+      cell = this.grid.cells[++i];
     }
   },
 

@@ -91,7 +91,11 @@ var Robot = Computer.extend({
     this.debugger.debug();
   },
   drop: function() { // Drops a pickable item to the ground
-    new ItemPickup(this.level.map, this.getPosition(), rb.items.gold, _.rand6intCenter(rb.prices.killRobot));
+    if (Math.random() < 0.5) {
+      new ItemPickup(this.level.map, this.getPosition(), _.randchoiceObj(rb.items), _.rand6intCenter(2));
+    } else {
+      new ItemPickup(this.level.map, this.getPosition(), rb.items.gold, _.rand6intCenter(rb.prices.killRobot));
+    }
   },
   die: function() {
     if (!this.sm.isInState('die')) this.drop(); // Check if it is already dying for not dropping many items

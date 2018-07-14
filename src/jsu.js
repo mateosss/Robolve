@@ -70,6 +70,7 @@ var _ = {
   rand6intCenter: (center) => Math.floor(_.randn(6) * 2 * center),
   randint: (from, to) => from + Math.floor(Math.random() * (to - from + 1)),
   randchoice: (array) => array[_.randint(0, array.length - 1)],
+  randchoiceObj: (obj) => obj[_.randchoice(Object.keys(obj))],
   wrap: (func, ...params) => {return () => func(...params);}, // Returns a function that executes a function with specific params
   sequence: (self, ...funcs) => { return () => { // Returns a function that executes funcs (with no params) (with self context) in sequence
     for (var i = 0; i < funcs.length; i++) funcs[i].apply(self);

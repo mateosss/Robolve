@@ -504,6 +504,7 @@ Format (variables between \<\> should be calculated after each day/task)
 
   - 2018-07-14 Sa -
     - 14:10 - 15:10 | Picking up gold is synced between infoGold, inventory and inventoryView
+    - 16:10 - 17:40 | Now all modifications in the inventory are correctly reflected in the inventoryView
 
 
 # (40:00 hs) Julio Semana 15 []
