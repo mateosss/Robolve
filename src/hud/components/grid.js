@@ -17,6 +17,8 @@ var Grid = ccui.Layout.extend({
     let rows = this.grid.rows = options.rows || this.grid.rows;
     let cols = this.grid.cols = options.cols || this.grid.cols;
 
+    this.displayManager.setup(options);
+    
     let finished = false;
     let width = (100 / this.grid.cols);
     for (let i = 0; i < rows && !finished; i++) {
@@ -27,9 +29,12 @@ var Grid = ccui.Layout.extend({
       }
     }
 
-    this.displayManager.setup(options);
   },
   addCell: function(cell) {
+    let width = (100 / this.grid.cols);
+    let i = Math.floor(this.cells.length / this.grid.cols);
+    let j = this.cells.length % this.grid.cols;
+    cell.setup({width: width + "pw", height: width + "pw", x: (width * j) + "pw", y: -width * (i + 1) + "pw"});
     this.cells.push(cell);
     cell.addTo(this);
   },

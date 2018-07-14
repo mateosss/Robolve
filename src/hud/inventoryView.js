@@ -1,6 +1,7 @@
 var InventoryView = Dialog.extend({
   inventory: null, // The inventory object to which this view repreents
   hud: null, // The parent hud
+  COLS: 5, // Amount of columns of the grid
 
   // UI Components Structure
 
@@ -47,16 +48,17 @@ var InventoryView = Dialog.extend({
     this.gridScrollContainer = new Layout({paddingVertical: "11px"});
     this.gridScrollContainer.addTo(this.gridContainer);
     // this.gridScrollContainer.debug();
-    this.gridScroll = new ScrollLayout({innerHeight: "100pw", innerWidth: "100pw", height: "100ph + -5px"});
-    this.gridScroll.addTo(this.gridScrollContainer);
-    // this.gridScroll.debug();
 
     let amountOfCells = inventory.capacity;
     let cells = [];
-    for (var i = 0; i < amountOfCells; i++) {
-      cells.push(new Panel({bgImage: r.ui.panel_in_soft, padding: "4px"}));
-    }
-    this.grid = new Grid(cells, {cols: 5, padding: "11px", paddingHorizontal: "5px", height: "100ph + -11px"});
+    let cols = this.COLS;
+    for (let i = 0; i < amountOfCells; i++) cells.push(new Panel({bgImage: r.ui.panel_in_soft, padding: "4px"}));
+
+    this.gridScroll = new ScrollLayout({innerHeight: (100 / cols) * Math.ceil(amountOfCells / cols) + "pw", innerWidth: "100pw", height: "100ph + -5px"});
+    this.gridScroll.addTo(this.gridScrollContainer);
+    // this.gridScroll.debug();
+
+    this.grid = new Grid(cells, {cols: cols, padding: "11px", paddingHorizontal: "5px", height: "100ph + -11px"});
     this.grid.addTo(this.gridScroll);
     this.grid.setup({}); // TODO Don't know why it is needed
 
@@ -77,8 +79,6 @@ var InventoryView = Dialog.extend({
     this.infoText.setTextAreaSize(cc.size(this.infoContainer.width, this.infoContainer.height - 160));
     this.infoText.addTo(this.infoContainer);
     // this.infoText.debug(); // XXX
-
-    this.show(inventory);
   },
 
   show: function() {
@@ -87,8 +87,27 @@ var InventoryView = Dialog.extend({
   },
 
   refresh: function() {
-    // TODO Refresh grid with inventory capacity
     let inv = this.inventory;
+
+    // Update amount of cells with inventory capacity
+    let cols = this.COLS;
+    let rowsBefore = Math.ceil(this.grid.cells.length / cols);
+    if (inv.capacity < this.grid.cells.length) {
+      for (let i = this.grid.cells.length - 1; inv.capacity <= i; i--) {
+        this.grid.cells.pop().removeFromParent();
+      }
+    } else if (inv.capacity > this.grid.cells.length) {
+      for (let i = this.grid.cells.length; i < inv.capacity; i++) {
+        this.grid.addCell(new Panel({bgImage: r.ui.panel_in_soft, padding: "4px"}));
+      }
+    }
+    let rowsAfter = Math.ceil(this.grid.cells.length / cols);
+    if (rowsBefore !== rowsAfter) { // Update container height to row height
+      this.gridScroll.setup({innerHeight: (100 / cols) * Math.ceil(this.grid.cells.length / cols) + "pw", innerWidth: "100pw", height: "100ph + -5px"});
+      this.grid.setup({});
+      this.grid.setup({});
+    }
+
 
     // Update first inv.length items of grid
     for (var i = 0; i < inv.items.length; i++) {
@@ -118,13 +137,15 @@ var InventoryView = Dialog.extend({
     }
 
     // Remove all items outside this for (inv.length)
-    let cell = this.grid.cells[i];
-    while (cell.item != null && i < this.grid.cells.length) {
-      cell.item = null;
-      cell.quantity = null;
-      cell.itemThumb.removeFromParent();
-      cell.itemQuantity.removeFromParent();
-      cell = this.grid.cells[++i];
+    if (i < this.grid.cells.length) {
+      let cell = this.grid.cells[i];
+      while (cell.item != null && i < this.grid.cells.length) {
+        cell.item = null;
+        cell.quantity = null;
+        cell.itemThumb.removeFromParent();
+        cell.itemQuantity.removeFromParent();
+        cell = this.grid.cells[++i];
+      }
     }
   },
 
