@@ -20,7 +20,7 @@ var TiledMap = cc.TMXTiledMap.extend({
         var color;
         var tint;
 
-        if (map.level.dummyDefense.canBePlacedOn(tile).result && map.level.base.gold >= rb.prices.createDefense) {
+        if (map.level.dummyDefense.canBePlacedOn(tile).result && map.level.character.getGold() >= rb.prices.createDefense) {
           color = cc.color(0, 255, 100, 50);
         } else {
           color = cc.color(255, 50, 50, 50);

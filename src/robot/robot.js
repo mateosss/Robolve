@@ -94,8 +94,8 @@ var Robot = Computer.extend({
     new ItemPickup(this.level.map, this.getPosition(), rb.items.gold, _.rand6intCenter(rb.prices.killRobot));
   },
   die: function() {
+    if (!this.sm.isInState('die')) this.drop(); // Check if it is already dying for not dropping many items
     this._super();
-    this.drop();
   },
   destroy: function() {
     this.level.prevWaveRobots.push([this.getDNA(), this.getScore()]);

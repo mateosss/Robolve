@@ -38,7 +38,7 @@ var PropertySelector = ccui.Layout.extend({
         var sortedKeys = Object.keys(pProp).sort();
         var canMinimize = sortedKeys.indexOf(prop.toString()) > 0;
         if (canMinimize) {
-          var hasBudget = d.level.base.gold >= rb.prices.decreaseStat;
+          var hasBudget = d.level.character.getGold() >= rb.prices.decreaseStat;
           if (hasBudget) {
             var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) - 1];
             d.changeStat(p, _.tryParseInt(improvement));
@@ -68,7 +68,7 @@ var PropertySelector = ccui.Layout.extend({
         var sortedKeys = Object.keys(pProp).sort();
         var canMaximize = sortedKeys.indexOf(prop.toString()) < sortedKeys.length - 1;
         if (canMaximize) {
-          var hasBudget = d.level.base.gold >= rb.prices.increaseStat;
+          var hasBudget = d.level.character.getGold() >= rb.prices.increaseStat;
           if (hasBudget) {
             var improvement = sortedKeys[sortedKeys.indexOf(prop.toString()) + 1];
             d.changeStat(p, _.tryParseInt(improvement));

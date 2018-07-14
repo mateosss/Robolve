@@ -92,7 +92,7 @@ var BasicDefenseSelector = cc.Node.extend({
     let level = hud.level;
     let pos = level.map.tileCoordFromChild(level.dummyDefense);
     let canBePlaced = level.dummyDefense.canBePlacedOn(pos);
-    if (canBePlaced.result && level.base.gold >= rb.prices.createDefense) {
+    if (canBePlaced.result && level.character.getGold() >= rb.prices.createDefense) {
       level.character.goBuild(level.dummyDefense);
       let newDefense = level.dummyToDefense();
       hud.ds.confirm.dismiss(); // This doesn't only hides the bds, this also clears the dummy defense from map

@@ -20,7 +20,7 @@ var DefenseSelector = ccui.ListView.extend({
       /// TODO ALL THIS CODE IS REPEATED FROM GAME.JS and MAP.JS
       var pos = this.hud.level.map.tileCoordFromChild(this.hud.level.dummyDefense);
       var canBePlaced = this.hud.level.dummyDefense.canBePlacedOn(pos);
-      if (canBePlaced.result && this.hud.level.base.gold >= rb.prices.createDefense) {
+      if (canBePlaced.result && this.hud.level.character.getGold() >= rb.prices.createDefense) {
         let hud = this.ok.getParent();
         this.hud.level.dummyDefense.setColor(cc.color(255, 255, 255));
         this.hud.level.defenses.push(this.hud.level.dummyDefense);

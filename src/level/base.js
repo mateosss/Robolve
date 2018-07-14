@@ -1,6 +1,4 @@
 var Base = Defense.extend({
-  gold: 4000, // Player gold
-
   part: null, // TODO Hack, for not using Parts, and using a single part, see assembleParts in this file, should be fixed when sprites for Base are generated
 
   STATS: new Map([ // TODO this should be different combinations that can be purchased

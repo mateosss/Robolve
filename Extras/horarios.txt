@@ -502,6 +502,9 @@ Format (variables between \<\> should be calculated after each day/task)
     - 09:45 - 13:00 | Scrollable grid for inventoryview
     - 16:00 - 17:15 | Initial item pickup to inventory->inventoryview
 
+  - 2018-07-14 Sa -
+    - 14:10 - 15:10 | Picking up gold is synced between infoGold, inventory and inventoryView
+
 
 # (40:00 hs) Julio Semana 15 []
 

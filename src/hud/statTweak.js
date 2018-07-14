@@ -32,7 +32,7 @@ var StatTweak = Progress.extend({
 
     _.assert(c instanceof Computer, _.format("{} computer in statTweak of stat {} is not a computer", c, this.stat));
 
-    let hasBudget = c.level.base.gold >= rb.prices.decreaseStat;
+    let hasBudget = c.level.character.getGold() >= rb.prices.decreaseStat;
 
     if (hasBudget) {
       let canMinimizeTo = this._super(); // Can Minimize? see StatTweak.nextValue
@@ -68,7 +68,7 @@ var StatTweak = Progress.extend({
       return;
     }
 
-    let hasBudget = c.level.base.gold >= rb.prices.increaseStat;
+    let hasBudget = c.level.character.getGold() >= rb.prices.increaseStat;
 
     if (hasBudget) {
       let canMaximizeTo = this._super(); // Can Maximize? Execute Progress.nextValue that returns a boolean saying wether it could go to the next value

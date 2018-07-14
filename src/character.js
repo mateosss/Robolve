@@ -28,7 +28,10 @@ var Character = cc.Sprite.extend({
     this.level = level;
     this.setAnchorPoint(0.5, 0.0);
     this.sm = new StateMachine(this);
+
     this.inventory = new Inventory();
+    this.inventory.addItem(rb.items.gold, 4000); // TODO 4000 hardcoded
+
     this.scheduleUpdate();
   },
 
@@ -48,6 +51,10 @@ var Character = cc.Sprite.extend({
   goAttack: function(robot) {
     this.sm.setState('move');
     this.setTarget(robot);
+  },
+
+  getGold: function() {
+    return this.inventory.getItemQuantity(rb.items.gold);
   },
 
   getNewTarget: function() {

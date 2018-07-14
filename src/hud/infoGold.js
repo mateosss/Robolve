@@ -11,7 +11,7 @@ var InfoGold = Text.extend({
   toString: () => "InfoGold",
   addGold: function(amount) {
     if (!amount) return; // End the function here if you are adding nothing
-    if (this.hud) this.hud.level.base.gold += amount;
+    if (this.hud) this.hud.level.character.inventory.addItem(rb.items.gold, amount);
     else this.amount += amount;
     this.refresh();
     if (amount > 0) {
@@ -46,6 +46,6 @@ var InfoGold = Text.extend({
     this.runAction(new cc.Sequence(actArray));
   },
   refresh: function() {
-    this.setup({text: this.amount ? this.amount.toString() : this.hud.level.base.gold.toString()});
+    this.setup({text: this.amount ? this.amount.toString() : this.hud.level.character.getGold().toString()});
   }
 });

@@ -20,13 +20,15 @@ var Item = cc.Class.extend({
     this.hash = this.getHash();
   },
 
-  getHash: function() {
+  getHash: function(item) {
     // Function to generate hash, it only uses the properties that are unique to this item
+    // If item !== undefined, then it works as a static function for generating the item-hash of any object
+    item = item || this;
     return this.name + this.description + this.image + this.stackLimit + this.consumable + this.equipable;
   },
 
   isEqual: function(item) {
-    return item.hash == this.hash;
+    return item.hash === this.hash;
   },
 
   consume: function() {
