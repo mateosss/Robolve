@@ -60,6 +60,17 @@ var _ = {
       func.call(context, array[i], i, array);
     }
   },
+  revFind: (array, predicate) => {
+    let match;
+    let i = array.length - 1;
+    while (i >= 0 && match === undefined) {
+      if (predicate(array[i])) match = array[i];
+      else i--;
+    }
+    return match;
+  },
+  min: (x, y) => x < y ? x : y,
+  max: (x, y) => x > y ? x : y,
   clamp: (n, min, max) => n > max ? max : (n < min ? min : n),
   randn: (n) => { // Normal distribution approximation random, n=6 is pretty good, see http://jsfiddle.net/xx9bh8Lz/127/
   	let rand = 0;

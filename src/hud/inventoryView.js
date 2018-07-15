@@ -24,7 +24,7 @@ var InventoryView = Dialog.extend({
     options.height = options.height || "420px";
     options.paddingHorizontal = options.paddingHorizontal || "11px";
     options.x = options.x || "center";
-    options.y = options.y || "center";
+    options.y = options.y || "140px";
     options.bgImage = r.ui.grey;
 
     this._super(hud, options);
