@@ -53,6 +53,13 @@ var Character = cc.Sprite.extend({
     this.setTarget(robot);
   },
 
+  dropStack: function(stackIndex) { // Drops an item from an inventory grid cell to the ground
+    let stack = this.inventory.items[stackIndex];
+    this.inventory.items.splice(stackIndex, 1);
+    new ItemPickup(this.level.map, this.getPosition(), stack.item, stack.quantity);
+    this.level.hud.inventory.refresh();
+  },
+
   getGold: function() {
     return this.inventory.getItemQuantity(rb.items.gold);
   },

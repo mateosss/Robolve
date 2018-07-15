@@ -502,18 +502,15 @@ Format (variables between \<\> should be calculated after each day/task)
     - 09:45 - 13:00 | Scrollable grid for inventoryview
     - 16:00 - 17:15 | Initial item pickup to inventory->inventoryview
 
-  - 2018-07-14 Sa -
+  - 2018-07-14 Sa - 07:00 hs
     - 14:10 - 15:10 | Picking up gold is synced between infoGold, inventory and inventoryView
     - 16:10 - 17:40 | Now all modifications in the inventory are correctly reflected in the inventoryView
+    - 18:50 - 23:20 | Inventory basic done in html, remains testing in android and linux
 
 
 # (40:00 hs) Julio Semana 15 []
 
 # (40:00 hs) Julio Semana 22 []
-
-# Current TODO's
-
-- Inform the player when max capacity reached
 
 # BUG's
 

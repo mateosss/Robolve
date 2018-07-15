@@ -121,7 +121,8 @@ var InventoryView = Dialog.extend({
       if (!cell.item) { // Empty cell, initialize it
         cell.item = inv.items[i]; // Saves the {item: Item, quantity: Number} pair reference
         cell.quantity = inv.items[i].quantity; // The quantity *value* to compare later
-        cell.itemThumb = new Badge({bgImage: inv.items[i].item.image, scale9: false, padding: "13px",});
+        let ii = i; // A little hack with scopes
+        cell.itemThumb = new Badge({callback: () => {this.hud.level.character.dropStack(ii); this.hud.ig.refresh();}, bgImage: inv.items[i].item.image, scale9: false, padding: "13px",}); // jshint ignore:line
         cell.itemThumb.addTo(cell);
         cell.itemQuantity = new Text({text: inv.items[i].quantity, fontSize: 24, x: "center", top: "5px"});
         cell.itemQuantity.addTo(cell);

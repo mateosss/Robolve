@@ -7,12 +7,12 @@ var Badge = Button.extend({
       bgImage: r.ui.panel,
     };
     this._super(options);
-    this.setTouchEnabled(false);
+    this.setTouchEnabled(Boolean(options.callback));
   },
   setup: function(options) {
     this._super(options);
     this.badge.bgImage = options.bgImage || this.badge.bgImage;
-    this.loadTextureNormal(this.badge.bgImage);
+    this.loadTextures(this.badge.bgImage, this.badge.bgImage, this.badge.bgImage, ccui.Widget.LOCAL_TEXTURE);
   },
   toString: () => "Badge"
 });
