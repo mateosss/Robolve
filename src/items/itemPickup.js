@@ -34,9 +34,24 @@ var ItemPickup = cc.Sprite.extend({
     let character = this.map.level.character;
     if (this.getNumberOfRunningActions() === 0) {
       let canPick = character.inventory.canAdd(this.item, this.quantity);
-      if (!canPick) return console.log("Inventory full");
-
       let inventoryButton = this.map.level.hud.openInventory;
+
+      if (!canPick) {
+        let burn = new cc.TintTo(0.1, 255, 160, 130);
+        let shake = cc.Sequence.create(
+          new cc.MoveBy(0.1, cc.p(10, 0)),
+          new cc.MoveBy(0.1, cc.p(-20, 0)),
+          new cc.MoveBy(0.1, cc.p(20, 0)),
+          new cc.MoveBy(0.1, cc.p(-10, 0))
+        );
+        let calm = new cc.TintTo(0.2, 255, 255, 255);
+        let spawn = new cc.Spawn([shake, calm]);
+        let actArray = new cc.Sequence([burn, spawn]);
+        inventoryButton.runAction(actArray);
+        this.runAction(actArray.clone()); 
+        this.map.level.hud.it.message("There's no room for that in your bag");
+        return;
+      }
 
       let fly = new cc.EaseBackIn(new cc.MoveTo(0.2, this.map.convertToNodeSpace(inventoryButton.getPosition())), 3);
       let shrink = new cc.EaseBackIn(new cc.ScaleBy(0.2, 0.5), 3);
