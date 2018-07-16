@@ -1,6 +1,6 @@
 var Inventory = cc.Class.extend({
   items: null, // List of stacks of the form {item: Item, quantity: Number} objects
-  capacity: 24, // Max capacity of the inventary
+  capacity: 25, // Max capacity of the inventary // TODO initial capacity hardcoded
 
   ctor: function() {
     this.items = [];
@@ -48,11 +48,11 @@ var Inventory = cc.Class.extend({
     let itemInInventory = _.revFind(this.items, i => i.item.isEqual(item));
     if (itemInInventory) {
       let limit = item.stackLimit;
-      let amountOfNewStacks = Math.ceil((itemInInventory.quantity + quantity) / limit) - 1;
+      let amountOfNewStacks = limit === Infinity ? 0 : Math.ceil((itemInInventory.quantity + quantity) / limit) - 1;
       return this.items.length + amountOfNewStacks <= this.capacity;
     } else {
       let limit = item.stackLimit;
-      let amountOfNewStacks = Math.ceil((quantity) / limit);
+      let amountOfNewStacks = limit === Infinity ? 1 : Math.ceil(quantity / limit);
       return this.items.length + amountOfNewStacks <= this.capacity;
     }
   },

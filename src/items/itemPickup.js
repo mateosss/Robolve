@@ -48,7 +48,7 @@ var ItemPickup = cc.Sprite.extend({
         let spawn = new cc.Spawn([shake, calm]);
         let actArray = new cc.Sequence([burn, spawn]);
         inventoryButton.runAction(actArray);
-        this.runAction(actArray.clone()); 
+        this.runAction(actArray.clone());
         this.map.level.hud.it.message("There's no room for that in your bag");
         return;
       }
@@ -61,9 +61,11 @@ var ItemPickup = cc.Sprite.extend({
       else addItem = new cc.CallFunc(() => character.inventory.addItem(this.item, this.quantity));
       let refreshInventory = new cc.CallFunc(() => this.map.level.hud.inventory.refresh());
 
-      let up = new cc.EaseBackOut(new cc.MoveBy(0.2, cc.p(0, 128)));
-      let down = new cc.EaseBounceOut(new cc.MoveBy(0.2, cc.p(0, -128)), 3);
-      let inventoryButtonReact = new cc.CallFunc(() => inventoryButton.runAction(new cc.Sequence(up, down)));
+      let inventoryButtonReact = new cc.CallFunc(() => {
+        let up = new cc.EaseBackOut(new cc.MoveBy(0.2, cc.p(0, 128)));
+        let down = new cc.EaseBounceOut(new cc.MoveBy(0.2, cc.p(0, -128)), 3);
+        inventoryButton.runAction(new cc.Sequence(up, down));
+      });
 
       let actArray = [new cc.Spawn([fly, shrink]), destroy, addItem, refreshInventory, inventoryButtonReact];
       this.runAction(new cc.Sequence(actArray));

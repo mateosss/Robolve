@@ -145,7 +145,7 @@ var InventoryView = Dialog.extend({
         cell.quantity = null;
         cell.itemThumb.removeFromParent();
         cell.itemQuantity.removeFromParent();
-        cell = this.grid.cells[++i];
+        if (++i < this.grid.cells.length) cell = this.grid.cells[i];
       }
     }
   },
