@@ -477,7 +477,7 @@ Format (variables between \<\> should be calculated after each day/task)
     - 13:35 - 14:20 | Char repairing casi list, falta testear android e icono
     - 18:30 - 19:40 | Char repairing done. Added full material design icon fonts and tested on android
 
-# (40:00 hs) Julio Semana 8 []
+# (40:00 hs) Julio Semana 8 [30:30 hs]
 
   - 2018-07-08 Do - 06:00 hs
     - 16:15 - 18:55 | Haciendo char improving
@@ -510,6 +510,15 @@ Format (variables between \<\> should be calculated after each day/task)
 
 # (40:00 hs) Julio Semana 15 []
 
+  - 2018-07-15 Do - 01:00 hs
+    - 15:30 - 15:50 | Un bug de linux solucionado
+    - 22:40 - 23:20 | Inventory basic DONE. Otros bugs solucionados en android y linux.
+
+  - 2018-07-16 Lu -
+  Inventory Save started
+    - 12:00 - 12:30 | Haciendo SaveLoad
+    - 15:00 - 16:15 | Terminado SaveLoad con testeo para linux/android
+
 # (40:00 hs) Julio Semana 22 []
 
 # BUG's
@@ -519,3 +528,5 @@ Format (variables between \<\> should be calculated after each day/task)
 - Boton ok en android esta subido muchos pixeles
 - Cuando voy a atacar un robot con el char, y mientras estoy en camino ese robot muere por una torreta
   da error de que no existe el native object
+
+- Cuando hay dos items superpuestos y mi inventario esta casi lleno, al tratarlos de meter, se meten solo los que entran y el resto desaparecen del juego

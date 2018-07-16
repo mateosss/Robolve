@@ -30,7 +30,10 @@ var Character = cc.Sprite.extend({
     this.sm = new StateMachine(this);
 
     this.inventory = new Inventory();
-    this.inventory.addItem(rb.items.gold, 4000); // TODO 4000 hardcoded
+    SaveLoad.load(this.inventory);
+    if (this.inventory.items.length === 0) { // TODO Not very well thought behaviour of inventory loading
+      this.inventory.addItem(rb.items.gold, 4000); // TODO 4000 hardcoded
+    }
 
     this.scheduleUpdate();
   },

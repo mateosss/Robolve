@@ -47,6 +47,21 @@ var _ = {
     }
     return arguments[0];
   },
+  objFilter: (obj, filter) => { // Returns a copy of obj with only the props that pass the filter
+    let res = {};
+    for (let k in obj) if (filter(k, obj[k])) res[k] = obj[k];
+    return res;
+  },
+  objMap: (obj, map) => { // Returns a copy of obj with every [k,v] mapped by map to another [k',v'], if map returns something different than a length 2 array, it is considered as a deleted property
+    let res = {};
+    for (let k in obj) {
+      let newPair = map(k, obj[k]);
+      if (newPair && newPair.length === 2) res[newPair[0]] = newPair[1];
+    }
+    return res;
+  },
+  pick: (obj, props) => _.objFilter(obj, k => _.in(k, props)), // Returns a copy of obj with only the selected props
+  in: (elem, arr) => arr.indexOf(elem) !== -1,
   test: (func, self, iterations, ...params) => {
     var iTime = new Date().getTime();
     for (var i = 0; i < iterations; i++) {

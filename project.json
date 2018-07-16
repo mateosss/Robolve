@@ -20,6 +20,7 @@
       "src/items/item.js",
       "src/rb.js",
       "src/hud/easyEvents.js",
+      "src/saveLoad.js",
       "src/hud/components/displayManager.js",
       "src/hud/components/button.js",
       "src/hud/components/badge.js",

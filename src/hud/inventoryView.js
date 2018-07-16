@@ -89,6 +89,9 @@ var InventoryView = Dialog.extend({
   refresh: function() {
     let inv = this.inventory;
 
+    // Save inventory to disk // TODO not very well thought inventory save behaviour
+    SaveLoad.save(inv);
+
     // Update amount of cells with inventory capacity
     let cols = this.COLS;
     let rowsBefore = Math.ceil(this.grid.cells.length / cols);
