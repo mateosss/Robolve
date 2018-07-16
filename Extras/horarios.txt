@@ -518,6 +518,7 @@ Format (variables between \<\> should be calculated after each day/task)
   Inventory Save started
     - 12:00 - 12:30 | Haciendo SaveLoad
     - 15:00 - 16:15 | Terminado SaveLoad con testeo para linux/android
+    - 16:15 - 17:25 | Haciendo y terminado devConsole + TextField component
 
 # (40:00 hs) Julio Semana 22 []
 

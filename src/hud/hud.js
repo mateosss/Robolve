@@ -37,6 +37,25 @@ var Hud = cc.Layer.extend({
     this.cancelActions = new Button({button: "red", callback: () => this.level.character.sm.setDefaultState(), bottom: "20px", left: "16px", height: "65ph", width: "65ph", icon:"cancel", iconFontSize: 72, scale: 0.75});
     this.cancelActions.addTo(this.bottombarLayout);
 
+
+    // TODO debug console
+    this.openConsole = new Button({button: "grey", callback: () => this.console.visible = !this.console.visible, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"console-line", iconFontSize: 72, scale: 0.75});
+    this.openConsole.addTo(this.bottombarLayout);
+    this.console = new Layout({y: "75ph", height: "80px", width: "80pw", x: "center"});
+    this.console.addTo(this);
+    this.console.background = new Panel({scale: 0.75, width: "100pw + -100ph + -11px"});
+    this.console.background.addTo(this.console);
+    this.console.textField = new TextField({placeholder: "Insert command", width: "100pw", x: "center", y: "28px", fontSize: 32});
+    this.console.textField.addTo(this.console.background);
+    this.console.submit = new Button({callback: () => {
+      let cmd = this.console.textField.getString();
+      this.console.textField.setString("");
+      eval(cmd); // jshint ignore:line
+    }, button: "blue", icon: "arrow-right", height: "100ph", width: "100ph", x: "-100ph", y: "center", scale: 0.75});
+    this.console.submit.addTo(this.console);
+    this.console.visible = false;
+
+
     this.openInventory = new Button({button: "yellow", callback: () => this.inventory.show(), x: "-125ph", bottom: "20px", right: "30px", height: "65ph", width: "65ph", icon:"treasure-chest", iconFontSize: 72, scale: 0.75});
     this.openInventory.addTo(this.bottombarLayout);
 

@@ -33,6 +33,7 @@
     "ScrollLayout": true,
     "Dialog": true,
     "Text": true,
+    "TextField": true,
     "Icon": true,
     "Progress": true,
     "Button": true,

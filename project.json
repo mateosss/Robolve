@@ -28,6 +28,7 @@
       "src/hud/components/scrollLayout.js",
       "src/hud/components/panel.js",
       "src/hud/components/text.js",
+      "src/hud/components/textField.js",
       "src/hud/components/dialog.js",
       "src/hud/components/icon.js",
       "src/hud/components/progress.js",
