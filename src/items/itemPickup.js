@@ -19,7 +19,8 @@ var ItemPickup = cc.Sprite.extend({
   drop: function() {
     // TODO animate a drop from the robot
     const DROP_HEIGHT = 128;
-    let targetPosition = this.getPosition();
+    const DROP_RADIUS = 64; // drop at X between targetPosition.x +- DROP_RADIUS
+    let targetPosition = cc.pAdd(this.getPosition(), cc.p((2 * Math.random() - 1) * DROP_RADIUS, 0));
     // this.setPosition(targetPosition.x, targetPosition.y + 128);
     let initialScale = this.scale;
     this.setScale(0);
