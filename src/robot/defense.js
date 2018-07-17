@@ -169,6 +169,12 @@ var Defense = Computer.extend({
     this.target = closestRobot;
     return this.target;
   },
+  hurt: function(attacker) {
+    this._super(attacker);
+    // Refresh defense view if this defense stats are visible
+    let view = this.level.hud.preview;
+    if (view.inScreen && view.selectedDefense === this) view.refresh();
+  },
   attack: function(target) {
     this._super(target);
     if (target) {

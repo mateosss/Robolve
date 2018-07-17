@@ -109,6 +109,9 @@ var BasicDefenseView = Dialog.extend({
       });
     }
   },
+  refresh: function() {
+    this.setSelectedDefense(this.selectedDefense);
+  },
 
   toString: () => "BasicDefenseView"
 });
