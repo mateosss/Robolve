@@ -285,6 +285,11 @@ var rb = {
       stackLimit: 10,
       consumable: false,
       equipable: true,
+      mods: {
+        "sSpeed": 4,
+        "sDamage": 1000,
+        "inventory.capacity": -20,
+      }
     }),
   },
 };
