@@ -89,6 +89,9 @@ var InventoryView = Dialog.extend({
   refresh: function() {
     let inv = this.inventory;
 
+    // Check if inv.capacity and inv.items.length are not synced and then sync them
+    if (inv.items.length > inv.capacity) this.hud.level.character.setInventoryCapacity(inv.capacity);
+
     // Save inventory to disk // TODO not very well thought inventory save behaviour
     SaveLoad.save(inv);
 

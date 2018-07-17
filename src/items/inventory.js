@@ -5,6 +5,11 @@ var Inventory = cc.Class.extend({
   ctor: function() {
     this.items = [];
   },
+  setCapacity: function(newCapacity) { // Returns a list of removed items if any
+    let res = newCapacity < this.items.length ? this.items.splice(newCapacity) : [];
+    this.capacity = newCapacity;
+    return res;
+  },
   addItem: function(item, quantity) { // returns wether it was added or not
     let itemInInventory = _.revFind(this.items, i => i.item.isEqual(item));
     if (itemInInventory) {

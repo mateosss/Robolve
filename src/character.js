@@ -63,6 +63,13 @@ var Character = cc.Sprite.extend({
     this.level.hud.inventory.refresh();
   },
 
+  setInventoryCapacity: function(capacity) {
+    let removedStacks = this.inventory.setCapacity(capacity);
+    for (var i = 0; i < removedStacks.length; i++) {
+      new ItemPickup(this.level.map, this.getPosition(), removedStacks[i].item, removedStacks[i].quantity);
+    }
+  },
+
   getGold: function() {
     return this.inventory.getItemQuantity(rb.items.gold);
   },
