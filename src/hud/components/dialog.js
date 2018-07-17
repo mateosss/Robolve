@@ -26,7 +26,7 @@ var Dialog = Panel.extend({
       cancelCallback: options.cancelCallback || (() => {this.dismiss();}),
       empty: options.empty || false,
     };
-    options.bgImage = options.bgImage || r.ui.grey;
+    options.bgImage = options.bgImage || r.ui.blueGray;
     this._super(options);
 
     if (this.dialog.type !== "empty") {

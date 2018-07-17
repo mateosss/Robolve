@@ -63,7 +63,7 @@ var DefenseView = Dialog.extend({
     options.height = "112.5pmin";
     options.x = "center";
     options.y = "center";
-    options.bgImage = r.ui.grey;
+    options.bgImage = r.ui.blueGray;
 
     this._super(options);
 
@@ -96,7 +96,7 @@ var DefenseView = Dialog.extend({
     this.elementButtons.addTo(this.elementContainer);
     this.elementWater = new Button({button: "blue", width: "100ph", icon: "water", padding: "11px", scale: 0.8});
     this.elementWater.addTo(this.elementButtons);
-    this.elementFire = new Button({button: "orange", width: "100ph", icon: "fire", x: "100ph", padding: "11px", scale: 0.8});
+    this.elementFire = new Button({button: "deepOrange", width: "100ph", icon: "fire", x: "100ph", padding: "11px", scale: 0.8});
     this.elementFire.addTo(this.elementButtons);
     this.elementElectric = new Button({button: "yellow", width: "100ph", icon: "flash", x: "200ph", padding: "11px", scale: 0.8});
     this.elementElectric.addTo(this.elementButtons);

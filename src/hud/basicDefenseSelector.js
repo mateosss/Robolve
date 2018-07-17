@@ -36,7 +36,7 @@ var BasicDefenseSelector = cc.Node.extend({
 
     this.buttons = [
         new Button({button: "yellow", width: "96px", height: "96px", icon: "flash", bottom: "24px", x:"0px", left:"28px"}),
-        new Button({button: "orange", width: "96px", height: "96px", icon: "fire", bottom: "24px", x: "96px", left: "40px"}),
+        new Button({button: "deepOrange", width: "96px", height: "96px", icon: "fire", bottom: "24px", x: "96px", left: "40px"}),
         new Button({button: "blue", width: "96px", height: "96px", icon: "water", bottom: "24px", x: "192px", left: "52px"}),
     ];
     let types = Object.keys(Robot.prototype.getPossibleStats("element"));

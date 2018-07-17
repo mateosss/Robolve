@@ -92,7 +92,7 @@ var DefenseSelector = ccui.ListView.extend({
         type: "electric"
       },
       {
-        button: new Button({button: "orange", width: "96px", height: "96px", icon: "fire"}),
+        button: new Button({button: "deepOrange", width: "96px", height: "96px", icon: "fire"}),
         image: new cc.Sprite(r.fdBtn),
         type: "fire"
       },

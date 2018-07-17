@@ -39,7 +39,7 @@ var CharacterSheet = Dialog.extend({
     options.paddingHorizontal = options.paddingHorizontal || "11px";
     options.x = options.x || "center";
     options.y = options.y || "center";
-    options.bgImage = r.ui.grey;
+    options.bgImage = r.ui.blueGray;
 
     this._super(hud, options);
 

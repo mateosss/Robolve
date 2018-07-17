@@ -30,7 +30,7 @@ var BasicDefenseView = Dialog.extend({
     options.paddingHorizontal = options.paddingHorizontal || "11px";
     options.x = options.x || "center";
     options.y = options.y || "140px";
-    options.bgImage = r.ui.grey;
+    options.bgImage = r.ui.blueGray;
 
     this._super(hud, options);
 
@@ -82,7 +82,7 @@ var BasicDefenseView = Dialog.extend({
     this.statsAttackSpeed.setComputer(defense);
     let titleElementOptions = {
       electric: {button: "yellow", icon: "flash"},
-      fire: {button: "orange", icon: "fire"},
+      fire: {button: "deepOrange", icon: "fire"},
       water: {button: "blue", icon: "water"},
     }[defense.element];
     this.titleElement.setup(titleElementOptions);

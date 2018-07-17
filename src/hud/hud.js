@@ -39,7 +39,7 @@ var Hud = cc.Layer.extend({
 
 
     // TODO debug console
-    this.openConsole = new Button({button: "grey", callback: () => {this.console.visible = !this.console.visible; if (this.console.visible) this.console.textField.attachWithIME();}, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"console-line", iconFontSize: 72, scale: 0.75});
+    this.openConsole = new Button({button: "blueGray", callback: () => {this.console.visible = !this.console.visible; if (this.console.visible) this.console.textField.attachWithIME();}, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"console-line", iconFontSize: 72, scale: 0.75});
     this.openConsole.addTo(this.bottombarLayout);
     this.console = new Layout({y: "75ph", height: "80px", width: "80pw", x: "center"});
     this.console.addTo(this);

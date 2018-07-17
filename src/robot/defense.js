@@ -99,7 +99,7 @@ var Defense = Computer.extend({
     return this.improved == 100;
   },
   createBuildBar: function() {
-    let color = {fire: "orange", electric: "yellow", water: "blue"}[this.element];
+    let color = {fire: "deepOrange", electric: "yellow", water: "blue"}[this.element];
     this.buildBar = new Progress({swallow: false, text: "{}%", color: color, x: "0px", y:"64px", scale: 0.5, height:"32px", width:"128px", fontSize: 56});
     this.buildBar.setAnchorPoint(0.5, 0.5);
     this.buildBar.addTo(this, 10);

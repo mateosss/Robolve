@@ -520,6 +520,8 @@ Format (variables between \<\> should be calculated after each day/task)
     - 15:00 - 16:15 | Terminado SaveLoad con testeo para linux/android
     - 16:15 - 17:25 | Haciendo y terminado devConsole + TextField component
     - 18:40 - 19:00 | Detalle para que se abrá el teclado en la dev console esta
+    - 19:00 - 21:00 | Actualizando button colors
+
 
 # (40:00 hs) Julio Semana 22 []
 
