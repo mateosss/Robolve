@@ -69,7 +69,7 @@ var InventoryView = Dialog.extend({
     this.infoImageContainer = new Panel({height: "60pw", width: "60pw", x: "center", y: "-60pw"});
     this.infoImageContainer.addTo(this.infoContainer);
     // this.infoImageContainer.debug(); // XXX
-    this.infoImage = new Badge({bgImage: r.items.gold, padding: "22px", scale: 1.25, x: "center", y: "center"});
+    this.infoImage = new Badge({bgImage: r.items.gold, padding: "20ph", height: "60ph", scale9: false});
     this.infoImage.addTo(this.infoImageContainer);
     // this.infoImage.debug(); // XXX
     this.infoName = new Text({text: "Gold", x: "center", fontSize: 24, y: (this.infoContainer.height - 160) + "px" , bottom: cc.sys.isNative ? "5px" : "0px"});
@@ -125,7 +125,7 @@ var InventoryView = Dialog.extend({
         cell.item = inv.items[i]; // Saves the {item: Item, quantity: Number} pair reference
         cell.quantity = inv.items[i].quantity; // The quantity *value* to compare later
         let ii = i; // A little hack with scopes
-        cell.itemThumb = new Badge({callback: () => {this.hud.level.character.dropStack(ii); this.hud.ig.refresh();}, bgImage: inv.items[i].item.image, scale9: false, padding: "13px",}); // jshint ignore:line
+        cell.itemThumb = new Badge({callback: () => {this.hud.level.character.dropStack(ii); this.hud.ig.refresh();}, bgImage: inv.items[i].item.image, scale9: false, height: "80ph", padding: "10ph",}); // jshint ignore:line
         cell.itemThumb.addTo(cell);
         cell.itemQuantity = new Text({text: inv.items[i].quantity, fontSize: 24, x: "center", top: "5px"});
         cell.itemQuantity.addTo(cell);

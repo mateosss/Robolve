@@ -255,7 +255,7 @@ var rb = {
       equipable: false,
     }),
     electricCoin: new Item({
-      name: "electricCoin",
+      name: "Electric Coin",
       description: "Filled with the power of the electric element, it doesn't do anything though.",
       image: r.items.electricCoin,
       stackLimit: 5,
@@ -263,7 +263,7 @@ var rb = {
       equipable: false,
     }),
     fireCoin: new Item({
-      name: "fireCoin",
+      name: "Fire Coin",
       description: "Filled with the power of the fire element, it doesn't do anything though.",
       image: r.items.fireCoin,
       stackLimit: 5,
@@ -271,12 +271,20 @@ var rb = {
       equipable: false,
     }),
     waterCoin: new Item({
-      name: "waterCoin",
+      name: "Water Coin",
       description: "Filled with the power of the water element, it doesn't do anything though.",
       image: r.items.waterCoin,
       stackLimit: 5,
       consumable: false,
       equipable: false,
+    }),
+    sword: new Item({
+      name: "Sword",
+      description: "This sword is a very nice weapon",
+      image: r.items.sword,
+      stackLimit: 10,
+      consumable: false,
+      equipable: true,
     }),
   },
 };

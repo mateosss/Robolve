@@ -514,13 +514,13 @@ Format (variables between \<\> should be calculated after each day/task)
     - 15:30 - 15:50 | Un bug de linux solucionado
     - 22:40 - 23:20 | Inventory basic DONE. Otros bugs solucionados en android y linux.
 
-  - 2018-07-16 Lu -
-  Inventory Save started
+  - 2018-07-16 Lu - 06:45 hs
     - 12:00 - 12:30 | Haciendo SaveLoad
     - 15:00 - 16:15 | Terminado SaveLoad con testeo para linux/android
     - 16:15 - 17:25 | Haciendo y terminado devConsole + TextField component
     - 18:40 - 19:00 | Detalle para que se abrá el teclado en la dev console esta
     - 19:00 - 21:00 | Actualizando button colors
+    - 22:00 - 23:30 | Resolucion de iconos aumentada a 96x96, y mejorado el escalado en la ui de eso
 
 
 # (40:00 hs) Julio Semana 22 []

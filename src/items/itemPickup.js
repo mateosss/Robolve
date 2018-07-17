@@ -11,7 +11,7 @@ var ItemPickup = cc.Sprite.extend({
     this._super(item.image);
     this.setPosition(position);
     map.addChild(this, 3000);
-
+    this.setScale(72 / this.getTexture().height); // 72 pixles is the sprite  height on the level floor
     this.setTouchEvent();
     this.drop();
   },
@@ -21,9 +21,10 @@ var ItemPickup = cc.Sprite.extend({
     const DROP_HEIGHT = 128;
     let targetPosition = this.getPosition();
     // this.setPosition(targetPosition.x, targetPosition.y + 128);
+    let initialScale = this.scale;
     this.setScale(0);
     let up = new cc.EaseBackOut(new cc.MoveTo(0.2, cc.p(targetPosition.x, targetPosition.y + DROP_HEIGHT)));
-    let grow = new cc.EaseBackOut(new cc.ScaleTo(0.2, 1), 3);
+    let grow = new cc.EaseBackOut(new cc.ScaleTo(0.2, initialScale), 3);
     let spawn = new cc.Spawn(up, grow);
     let drop = new cc.EaseBounceOut(new cc.MoveTo(0.2, targetPosition), 3);
     let actArray = [spawn, drop];
