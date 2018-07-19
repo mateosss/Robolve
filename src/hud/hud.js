@@ -34,12 +34,12 @@ var Hud = cc.Layer.extend({
     this.bottombarLayout = new Panel({width: "100pw + -100ph + 11px", padding: "11px"});
     this.bottombarLayout.addTo(this.bottombar, -1);
 
-    this.cancelActions = new Button({button: "red", callback: () => this.level.character.sm.setDefaultState(), bottom: "20px", left: "16px", height: "65ph", width: "65ph", icon:"cancel", iconFontSize: 72, scale: 0.75});
+    this.cancelActions = new Button({button: "purpleRound", callback: () => this.level.character.sm.setDefaultState(), bottom: "20px", left: "16px", height: "65ph", width: "65ph", icon:"cancel", iconFontSize: 72, scale: 0.75});
     this.cancelActions.addTo(this.bottombarLayout);
 
 
     // TODO debug console
-    this.openConsole = new Button({button: "blueGray", callback: () => {this.console.visible = !this.console.visible; if (this.console.visible) this.console.textField.attachWithIME();}, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"console-line", iconFontSize: 72, scale: 0.75});
+    this.openConsole = new Button({button: "indigoRound", callback: () => {this.console.visible = !this.console.visible; if (this.console.visible) this.console.textField.attachWithIME();}, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"console-line", iconFontSize: 72, scale: 0.75});
     this.openConsole.addTo(this.bottombarLayout);
     this.console = new Layout({y: "75ph", height: "80px", width: "80pw", x: "center"});
     this.console.addTo(this);
@@ -56,7 +56,7 @@ var Hud = cc.Layer.extend({
     this.console.visible = false;
 
 
-    this.openInventory = new Button({button: "yellow", callback: () => this.inventory.show(), x: "-125ph", bottom: "20px", right: "30px", height: "65ph", width: "65ph", icon:"treasure-chest", iconFontSize: 72, scale: 0.75});
+    this.openInventory = new Button({button: "amber", callback: () => this.inventory.show(), x: "-125ph", bottom: "20px", right: "30px", height: "65ph", width: "65ph", icon:"treasure-chest", iconFontSize: 72, scale: 0.75});
     this.openInventory.addTo(this.bottombarLayout);
 
     this.openCharSheet = new Button({button: "pink", callback: () => this.cs.show(), x: "-62.5ph", bottom: "20px", right: "20px", height: "65ph", width: "65ph", icon:"robot", iconFontSize: 72, scale: 0.75});
