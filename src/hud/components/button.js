@@ -23,12 +23,12 @@ var Button = ccui.Button.extend({
     this.setup(options);
 
     this.addTouchEventListener(function(button, event) {
-      if (event === ccui.Widget.TOUCH_BEGAN) {
+      if (this.isHighlighted()) {
         if (button.icon) button.icon.setup({bottom: "0ph"});
         if (button.text) button.text.y -= 7.375; //TODO the 7.375 is very hardcoded, it refers to the button sprite fake 3d height
         return true;
       }
-      else if (event === ccui.Widget.TOUCH_ENDED || event === ccui.Widget.TOUCH_CANCELED) { // TODO when pressing and moving the touch outside the button, the icon stay down but the button gets high again
+      else {
         if (button.icon) button.icon.setup({bottom: "7.375px"});
         if (button.text) button.text.y += 7.375;
         return true;
