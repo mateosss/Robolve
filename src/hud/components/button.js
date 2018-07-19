@@ -3,6 +3,7 @@ var Button = ccui.Button.extend({
   displayManager: null, // Manages the size and location of this component
   text: null, // the button title
   icon: null, // the button icon
+  pressed: false, // Says wether the button is pressed, used in the eventlistener of the ctor
   ctor: function(options) {
     this.button = this.button || {
       button: "green", // color, colorRound
@@ -23,17 +24,17 @@ var Button = ccui.Button.extend({
     this.setup(options);
 
     this.addTouchEventListener(function(button, event) {
-      if (this.isHighlighted()) {
-        if (button.icon) button.icon.setup({bottom: "0ph"});
-        if (button.text) button.text.y -= 7.375; //TODO the 7.375 is very hardcoded, it refers to the button sprite fake 3d height
-        return true;
+      let buttonPressed = this.isHighlighted();
+      if (this.pressed !== buttonPressed) { // Are unsynced? then sync them
+        if (buttonPressed) {
+          if (button.icon) button.icon.setup({bottom: "0ph"});
+          if (button.text) button.text.y -= 7.375; //TODO the 7.375 is very hardcoded, it refers to the button sprite fake 3d height
+        } else {
+          if (button.icon) button.icon.setup({bottom: "7.375px"});
+          if (button.text) button.text.y += 7.375;
+        }
+        this.pressed = buttonPressed;
       }
-      else {
-        if (button.icon) button.icon.setup({bottom: "7.375px"});
-        if (button.text) button.text.y += 7.375;
-        return true;
-      }
-      return false;
     }, this);
   },
   setup: function(options) {
