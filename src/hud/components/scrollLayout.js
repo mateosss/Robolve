@@ -9,6 +9,7 @@ var ScrollLayout = ccui.ScrollView.extend({
     this.scrollView = this.scrollView || {
       innerWidth: options.width || "100pw",
       innerHeight: options.height || "100ph",
+      scrollBarVisible: true,
     };
     this._super();
     this.displayManager = new DisplayManager(this, options);
@@ -25,6 +26,7 @@ var ScrollLayout = ccui.ScrollView.extend({
   setup: function(options) {
     this.scrollView.innerHeight = options.innerHeight !== undefined ? options.innerHeight : this.scrollView.innerHeight;
     this.scrollView.innerWidth = options.innerWidth !== undefined ? options.innerWidth : this.scrollView.innerWidth;
+    this.scrollView.scrollBarVisible = options.scrollBarVisible !== undefined ? options.scrollBarVisible : this.scrollView.scrollBarVisible;
 
     this.displayManager.setup(options);
 
@@ -32,10 +34,14 @@ var ScrollLayout = ccui.ScrollView.extend({
     let h = this.displayManager.calc(this.scrollView.innerHeight);
     this.setInnerContainerSize(cc.size(w, h));
 
-    // TODO hardcoded options, add to this.scrollView if needed
-    this.setScrollBarWidth(5);
-    this.setScrollBarColor(cc.color(84, 110, 122));
-    this.setScrollBarOpacity(255);
+    this.setScrollBarEnabled(this.scrollView.scrollBarVisible);
+
+    if (this.scrollView.scrollBarVisible) {
+      // TODO hardcoded options, add to this.scrollView if needed
+      this.setScrollBarWidth(5);
+      this.setScrollBarColor(cc.color(84, 110, 122));
+      this.setScrollBarOpacity(255);
+    }
   },
   toString: () => "Layout"
 });

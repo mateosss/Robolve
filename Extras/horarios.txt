@@ -522,12 +522,26 @@ Format (variables between \<\> should be calculated after each day/task)
     - 19:00 - 21:00 | Actualizando button colors
     - 22:00 - 23:30 | Resolucion de iconos aumentada a 96x96, y mejorado el escalado en la ui de eso
 
+  - 2018-07-17 Ma - 03:30 hs
+    - 10:50 - 11:50 | Empezando Item Sword
+    - 18:25 - 19:30 | Inventory drops remainding items on capacity change
+    - 19:35 - 21:00 | Modificando ui de inventario
+
+  - 2018-07-18 Mi - 01:45 hs
+    - 10:00 - 11:00 | algo relacionado al inventario no me acuerdo
+    - 20:40 - 21:25 | En el auto, haciendo mod scroll info inventory, medio mariado, mala idea
+
+  - 2018-07-19 Ju - 03:00 hs
+    - 12:30 - 14:30 | button press, mod list of inv info, setSelectedItem iniciando inv info
+    - 18:45 - 19:45 | haciendo setSelectedItem inventario
+
+  - 2018-07-20 Vi -
+    - 11:00 - 12:00 | inventory view selection floating
+    - 18:30 - 20:00 | inventory view selection shows detailed info in info sidebar
 
 # (40:00 hs) Julio Semana 22 []
 
 # BUG's
-
-- Make repair button appear when selected turret of basicDefenseView receives damage
 
 - Boton ok en android esta subido muchos pixeles
 - Cuando voy a atacar un robot con el char, y mientras estoy en camino ese robot muere por una torreta

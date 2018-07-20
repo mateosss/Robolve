@@ -64,9 +64,11 @@ var ItemPickup = cc.Sprite.extend({
       let refreshInventory = new cc.CallFunc(() => this.map.level.hud.inventory.refresh());
 
       let inventoryButtonReact = new cc.CallFunc(() => {
-        let up = new cc.EaseBackOut(new cc.MoveBy(0.2, cc.p(0, 128)));
-        let down = new cc.EaseBounceOut(new cc.MoveBy(0.2, cc.p(0, -128)), 3);
-        inventoryButton.runAction(new cc.Sequence(up, down));
+        if (inventoryButton.getNumberOfRunningActions() < 3) {
+          let up = new cc.EaseBackOut(new cc.MoveBy(0.2, cc.p(0, 128)));
+          let down = new cc.EaseBounceOut(new cc.MoveBy(0.2, cc.p(0, -128)), 3);
+          inventoryButton.runAction(new cc.Sequence(up, down));
+        }
       });
 
       let actArray = [new cc.Spawn([fly, shrink]), destroy, addItem, refreshInventory, inventoryButtonReact];
