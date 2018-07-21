@@ -535,11 +535,14 @@ Format (variables between \<\> should be calculated after each day/task)
     - 12:30 - 14:30 | button press, mod list of inv info, setSelectedItem iniciando inv info
     - 18:45 - 19:45 | haciendo setSelectedItem inventario
 
-  - 2018-07-20 Vi -
+  - 2018-07-20 Vi - 05:00 hs
     - 11:00 - 12:00 | inventory view selection floating
     - 18:30 - 20:00 | inventory view selection shows detailed info in info sidebar
     - 22:10 - 23:05 | inventory info working on linux and android
     - 23:05 - 00:40 | Inventory info can now drop and equip items
+
+  - 2018-07-21 Sa -
+    - 10:55 - 12:25 | New panels organization in UI.svg, (waste of time)
 
 # (40:00 hs) Julio Semana 22 []
 
