@@ -87,7 +87,7 @@ var InventoryView = Dialog.extend({
     this.infoText.setTextAreaSize(cc.size(this.infoTextContainer.width, this.infoTextContainer.height));
     this.infoText.addTo(this.infoTextContainer);
 
-    this.infoStatsContainer = new Panel({bgImage: r.ui.panel_in_soft, y: "0px", height: "60ph + -48px + -18px + -11px"});
+    this.infoStatsContainer = new Panel({bgImage: r.ui.panel_in_soft_light, y: "0px", height: "60ph + -48px + -18px + -11px"});
     this.infoStatsContainer.addTo(this.infoContainer);
     this.infoStatsScroll = new ScrollLayout({left: "11px", width: "100pw + -11px", height: "100ph + -6px", scrollBarVisible: false, bottom: cc.sys.isNative ? "3px" : "0px"});
     this.infoStatsScroll.addTo(this.infoStatsContainer);

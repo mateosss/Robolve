@@ -25,6 +25,7 @@ var r = { // resources variable
     panel_in: "res/sprites/ui/panel_in.png",
     panel_in_soft: "res/sprites/ui/panel_in_soft.png",
     panel_in_nuts: "res/sprites/ui/panel_in_nuts.png",
+    panel_in_soft_light: "res/sprites/ui/panel_in_soft_light.png",
     buttons: [
       "red",
       "pink",
