@@ -68,17 +68,17 @@ var InventoryView = Dialog.extend({
     this.infoImageContainer.addTo(this.infoContainer);
     this.infoImage = new Badge({bgImage: r.items.gold, padding: "20ph", height: "60ph", scale9: false});
     this.infoImage.addTo(this.infoImageContainer);
-    this.infoName = new Text({text: "Gold", x: "center", fontSize: 24, y: (this.infoContainer.height - 160) + "px" , bottom: cc.sys.isNative ? "5px" : "0px"});
+    this.infoName = new Text({text: "—", x: "center", fontSize: 24, y: (this.infoContainer.height - 160) + "px" , bottom: cc.sys.isNative ? "5px" : "0px"});
     this.infoName.addTo(this.infoContainer);
     this.infoTextContainer = new Panel({bgImage: r.ui.panel_out, y: "-48px + -60pw + -24px + -11px", height: "48px", scale: 0.5});
     this.infoTextContainer.addTo(this.infoContainer);
-    this.infoText = new Text({text: "This is definitely some sample text", lineHeight: 36, fontSize: 36, width: "100pw", vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER, bottom: cc.sys.isNative ? "5px" : "0px"});
+    this.infoText = new Text({text: "—", lineHeight: 36, fontSize: 36, width: "100pw", vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER, bottom: cc.sys.isNative ? "16px" : "0px"});
     this.infoText.setTextAreaSize(cc.size(this.infoTextContainer.width, this.infoTextContainer.height));
     this.infoText.addTo(this.infoTextContainer);
 
     this.infoStatsContainer = new Panel({bgImage: r.ui.panel_in_soft, y: "0px", height: "60ph + -48px + -18px + -11px"});
     this.infoStatsContainer.addTo(this.infoContainer);
-    this.infoStatsScroll = new ScrollLayout({left: "11px", width: "100pw + -11px", height: "100ph + -6px", scrollBarVisible: false});
+    this.infoStatsScroll = new ScrollLayout({left: "11px", width: "100pw + -11px", height: "100ph + -6px", scrollBarVisible: false, bottom: cc.sys.isNative ? "3px" : "0px"});
     this.infoStatsScroll.addTo(this.infoStatsContainer);
 
     // Create all possible stats invisible, innerHeight of infoStatsScroll and what elements are visible and with what text will be set afterwards in the refresh method
@@ -151,9 +151,13 @@ var InventoryView = Dialog.extend({
           if (thumb.getNumberOfRunningActions() === 0) {
             let up = new cc.EaseBackOut(new cc.MoveBy(0.1, cc.p(0, 32)));
             let down = new cc.EaseBounceOut(new cc.MoveBy(0.2, cc.p(0, -32)), 3);
-            let inhale = new cc.EaseElastic(new cc.MoveTo(0.2, cc.p(thumb.x, thumb.y + 4)));
-            let exhale = new cc.EaseElastic(new cc.MoveTo(0.2, cc.p(thumb.x, thumb.y - 4)));
-            let breath = new cc.CallFunc(() => thumb.runAction(new cc.RepeatForever(new cc.Sequence(inhale, exhale)))); // HACK: for some reason it is not possible to sequence a finite time action and then a RepeatForever
+            // HACK: inhale and exhale are called in an arrow function so they need to be retained, also their reference are needed to release them afterwards, so I save them directly in the thumb object
+            thumb.inhale = new cc.MoveTo(0.2, cc.p(thumb.x, thumb.y + 4));
+            thumb.exhale = new cc.MoveTo(0.2, cc.p(thumb.x, thumb.y - 4));
+            thumb.inhale.retain();
+            thumb.exhale.retain();
+
+            let breath = new cc.CallFunc(() => thumb.runAction(new cc.RepeatForever(new cc.Sequence(thumb.inhale, thumb.exhale)))); // HACK: for some reason it is not possible to sequence a finite time action and then a RepeatForever
             let sequence = new cc.Sequence([up, down, breath]);
             thumb.runAction(sequence);
             this.setSelectedStack(this.inventory.items[ii], cell);
@@ -224,7 +228,11 @@ var InventoryView = Dialog.extend({
   },
 
   setSelectedStack: function(stack, gridCell) { // Set selectedStack to show in the info sideview, stack is the reference to an inventory.items element, and gridCell is its representation
-    if (this.selectedStack) this.selectedStackGridCell.itemThumb.stopAllActions();
+    if (this.selectedStack) {
+      this.selectedStackGridCell.itemThumb.inhale.release();
+      this.selectedStackGridCell.itemThumb.exhale.release();
+      this.selectedStackGridCell.itemThumb.stopAllActions();
+    }
     this.selectedStack = stack;
     this.selectedStackGridCell = gridCell;
     this.refresh();
