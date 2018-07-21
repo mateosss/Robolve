@@ -48,6 +48,7 @@
     "InfoGold": true,
     "DefensePreview": true,
     "InventoryView": true,
+    "EquipBar": true,
     "BasicDefenseView": true,
     "DefenseView": true,
     "CharacterSheet": true,
