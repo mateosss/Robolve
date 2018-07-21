@@ -4,6 +4,7 @@ var InventoryView = Dialog.extend({
   COLS: 5, // Amount of columns of the grid
   selectedStack: null, // Current stack reference being showed in info sidebar
   selectedStackGridCell: null, // Current stack UI representation
+  selectedStackIndex: null, // Current stack index
   // UI Components Structure
 
   titleContainer: null,
@@ -64,10 +65,20 @@ var InventoryView = Dialog.extend({
 
     this.infoContainer = new Layout({visible: false});
     this.infoContainer.addTo(this.info);
-    this.infoImageContainer = new Panel({height: "60pw", width: "60pw", x: "center", y: "-60pw"});
+    this.infoImageContainer = new Panel({height: "60pw", width: "60pw", x: "0px", y: "-60pw"});
     this.infoImageContainer.addTo(this.infoContainer);
     this.infoImage = new Badge({bgImage: r.items.gold, padding: "20ph", height: "60ph", scale9: false});
     this.infoImage.addTo(this.infoImageContainer);
+    this.infoEquip = new Button({callback: () => {
+      this.selectedStack.item.equip(this.hud.level.character);
+    }, button: "blueRound", scale9: false, icon: "select-inverse", x: "60pw", y: "-40pw", left: "11px", height: "40pw", width: "40pw", scale: 0.5, iconFontSize: 56, bottom: "2px"});
+    this.infoEquip.addTo(this.infoContainer);
+    this.infoDrop = new Button({callback: () => {
+      this.hud.level.character.dropStack(this.selectedStackIndex);
+      this.hud.ig.refresh();
+      this.unselectStack();
+    }, button: "pink", icon: "arrow-down-thick", iconFontSize: 64, x: "60pw", y: "-60pw", left: "11px", height: "20pw", width: "40pw", scale: 0.5});
+    this.infoDrop.addTo(this.infoContainer);
     this.infoName = new Text({text: "—", x: "center", fontSize: 24, y: (this.infoContainer.height - 160) + "px" , bottom: cc.sys.isNative ? "5px" : "0px"});
     this.infoName.addTo(this.infoContainer);
     this.infoTextContainer = new Panel({bgImage: r.ui.panel_out, y: "-48px + -60pw + -24px + -11px", height: "48px", scale: 0.5});
@@ -145,9 +156,6 @@ var InventoryView = Dialog.extend({
         cell.quantity = inv.items[i].quantity; // The quantity *value* to compare later
         let ii = i; // A little hack with scopes
         cell.itemThumb = new Badge({callback: (thumb) => { // jshint ignore:line
-          // TODO use this comment later
-          // this.hud.level.character.dropStack(ii);
-          // this.hud.ig.refresh();
           if (thumb.getNumberOfRunningActions() === 0) {
             let up = new cc.EaseBackOut(new cc.MoveBy(0.1, cc.p(0, 32)));
             let down = new cc.EaseBounceOut(new cc.MoveBy(0.2, cc.p(0, -32)), 3);
@@ -160,7 +168,7 @@ var InventoryView = Dialog.extend({
             let breath = new cc.CallFunc(() => thumb.runAction(new cc.RepeatForever(new cc.Sequence(thumb.inhale, thumb.exhale)))); // HACK: for some reason it is not possible to sequence a finite time action and then a RepeatForever
             let sequence = new cc.Sequence([up, down, breath]);
             thumb.runAction(sequence);
-            this.setSelectedStack(this.inventory.items[ii], cell);
+            this.setSelectedStack(this.inventory.items[ii], cell, ii);
           }
         }, bgImage: inv.items[i].item.image, scale9: false, height: "80ph", padding: "10ph",});
         cell.itemThumb.addTo(cell);
@@ -200,6 +208,11 @@ var InventoryView = Dialog.extend({
       this.infoName.setup({text: selectedItem.name});
       this.infoText.setup({text: selectedItem.description});
 
+      // equipable?
+      let equipable = selectedItem.equipable;
+      this.infoDrop.setup({height: equipable ? "20pw" : "40pw", iconFontSize: equipable ? 64 : 96});
+      this.infoEquip.setup({visible: equipable});
+
       // mods
       let mods = selectedItem.mods;
       let hasMods = mods !== null;
@@ -227,7 +240,7 @@ var InventoryView = Dialog.extend({
 
   },
 
-  setSelectedStack: function(stack, gridCell) { // Set selectedStack to show in the info sideview, stack is the reference to an inventory.items element, and gridCell is its representation
+  setSelectedStack: function(stack, gridCell, stackIndex) { // Set selectedStack to show in the info sideview, stack is the reference to an inventory.items element, and gridCell is its representation
     if (this.selectedStack) {
       this.selectedStackGridCell.itemThumb.inhale.release();
       this.selectedStackGridCell.itemThumb.exhale.release();
@@ -235,11 +248,12 @@ var InventoryView = Dialog.extend({
     }
     this.selectedStack = stack;
     this.selectedStackGridCell = gridCell;
+    this.selectedStackIndex = stackIndex;
     this.refresh();
   },
 
   unselectStack: function() {
-    this.setSelectedStack(null, null);
+    this.setSelectedStack(null, null, null);
   },
 
   toString: () => "InventoryView"
