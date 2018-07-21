@@ -21,6 +21,9 @@ var Hud = cc.Layer.extend({
     this.ig = new InfoGold(this, {x: "center", y:"center", fontSize: 56, left:"30px", shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
     this.ig.addTo(this.goldbar);
 
+    this.equipbar = new EquipBar(this);
+    this.equipbar.addTo(this);
+
     // Defense Selector
     // this.ds = new DefenseSelector(this);
     // this.addChild(this.ds, 1);
