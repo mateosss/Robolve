@@ -77,8 +77,7 @@ var Character = cc.Sprite.extend({
 
       this.level.hud.equipbar.refresh();
       let thumb = this.level.hud.inventory.grid.cells[newIndex].itemThumb; // TODO Asco
-      thumb.button.callback(thumb);
-      this.level.hud.inventory.refresh();
+      thumb.button.callback(thumb, true); // TODO the true is for forcing a refresh
       return true;
     } else {
       this.level.hud.it.message("There's no room for more mods");
@@ -99,8 +98,7 @@ var Character = cc.Sprite.extend({
 
     this.level.hud.equipbar.refresh();
     let thumb = this.level.hud.inventory.grid.cells[newIndex].itemThumb; // TODO Asco
-    thumb.button.callback(thumb);
-    this.level.hud.inventory.refresh();
+    thumb.button.callback(thumb, true); // TODO the true is for forcing a refresh
   },
 
   setInventoryCapacity: function(capacity) {

@@ -103,14 +103,11 @@ var InventoryView = Dialog.extend({
 
     this.infoNoSelection = new Text({text: "Select an item from your inventory grid to watch its properties.", width: "100pw", fontSize: 18, y: "center"});
     this.infoNoSelection.addTo(this.info);
-
-    this.show(); // REMOVE XXX
   },
 
-  show: function() {
+  show: function(noRefresh) {
     this._super();
-    this.unselectStack();
-    this.refresh();
+    if (!noRefresh) this.unselectStack();
   },
 
   refresh: function() {
@@ -118,9 +115,6 @@ var InventoryView = Dialog.extend({
 
     // Check if inv.capacity and inv.items.length are not synced and then sync them
     if (inv.items.length > inv.capacity) this.hud.level.character.setInventoryCapacity(inv.capacity);
-
-    // Save inventory to disk // TODO not very well thought inventory save behaviour
-    SaveLoad.save(inv);
 
     // Update amount of cells with inventory capacity
     let cols = this.COLS;
@@ -141,21 +135,23 @@ var InventoryView = Dialog.extend({
       this.grid.setup({});
     }
 
-
     // Update first inv.length items of grid
     for (var i = 0; i < inv.items.length; i++) {
       let cell = this.grid.cells[i];
 
       let gridItem = cell.item; // Reference
       let gridItemQuantity = cell.quantity; // Value
-      let invItem = inv.items[i].item; // Reference
+      let gridItemEquiped = cell.equiped; // Value
+      let invItem = inv.items[i]; // Reference
       let invItemQuantity = inv.items[i].quantity; // Value
+      let invItemEquiped = i < inv.equiped.length; // Value
 
       if (!cell.item) { // Empty cell, initialize it
-        cell.item = inv.items[i]; // Saves the {item: Item, quantity: Number} pair reference
-        cell.quantity = inv.items[i].quantity; // The quantity *value* to compare later
+        cell.item = invItem; // Saves the {item: Item, quantity: Number} pair reference
+        cell.quantity = invItemQuantity; // The quantity *value* to compare later
+        cell.equiped = invItemEquiped; // Is equiped item?
         let ii = i; // A little hack with scopes
-        cell.itemThumb = new Badge({callback: (thumb) => { // jshint ignore:line
+        cell.itemThumb = new Badge({callback: (thumb, forceRefresh) => { // jshint ignore:line
           if (thumb.getNumberOfRunningActions() === 0) {
             let up = new cc.EaseBackOut(new cc.MoveBy(0.1, cc.p(0, 32)));
             let down = new cc.EaseBounceOut(new cc.MoveBy(0.2, cc.p(0, -32)), 3);
@@ -169,25 +165,32 @@ var InventoryView = Dialog.extend({
             let sequence = new cc.Sequence([up, down, breath]);
             thumb.runAction(sequence);
             this.setSelectedStack(this.inventory.items[ii], cell, ii);
-          }
-        }, bgImage: inv.items[i].item.image, scale9: false, height: "80ph", padding: "10ph",});
+          } else if (forceRefresh) this.refresh();
+        }, bgImage: invItem.item.image, scale9: false, height: "80ph", padding: "10ph",});
         cell.itemThumb.addTo(cell);
-        cell.itemQuantity = new Text({text: inv.items[i].quantity, fontSize: 24, x: "center", top: "5px"});
+        cell.itemQuantity = new Text({text: invItemQuantity, fontSize: 24, x: "center", top: "5px"});
         cell.itemQuantity.addTo(cell);
-        cell.equipedCheck = new Badge({visible: false, bgImage: r.ui.greenRound, icon: "check", scale9: false, width: "40ph", height: "40ph", x: "-30ph", y: "-30ph"});
-        cell.equipedCheck.addTo(cell);
-      } else if (gridItem === invItem && gridItemQuantity !== invItemQuantity) { // Same item on filled cell, with different quantity, update it
-        cell.quantity = invItemQuantity;
-        cell.itemQuantity.setup({text: invItemQuantity});
+        cell.itemEquiped = new Badge({visible: invItemEquiped, bgImage: r.ui.greenRound, icon: "check", scale9: false, width: "40ph", height: "40ph", x: "-30ph", y: "-30ph"});
+        cell.itemEquiped.addTo(cell);
+      } else if (gridItem === invItem) { // Same item on filled cell, and check if something else has changed
+        if (gridItemQuantity !== invItemQuantity) {
+          cell.quantity = invItemQuantity;
+          cell.itemQuantity.setup({text: invItemQuantity});
+        }
+        if (gridItemEquiped !== invItemEquiped) {
+          cell.equiped = invItemEquiped;
+          cell.itemEquiped.setup({visible: invItemEquiped});
+        }
       } else if (gridItem !== invItem) { // New item on filled cell, update cell ui
-        cell.item = inv.items[i];
-        cell.quantity = inv.items[i].quantity;
-        cell.itemThumb.setup({bgImage: inv.items[i].item.image});
-        cell.itemQuantity.setup({text: inv.items[i].quantity});
-
-        cell.equipedCheck.setup({visible: i < inv.equiped.length});
+        cell.item = invItem;
+        cell.quantity = invItemQuantity;
+        cell.equiped = invItemEquiped;
+        cell.itemThumb.setup({bgImage: invItem.item.image});
+        cell.itemQuantity.setup({text: invItemQuantity});
+        cell.itemEquiped.setup({visible: invItemEquiped});
       } // else nothing has changed at all
     }
+
 
     // Remove all items outside this for (inv.length)
     if (i < this.grid.cells.length) {
@@ -195,8 +198,10 @@ var InventoryView = Dialog.extend({
       while (cell.item != null && i < this.grid.cells.length) {
         cell.item = null;
         cell.quantity = null;
+        cell.equiped = null;
         cell.itemThumb.removeFromParent();
         cell.itemQuantity.removeFromParent();
+        cell.itemEquiped.removeFromParent();
         if (++i < this.grid.cells.length) cell = this.grid.cells[i];
       }
     }
@@ -250,6 +255,7 @@ var InventoryView = Dialog.extend({
       this.selectedStackGridCell.itemThumb.inhale.release();
       this.selectedStackGridCell.itemThumb.exhale.release();
       this.selectedStackGridCell.itemThumb.stopAllActions();
+      this.selectedStackGridCell.itemThumb.setup({});
     }
     this.selectedStack = stack;
     this.selectedStackGridCell = gridCell;

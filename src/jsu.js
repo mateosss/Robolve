@@ -67,6 +67,13 @@ var _ = {
     arr[i] = arr[j];
     arr[j] = temp;
   },
+  itime: (message) => {
+    _.time = new Date().getTime();
+    _.timemsg = message;
+  },
+  time: 0,
+  timemsg: 0,
+  etime: () => console.log(_.format("{}: {}ms", _.timemsg, new Date().getTime() - _.time)),
   test: (func, self, iterations, ...params) => {
     var iTime = new Date().getTime();
     for (var i = 0; i < iterations; i++) {

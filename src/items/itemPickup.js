@@ -61,7 +61,7 @@ var ItemPickup = cc.Sprite.extend({
       let addItem;
       if (this.item.isEqual(rb.items.gold)) addItem = new cc.CallFunc(() => this.map.level.hud.ig.addGold(this.quantity));
       else addItem = new cc.CallFunc(() => character.inventory.addItem(this.item, this.quantity));
-      let refreshInventory = new cc.CallFunc(() => this.map.level.hud.inventory.refresh());
+      let refreshInventory = new cc.CallFunc(() => {if (this.map.level.hud.inventory.inScreen) this.map.level.hud.inventory.refresh();});
 
       let inventoryButtonReact = new cc.CallFunc(() => {
         if (inventoryButton.getNumberOfRunningActions() < 3) {
