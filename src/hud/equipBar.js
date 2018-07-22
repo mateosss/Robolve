@@ -16,7 +16,7 @@ var EquipBar = Panel.extend({
     this.slotsContainer = new Layout({bottom: "11px", height: "100ph + -11px", padding: "5px"});
     this.slotsContainer.addTo(this);
     for (let i = 0; i < this.slots.length; i++) {
-      this.slots[i] = new Panel({y: i * SLOT_HEIGHT + "px", height: "100pw", width: "100pw", bgImage: r.ui.panel_in_soft_light, padding: "2px"});
+      this.slots[i] = new Panel({y: (this.slots.length - i - 1)  * SLOT_HEIGHT + "px", height: "100pw", width: "100pw", bgImage: r.ui.panel_in_soft_light, padding: "2px"});
       this.slots[i].addTo(this.slotsContainer);
       this.slots[i].itemThumb = new Badge({visible: false, bgImage: r.items.default, scale9: false, height: "80ph", padding: "10ph"});
       this.slots[i].itemThumb.addTo(this.slots[i]);
