@@ -56,11 +56,31 @@ var Character = cc.Sprite.extend({
     this.setTarget(robot);
   },
 
+  // Inventory related
   dropStack: function(stackIndex) { // Drops an item from an inventory grid cell to the ground
     let stack = this.inventory.items[stackIndex];
     this.inventory.items.splice(stackIndex, 1);
     new ItemPickup(this.level.map, this.getPosition(), stack.item, stack.quantity);
     this.level.hud.inventory.refresh();
+  },
+
+  equipStack: function(stackIndex) {
+    if (this.inventory.equiped.length < this.inventory.equipedCapacity) {
+      // TODO All the implementation of equiped items is broken, but in particular I am sending all equiped items to the start of the inventory
+      // which is a very weird thing
+      let newIndex = this.inventory.getFirstNonEquipedStackIndex();
+      _.swap(this.inventory.items, newIndex, stackIndex);
+      let stack = this.inventory.items[newIndex];
+      this.inventory.equiped.push(stack);
+      stack.item.equip(this);
+
+      this.level.hud.equipbar.refresh();
+
+      this.level.hud.inventory.refresh();
+      return true;
+    } else {
+      this.level.hud.it.message("There's no room for more mods");
+    }
   },
 
   setInventoryCapacity: function(capacity) {

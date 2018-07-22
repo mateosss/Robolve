@@ -21,8 +21,6 @@ var Hud = cc.Layer.extend({
     this.ig = new InfoGold(this, {x: "center", y:"center", fontSize: 56, left:"30px", shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
     this.ig.addTo(this.goldbar);
 
-    this.equipbar = new EquipBar(this);
-    this.equipbar.addTo(this);
 
     // Defense Selector
     // this.ds = new DefenseSelector(this);
@@ -94,6 +92,9 @@ var Hud = cc.Layer.extend({
 
     this.inventory = new InventoryView(this, this.level.character.inventory, {});
     this.inventory.addTo(this);
+
+    this.equipbar = new EquipBar(this, this.level.character.inventory);
+    this.equipbar.addTo(this);
 
     // TODO XXX Remove
     window.inv = this.inventory; // jshint ignore:line

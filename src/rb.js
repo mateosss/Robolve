@@ -282,15 +282,50 @@ var rb = {
       name: "Sword",
       description: "This is a family friendly sword",
       image: r.items.sword,
-      stackLimit: 10,
+      stackLimit: 1,
       consumable: false,
       equipable: true,
       mods: {
         "sSpeed": 4,
         "sDamage": 1000,
-        "inventory.capacity": -20,
+        "inventory.capacity": 2,
         "sBuildRange": +2000,
         "sBuildTime": -4,
+      }
+    }),
+    hammer: new Item({
+      name: "Hammer",
+      description: "A hammer to repair electronics, well thought",
+      image: r.items.hammer,
+      stackLimit: 1,
+      consumable: false,
+      equipable: true,
+      mods: {
+        "sBuildRange": +100,
+        "sBuildTime": -4,
+        "sRepairAmount": 20,
+      }
+    }),
+    screwdriver: new Item({
+      name: "Screwdriver",
+      description: "A screwdriver, screw those drives!",
+      image: r.items.screwdriver,
+      stackLimit: 1,
+      consumable: false,
+      equipable: true,
+      mods: {
+        "sBuildRange": +100,
+      }
+    }),
+    berserkerChip: new Item({
+      name: "Berserker Chip",
+      description: "Those robots are in trouble if you use this",
+      image: r.items.berserkerChip,
+      stackLimit: 1,
+      consumable: false,
+      equipable: true,
+      mods: {
+        "sDamage": +2000,
       }
     }),
   },

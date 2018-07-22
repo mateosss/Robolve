@@ -70,7 +70,7 @@ var InventoryView = Dialog.extend({
     this.infoImage = new Badge({bgImage: r.items.gold, padding: "20ph", height: "60ph", scale9: false});
     this.infoImage.addTo(this.infoImageContainer);
     this.infoEquip = new Button({callback: () => {
-      this.selectedStack.item.equip(this.hud.level.character);
+      this.hud.level.character.equipStack(this.selectedStackIndex);
     }, button: "blueRound", scale9: false, icon: "select-inverse", x: "60pw", y: "-40pw", left: "11px", height: "40pw", width: "40pw", scale: 0.5, iconFontSize: 56, bottom: "2px"});
     this.infoEquip.addTo(this.infoContainer);
     this.infoDrop = new Button({callback: () => {
@@ -182,6 +182,11 @@ var InventoryView = Dialog.extend({
         cell.quantity = inv.items[i].quantity;
         cell.itemThumb.setup({bgImage: inv.items[i].item.image});
         cell.itemQuantity.setup({text: inv.items[i].quantity});
+
+        if (i < inv.equiped.length) { // TODO this is part of the awful solution of equipbar
+          cell.equiped = new Badge({bgImage: r.ui.greenRound, icon: "check", scale9: false, width: "40ph", height: "40ph", x: "-30ph", y: "-30ph"});
+          cell.equiped.addTo(cell);
+        }
       } // else nothing has changed at all
     }
 
