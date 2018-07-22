@@ -1145,9 +1145,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70710678"
-     inkscape:cx="558.3373"
-     inkscape:cy="696.47537"
+     inkscape:zoom="4"
+     inkscape:cx="210.84482"
+     inkscape:cy="818.56709"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -1932,7 +1932,7 @@
     </g>
     <g
        id="g7752"
-       transform="translate(-1454.5451,320.00003)">
+       transform="translate(-1439.9996,320.00003)">
       <g
          id="g7747"
          transform="translate(98.749907,-18.200227)">
@@ -1951,7 +1951,7 @@
     </g>
     <g
        id="g7737"
-       transform="translate(-1434.9086,312)">
+       transform="translate(-1464,343.99995)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect7725"
@@ -1966,7 +1966,7 @@
     </g>
     <g
        id="g7733"
-       transform="translate(-1384.8861,301.7998)">
+       transform="translate(-1373.2497,301.7998)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect7721"
@@ -1981,7 +1981,7 @@
     </g>
     <g
        id="g7719"
-       transform="translate(-1462.0603,322.66663)">
+       transform="translate(-1453.3331,322.66663)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect7706"
@@ -1997,7 +1997,7 @@
     </g>
     <g
        id="g7741"
-       transform="translate(-1535.9995,280)">
+       transform="translate(-1503.9995,280)">
       <rect
          y="1352.5"
          x="1383.1333"
@@ -2012,7 +2012,7 @@
     </g>
     <g
        id="g7268"
-       transform="translate(19.045806)">
+       transform="translate(36.500396)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect7930"
@@ -2027,7 +2027,7 @@
     </g>
     <g
        id="g7937"
-       transform="translate(-1352.8178,467.93003)">
+       transform="translate(-1346.9996,467.93003)">
       <g
          id="g7928"
          transform="translate(-52.99997,-155.93003)">
@@ -2676,7 +2676,7 @@
     </g>
     <g
        id="g5941"
-       transform="translate(-2051,318.99995)"
+       transform="translate(-2050.9999,447)"
        inkscape:export-filename="/home/mateo/Desktop/panel_in.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -2706,7 +2706,7 @@
          style="opacity:1;fill:#607d8b;fill-opacity:1;stroke:none;stroke-width:6.69185257;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
     <g
-       transform="translate(-2051,574.99994)"
+       transform="translate(-2050.9999,702.99999)"
        id="g5949"
        inkscape:export-filename="/home/mateo/Desktop/panel_in_light.png"
        inkscape:export-xdpi="192"
@@ -2738,7 +2738,7 @@
     </g>
     <g
        id="g6161"
-       transform="translate(-831.99997,-448.00005)">
+       transform="translate(-831.99992,-320)">
       <rect
          transform="scale(1,-1)"
          ry="7.0738888"
@@ -2760,7 +2760,7 @@
     </g>
     <g
        id="g6260"
-       transform="translate(-832.00009,63.99995)"
+       transform="translate(-832.00004,192)"
        inkscape:export-filename="/home/mateo/Desktop/panel_in_nuts_light.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -2847,7 +2847,7 @@
     </g>
     <g
        id="g8378"
-       transform="translate(-4.228125e-5,-4e-5)"
+       transform="translate(1.631875e-5,128.00001)"
        inkscape:export-filename="/home/mateo/Desktop/panel_in_nuts.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -2937,7 +2937,7 @@
     </g>
     <g
        id="g6165"
-       transform="translate(-959.99997,-192.00005)"
+       transform="translate(-959.99992,-63.999996)"
        inkscape:export-filename="/home/mateo/Desktop/panel_out_light.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -2962,7 +2962,7 @@
     </g>
     <g
        id="g6321"
-       transform="translate(-575.99997,-576.00003)"
+       transform="translate(-575.99992,-447.99998)"
        inkscape:export-filename="/home/mateo/Desktop/panel.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -3007,7 +3007,7 @@
     </g>
     <g
        id="g6346"
-       transform="translate(-703.99997,-320.00005)"
+       transform="translate(-703.99992,-192)"
        inkscape:export-filename="/home/mateo/Desktop/panel_light.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -3386,7 +3386,7 @@
          style="font-size:96px" /></text>
     <g
        id="g6904"
-       transform="translate(-831.99997,319.99995)"
+       transform="translate(-831.99992,448)"
        inkscape:export-filename="/home/mateo/Desktop/panel_out_hard.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -3425,7 +3425,7 @@
     </g>
     <g
        id="g6914"
-       transform="translate(-831.99997,575.99971)">
+       transform="translate(-831.99992,703.99976)">
       <rect
          style="opacity:1;fill:#455a64;fill-opacity:1;stroke:none;stroke-width:7.15591908;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect6906"
@@ -4919,7 +4919,7 @@
     </g>
     <g
        id="g7272"
-       transform="translate(19.636687)">
+       transform="translate(40.000334)">
       <rect
          y="1632.5"
          x="31.133301"
@@ -6039,7 +6039,7 @@
     </g>
     <g
        id="g9254"
-       transform="translate(-256,-128)"
+       transform="translate(-255.99995,5.37e-5)"
        inkscape:export-filename="/home/mateo/Desktop/panel_in_soft.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -6071,7 +6071,7 @@
     </g>
     <g
        id="g9232"
-       transform="translate(-256,255.99995)"
+       transform="translate(-255.99995,384)"
        inkscape:export-filename="/home/mateo/Desktop/panel_in_soft_light.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -6369,7 +6369,7 @@
     </g>
     <g
        id="g10099"
-       transform="translate(54.54547,-24)">
+       transform="translate(104.00012,-24)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect10047"
@@ -6384,7 +6384,7 @@
     </g>
     <g
        id="g10103"
-       transform="translate(75.636351,8)">
+       transform="translate(128.00012,8)">
       <rect
          y="1624.5"
          x="295.13333"
@@ -6399,7 +6399,7 @@
     </g>
     <g
        id="g10095"
-       transform="translate(144.72723,-24)">
+       transform="translate(200.00006,-24)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect10043"
@@ -6414,7 +6414,7 @@
     </g>
     <g
        id="g10091"
-       transform="translate(57.454589,8)">
+       transform="translate(104.00012,8)">
       <rect
          y="1624.5"
          x="255.13333"
@@ -6429,7 +6429,7 @@
     </g>
     <g
        id="g10146"
-       transform="translate(27.724883)">
+       transform="translate(88.815947)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect10039"
@@ -6444,7 +6444,7 @@
     </g>
     <g
        id="g10083"
-       transform="translate(35.637404,5.0665283)">
+       transform="translate(76.36476,5.0665283)">
       <rect
          y="1627.4335"
          x="218.76875"
@@ -6459,7 +6459,7 @@
     </g>
     <g
        id="g10079"
-       transform="translate(92.363707,-32)">
+       transform="translate(136.00018,-32)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect10035"
@@ -6474,7 +6474,7 @@
     </g>
     <g
        id="g10075"
-       transform="translate(13.091063,2.6429443)">
+       transform="translate(48.000243,2.6429443)">
       <rect
          y="1629.8571"
          x="183.13333"
@@ -6489,7 +6489,7 @@
     </g>
     <g
        id="g10071"
-       transform="translate(78.870009,-27.84375)">
+       transform="translate(116.68825,-27.84375)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect10031"
@@ -6504,7 +6504,7 @@
     </g>
     <g
        id="g10067"
-       transform="translate(20.468917,8)">
+       transform="translate(52.468978,8)">
       <rect
          y="1624.5"
          x="146.6646"
@@ -6519,7 +6519,7 @@
     </g>
     <g
        id="g10063"
-       transform="translate(5.7275378,21)">
+       transform="translate(29.000304,21)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect10017"
@@ -6534,7 +6534,7 @@
     </g>
     <g
        id="g10055"
-       transform="translate(26.9093,-24)">
+       transform="translate(56.000242,-24)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect10027"
@@ -6549,7 +6549,7 @@
     </g>
     <g
        id="g10059"
-       transform="translate(-2.1815809,8)">
+       transform="translate(24.000304,8)">
       <rect
          y="1624.5"
          x="111.13333"
@@ -6564,7 +6564,7 @@
     </g>
     <g
        id="g10142"
-       transform="translate(-30.832887)">
+       transform="translate(27.349059)">
       <rect
          y="1632.5"
          x="459.78433"
@@ -6579,7 +6579,7 @@
     </g>
     <g
        id="g4721"
-       transform="translate(512.00003,-256)">
+       transform="translate(512.00008,-127.99995)">
       <g
          id="g6117">
         <g
@@ -11468,7 +11468,8 @@
            sodipodi:role="line">Confirm</tspan></text>
     </g>
     <g
-       id="g16749">
+       id="g16749"
+       transform="translate(64.000122)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect10138"
@@ -11482,7 +11483,8 @@
          id="path16721" />
     </g>
     <g
-       id="g16753">
+       id="g16753"
+       transform="translate(64.000029,-5e-5)">
       <rect
          y="1632.5"
          x="519.1333"
@@ -18952,7 +18954,8 @@
        transform="matrix(1.1000091,0,0,1.1000091,-171.32518,-196.66762)"
        style="display:inline" />
     <g
-       id="g27880">
+       id="g27880"
+       transform="translate(-671.99997,31.99995)">
       <rect
          style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect16745"
@@ -18965,13 +18968,49 @@
          d="m 564.1333,1634.525 c 5.05,0.5 9,4.77 9,9.95 0,1.45 -0.32,2.83 -0.88,4.07 l -2.62,-1.53 c 0.32,-0.79 0.5,-1.64 0.5,-2.54 0,-3.53 -2.61,-6.43 -6,-6.92 v -3.03 m -1,16.95 c 2.21,0 4.17,-1 5.45,-2.62 l 2.6,1.53 c -1.82,2.48 -4.75,4.09 -8.05,4.09 -5.53,0 -10,-4.5 -10,-10 0,-5.19 3.94,-9.45 9,-9.95 v 3.03 c -3.39,0.49 -6,3.39 -6,6.92 a 7,7 0 0 0 7,7 m 0,-13 a 6,6 0 0 1 6,6 c 0,2.97 -2.16,5.44 -5,5.92 v -3.09 c 1.17,-0.41 2,-1.52 2,-2.83 a 3,3 0 0 0 -3,-3 l -0.55,0.05 -1.54,-2.67 c 0.65,-0.25 1.35,-0.38 2.09,-0.38 m -6,6 c 0,-1.86 0.85,-3.5 2.18,-4.62 l 1.54,2.67 c -0.45,0.52 -0.72,1.21 -0.72,1.95 0,1.31 0.83,2.42 2,2.83 v 3.09 c -2.84,-0.48 -5,-2.95 -5,-5.92 z"
          id="path27845" />
     </g>
+    <g
+       id="g5875"
+       transform="translate(-50.499519,-111.57996)">
+      <rect
+         style="opacity:1;fill:#455a64;fill-opacity:1;stroke:none;stroke-width:2.68346977;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5836"
+         width="36"
+         height="31.499994"
+         x="-108.36668"
+         y="1740.08"
+         ry="7.8749943" />
+      <rect
+         ry="7.8749943"
+         y="1744.58"
+         x="-108.36668"
+         height="31.499994"
+         width="36"
+         id="rect5838"
+         style="opacity:1;fill:#455a64;fill-opacity:1;stroke:none;stroke-width:2.68346977;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         style="opacity:1;fill:#607d8b;fill-opacity:1;stroke:none;stroke-width:2.63951683;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5840"
+         width="35.25"
+         height="31.125"
+         x="-107.99168"
+         y="1740.455"
+         ry="7.7812457" />
+      <rect
+         ry="0"
+         y="1740.08"
+         x="-108.36668"
+         height="36"
+         width="36"
+         id="rect5842"
+         style="opacity:1;fill:#1e88e5;fill-opacity:0;stroke:none;stroke-width:2.86874986;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
     <rect
        style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect27876"
        width="24"
        height="24"
-       x="583.1333"
-       y="1632.5" />
+       x="-152.8662"
+       y="1632.4375" />
     <g
        transform="matrix(1,0,0,1.0472441,32.000029,-89.307147)"
        id="g26175">
@@ -22348,7 +22387,7 @@
     </g>
     <g
        id="g4730"
-       transform="translate(512.00003,-256)">
+       transform="translate(512.00008,-127.99995)">
       <g
          id="g6136">
         <g
@@ -29566,7 +29605,7 @@
       </g>
     </g>
     <g
-       transform="translate(-831.99997,-448.00005)"
+       transform="translate(-831.99992,-320)"
        id="g8258"
        inkscape:export-filename="/home/mateo/Desktop/panel_out.png"
        inkscape:export-xdpi="192"
@@ -29592,7 +29631,7 @@
     </g>
     <g
        id="g8478"
-       transform="translate(6.1874999e-7,-256)"
+       transform="translate(5.921875e-5,-127.99995)"
        inkscape:export-filename="/home/mateo/Desktop/panel_out_nuts.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -29681,7 +29720,7 @@
     </g>
     <g
        id="g8718"
-       transform="translate(-7.8125004e-7,256)"
+       transform="translate(5.781875e-5,384.00005)"
        inkscape:export-filename="/home/mateo/Desktop/panel_out_nuts_light.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -29772,7 +29811,7 @@
        inkscape:export-ydpi="192"
        inkscape:export-xdpi="192"
        inkscape:export-filename="/home/mateo/Desktop/panel_nuts.png"
-       transform="translate(-575.99997,-448.00003)"
+       transform="translate(-575.99992,-319.99998)"
        id="g8518">
       <g
          id="g8512"
@@ -29815,7 +29854,7 @@
     </g>
     <g
        id="g8651"
-       transform="translate(-7.8125004e-7,256)"
+       transform="translate(5.781875e-5,384.00005)"
        inkscape:export-filename="/home/mateo/Desktop/panel_nuts_light.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -29919,7 +29958,7 @@
     </g>
     <g
        id="g8631"
-       transform="translate(-4.078125e-5,1.9999999e-5)">
+       transform="translate(1.781875e-5,128.00007)">
       <g
          id="g8611"
          transform="translate(-1409.1339,445.59995)">
@@ -29979,7 +30018,7 @@
     </g>
     <g
        id="g8826"
-       transform="translate(-7.8125004e-7,256)"
+       transform="translate(5.781875e-5,384.00005)"
        inkscape:export-filename="/home/mateo/Desktop/panel_in_soft_nuts_light.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -30067,7 +30106,7 @@
     </g>
     <g
        id="g8808"
-       transform="translate(6.1874999e-7,-256)"
+       transform="translate(5.921875e-5,-127.99995)"
        inkscape:export-filename="/home/mateo/Desktop/panel_in_soft_nuts.png"
        inkscape:export-xdpi="192"
        inkscape:export-ydpi="192">
@@ -30160,6 +30199,70 @@
              style="fill:#ffffff;fill-opacity:1;stroke-width:0.21157023" />
         </g>
       </g>
+    </g>
+    <g
+       style="display:inline"
+       id="g5870"
+       transform="translate(-767.99997,15.99995)">
+      <rect
+         style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5858"
+         width="24"
+         height="24"
+         x="679.1333"
+         y="1648.5" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 697.07495,1650.415 c -0.5,0 -1,0.17 -1.41,0.58 -2.87,2.87 -8.59,8.59 -8.59,8.59 l 1.5,1.5 -3.5,3.5 h -2 l -2,4 2,2 4,-2 v -2 l 3.5,-3.5 1.5,1.5 c 0,0 5.72,-5.72 8.59,-8.59 0.62,-0.91 0.78,-2.04 0,-2.82 l -2.18,-2.18 c -0.41,-0.41 -0.91,-0.58 -1.41,-0.58 m 0,2.17 2,2 -7,7 -2,-2 z"
+         id="path5808" />
+    </g>
+    <g
+       style="display:inline"
+       id="g5874"
+       transform="translate(-607.99997,87.99995)">
+      <rect
+         style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5854"
+         width="24"
+         height="24"
+         x="615.1333"
+         y="1576.5" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 631.1333,1581 3,3 -0.5,0.5 c 1,1 1.5,1.5 2,1 l 1.5,1.5 c 0,1 -1.5,2.5 -2.5,2.5 l -1.5,-1.5 c 0.5,-0.5 0,-1 -1,-2 l -1,1 -3,-3 c 1.5,-2 0,-4 -4,-3 1,-1 2,-2 3,-2 0.5,0 2,0 4,2 m -14,15 2,2 10,-10 -2,-2 z"
+         id="path5819" />
+    </g>
+    <g
+       style="display:inline"
+       id="g5862"
+       transform="translate(-631.99997,-8.00005)">
+      <rect
+         style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5852"
+         width="24"
+         height="24"
+         x="607.1333"
+         y="1672.5" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 613.1333,1676.5 h 12 v 1 h 3 v 2 h -3 v 2 h 3 v 2 h -3 v 2 h 3 v 2 h -3 v 2 h 3 v 2 h -3 v 1 h -12 v -1 h -3 v -2 h 3 v -2 h -3 v -2 h 3 v -2 h -3 v -2 h 3 v -2 h -3 v -2 h 3 v -1 m 5,11 v 3 h 1 v -3 h -1 m 2,0 v 3 h 1 v -3 h -1 m 2,0 v 3 h 1 v -3 z"
+         id="path5830" />
+    </g>
+    <g
+       style="display:inline"
+       id="g5866"
+       transform="translate(-735.99997,-16.00005)">
+      <rect
+         style="opacity:1;fill:#cfd8dc;fill-opacity:1;stroke:none;stroke-width:2.54999971;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect5856"
+         width="24"
+         height="24"
+         x="679.1333"
+         y="1680.5" />
+      <path
+         inkscape:connector-curvature="0"
+         d="m 686.42767,1685.8738 h -1.92 l 9,9 1,-0.94 m 4.96,6.06 -0.84,0.84 c -0.39,0.39 -1.02,0.39 -1.41,0 l -3.12,-3.12 -2.68,2.66 -1.41,-1.41 1.42,-1.42 -8.92,-8.92 v -4.75 h 4.75 l 8.92,8.92 1.42,-1.42 1.41,1.41 -2.67,2.67 3.12,3.12 c 0.4,0.4 0.4,1.03 0.01,1.42 z"
+         id="path5841-3" />
     </g>
   </g>
   <g
