@@ -75,7 +75,7 @@ var Character = cc.Sprite.extend({
       stack.item.equip(this);
 
       this.level.hud.equipbar.refresh();
-      let thumb = this.level.hud.inventory.grid.cells[newIndex].itemThumb;
+      let thumb = this.level.hud.inventory.grid.cells[newIndex].itemThumb; // TODO Asco
       thumb.button.callback(thumb);
       this.level.hud.inventory.refresh();
       return true;

@@ -18,7 +18,11 @@ var EquipBar = Panel.extend({
     for (let i = 0; i < this.slots.length; i++) {
       this.slots[i] = new Panel({y: (this.slots.length - i - 1)  * SLOT_HEIGHT + "px", height: "100pw", width: "100pw", bgImage: r.ui.panel_in_soft_light, padding: "2px"});
       this.slots[i].addTo(this.slotsContainer);
-      this.slots[i].itemThumb = new Badge({visible: false, bgImage: r.items.default, scale9: false, height: "80ph", padding: "10ph"});
+      this.slots[i].itemThumb = new Badge({callback: () => { // jshint ignore:line
+        if (!this.hud.inventory.inScreen) this.hud.inventory.show();
+        let thumb = this.hud.inventory.grid.cells[i].itemThumb; // TODO asco
+        thumb.button.callback(thumb);
+      }, visible: false, bgImage: r.items.default, scale9: false, height: "80ph", padding: "10ph"});
       this.slots[i].itemThumb.addTo(this.slots[i]);
       this.slots[i].item = null;
     }
