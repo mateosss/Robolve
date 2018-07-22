@@ -543,8 +543,14 @@ Format (variables between \<\> should be calculated after each day/task)
 
   - 2018-07-21 Sa -
     - 10:55 - 12:25 | New panels organization in UI.svg, (waste of time)
+    - 13:05 - 15:15 | UI of equiped items inside view, trabajando cansado
+    - 17:15 - 18:30 | Haciendo que item sean buttons pero me di cuenta que es inutil para la nano eva y borre todo
 
 # (40:00 hs) Julio Semana 22 []
+
+    - 11:25 - 12:45 | Equipar basico
+    - 13:00 - 15:10 | Unequip done, working on linux, and solved a bug when dropping last invenory item in linux
+
 
 # BUG's
 
@@ -553,3 +559,5 @@ Format (variables between \<\> should be calculated after each day/task)
   da error de que no existe el native object
 
 - Cuando hay dos items superpuestos y mi inventario esta casi lleno, al tratarlos de meter, se meten solo los que entran y el resto desaparecen del juego
+
+- La solucion para equiped items esta bastante rancia y poco pensada, deberia estructurarla mejor, pero para eso hay que cambiar muchas cosas, por ejemplo actualmente equipa stacks en vez de items

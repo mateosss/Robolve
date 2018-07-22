@@ -61,6 +61,7 @@ var Character = cc.Sprite.extend({
     let stack = this.inventory.items[stackIndex];
     this.inventory.items.splice(stackIndex, 1);
     new ItemPickup(this.level.map, this.getPosition(), stack.item, stack.quantity);
+    this.level.hud.inventory.unselectStack();
     this.level.hud.inventory.refresh();
   },
 
