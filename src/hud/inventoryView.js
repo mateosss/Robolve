@@ -174,6 +174,8 @@ var InventoryView = Dialog.extend({
         cell.itemThumb.addTo(cell);
         cell.itemQuantity = new Text({text: inv.items[i].quantity, fontSize: 24, x: "center", top: "5px"});
         cell.itemQuantity.addTo(cell);
+        cell.equipedCheck = new Badge({visible: false, bgImage: r.ui.greenRound, icon: "check", scale9: false, width: "40ph", height: "40ph", x: "-30ph", y: "-30ph"});
+        cell.equipedCheck.addTo(cell);
       } else if (gridItem === invItem && gridItemQuantity !== invItemQuantity) { // Same item on filled cell, with different quantity, update it
         cell.quantity = invItemQuantity;
         cell.itemQuantity.setup({text: invItemQuantity});
@@ -183,10 +185,7 @@ var InventoryView = Dialog.extend({
         cell.itemThumb.setup({bgImage: inv.items[i].item.image});
         cell.itemQuantity.setup({text: inv.items[i].quantity});
 
-        if (i < inv.equiped.length) { // TODO this is part of the awful solution of equipbar
-          cell.equiped = new Badge({bgImage: r.ui.greenRound, icon: "check", scale9: false, width: "40ph", height: "40ph", x: "-30ph", y: "-30ph"});
-          cell.equiped.addTo(cell);
-        }
+        cell.equipedCheck.setup({visible: i < inv.equiped.length});
       } // else nothing has changed at all
     }
 
@@ -215,8 +214,9 @@ var InventoryView = Dialog.extend({
 
       // equipable?
       let equipable = selectedItem.equipable;
-      this.infoDrop.setup({height: equipable ? "20pw" : "40pw", iconFontSize: equipable ? 64 : 96});
-      this.infoEquip.setup({visible: equipable});
+      let isEquiped = this.selectedStackIndex < inv.equiped.length;
+      this.infoDrop.setup({visible: !isEquiped, height: equipable ? "20pw" : "40pw", iconFontSize: equipable ? 64 : 96});
+      this.infoEquip.setup({visible: equipable, callback: isEquiped ? () => this.hud.level.character.unequipStack(this.selectedStackIndex) : () => this.hud.level.character.equipStack(this.selectedStackIndex), icon: isEquiped ? "table-column-remove" : "select-inverse"});
 
       // mods
       let mods = selectedItem.mods;

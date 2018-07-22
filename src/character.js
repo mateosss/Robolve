@@ -84,6 +84,23 @@ var Character = cc.Sprite.extend({
       return false;
     }
   },
+  unequipStack: function(stackIndex) {
+    // TODO All the implementation of equiped items is broken, but in particular I am sending all equiped items to the start of the inventory
+    // which is a very weird thing
+    _.assert(stackIndex < this.inventory.equiped.length, "This stack doesnt seem to be equiped");
+    let firstNonEquiped = this.inventory.getFirstNonEquipedStackIndex();
+    let newIndex = firstNonEquiped < 0 ? 0 : firstNonEquiped - 1;
+    _.swap(this.inventory.items, newIndex, stackIndex);
+
+    let stack = this.inventory.items[newIndex];
+    this.inventory.equiped.splice(stackIndex, 1);
+    stack.item.unequip(this);
+
+    this.level.hud.equipbar.refresh();
+    let thumb = this.level.hud.inventory.grid.cells[newIndex].itemThumb; // TODO Asco
+    thumb.button.callback(thumb);
+    this.level.hud.inventory.refresh();
+  },
 
   setInventoryCapacity: function(capacity) {
     let removedStacks = this.inventory.setCapacity(capacity);
