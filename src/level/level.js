@@ -19,7 +19,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   spawn_time: 0.8, // Seconds between spawns
   lastWave: false, // True if the game is on the last wave
   cWave: null, // Current wave position
-  ctor:function (mapRes, firstTime) {
+  ctor:function (mapRes) {
     this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
     this.map = new TiledMap(this, mapRes);
     this.addChild(this.map, 1);

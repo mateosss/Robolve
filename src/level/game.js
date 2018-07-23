@@ -1,8 +1,7 @@
 var GameLevel = cc.Scene.extend({
-  ctor: function(mapRes, firstTime) {
+  ctor: function(mapRes) {
     this._super();
     this.mapRes = mapRes;
-    this.firstTime = firstTime;
   },
   onEnter:function () {
     this._super();

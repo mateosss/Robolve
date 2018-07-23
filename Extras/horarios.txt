@@ -551,6 +551,9 @@ Format (variables between \<\> should be calculated after each day/task)
     - 11:25 - 12:45 | Equipar basico
     - 13:00 - 15:10 | Unequip done, working on linux, and solved a bug when dropping last invenory item in linux
     - 17:50 - 19:50 | Performance boost for inventory, removed a lot of duplicated refreshes and so on
+    - 19:50 - 20:10 | Empezando main menu
+    - 21:20 - 23:40 | Mas main menu
+    - 00:00 - 01:00 | Main menu terminado
 
 
 # BUG's

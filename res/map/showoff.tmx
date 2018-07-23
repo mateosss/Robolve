@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" renderorder="right-down" width="20" height="40" tilewidth="128" tileheight="64" nextobjectid="58">
+<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="20" height="40" tilewidth="128" tileheight="64" infinite="0" nextobjectid="59">
  <properties>
   <property name="wavesCounts" value="300,400,600,700,800,100,200,300,400,500,600,38,40,50"/>
   <property name="wavesIntervals" value="10,5,5,5,5,5,5,5,5,5,5,5,5,5"/>
@@ -1103,6 +1103,16 @@
    </properties>
   </object>
   <object id="57" name="SpawnDefense" x="512" y="960" width="64" height="64">
+   <properties>
+    <property name="attackSpeed" value="2"/>
+    <property name="damage" value="2"/>
+    <property name="element" value="electric"/>
+    <property name="life" value="0"/>
+    <property name="range" value="2"/>
+    <property name="terrain" value="1"/>
+   </properties>
+  </object>
+  <object id="58" name="SpawnCharacter" x="640" y="768" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
     <property name="damage" value="2"/>

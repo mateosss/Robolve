@@ -12,12 +12,12 @@ var r = { // resources variable
   maps:{
     tilesheet: "res/map/tilesheet.png",
     tileset: "res/map/tileset.png",
-    map1: "res/map/map1.tmx",
-    map2: "res/map/map2.tmx",
-    map3: "res/map/map3.tmx",
-    map4: "res/map/map4.tmx",
-    map5: "res/map/map5.tmx",
-    map6: "res/map/map6.tmx",
+    map1: "res/map/initiation.tmx",
+    map2: "res/map/neighborhood.tmx",
+    map3: "res/map/emission.tmx",
+    map4: "res/map/showoff.tmx",
+    map5: "res/map/straightened.tmx",
+    map6: "res/map/reborn.tmx",
   },
   ui: {
     panel: "res/sprites/ui/panel.png",
