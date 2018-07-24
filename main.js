@@ -61,7 +61,8 @@ cc.game.onStart = function(){
     cc.view.adjustViewPort(true);
     // Setup the resolution policy and design resolution size
     var view = cc.view.getCanvasSize();
-    cc.view.setDesignResolutionSize(view.width, view.height, cc.ResolutionPolicy.SHOW_ALL);
+    // cc.view.setDesignResolutionSize(view.width, view.height, cc.ResolutionPolicy.SHOW_ALL);
+    cc.view.setDesignResolutionSize(720, 1280, cc.ResolutionPolicy.SHOW_ALL);
     // cc.view.setDesignResolutionSize(460, 800, cc.ResolutionPolicy.NO_BORDER);
     //TODO define the resolution of the screen, protrait or horizontal?
     //TODO stop showing black bars
