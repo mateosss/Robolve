@@ -327,6 +327,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
       }
     }
     this.waveDelay = this.wavesIntervals[this.cWave];
+    if (this.hud) this.hud.waveText.refresh();
   },
   crossover: function(p1, p2, sonsCount) { //TODO GA que el robot sea equilibrado
     // Crossovers two DNAs from robot.getDNA(), p1 is the strongest parent

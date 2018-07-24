@@ -76,6 +76,13 @@ var Hud = cc.Layer.extend({
     this.dialog = new Dialog(this, {type:"confirm", width: "80vw", height: "35vh", x: "center", y: "center"});
     this.dialog.addTo(this);
 
+    this.waveText = new Badge({bgImage: r.ui.panel_out, text: _.format("Wave\n{}/{}", 1, this.level.cWave + 1, this.level.wavesCounts.length), textFontSize: 48, bottom: "20px", left: "16px + 5px + 65ph", height: "50ph", width: "100ph", y: "11px", scale: 0.5});
+    this.waveText.addTo(this.bottombarLayout);
+    let text = this.waveText.getTitleRenderer();
+    text.setLineHeight(48);
+    text.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+    this.waveText.refresh = () => this.waveText.setup({text: _.format("Wave\n{}/{}", this.level.cWave + 1, this.level.wavesCounts.length)});
+    this.waveText.refresh();
 
     // this.preview = new DefenseView({});
     // this.preview.addTo(this);
@@ -111,6 +118,7 @@ var Hud = cc.Layer.extend({
     window.goldbar = this.goldbar; // jshint ignore:line
     window.bottombar = this.bottombar; // jshint ignore:line
     window.cancelActions = this.cancelActions; // jshint ignore:line
+    window.waveText = this.waveText; // jshint ignore:line
     window.button = this.button; // jshint ignore:line
     window.layout = this.bottombarLayout; // jshint ignore:line
     window.preview = this.preview; // jshint ignore:line
