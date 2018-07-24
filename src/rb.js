@@ -278,56 +278,162 @@ var rb = {
       consumable: false,
       equipable: false,
     }),
-    sword: new Item({
-      name: "Sword",
-      description: "This is a family friendly sword",
-      image: r.items.sword,
-      stackLimit: 1,
-      consumable: false,
-      equipable: true,
-      mods: {
-        "sSpeed": 4,
-        "sDamage": 1000,
-        "inventory.capacity": 2,
-        "sBuildRange": +2000,
-        "sBuildTime": -4,
-      }
-    }),
-    hammer: new Item({
-      name: "Hammer",
-      description: "A hammer to repair electronics, well thought",
-      image: r.items.hammer,
-      stackLimit: 1,
-      consumable: false,
-      equipable: true,
-      mods: {
-        "sBuildRange": +100,
-        "sBuildTime": -4,
-        "sRepairAmount": 20,
-      }
-    }),
-    screwdriver: new Item({
-      name: "Screwdriver",
-      description: "A screwdriver, screw those drives!",
-      image: r.items.screwdriver,
-      stackLimit: 1,
-      consumable: false,
-      equipable: true,
-      mods: {
-        "sBuildRange": +100,
-      }
-    }),
-    berserkerChip: new Item({
-      name: "Berserker Chip",
-      description: "Those robots are in trouble if you use this",
-      image: r.items.berserkerChip,
-      stackLimit: 1,
-      consumable: false,
-      equipable: true,
-      mods: {
-        "sDamage": +2000,
-      }
-    }),
+
+
+
+
+      sword: new Item({
+        name: "Sword",
+        description: "This is a family friendly sword",
+        image: r.items.sword,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "sDamage": +50
+        }
+      }),
+      hammer: new Item({
+        name: "Hammer",
+        description: "A hammer to repair, not to destroy",
+        image: r.items.hammer,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "sImproveTime": -4
+        }
+      }),
+      screwdriver: new Item({
+        name: "Screwdriver",
+        description: "A screwdriver, screw those drives!",
+        image: r.items.screwdriver,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "sRepairAmount": +100,
+        }
+      }),
+      runner: new Item({
+        name: "The Flash",
+        description: "ZOOOM Zooooom! bojangles!",
+        image: r.items.runner,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "sSpeed": +8,
+        }
+      }),
+      towerExpert: new Item({
+        name: "Tower Expert",
+        description: "Be a tower expert and start building right away",
+        image: r.items.towerExpert,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "sBuildTime": +8,
+        }
+      }),
+      speedometer: new Item({
+        name: "Speedometer",
+        description: "Attack as if you were in a benny hill show",
+        image: r.items.speedometer,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "sAttackSpeed": +4,
+        }
+      }),
+      briefcase: new Item({
+        name: "Briefcase",
+        description: "Beautiful leather portfolio with modern sewings",
+        image: r.items.briefcase,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "inventory.capacity": +15,
+        }
+      }),
+      twoSwords: new Item({
+        name: "Two Swords",
+        description: "Two f*ing swords, what else can you ask for",
+        image: r.items.twoSwords,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "sSpeed": +3,
+          "sAttackSpeed": +1,
+          "sDamage": +25,
+        }
+      }),
+      bullseye: new Item({
+        name: "Bullseye",
+        description: "Put this on and those robots will be endangered",
+        image: r.items.bullseye,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "sDamage": +50,
+          "sAttackSpeed": +2,
+        }
+      }),
+      toolbox: new Item({
+        name: "Toolbox",
+        description: "Build and repair defenses like a maniac",
+        image: r.items.toolbox,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "sRepairAmount": +50,
+          "sImproveTime": -2,
+          "sBuildTime": -3,
+        }
+      }),
+      medicalBag: new Item({
+        name: "Medical Bag",
+        description: "Be omnipreset for your lovely defenses",
+        image: r.items.medicalBag,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "sRepairAmount": +100,
+          "sSpeed": +5,
+        }
+      }),
+      campingEssentials: new Item({
+        name: "Camping Essentials",
+        description: "Be prepared for anything",
+        image: r.items.campingEssentials,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "inventory.capacity": +5,
+          "sSpeed": +3,
+          "sDamage": +25,
+        }
+      }),
+      coffee: new Item({
+        name: "Coffee",
+        description: "You will be a little accelerated",
+        image: r.items.coffee,
+        stackLimit: 1,
+        consumable: false,
+        equipable: true,
+        mods: {
+          "sBuildTime": -3,
+          "sAttackSpeed": +2,
+        }
+      }),
   },
   characterStats: { // Character stats and needed values // TODO This should be here or in Character class? also it is not being used in some required places as in CharacaterSheet
     "sSpeed": {
