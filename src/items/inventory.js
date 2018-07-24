@@ -1,6 +1,6 @@
 var Inventory = cc.Class.extend({
   items: null, // List of stacks of the form {item: Item, quantity: Number} objects
-  capacity: 25, // Max capacity of the inventary // TODO initial capacity hardcoded
+  capacity: 10, // Max capacity of the inventary // TODO initial capacity hardcoded
   equiped: null, // Equiped stack list
   equipedCapacity: 3, // Max  amount of items to equip
 

@@ -2,11 +2,11 @@ var Base = Defense.extend({
   part: null, // TODO Hack, for not using Parts, and using a single part, see assembleParts in this file, should be fixed when sprites for Base are generated
 
   STATS: new Map([ // TODO this should be different combinations that can be purchased
-    ['life', {0: 2000}],
+    ['life', {0: 15000}],
     ['element', { electric: "Electro" }],
     ['range', {0: 500}],
     ['terrain', {0: 'walk'}],
-    ['damage', {0: 15}],
+    ['damage', {0: 30}],
     ['attackSpeed', {0: 15.0}],
   ]),
 

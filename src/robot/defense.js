@@ -7,15 +7,15 @@ var Defense = Computer.extend({
   buildBar: null, // The progress bar showing defense build progress
   DEBUG: true,
   STATS: new Map([
-    ['life', {0: 500, 1: 600, 2: 700}],
+    ['life', {0: 1000, 1: 1500, 2: 2500}],
     ['element', {
       electric: "Electro",
       fire: "Fire",
       water: "Water",
     }],
-    ['range', {0: 200, 1: 300, 2: 500}],
+    ['range', {0: 200, 1: 300, 2: 400}],
     ['terrain', {0: 'walk'}],
-    ['damage', {0: 25, 1: 50, 2:75}],
+    ['damage', {0: 100, 1: 150, 2: 250}],
     ['attackSpeed', {0: 0.5, 1: 1.0, 2: 2.0}],
   ]),
   PARTS: { // Necessary info for the parts to make a defense

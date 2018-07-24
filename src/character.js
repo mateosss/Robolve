@@ -12,14 +12,14 @@ var Character = cc.Sprite.extend({
   ],
 
   // Stats
-  sSpeed: 4.0, // Speed of movement in units per second
+  sSpeed: 2.0, // Speed of movement in units per second
   sBuildRange: 75, // Range for starting to build/repair/improve in units
-  sBuildTime: 5.0, // Amount of seconds that it takes to build an new defense
-  sImproveTime: 2.5, // Amount of seconds that it takes to improve a defense's stat
+  sBuildTime: 10.0, // Amount of seconds that it takes to build an new defense
+  sImproveTime: 5.0, // Amount of seconds that it takes to improve a defense's stat
   sRepairAmount: 50, // Amount of life healed (repaired) to a defense in one second
   sAttackRange: 75, // Attack range in units, it is used half of this for reaching a target, and then this one is used
-  sAttackSpeed: 2.0, // Amount of hits per seconds to a robot
-  sDamage: 100, // Amount of damage per hit
+  sAttackSpeed: 1.0, // Amount of hits per seconds to a robot
+  sDamage: 50, // Amount of damage per hit
 
   pointing: 2, // Looking direction 0:North, 1:East, 2:South, 3:West
   target: null, // Target defense/robot/position of the character
@@ -32,7 +32,7 @@ var Character = cc.Sprite.extend({
     this.inventory = new Inventory();
     SaveLoad.load(this.inventory);
     if (this.inventory.items.length === 0) { // TODO Not very well thought behaviour of inventory loading
-      this.inventory.addItem(rb.items.gold, 4000); // TODO 4000 hardcoded
+      this.inventory.addItem(rb.items.gold, rb.prices.initialGold);
     }
 
     this.scheduleUpdate();

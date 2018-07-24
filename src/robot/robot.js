@@ -2,7 +2,7 @@ var Robot = Computer.extend({
   // TODO definir valores reales // TODO apply fuzzy logic
   STATS: new Map([
     ['turnProb', {0: 0.25, 1: 0.5, 2: 0.9}],
-    ['life', {0: 500, 1: 600, 2: 700}],
+    ['life', {0: 1000, 1: 1500, 2: 2500}],
     ['element', {
       electric: "Electro",
       fire: "Fire",
@@ -11,7 +11,7 @@ var Robot = Computer.extend({
     ['range', {0: 75, 1: 150}],
     ['terrain', {0: 'walk'}],
     ['speed', {0: 0.35, 1: 0.75, 2: 1.0}],
-    ['damage', {0: 5, 1: 15, 2:20}],
+    ['damage', {0: 50, 1: 75, 2: 150}],
     ['attackSpeed', {0: 0.5, 1: 1.0, 2: 2.0}],
   ]),
   PARTS: { // Necessary info for the parts to make a robot

@@ -47,12 +47,13 @@ var rb = {
 
   prices: {
     // Spend
-    createDefense: 300,
+    createDefense: 700,
     increaseStat: 100,
-    decreaseStat: 100,
+    decreaseStat: 100, // TODO not used
     // Gain
-    destroyDefense: 50,
-    killRobot: 30,
+    initialGold: 1500,
+    destroyDefense: 350,
+    killRobot: 50,
   },
 
   states: {
