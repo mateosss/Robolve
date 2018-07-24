@@ -262,7 +262,7 @@ var rb = {
     electricCoin: new Item({
       name: "Electric Coin",
       category: "coin",
-      description: "Use this to pay to EPEC",
+      description: "Sells best if you have many electric defenses",
       image: r.items.electricCoin,
       stackLimit: 5,
       consumable: false,
@@ -271,7 +271,7 @@ var rb = {
     fireCoin: new Item({
       name: "Fire Coin",
       category: "coin",
-      description: "That's some hot cash right there",
+      description: "Sells best if you have many fire defenses",
       image: r.items.fireCoin,
       stackLimit: 5,
       consumable: false,
@@ -280,7 +280,7 @@ var rb = {
     waterCoin: new Item({
       name: "Water Coin",
       category: "coin",
-      description: "Filled with the tear of your enemies",
+      description: "Sells best if you have many water defenses",
       image: r.items.waterCoin,
       stackLimit: 5,
       consumable: false,
@@ -341,7 +341,7 @@ var rb = {
       towerExpert: new Item({
         name: "Tower Expert",
         category: "unique",
-        description: "Be a tower expert and start building right away",
+        description: "Be a tower expert and build right away",
         image: r.items.towerExpert,
         stackLimit: 1,
         consumable: false,
@@ -365,7 +365,7 @@ var rb = {
       briefcase: new Item({
         name: "Briefcase",
         category: "unique",
-        description: "Beautiful leather portfolio with modern sewings",
+        description: "Leather portfolio with modern sewings",
         image: r.items.briefcase,
         stackLimit: 1,
         consumable: false,
@@ -391,7 +391,7 @@ var rb = {
       bullseye: new Item({
         name: "Bullseye",
         category: "unique",
-        description: "Put this on and those robots will be endangered",
+        description: "The training of a bull in your eyes",
         image: r.items.bullseye,
         stackLimit: 1,
         consumable: false,

@@ -123,7 +123,7 @@ var Robot = Computer.extend({
   },
   dropRandomCoin: function() {
     let coins = Object.values(Item.prototype.getCoinItems());
-    new ItemPickup(this.level.map, this.getPosition(), _.randchoice(coins), _.rand6intCenter(rb.prices.killRobot));
+    new ItemPickup(this.level.map, this.getPosition(), _.randchoice(coins), 1);
   },
   dropRandomGold: function() {
     new ItemPickup(this.level.map, this.getPosition(), rb.items.gold, _.rand6intCenter(rb.prices.killRobot));
@@ -131,7 +131,7 @@ var Robot = Computer.extend({
 
   die: function() {
     if (!this.sm.isInState('die')) this.drop(); // Check if it is already dying for not dropping many items
-    this.level.totalRobotsKilled++
+    this.level.totalRobotsKilled++;
     this._super();
   },
   destroy: function() {

@@ -35,7 +35,7 @@ var ItemPickup = cc.Sprite.extend({
       let shrink = new cc.EaseBackIn(new cc.ScaleTo(0.5, 0));
       let remove = new cc.RemoveSelf();
       this.runAction(new cc.Sequence([shrink, remove]));
-    }, 10); // TODO time hardcoded
+    }, 60); // TODO time hardcoded
   },
 
   pickup: function() {
