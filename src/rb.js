@@ -31,7 +31,8 @@ var rb = {
       this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
     },
     debugAllRobotsScore: (i) => rb.dev.allRobots((r) => r.schedule(rb.dev.debugScoreRobot, isNaN(i) ? 0.5 : i)),
-    addGold: amount => rb.dev.getHud().ig.addGold(amount)
+    addGold: amount => rb.dev.getHud().ig.addGold(amount),
+    addItem: (name, amount) => rb.dev.getCharacter().inventory.addItem(rb.items[name], amount || 1),
   },
 
   animations: {
@@ -52,6 +53,8 @@ var rb = {
     decreaseStat: 100, // TODO not used
     // Gain
     initialGold: 1500,
+    sellItem: 100,
+    sellCoinMax: 150,
     destroyDefense: 350,
     killRobot: 50,
   },

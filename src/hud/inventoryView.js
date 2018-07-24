@@ -73,12 +73,12 @@ var InventoryView = Dialog.extend({
       this.hud.level.character.equipStack(this.selectedStackIndex);
     }, button: "blueRound", scale9: false, icon: "select-inverse", x: "60pw", y: "-40pw", left: "11px", height: "40pw", width: "40pw", scale: 0.5, iconFontSize: 56, bottom: "2px"});
     this.infoEquip.addTo(this.infoContainer);
-    this.infoDrop = new Button({callback: () => {
-      this.hud.level.character.dropStack(this.selectedStackIndex);
-      this.hud.ig.refresh();
+    this.infoSell = new Button({callback: () => {
+      this.hud.ig.addGold(this.getSelectedStackPrice());
+      this.inventory.items.splice(this.selectedStackIndex, 1);
       this.unselectStack();
-    }, button: "pink", icon: "arrow-down-thick", iconFontSize: 64, x: "60pw", y: "-60pw", left: "11px", height: "20pw", width: "40pw", scale: 0.5});
-    this.infoDrop.addTo(this.infoContainer);
+    }, button: "pink", text: "Sell $0", textFontSize: 32, iconFontSize: 64, x: "60pw", y: "-60pw", left: "11px", height: "20pw", width: "40pw", scale: 0.5});
+    this.infoSell.addTo(this.infoContainer);
     this.infoName = new Text({text: "—", x: "center", fontSize: 24, y: (this.infoContainer.height - 160) + "px" , bottom: cc.sys.isNative ? "5px" : "0px"});
     this.infoName.addTo(this.infoContainer);
     this.infoTextContainer = new Panel({bgImage: r.ui.panel_out, y: "-48px + -60pw + -24px + -11px", height: "48px", scale: 0.5});
@@ -220,7 +220,7 @@ var InventoryView = Dialog.extend({
       // equipable?
       let equipable = selectedItem.equipable;
       let isEquiped = this.selectedStackIndex < inv.equiped.length;
-      this.infoDrop.setup({visible: !isEquiped, height: equipable ? "20pw" : "40pw", iconFontSize: equipable ? 64 : 96});
+      this.infoSell.setup({visible: !isEquiped && selectedItem.name !== "Gold", height: equipable ? "20pw" : "40pw", iconFontSize: equipable ? 64 : 96, text: _.format("Sell ${}", this.getSelectedStackPrice())});
       this.infoEquip.setup({visible: equipable, callback: isEquiped ? () => this.hud.level.character.unequipStack(this.selectedStackIndex) : () => this.hud.level.character.equipStack(this.selectedStackIndex), icon: isEquiped ? "table-column-remove" : "select-inverse"});
 
       // mods
@@ -261,6 +261,18 @@ var InventoryView = Dialog.extend({
     this.selectedStackGridCell = gridCell;
     this.selectedStackIndex = stackIndex;
     this.refresh();
+  },
+
+  getSelectedStackPrice: function() {
+    let res = 0;
+    if (this.selectedStack.item.name.endsWith("Coin")) { // If it is a  coin calculate its total value
+      let name = this.selectedStack.item.name;
+      let element = name.split("Coin")[0].trim().toLowerCase();
+      let defenses = this.hud.level.defenses;
+      let amountOfThoseDefenses = defenses.reduce((t, d) => t + (d.element === element ? 1 : 0), 0);
+      res = this.selectedStack.quantity * (amountOfThoseDefenses / (defenses.length || 1)) * rb.prices.sellCoinMax;
+    } else res = rb.prices.sellItem;
+    return Number(res.toFixed(0));
   },
 
   unselectStack: function() {
