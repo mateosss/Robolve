@@ -19,6 +19,12 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   spawn_time: 0.8, // Seconds between spawns
   lastWave: false, // True if the game is on the last wave
   cWave: null, // Current wave position
+
+  totalRobotsSpawned: 0,
+  totalRobotsKilled: 0, // Increased from Robot
+  dropChunkLength: 0, // The game drop system divides into dropChunks of dropChunkLength = Math.floor(totalRobotsOfMaps / totalUniqueItems) length
+  dropChunkGiven: false, // this variable says if the dropChunk already gave its unique item or not
+  dropRemainingItems: null, // The remaining unique items to drop
   ctor:function (mapRes) {
     this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
     this.map = new TiledMap(this, mapRes);
@@ -30,6 +36,10 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.wavesCounts =  this.map.getProperties().wavesCounts.split(",").map(Number);
     this.wavesIntervals = this.map.getProperties().wavesIntervals.split(",").map(Number);
     this.prepareNextWave();
+
+    // Drop Chunk Setup
+    this.dropRemainingItems = Object.values(Item.prototype.getUniqueItems());
+    this.dropChunkLength = this.wavesCounts.reduce((x, y) => x + y, 0) / this.dropRemainingItems.length;
 
     // Set base
     var base = new Base(this);
@@ -155,6 +165,10 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.scheduleUpdate();
     return true;
   },
+  popRandomDrop: function() {
+    let pop = _.randint(0, this.dropRemainingItems.length - 1);
+    return this.dropRemainingItems.splice(pop, 1);
+  },
   toString: function() {
     return "Level";
   },
@@ -205,9 +219,9 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.character = character;
   },
   addRobot: function(robot) {
+    robot.spawnIndex = ++this.totalRobotsSpawned;
     this.map.spawn(robot, null, 6);
     this.robots.push(robot);
-
     // debug = new Debugger();//TODO sacar despues las cosas de debug
     // debug.debugText(this, {text: "Robots Count: " + this.robots.length});
   },

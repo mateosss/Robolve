@@ -1,6 +1,7 @@
 var Item = cc.Class.extend({
   // Properties of the item
   name: null,
+  category: null, // The type of item gold | coin | unique
   description: null, // Detailed description of the item
   image: null, // The sprite path
   stackLimit: 1, // Can be Infinity
@@ -12,6 +13,7 @@ var Item = cc.Class.extend({
 
   ctor: function(item) {
     this.name = item.name || this.name;
+    this.category = item.category || this.category;
     this.description = item.description || this.description;
     this.image = item.image || this.image;
     this.stackLimit = item.stackLimit || this.stackLimit;
@@ -26,7 +28,7 @@ var Item = cc.Class.extend({
     // Function to generate hash, it only uses the properties that are unique to this item
     // If item !== undefined, then it works as a static function for generating the item-hash of any object
     item = item || this;
-    let hash = this.name + this.description + this.image + this.stackLimit + this.consumable + this.equipable;
+    let hash = this.name + this.category + this.description + this.image + this.stackLimit + this.consumable + this.equipable;
     if (this.mods) hash += Object.keys(this.mods).toString() + Object.values(this.mods).toString();
     return hash;
   },
@@ -58,6 +60,9 @@ var Item = cc.Class.extend({
   unequip: function(who) {
     this.use(who, (prev, mod) => prev - mod);
   },
+
+  getUniqueItems: () => _.objFilter(rb.items, (k, v) => v.category === "unique"),
+  getCoinItems: () => _.objFilter(rb.items, (k, v) => v.category === "coin"),
 
   toString: () => "Item",
 });

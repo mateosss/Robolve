@@ -9,7 +9,7 @@ var SaveLoad = {
   save: function(inventory) {
     let version = this.version;
     let items = inventory.items.map(i => {
-      let itemFiltered = _.pick(i.item, ["name", "description", "image", "stackLimit", "consumable", "equipable", "mods"]);
+      let itemFiltered = _.pick(i.item, ["name", "category", "description", "image", "stackLimit", "consumable", "equipable", "mods"]);
       itemFiltered = _.objMap(itemFiltered, (k, v) => [k, v !== Infinity ? v : "Infinity"]); // Convert Infinity value to string
       let quantity = i.quantity !== Infinity ? i.quantity : "Infinity";
       return {item: itemFiltered, quantity: quantity};

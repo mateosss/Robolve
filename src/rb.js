@@ -252,6 +252,7 @@ var rb = {
   items: {
     gold: new Item({
       name: "Gold",
+      category: "gold",
       description: "Use this to buy things",
       image: r.items.gold,
       stackLimit: Infinity,
@@ -260,6 +261,7 @@ var rb = {
     }),
     electricCoin: new Item({
       name: "Electric Coin",
+      category: "coin",
       description: "Use this to pay to EPEC",
       image: r.items.electricCoin,
       stackLimit: 5,
@@ -268,6 +270,7 @@ var rb = {
     }),
     fireCoin: new Item({
       name: "Fire Coin",
+      category: "coin",
       description: "That's some hot cash right there",
       image: r.items.fireCoin,
       stackLimit: 5,
@@ -276,6 +279,7 @@ var rb = {
     }),
     waterCoin: new Item({
       name: "Water Coin",
+      category: "coin",
       description: "Filled with the tear of your enemies",
       image: r.items.waterCoin,
       stackLimit: 5,
@@ -288,6 +292,7 @@ var rb = {
 
       sword: new Item({
         name: "Sword",
+        category: "unique",
         description: "This is a family friendly sword",
         image: r.items.sword,
         stackLimit: 1,
@@ -299,6 +304,7 @@ var rb = {
       }),
       hammer: new Item({
         name: "Hammer",
+        category: "unique",
         description: "A hammer to repair, not to destroy",
         image: r.items.hammer,
         stackLimit: 1,
@@ -310,6 +316,7 @@ var rb = {
       }),
       screwdriver: new Item({
         name: "Screwdriver",
+        category: "unique",
         description: "A screwdriver, screw those drives!",
         image: r.items.screwdriver,
         stackLimit: 1,
@@ -321,6 +328,7 @@ var rb = {
       }),
       runner: new Item({
         name: "The Flash",
+        category: "unique",
         description: "ZOOOM Zooooom! bojangles!",
         image: r.items.runner,
         stackLimit: 1,
@@ -332,6 +340,7 @@ var rb = {
       }),
       towerExpert: new Item({
         name: "Tower Expert",
+        category: "unique",
         description: "Be a tower expert and start building right away",
         image: r.items.towerExpert,
         stackLimit: 1,
@@ -343,6 +352,7 @@ var rb = {
       }),
       speedometer: new Item({
         name: "Speedometer",
+        category: "unique",
         description: "Attack as if you were in a benny hill show",
         image: r.items.speedometer,
         stackLimit: 1,
@@ -354,6 +364,7 @@ var rb = {
       }),
       briefcase: new Item({
         name: "Briefcase",
+        category: "unique",
         description: "Beautiful leather portfolio with modern sewings",
         image: r.items.briefcase,
         stackLimit: 1,
@@ -365,6 +376,7 @@ var rb = {
       }),
       twoSwords: new Item({
         name: "Two Swords",
+        category: "unique",
         description: "Two f*ing swords, what else can you ask for",
         image: r.items.twoSwords,
         stackLimit: 1,
@@ -378,6 +390,7 @@ var rb = {
       }),
       bullseye: new Item({
         name: "Bullseye",
+        category: "unique",
         description: "Put this on and those robots will be endangered",
         image: r.items.bullseye,
         stackLimit: 1,
@@ -390,6 +403,7 @@ var rb = {
       }),
       toolbox: new Item({
         name: "Toolbox",
+        category: "unique",
         description: "Build and repair defenses like a maniac",
         image: r.items.toolbox,
         stackLimit: 1,
@@ -403,6 +417,7 @@ var rb = {
       }),
       medicalBag: new Item({
         name: "Medical Bag",
+        category: "unique",
         description: "Be omnipreset for your lovely defenses",
         image: r.items.medicalBag,
         stackLimit: 1,
@@ -415,6 +430,7 @@ var rb = {
       }),
       campingEssentials: new Item({
         name: "Camping Essentials",
+        category: "unique",
         description: "Be prepared for anything",
         image: r.items.campingEssentials,
         stackLimit: 1,
@@ -428,6 +444,7 @@ var rb = {
       }),
       coffee: new Item({
         name: "Coffee",
+        category: "unique",
         description: "You will be a little accelerated",
         image: r.items.coffee,
         stackLimit: 1,

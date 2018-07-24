@@ -29,6 +29,7 @@ var Robot = Computer.extend({
     rb.states.robot.die
   ],
 
+  spawnIndex: null, // Tells the order in which it was spawned in the map
   ctor: function(level, dna) {
     //TODO que funcione el balanceo, poder hacer que un robot sea de tipo +1 y eso
     // TODO creo que este hack ya no es necesario por Robot.prototype.STATS, croe que nadie lo usa, quitar
@@ -91,14 +92,46 @@ var Robot = Computer.extend({
     this.debugger.debug();
   },
   drop: function() { // Drops a pickable item to the ground
-    if (Math.random() < 0.5) {
-      new ItemPickup(this.level.map, this.getPosition(), _.randchoiceObj(rb.items), _.rand6intCenter(2));
-    } else {
-      new ItemPickup(this.level.map, this.getPosition(), rb.items.gold, _.rand6intCenter(rb.prices.killRobot));
+    let totalRobotsKilled = this.level.totalRobotsKilled;
+    let dropChunkLength = this.level.dropChunkLength;
+    let dropChunkGiven = this.level.dropChunkGiven;
+
+    let currentChunk = Math.floor(totalRobotsKilled / dropChunkLength);
+    let nextChunk = Math.floor((totalRobotsKilled + 1) / dropChunkLength);
+    let sameChunk = nextChunk === currentChunk;
+    if (dropChunkGiven !== sameChunk) { // if item wasnt given this chunk and we are in the same chunk, or if it was given but we are in a new chunk, roll normally
+      if (!sameChunk) this.level.dropChunkGiven = false;
+      let rand = Math.random();
+      if (rand <= 0.1) this.dropRandomUnique();
+      else if (0.1 < rand && rand <= 0.4) this.dropRandomCoin();
+      else this.dropRandomGold();
+    }
+    else if (!dropChunkGiven && !sameChunk) this.dropRandomUnique();
+    else {
+      if (Math.random() < 0.4) this.dropRandomCoin();
+      else this.dropRandomGold();
     }
   },
+  dropRandomUnique: function() {
+    this.level.dropChunkGiven = true;
+    let item = this.level.popRandomDrop();
+    if (item.length === 0) {
+      console.warn("This shouldn't be happening, trying to  drop a unique item but they are depleted");
+      return this.dropRandomCoin();
+    }
+    new ItemPickup(this.level.map, this.getPosition(), item[0], 1);
+  },
+  dropRandomCoin: function() {
+    let coins = Object.values(Item.prototype.getCoinItems());
+    new ItemPickup(this.level.map, this.getPosition(), _.randchoice(coins), _.rand6intCenter(rb.prices.killRobot));
+  },
+  dropRandomGold: function() {
+    new ItemPickup(this.level.map, this.getPosition(), rb.items.gold, _.rand6intCenter(rb.prices.killRobot));
+  },
+
   die: function() {
     if (!this.sm.isInState('die')) this.drop(); // Check if it is already dying for not dropping many items
+    this.level.totalRobotsKilled++
     this._super();
   },
   destroy: function() {

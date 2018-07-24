@@ -508,7 +508,7 @@ Format (variables between \<\> should be calculated after each day/task)
     - 18:50 - 23:20 | Inventory basic done in html, remains testing in android and linux
 
 
-# (40:00 hs) Julio Semana 15 []
+# (40:00 hs) Julio Semana 15 [26:00 hs]
 
   - 2018-07-15 Do - 01:00 hs
     - 15:30 - 15:50 | Un bug de linux solucionado
@@ -541,22 +541,27 @@ Format (variables between \<\> should be calculated after each day/task)
     - 22:10 - 23:05 | inventory info working on linux and android
     - 23:05 - 00:40 | Inventory info can now drop and equip items
 
-  - 2018-07-21 Sa -
+  - 2018-07-21 Sa - 05:00 hs
     - 10:55 - 12:25 | New panels organization in UI.svg, (waste of time)
-    - 13:05 - 15:15 | UI of equiped items inside view, trabajando cansado
+    - 13:00 - 15:15 | UI of equiped items inside view, trabajando cansado
     - 17:15 - 18:30 | Haciendo que item sean buttons pero me di cuenta que es inutil para la nano eva y borre todo
 
 # (40:00 hs) Julio Semana 22 []
-
+  - 2018-07-22 Do - 09:30 hs
     - 11:25 - 12:45 | Equipar basico
     - 13:00 - 15:10 | Unequip done, working on linux, and solved a bug when dropping last invenory item in linux
     - 17:50 - 19:50 | Performance boost for inventory, removed a lot of duplicated refreshes and so on
     - 19:50 - 20:10 | Empezando main menu
     - 21:20 - 23:40 | Mas main menu
     - 00:00 - 01:00 | Main menu terminado
+    - 01:00 - 01:20 | Checkeando horas usadas, actualizando horarios y trello
 
+  - 2018-07-23 Lu - 08:30 hs
+    - 16:00 - 19:00 | Diseñando
+    - 19:15 - 23:40 | Diseñando, agregando items nueos, cambiando stats nuevos, programando modificaciones resultantes del diseño, etc
+    - 23:55 - 01:00 | Haciendo unique items drop
 
-# BUG's
+# BUG's y TODO's
 
 - Boton ok en android esta subido muchos pixeles
 - Cuando voy a atacar un robot con el char, y mientras estoy en camino ese robot muere por una torreta
