@@ -176,7 +176,7 @@ var rb = {
         schedule: [{
            callback: function(dt) {
              if (!this.target.sm.isInState('build')) this.sm.setDefaultState();
-             else this.target.addBuilt(dt * 100 / this.sBuildTime);
+             else this.target.addBuilt(dt * 100 / _.max(this.sBuildTime, 0));
            },
            interval: 0.5,
         }],
@@ -207,7 +207,7 @@ var rb = {
         schedule: [{
           callback: function(dt) {
             if (!this.target.sm.isInState('improve')) this.sm.setDefaultState();
-            else this.target.addImproved(dt * 100 / this.sImproveTime);
+            else this.target.addImproved(dt * 100 / _.max(this.sImproveTime, 0));
           },
           interval: 0.5,
         }],
@@ -338,7 +338,7 @@ var rb = {
         consumable: false,
         equipable: true,
         mods: {
-          "sBuildTime": +8,
+          "sBuildTime": -8,
         }
       }),
       speedometer: new Item({
