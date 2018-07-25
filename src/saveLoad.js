@@ -7,6 +7,7 @@ var SaveLoad = {
   version: "alfa",
 
   save: function(inventory) {
+    return;
     let version = this.version;
     let items = inventory.items.map(i => {
       let itemFiltered = _.pick(i.item, ["name", "category", "description", "image", "stackLimit", "consumable", "equipable", "mods"]);
@@ -21,6 +22,7 @@ var SaveLoad = {
   },
 
   load: function(inventory) {
+    return;
     let raw = cc.sys.localStorage.getItem("save");
     let data = raw ? JSON.parse(raw) : {items: []};
     data.items.forEach(i => i.item.stackLimit = Number(i.item.stackLimit)); // "Infinity" to Infinity

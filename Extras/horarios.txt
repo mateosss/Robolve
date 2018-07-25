@@ -561,6 +561,11 @@ Format (variables between \<\> should be calculated after each day/task)
     - 19:15 - 23:40 | Diseñando, agregando items nueos, cambiando stats nuevos, programando modificaciones resultantes del diseño, etc
     - 23:55 - 01:00 | Haciendo unique items drop
 
+  - 2018-07-24 Ma -
+    - 09:30 - 11:00 | Current wave number showing on hud
+    - 13:15 - 14:00 | En auto tratando de guardar current wave
+    - 16:45 - 18:10
+
 # BUG's y TODO's
 
 - Boton ok en android esta subido muchos pixeles
@@ -570,3 +575,5 @@ Format (variables between \<\> should be calculated after each day/task)
 - Cuando hay dos items superpuestos y mi inventario esta casi lleno, al tratarlos de meter, se meten solo los que entran y el resto desaparecen del juego
 
 - La solucion para equiped items esta bastante rancia y poco pensada, deberia estructurarla mejor, pero para eso hay que cambiar muchas cosas, por ejemplo actualmente equipa stacks en vez de items
+
+- quitar timeouts
