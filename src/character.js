@@ -21,10 +21,12 @@ var Character = cc.Sprite.extend({
   sAttackSpeed: 1.0, // Amount of hits per seconds to a robot
   sDamage: 50, // Amount of damage per hit
 
-  pointing: 2, // Looking direction 0:North, 1:East, 2:South, 3:West
+  pointing: 0, // Looking direction 0:North, 1:East, 2:South, 3:West
   target: null, // Target defense/robot/position of the character
+  cAnimation: "still",
   ctor: function(level) {
     this._super(r.character);
+    this.setAnimation("still");
     this.level = level;
     this.setAnchorPoint(0.5, 0.0);
     this.sm = new StateMachine(this);
@@ -36,6 +38,19 @@ var Character = cc.Sprite.extend({
     }
 
     this.scheduleUpdate();
+  },
+
+  setAnimation: function(name) {
+    var frames = [];
+    for (let i = 1; i <= 16; i++) {
+      console.log(this.pointing);
+      let newFrame = name + "_" + ((this.pointing === 0 || this.pointing === 3) ? "back_" : "") + _.zfill(i, 4) + ".png";
+      frames.push(cc.spriteFrameCache.getSpriteFrame(newFrame));
+    }
+    let animation = new cc.Animation(frames, 1 / 16);
+    let action = new cc.RepeatForever(new cc.Animate(animation));
+    this.stopAllActions();
+    this.runAction(action);
   },
 
   // Action Triggers
@@ -135,6 +150,21 @@ var Character = cc.Sprite.extend({
   },
   setTarget: function(target) {
     // TODO indicate by hud the target selected
+    let dir = cc.pSub(target, this);
+    if (dir.x >= 0 && dir.y >= 0) { // 0
+      this.setFlippedX(false);
+      this.pointing = 0;
+    } else if (dir.x >= 0 && dir.y <= 0) { // 1
+      this.setFlippedX(true);
+      this.pointing = 1;
+    } else if (dir.x <= 0 && dir.y <= 0) { // 2
+      this.setFlippedX(false);
+      this.pointing = 2;
+    } else if (dir.x <= 0 && dir.y >= 0) { // 3
+      this.setFlippedX(true);
+      this.pointing = 3;
+    }
+
     this.target = target;
   },
   cleanTarget: function() {

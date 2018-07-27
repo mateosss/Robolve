@@ -163,16 +163,19 @@ var rb = {
     character: {
       still: {
         name: 'still',
+        animation: function() { this.setAnimation("still"); },
         postStart: function() { this.cleanTarget(); }
       },
       move: {
         name: 'move',
+        animation: function() { this.setAnimation(this.sSpeed > 4 ? "run" : "walk"); },
         everyFrame: function() {
           this.move();
         }
       },
       build: {
         name: 'build',
+        animation: function() { this.setAnimation("build"); },
         schedule: [{
            callback: function(dt) {
              if (!this.target.sm.isInState('build')) this.sm.setDefaultState();
@@ -186,6 +189,7 @@ var rb = {
       },
       repair: {
         name: 'repair',
+        animation: function() { this.setAnimation("build"); },
         schedule: [{
            callback: function(dt) {
              if (!this.target.sm.isInState('repair')) this.sm.setDefaultState();
@@ -204,6 +208,7 @@ var rb = {
       },
       improve: {
         name: 'improve',
+        animation: function() { this.setAnimation("build"); },
         schedule: [{
           callback: function(dt) {
             if (!this.target.sm.isInState('improve')) this.sm.setDefaultState();
@@ -220,6 +225,7 @@ var rb = {
       },
       attack: {
         name: 'attack',
+        animation: function() { this.setAnimation("attack"); },
         target: {
           target: null, // Attacking target
           charge: 0, // If full charge, attack

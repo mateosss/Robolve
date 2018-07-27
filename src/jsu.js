@@ -121,6 +121,7 @@ var _ = {
     }
     return res;
   },
+  zfill: (num, len) => (Array(len).join("0") + num).slice(-len),
   invert: object => { // from {a: 1, b: 2} to {1: 'a', 2: 'b'}
     let res = {};
     Object.keys(object).forEach((key) => { res[object[key]] = key; });

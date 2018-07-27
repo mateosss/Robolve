@@ -1,5 +1,4 @@
 var r = { // resources variable
-  character: "res/character.png",
   fonts: {
     baloo: {type: "font", name: cc.sys.isNative ? "res/fonts/baloo.ttf" : "baloo", srcs: ["res/fonts/baloo.ttf"]},
     icons: {type: "font", name: cc.sys.isNative ? "res/fonts/icons.ttf" : "icons", srcs: ["res/fonts/icons.ttf"]},
@@ -74,6 +73,8 @@ var r = { // resources variable
   parts_plist_0: "res/sprites/parts_0.plist",
   parts_png_1: "res/sprites/parts_1.png",
   parts_plist_1: "res/sprites/parts_1.plist",
+  character_png: "res/sprites/character.png",
+  character_plist: "res/sprites/character.plist",
 };
 
 var g_resources = [];

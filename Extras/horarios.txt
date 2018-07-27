@@ -564,7 +564,15 @@ Format (variables between \<\> should be calculated after each day/task)
   - 2018-07-24 Ma -
     - 09:30 - 11:00 | Current wave number showing on hud
     - 13:15 - 14:00 | En auto tratando de guardar current wave
-    - 16:45 - 18:10
+    - 16:45 - 18:10 | testeando y cosas, en cabaña
+
+  - 2018-07-25 Mi -
+    - 10:00 - 13:40 | Modelando y riggeando character
+    - 14:45 - 15:15 | Lo mismo
+	- 20:20 - 21:15 | animando
+  - 2018-07-26 Ju -
+    - 10:00 - 10:30 | Animando
+	- 15:50 - 18:00 | Animando e Implementando, despues me fui a la nano eva
 
 # BUG's y TODO's
 

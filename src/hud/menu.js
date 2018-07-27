@@ -109,6 +109,7 @@ var Menu = cc.LayerGradient.extend({
   startGame: function(level) {
     cc.spriteFrameCache.addSpriteFrames(r.parts_plist_0);
     cc.spriteFrameCache.addSpriteFrames(r.parts_plist_1);
+    cc.spriteFrameCache.addSpriteFrames(r.character_plist);
     cc.director.runScene(new cc.TransitionFade(1, new GameLevel(r.maps['map' + (level + 1)])));
   },
   showMain: function() {
