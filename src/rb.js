@@ -8,6 +8,10 @@ var rb = {
     getRobots: () => rb.dev.getLevel().robots,
     getDefenses: () => rb.dev.getLevel().defenses,
     getCharacter: () => rb.dev.getLevel().character,
+    spawnAll: () => {
+      let level = rb.dev.getLevel();
+      _.revEach(level.waveQuery, (r, i, q) => level.addRobot(q.pop()));
+    },
     getBase: () => rb.dev.getLevel().base,
     getRobot: () => rb.dev.getRobots()[0],
     getDefense: () => rb.dev.getDefenses()[0],
