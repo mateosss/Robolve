@@ -43,7 +43,6 @@ var Character = cc.Sprite.extend({
   setAnimation: function(name) {
     var frames = [];
     for (let i = 1; i <= 16; i++) {
-      console.log(this.pointing);
       let newFrame = name + "_" + ((this.pointing === 0 || this.pointing === 3) ? "back_" : "") + _.zfill(i, 4) + ".png";
       frames.push(cc.spriteFrameCache.getSpriteFrame(newFrame));
     }

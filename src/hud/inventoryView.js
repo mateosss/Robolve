@@ -220,7 +220,7 @@ var InventoryView = Dialog.extend({
       // equipable?
       let equipable = selectedItem.equipable;
       let isEquiped = this.selectedStackIndex < inv.equiped.length;
-      this.infoSell.setup({visible: !isEquiped && selectedItem.name !== "Gold", height: equipable ? "20pw" : "40pw", iconFontSize: equipable ? 64 : 96, text: _.format("Sell ${}", this.getSelectedStackPrice())});
+      this.infoSell.setup({visible: !isEquiped && selectedItem.category !== "gold", height: equipable ? "20pw" : "40pw", iconFontSize: equipable ? 64 : 96, text: _.format("Sell ${}", this.getSelectedStackPrice())});
       this.infoEquip.setup({visible: equipable, callback: isEquiped ? () => this.hud.level.character.unequipStack(this.selectedStackIndex) : () => this.hud.level.character.equipStack(this.selectedStackIndex), icon: isEquiped ? "table-column-remove" : "select-inverse"});
 
       // mods
@@ -265,7 +265,7 @@ var InventoryView = Dialog.extend({
 
   getSelectedStackPrice: function() {
     let res = 0;
-    if (this.selectedStack.item.name.endsWith("Coin")) { // If it is a  coin calculate its total value
+    if (this.selectedStack.item.category === "coin") { // If it is a  coin calculate its total value
       let name = this.selectedStack.item.name;
       let element = name.split("Coin")[0].trim().toLowerCase();
       let defenses = this.hud.level.defenses;

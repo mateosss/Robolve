@@ -16,7 +16,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   wavesIntervals: [], // Defined by the map, amount of time between waves
   waveQuery: [], // Robots in this array, has to spawn in this wave
   waveDelay: null, // Delay before a new wave is spawned
-  spawn_time: 0.8, // Seconds between spawns
+  spawn_time: 2, // Seconds between spawns
   lastWave: false, // True if the game is on the last wave
   cWave: null, // Current wave position
 
@@ -38,7 +38,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.prepareNextWave();
 
     // Drop Chunk Setup
-    this.dropRemainingItems = Object.values(Item.prototype.getUniqueItems());
+    this.dropRemainingItems = Object.values(Item.prototype.getItemsByCategory("unique"));
     this.dropChunkLength = this.wavesCounts.reduce((x, y) => x + y, 0) / this.dropRemainingItems.length;
 
     // Set base

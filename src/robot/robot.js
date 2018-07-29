@@ -116,13 +116,13 @@ var Robot = Computer.extend({
     this.level.dropChunkGiven = true;
     let item = this.level.popRandomDrop();
     if (item.length === 0) {
-      console.warn("This shouldn't be happening, trying to  drop a unique item but they are depleted");
+      console.warn("This shouldn't be happening, trying to drop a unique item but they are depleted");
       return this.dropRandomCoin();
     }
     new ItemPickup(this.level.map, this.getPosition(), item[0], 1);
   },
   dropRandomCoin: function() {
-    let coins = Object.values(Item.prototype.getCoinItems());
+    let coins = Object.values(Item.prototype.getItemsByCategory("coin"));
     new ItemPickup(this.level.map, this.getPosition(), _.randchoice(coins), 1);
   },
   dropRandomGold: function() {
