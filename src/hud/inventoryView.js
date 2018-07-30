@@ -168,14 +168,14 @@ var InventoryView = Dialog.extend({
           } else if (forceRefresh) this.refresh();
         }, bgImage: invItem.item.image, scale9: false, height: "80ph", padding: "10ph",});
         cell.itemThumb.addTo(cell);
-        cell.itemQuantity = new Text({text: invItemQuantity, fontSize: 24, x: "center", top: "5px"});
+        cell.itemQuantity = new Text({text: invItemQuantity === 1 ? "" : invItemQuantity, fontSize: 24, x: "center", top: "5px"});
         cell.itemQuantity.addTo(cell);
         cell.itemEquiped = new Badge({visible: invItemEquiped, bgImage: r.ui.greenRound, icon: "check", scale9: false, width: "40ph", height: "40ph", x: "-30ph", y: "-30ph"});
         cell.itemEquiped.addTo(cell);
       } else if (gridItem === invItem) { // Same item on filled cell, and check if something else has changed
         if (gridItemQuantity !== invItemQuantity) {
           cell.quantity = invItemQuantity;
-          cell.itemQuantity.setup({text: invItemQuantity});
+          cell.itemQuantity.setup({text: invItemQuantity === 1 ? "" : invItemQuantity});
         }
         if (gridItemEquiped !== invItemEquiped) {
           cell.equiped = invItemEquiped;
@@ -186,7 +186,7 @@ var InventoryView = Dialog.extend({
         cell.quantity = invItemQuantity;
         cell.equiped = invItemEquiped;
         cell.itemThumb.setup({bgImage: invItem.item.image});
-        cell.itemQuantity.setup({text: invItemQuantity});
+        cell.itemQuantity.setup({text: invItemQuantity === 1 ? "" : invItemQuantity});
         cell.itemEquiped.setup({visible: invItemEquiped});
       } // else nothing has changed at all
     }
