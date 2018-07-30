@@ -547,6 +547,7 @@ Format (variables between \<\> should be calculated after each day/task)
     - 17:15 - 18:30 | Haciendo que item sean buttons pero me di cuenta que es inutil para la nano eva y borre todo
 
 # (40:00 hs) Julio Semana 22 []
+
   - 2018-07-22 Do - 09:30 hs
     - 11:25 - 12:45 | Equipar basico
     - 13:00 - 15:10 | Unequip done, working on linux, and solved a bug when dropping last invenory item in linux
@@ -561,22 +562,38 @@ Format (variables between \<\> should be calculated after each day/task)
     - 19:15 - 23:40 | Diseñando, agregando items nueos, cambiando stats nuevos, programando modificaciones resultantes del diseño, etc
     - 23:55 - 01:00 | Haciendo unique items drop
 
-  - 2018-07-24 Ma -
+  - 2018-07-24 Ma - 03:45 hs
     - 09:30 - 11:00 | Current wave number showing on hud
     - 13:15 - 14:00 | En auto tratando de guardar current wave
-    - 16:45 - 18:10 | testeando y cosas, en cabaña
+    - 16:45 - 18:15 | testeando y cosas, en cabaña
 
-  - 2018-07-25 Mi -
+  - 2018-07-25 Mi - 05:00 hs
     - 10:00 - 13:40 | Modelando y riggeando character
     - 14:45 - 15:15 | Lo mismo
-	- 20:20 - 21:15 | animando
-  - 2018-07-26 Ju -
+    - 20:20 - 21:10 | animando
+
+  - 2018-07-26 Ju - 03:00 hs
     - 10:00 - 10:30 | Animando
-	- 15:50 - 18:00 | Animando e Implementando, despues me fui a la nano eva
+    - 15:50 - 18:20 | Animando e Implementando, despues me fui a la nano eva
+
+  - 2018-07-27 Vi -
+    - 14:50 - 16:20 | Planificando para la EVA
+
+  - 2018-07-28 Sa -
+    - 12:45 - 13:20  | Planificando
+
+# (30:00 hs) Julio Semana 29 []
+
+  - 2018-07-29 Do -
+    - 12:25 - 13:45 | item.id prop
+
+  - 2018-07-30 Lu -
+    - 13:40 - 16:00 | Viendo pointing
+    - 17:00 - 18:30 | Pointing mejorado, viendo ok text levantado
+    - 18:40 -
 
 # BUG's y TODO's
 
-- Boton ok en android esta subido muchos pixeles
 - Cuando voy a atacar un robot con el char, y mientras estoy en camino ese robot muere por una torreta
   da error de que no existe el native object
 
