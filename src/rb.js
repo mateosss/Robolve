@@ -180,7 +180,7 @@ var rb = {
       },
       build: {
         name: 'build',
-        animation: function() { this.setAnimation("build"); },
+        animation: function() { this.setAnimation("build", (this.sBuildTime || 1) * (1 / 16) / Character.prototype.sBuildTime); }, // The prototype says the base sBuildTime of a character
         schedule: [{
            callback: function(dt) {
              if (!this.target.sm.isInState('build')) this.sm.setDefaultState();
@@ -194,7 +194,7 @@ var rb = {
       },
       repair: {
         name: 'repair',
-        animation: function() { this.setAnimation("build"); },
+        animation: function() { this.setAnimation("build",  Character.prototype.sRepairAmount * (1 / 16) / (this.sRepairAmount || 1)); }, // The prototype says the base sRepairAmount of a character
         schedule: [{
            callback: function(dt) {
              if (!this.target.sm.isInState('repair')) this.sm.setDefaultState();
@@ -213,7 +213,7 @@ var rb = {
       },
       improve: {
         name: 'improve',
-        animation: function() { this.setAnimation("build"); },
+        animation: function() { this.setAnimation("build", (this.sImproveTime || 1) * (1 / 16) / Character.prototype.sImproveTime); }, // The prototype says the base sImproveTime of a character
         schedule: [{
           callback: function(dt) {
             if (!this.target.sm.isInState('improve')) this.sm.setDefaultState();

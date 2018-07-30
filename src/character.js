@@ -54,7 +54,7 @@ var Character = cc.Sprite.extend({
     if (changeBack) this.setAnimation(this.cAnimation);
     else this.setFlippedX(dir % 2 === 1);
   },
-  setAnimation: function(name) {
+  setAnimation: function(name, speed) {
     let dir = this.pointing;
     let isBack = dir === 0 || dir === 3;
     this.setFlippedX(dir % 2 === 1);
@@ -63,7 +63,7 @@ var Character = cc.Sprite.extend({
       let newFrame = name + "_" + (isBack ? "back_" : "") + _.zfill(i, 4) + ".png";
       frames.push(cc.spriteFrameCache.getSpriteFrame(newFrame));
     }
-    let animation = new cc.Animation(frames, 1 / 16);
+    let animation = new cc.Animation(frames, speed || 1 / 16);
     let action = new cc.RepeatForever(new cc.Animate(animation));
     this.stopAllActions();
     this.runAction(action);
