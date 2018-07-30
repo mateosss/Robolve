@@ -21,9 +21,9 @@ var Character = cc.Sprite.extend({
   sAttackSpeed: 1.0, // Amount of hits per seconds to a robot
   sDamage: 50, // Amount of damage per hit
 
-  pointing: 0, // Looking direction 0:North, 1:East, 2:South, 3:West
+  pointing: 2, // Looking direction 0:North, 1:East, 2:South, 3:West
   target: null, // Target defense/robot/position of the character
-  cAnimation: "still",
+  cAnimation: "still", // current animation name
   ctor: function(level) {
     this._super(r.character);
     this.setAnimation("still");
@@ -40,16 +40,34 @@ var Character = cc.Sprite.extend({
     this.scheduleUpdate();
   },
 
+  setPointing: function(x, y) { // sets this.pointing based on movement vector (x, y), and if needed calls setAnimation
+    let dir; // dir = 0: North, 1: East, 2: South, 3: West
+    if (x >= 0 && y > 0) dir = 0;
+    else if (x >= 0 && y <= 0) dir = 1;
+    else if (x < 0 && y <= 0) dir = 2;
+    else if (x < 0 && y > 0) dir = 3;
+
+    if (this.pointing === dir) return;
+
+    let changeBack = (dir === 0 || dir === 3) !== (this.pointing === 0 || this.pointing === 3);
+    this.pointing = dir;
+    if (changeBack) this.setAnimation(this.cAnimation);
+    else this.setFlippedX(dir % 2 === 1);
+  },
   setAnimation: function(name) {
-    var frames = [];
-    for (let i = 1; i <= 16; i++) {
-      let newFrame = name + "_" + ((this.pointing === 0 || this.pointing === 3) ? "back_" : "") + _.zfill(i, 4) + ".png";
+    let dir = this.pointing;
+    let isBack = dir === 0 || dir === 3;
+    this.setFlippedX(dir % 2 === 1);
+    let frames = [];
+    for (let i = 1; i <= rb.animations.character[name]; i++) {
+      let newFrame = name + "_" + (isBack ? "back_" : "") + _.zfill(i, 4) + ".png";
       frames.push(cc.spriteFrameCache.getSpriteFrame(newFrame));
     }
     let animation = new cc.Animation(frames, 1 / 16);
     let action = new cc.RepeatForever(new cc.Animate(animation));
     this.stopAllActions();
     this.runAction(action);
+    this.cAnimation = name;
   },
 
   // Action Triggers
@@ -150,20 +168,7 @@ var Character = cc.Sprite.extend({
   setTarget: function(target) {
     // TODO indicate by hud the target selected
     let dir = cc.pSub(target, this);
-    if (dir.x >= 0 && dir.y >= 0) { // 0
-      this.setFlippedX(false);
-      this.pointing = 0;
-    } else if (dir.x >= 0 && dir.y <= 0) { // 1
-      this.setFlippedX(true);
-      this.pointing = 1;
-    } else if (dir.x <= 0 && dir.y <= 0) { // 2
-      this.setFlippedX(false);
-      this.pointing = 2;
-    } else if (dir.x <= 0 && dir.y >= 0) { // 3
-      this.setFlippedX(true);
-      this.pointing = 3;
-    }
-
+    this.setPointing(dir.x, dir.y);
     this.target = target;
   },
   cleanTarget: function() {
@@ -174,6 +179,7 @@ var Character = cc.Sprite.extend({
   move: function() {
     if (!this.target) this.sm.setDefaultState();
     let dir = cc.pNormalize(cc.pSub(this.target, this));
+    this.setPointing(dir.x, dir.y);
     this.x += this.sSpeed * dir.x;
     this.y += (this.sSpeed / 2) * dir.y;
   },

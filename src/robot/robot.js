@@ -130,8 +130,10 @@ var Robot = Computer.extend({
   },
 
   die: function() {
-    if (!this.sm.isInState('die')) this.drop(); // Check if it is already dying for not dropping many items
-    this.level.totalRobotsKilled++;
+    if (!this.sm.isInState('die')) { // Check if it is already dying for not dropping many items
+      this.drop();
+      this.level.totalRobotsKilled++;
+    }
     this._super();
   },
   destroy: function() {

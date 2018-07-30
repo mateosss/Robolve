@@ -41,7 +41,8 @@ var rb = {
 
   animations: {
     robot: { attack: 6, walk: 8, still: 1 },
-    defense: { idle: 12, attack: 12 , still: 1}
+    defense: { idle: 12, attack: 12 , still: 1},
+    character: { still: 16, walk: 16, run: 16, build: 16, attack: 16 },
   },
 
   palette: {
@@ -230,7 +231,7 @@ var rb = {
       attack: {
         name: 'attack',
         animation: function() { this.setAnimation("attack"); },
-        target: {
+        target: { // This is not a used object, just a representation of the used `state.local` properties
           target: null, // Attacking target
           charge: 0, // If full charge, attack
         },
