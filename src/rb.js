@@ -230,7 +230,7 @@ var rb = {
       },
       attack: {
         name: 'attack',
-        animation: function() { this.setAnimation("attack"); },
+        animation: function() { this.setAnimation("attack", 1 / (this.sAttackSpeed * 16)); },
         target: { // This is not a used object, just a representation of the used `state.local` properties
           target: null, // Attacking target
           charge: 0, // If full charge, attack
