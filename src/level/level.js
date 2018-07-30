@@ -157,7 +157,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         },
         onMouseScroll: function(event) {
           this.map = event.getCurrentTarget().map;
-          var zoomDelta = event.getScrollY() * 0.0001;
+          var zoomDelta = event.getScrollY() * (cc.sys.isNative ? 0.02 : 0.0001);
           this.map.zoomMap(zoomDelta);
         },
       }, this);
