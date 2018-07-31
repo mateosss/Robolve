@@ -17,7 +17,6 @@ var ItemPickup = cc.Sprite.extend({
   },
 
   drop: function() {
-    // TODO animate a drop from the robot
     const DROP_HEIGHT = 128;
     const DROP_RADIUS = 64; // drop at X between targetPosition.x +- DROP_RADIUS
     let targetPosition = cc.pAdd(this.getPosition(), cc.p((2 * Math.random() - 1) * DROP_RADIUS, 0));
@@ -30,6 +29,13 @@ var ItemPickup = cc.Sprite.extend({
     let drop = new cc.EaseBounceOut(new cc.MoveTo(0.2, targetPosition), 3);
     let actArray = [spawn, drop];
     this.runAction(new cc.Sequence(actArray));
+
+    // Disappear after some secons
+    this.scheduleOnce(() => {
+      let shrink = new cc.EaseBackIn(new cc.ScaleTo(0.5, 0));
+      let remove = new cc.RemoveSelf();
+      this.runAction(new cc.Sequence([shrink, remove]));
+    }, 60); // TODO time hardcoded
   },
 
   pickup: function() {
@@ -61,7 +67,7 @@ var ItemPickup = cc.Sprite.extend({
       let addItem;
       if (this.item.isEqual(rb.items.gold)) addItem = new cc.CallFunc(() => this.map.level.hud.ig.addGold(this.quantity));
       else addItem = new cc.CallFunc(() => character.inventory.addItem(this.item, this.quantity));
-      let refreshInventory = new cc.CallFunc(() => this.map.level.hud.inventory.refresh());
+      let refreshInventory = new cc.CallFunc(() => {if (this.map.level.hud.inventory.inScreen) this.map.level.hud.inventory.refresh();});
 
       let inventoryButtonReact = new cc.CallFunc(() => {
         if (inventoryButton.getNumberOfRunningActions() < 3) {

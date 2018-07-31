@@ -1,5 +1,4 @@
 var r = { // resources variable
-  character: "res/character.png",
   fonts: {
     baloo: {type: "font", name: cc.sys.isNative ? "res/fonts/baloo.ttf" : "baloo", srcs: ["res/fonts/baloo.ttf"]},
     icons: {type: "font", name: cc.sys.isNative ? "res/fonts/icons.ttf" : "icons", srcs: ["res/fonts/icons.ttf"]},
@@ -12,12 +11,12 @@ var r = { // resources variable
   maps:{
     tilesheet: "res/map/tilesheet.png",
     tileset: "res/map/tileset.png",
-    map1: "res/map/map1.tmx",
-    map2: "res/map/map2.tmx",
-    map3: "res/map/map3.tmx",
-    map4: "res/map/map4.tmx",
-    map5: "res/map/map5.tmx",
-    map6: "res/map/map6.tmx",
+    map1: "res/map/initiation.tmx",
+    map2: "res/map/neighborhood.tmx",
+    map3: "res/map/emission.tmx",
+    map4: "res/map/showoff.tmx",
+    map5: "res/map/straightened.tmx",
+    map6: "res/map/reborn.tmx",
   },
   ui: {
     panel: "res/sprites/ui/panel.png",
@@ -56,12 +55,27 @@ var r = { // resources variable
     electricCoin: "res/sprites/items/electricCoin.png",
     fireCoin: "res/sprites/items/fireCoin.png",
     waterCoin: "res/sprites/items/waterCoin.png",
+
     sword: "res/sprites/items/sword.png",
+    hammer: "res/sprites/items/hammer.png",
+    screwdriver: "res/sprites/items/screwdriver.png",
+    runner: "res/sprites/items/runner.png",
+    towerExpert: "res/sprites/items/towerExpert.png",
+    speedometer: "res/sprites/items/speedometer.png",
+    briefcase: "res/sprites/items/briefcase.png",
+    twoSwords: "res/sprites/items/twoSwords.png",
+    bullseye: "res/sprites/items/bullseye.png",
+    toolbox: "res/sprites/items/toolbox.png",
+    medicalBag: "res/sprites/items/medicalBag.png",
+    campingEssentials: "res/sprites/items/campingEssentials.png",
+    coffee: "res/sprites/items/coffee.png",
   },
   parts_png_0: "res/sprites/parts_0.png",
   parts_plist_0: "res/sprites/parts_0.plist",
   parts_png_1: "res/sprites/parts_1.png",
   parts_plist_1: "res/sprites/parts_1.plist",
+  character_png: "res/sprites/character.png",
+  character_plist: "res/sprites/character.plist",
 };
 
 var g_resources = [];

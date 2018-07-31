@@ -21,6 +21,7 @@ var Hud = cc.Layer.extend({
     this.ig = new InfoGold(this, {x: "center", y:"center", fontSize: 56, left:"30px", shadow: [cc.color(176,190,197), cc.size(0, -6), 0]});
     this.ig.addTo(this.goldbar);
 
+
     // Defense Selector
     // this.ds = new DefenseSelector(this);
     // this.addChild(this.ds, 1);
@@ -39,7 +40,7 @@ var Hud = cc.Layer.extend({
 
 
     // TODO debug console
-    this.openConsole = new Button({button: "indigoRound", callback: () => {this.console.visible = !this.console.visible; if (this.console.visible) this.console.textField.attachWithIME();}, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"console-line", iconFontSize: 72, scale: 0.75});
+    this.openConsole = new Button({button: "indigoRound", callback: () => {this.console.visible = !this.console.visible; if (this.console.visible) this.console.textField.attachWithIME();}, x: "-250ph", bottom: "20px", right: "50px", height: "65ph", width: "65ph", icon:"console-line", iconFontSize: 72, scale: 0.75});
     this.openConsole.addTo(this.bottombarLayout);
     this.console = new Layout({y: "75ph", height: "80px", width: "80pw", x: "center"});
     this.console.addTo(this);
@@ -55,6 +56,8 @@ var Hud = cc.Layer.extend({
     this.console.submit.addTo(this.console);
     this.console.visible = false;
 
+    this.save = new Button({button: "lightBlue", callback: () => {SaveLoad.save(this.inventory.inventory); this.it.message("Saved");}, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"content-save", iconFontSize: 72, scale: 0.75});
+    this.save.addTo(this.bottombarLayout);
 
     this.openInventory = new Button({button: "amber", callback: () => this.inventory.show(), x: "-125ph", bottom: "20px", right: "30px", height: "65ph", width: "65ph", icon:"treasure-chest", iconFontSize: 72, scale: 0.75});
     this.openInventory.addTo(this.bottombarLayout);
@@ -73,6 +76,14 @@ var Hud = cc.Layer.extend({
     this.dialog = new Dialog(this, {type:"confirm", width: "80vw", height: "35vh", x: "center", y: "center"});
     this.dialog.addTo(this);
 
+    this.waveText = new Badge({bgImage: r.ui.panel_out, text: _.format("Wave\n{}/{}", 1, this.level.cWave + 1, this.level.wavesCounts.length), textFontSize: 48, bottom: "20px", left: "16px + 5px + 65ph", height: "50ph", width: "100ph", y: "11px", scale: 0.5});
+    this.waveText.addTo(this.bottombarLayout);
+    let text = this.waveText.getTitleRenderer();
+    text.setLineHeight(48);
+    text.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+    this.waveText.refresh = () => this.waveText.setup({text: _.format("Wave\n{}/{}", this.level.cWave + 1, this.level.wavesCounts.length)});
+    this.waveText.refresh();
+    if (cc.sys.isNative) text.y += 11;
 
     // this.preview = new DefenseView({});
     // this.preview.addTo(this);
@@ -92,6 +103,9 @@ var Hud = cc.Layer.extend({
     this.inventory = new InventoryView(this, this.level.character.inventory, {});
     this.inventory.addTo(this);
 
+    this.equipbar = new EquipBar(this, this.level.character.inventory);
+    this.equipbar.addTo(this);
+
     // TODO XXX Remove
     window.inv = this.inventory; // jshint ignore:line
     window.ds = this.ds; // jshint ignore:line
@@ -105,6 +119,7 @@ var Hud = cc.Layer.extend({
     window.goldbar = this.goldbar; // jshint ignore:line
     window.bottombar = this.bottombar; // jshint ignore:line
     window.cancelActions = this.cancelActions; // jshint ignore:line
+    window.waveText = this.waveText; // jshint ignore:line
     window.button = this.button; // jshint ignore:line
     window.layout = this.bottombarLayout; // jshint ignore:line
     window.preview = this.preview; // jshint ignore:line

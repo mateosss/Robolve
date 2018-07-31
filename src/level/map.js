@@ -32,9 +32,7 @@ var TiledMap = cc.TMXTiledMap.extend({
       }
     }, {options: {passEvent: true}});
   },
-  toString: function(){
-    return "Map";
-  },
+  toString: () => "Map",
   placeOnTile: function(sprite, tile) {
     var mapLayer = this.getLayer("Background");
     // var p = mapLayer.getPositionAt(tile);
@@ -192,7 +190,7 @@ var TiledMap = cc.TMXTiledMap.extend({
   },
   zoomMap: function(zoomDelta) {
     var zoom = this.scale + zoomDelta;
-    if (zoom >= 0.15 && zoom <= 1.0) {
+    if (zoom >= 0.15 && zoom <= 2.0) {
       this.scale = zoom;
       // mapCenter = this.map.convertToWorldSpaceAR(this.map.getAnchorPoint());
       // difference = cc.pSub(mapCenter, this.clickLocation);
@@ -205,17 +203,17 @@ var TiledMap = cc.TMXTiledMap.extend({
     }
   },
   moveMap: function(x, y) {
-    var winSize = cc.director.getWinSize();
-    var mapHalfWidth = (this.width * this.scale)/2;
-    var mapHalfHeight = (this.height)/2;
+    let winSize = cc.director.getWinSize();
+    let mapHalfWidth = (this.width * this.scale) / 2;
+    let mapHalfHeight = (this.height * this.scale) / 2;
 
-    var maxLeft = winSize.width - 50 - mapHalfWidth;
-    var maxRight = 0 + 50 + mapHalfWidth;
-    var maxDown = winSize.height + 50 - mapHalfHeight;
-    var maxUp = 0 - 50 + mapHalfHeight;
+    let maxLeft = winSize.width - 500 - mapHalfWidth;
+    let maxRight = 500 + mapHalfWidth;
+    let maxDown = winSize.height - 500 - mapHalfHeight;
+    let maxUp = 500 + mapHalfHeight;
 
-    var newX = this.positionTarget.x + x;
-    var newY = this.positionTarget.y + y;
+    let newX = this.positionTarget.x + x;
+    let newY = this.positionTarget.y + y;
 
     if (newX < maxLeft) {
       newX = maxLeft;

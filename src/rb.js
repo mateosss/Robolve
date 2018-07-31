@@ -8,6 +8,10 @@ var rb = {
     getRobots: () => rb.dev.getLevel().robots,
     getDefenses: () => rb.dev.getLevel().defenses,
     getCharacter: () => rb.dev.getLevel().character,
+    spawnAll: () => {
+      let level = rb.dev.getLevel();
+      _.revEach(level.waveQuery, (r, i, q) => level.addRobot(q.pop()));
+    },
     getBase: () => rb.dev.getLevel().base,
     getRobot: () => rb.dev.getRobots()[0],
     getDefense: () => rb.dev.getDefenses()[0],
@@ -31,12 +35,14 @@ var rb = {
       this.debugger.debugTile(this.level.map, {tile:this.level.map.rectFromTile(this.cTilePos)});
     },
     debugAllRobotsScore: (i) => rb.dev.allRobots((r) => r.schedule(rb.dev.debugScoreRobot, isNaN(i) ? 0.5 : i)),
-    addGold: amount => rb.dev.getHud().ig.addGold(amount)
+    addGold: amount => rb.dev.getHud().ig.addGold(amount),
+    addItem: (name, amount) => rb.dev.getCharacter().inventory.addItem(rb.items[name], amount || 1),
   },
 
   animations: {
     robot: { attack: 6, walk: 8, still: 1 },
-    defense: { idle: 12, attack: 12 , still: 1}
+    defense: { idle: 12, attack: 12 , still: 1},
+    character: { still: 16, walk: 16, run: 16, build: 16, attack: 16 },
   },
 
   palette: {
@@ -47,12 +53,15 @@ var rb = {
 
   prices: {
     // Spend
-    createDefense: 300,
+    createDefense: 700,
     increaseStat: 100,
-    decreaseStat: 100,
+    decreaseStat: 100, // TODO not used
     // Gain
-    destroyDefense: 50,
-    killRobot: 30,
+    initialGold: 1500,
+    sellItem: 350,
+    sellCoinMax: 150,
+    destroyDefense: 350,
+    killRobot: 50,
   },
 
   states: {
@@ -159,20 +168,23 @@ var rb = {
     character: {
       still: {
         name: 'still',
+        animation: function() { this.setAnimation("still"); },
         postStart: function() { this.cleanTarget(); }
       },
       move: {
         name: 'move',
+        animation: function() { this.setAnimation(this.sSpeed > 4 ? "run" : "walk"); },
         everyFrame: function() {
           this.move();
         }
       },
       build: {
         name: 'build',
+        animation: function() { this.setAnimation("build", (this.sBuildTime || 1) * (1 / 16) / Character.prototype.sBuildTime); }, // The prototype says the base sBuildTime of a character
         schedule: [{
            callback: function(dt) {
              if (!this.target.sm.isInState('build')) this.sm.setDefaultState();
-             else this.target.addBuilt(dt * 100 / this.sBuildTime);
+             else this.target.addBuilt(dt * 100 / _.max(this.sBuildTime, 0));
            },
            interval: 0.5,
         }],
@@ -182,6 +194,7 @@ var rb = {
       },
       repair: {
         name: 'repair',
+        animation: function() { this.setAnimation("build",  Character.prototype.sRepairAmount * (1 / 16) / (this.sRepairAmount || 1)); }, // The prototype says the base sRepairAmount of a character
         schedule: [{
            callback: function(dt) {
              if (!this.target.sm.isInState('repair')) this.sm.setDefaultState();
@@ -200,10 +213,11 @@ var rb = {
       },
       improve: {
         name: 'improve',
+        animation: function() { this.setAnimation("build", (this.sImproveTime || 1) * (1 / 16) / Character.prototype.sImproveTime); }, // The prototype says the base sImproveTime of a character
         schedule: [{
           callback: function(dt) {
             if (!this.target.sm.isInState('improve')) this.sm.setDefaultState();
-            else this.target.addImproved(dt * 100 / this.sImproveTime);
+            else this.target.addImproved(dt * 100 / _.max(this.sImproveTime, 0));
           },
           interval: 0.5,
         }],
@@ -216,7 +230,8 @@ var rb = {
       },
       attack: {
         name: 'attack',
-        target: {
+        animation: function() { this.setAnimation("attack", 1 / (this.sAttackSpeed * 16)); },
+        target: { // This is not a used object, just a representation of the used `state.local` properties
           target: null, // Attacking target
           charge: 0, // If full charge, attack
         },
@@ -226,7 +241,7 @@ var rb = {
             else {
               state.local.charge = 0.0;
               this.attack(state.local.target);
-              if (state.local.target.sLife == 0) {
+              if (state.local.target.isDead()) {
                 let newTarget = this.getNewTarget();
                 if (newTarget) {
                   this.setTarget(newTarget);
@@ -245,55 +260,6 @@ var rb = {
     }
   },
 
-  items: {
-    gold: new Item({
-      name: "Gold",
-      description: "Use this to buy things",
-      image: r.items.gold,
-      stackLimit: Infinity,
-      consumable: false,
-      equipable: false,
-    }),
-    electricCoin: new Item({
-      name: "Electric Coin",
-      description: "Use this to pay to EPEC",
-      image: r.items.electricCoin,
-      stackLimit: 5,
-      consumable: false,
-      equipable: false,
-    }),
-    fireCoin: new Item({
-      name: "Fire Coin",
-      description: "That's some hot cash right there",
-      image: r.items.fireCoin,
-      stackLimit: 5,
-      consumable: false,
-      equipable: false,
-    }),
-    waterCoin: new Item({
-      name: "Water Coin",
-      description: "Filled with the tear of your enemies",
-      image: r.items.waterCoin,
-      stackLimit: 5,
-      consumable: false,
-      equipable: false,
-    }),
-    sword: new Item({
-      name: "Sword",
-      description: "This is a family friendly sword",
-      image: r.items.sword,
-      stackLimit: 10,
-      consumable: false,
-      equipable: true,
-      mods: {
-        "sSpeed": 4,
-        "sDamage": 1000,
-        "inventory.capacity": -20,
-        "sBuildRange": +2000,
-        "sBuildTime": -4,
-      }
-    }),
-  },
   characterStats: { // Character stats and needed values // TODO This should be here or in Character class? also it is not being used in some required places as in CharacaterSheet
     "sSpeed": {
       name: "Speed",
@@ -358,5 +324,211 @@ var rb = {
       unit: "slots",
       unitRightZeros: 0,
     },
+  },
+
+  items: {
+    gold: new Item({
+      id: "gold", // the same as the item key
+      name: "Gold", // Name to show in the UI
+      category: "gold", // Category of the item, currently: gold | coin | unique
+      description: "Use this to buy things", // Description to show in the UI
+      image: r.items.gold, // Image of the item
+      stackLimit: Infinity, // Limit of the stack for this item
+      equipable: false,
+    }),
+
+    electricCoin: new Item({
+      id: "electricCoin",
+      name: "Electric Coin",
+      category: "coin",
+      description: "Sells best if you have many electric defenses",
+      image: r.items.electricCoin,
+      stackLimit: 5,
+      equipable: false,
+    }),
+    fireCoin: new Item({
+      id: "fireCoin",
+      name: "Fire Coin",
+      category: "coin",
+      description: "Sells best if you have many fire defenses",
+      image: r.items.fireCoin,
+      stackLimit: 5,
+      equipable: false,
+    }),
+    waterCoin: new Item({
+      id: "waterCoin",
+      name: "Water Coin",
+      category: "coin",
+      description: "Sells best if you have many water defenses",
+      image: r.items.waterCoin,
+      stackLimit: 5,
+      equipable: false,
+    }),
+
+    sword: new Item({
+      id: "sword",
+      name: "Sword",
+      category: "unique",
+      description: "This is a family friendly sword",
+      image: r.items.sword,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "sDamage": +50
+      }
+    }),
+    hammer: new Item({
+      id: "hammer",
+      name: "Hammer",
+      category: "unique",
+      description: "A hammer to repair, not to destroy",
+      image: r.items.hammer,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "sImproveTime": -4
+      }
+    }),
+    screwdriver: new Item({
+      id: "screwdriver",
+      name: "Screwdriver",
+      category: "unique",
+      description: "A screwdriver, screw those drives!",
+      image: r.items.screwdriver,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "sRepairAmount": +100,
+      }
+    }),
+    runner: new Item({
+      id: "runner",
+      name: "The Flash",
+      category: "unique",
+      description: "ZOOOM Zooooom! bojangles!",
+      image: r.items.runner,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "sSpeed": +8,
+      }
+    }),
+    towerExpert: new Item({
+      id: "towerExpert",
+      name: "Tower Expert",
+      category: "unique",
+      description: "Be a tower expert and build right away",
+      image: r.items.towerExpert,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "sBuildTime": -8,
+      }
+    }),
+    speedometer: new Item({
+      id: "speedometer",
+      name: "Speedometer",
+      category: "unique",
+      description: "Attack as if you were in a benny hill show",
+      image: r.items.speedometer,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "sAttackSpeed": +4,
+      }
+    }),
+    briefcase: new Item({
+      id: "briefcase",
+      name: "Briefcase",
+      category: "unique",
+      description: "Leather portfolio with modern sewings",
+      image: r.items.briefcase,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "inventory.capacity": +15,
+      }
+    }),
+    twoSwords: new Item({
+      id: "twoSwords",
+      name: "Two Swords",
+      category: "unique",
+      description: "Two f*ing swords, what else can you ask for",
+      image: r.items.twoSwords,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "sSpeed": +3,
+        "sAttackSpeed": +1,
+        "sDamage": +25,
+      }
+    }),
+    bullseye: new Item({
+      id: "bullseye",
+      name: "Bullseye",
+      category: "unique",
+      description: "The training of a bull in your eyes",
+      image: r.items.bullseye,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "sDamage": +50,
+        "sAttackSpeed": +2,
+      }
+    }),
+    toolbox: new Item({
+      id: "toolbox",
+      name: "Toolbox",
+      category: "unique",
+      description: "Build and repair defenses like a maniac",
+      image: r.items.toolbox,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "sRepairAmount": +50,
+        "sImproveTime": -2,
+        "sBuildTime": -3,
+      }
+    }),
+    medicalBag: new Item({
+      id: "medicalBag",
+      name: "Medical Bag",
+      category: "unique",
+      description: "Be omnipreset for your lovely defenses",
+      image: r.items.medicalBag,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "sRepairAmount": +100,
+        "sSpeed": +5,
+      }
+    }),
+    campingEssentials: new Item({
+      id: "campingEssentials",
+      name: "Camping Essentials",
+      category: "unique",
+      description: "Be prepared for anything",
+      image: r.items.campingEssentials,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "inventory.capacity": +5,
+        "sSpeed": +3,
+        "sDamage": +25,
+      }
+    }),
+    coffee: new Item({
+      id: "coffee",
+      name: "Coffee",
+      category: "unique",
+      description: "You will be a little accelerated",
+      image: r.items.coffee,
+      stackLimit: 1,
+      equipable: true,
+      mods: {
+        "sBuildTime": -3,
+        "sAttackSpeed": +2,
+      }
+    }),
   },
 };

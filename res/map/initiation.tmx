@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="isometric" renderorder="right-down" width="20" height="40" tilewidth="128" tileheight="64" nextobjectid="58">
+<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="20" height="20" tilewidth="128" tileheight="64" infinite="0" nextobjectid="56">
  <properties>
-  <property name="wavesCounts" value="300,400,600,700,800,100,200,300,400,500,600,38,40,50"/>
-  <property name="wavesIntervals" value="10,5,5,5,5,5,5,5,5,5,5,5,5,5"/>
+  <property name="wavesCounts" value="5,10,15,20,25,30,35,40,45,50"/>
+  <property name="wavesIntervals" value="5,5,5,5,5,5,5,5,5,5"/>
  </properties>
  <tileset firstgid="1" name="landscape" tilewidth="132" tileheight="132" tilecount="70" columns="7">
   <image source="tilesheet.png" width="924" height="1320"/>
@@ -245,7 +245,7 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Background" width="20" height="40">
+ <layer name="Background" width="20" height="20">
   <data>
    <tile gid="30"/>
    <tile gid="41"/>
@@ -351,412 +351,12 @@
    <tile gid="54"/>
    <tile gid="41"/>
    <tile gid="44"/>
-   <tile gid="7"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="4"/>
-   <tile gid="29"/>
-   <tile gid="46"/>
-   <tile gid="45"/>
-   <tile gid="45"/>
-   <tile gid="49"/>
-   <tile gid="47"/>
-   <tile gid="53"/>
-   <tile gid="46"/>
-   <tile gid="45"/>
-   <tile gid="49"/>
-   <tile gid="52"/>
-   <tile gid="58"/>
-   <tile gid="52"/>
-   <tile gid="55"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="48"/>
-   <tile gid="48"/>
-   <tile gid="59"/>
-   <tile gid="45"/>
-   <tile gid="48"/>
-   <tile gid="55"/>
-   <tile gid="54"/>
-   <tile gid="59"/>
-   <tile gid="49"/>
-   <tile gid="50"/>
-   <tile gid="58"/>
-   <tile gid="61"/>
-   <tile gid="63"/>
-   <tile gid="30"/>
-   <tile gid="60"/>
-   <tile gid="59"/>
-   <tile gid="52"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="50"/>
-   <tile gid="47"/>
-   <tile gid="63"/>
-   <tile gid="49"/>
-   <tile gid="49"/>
-   <tile gid="41"/>
-   <tile gid="53"/>
-   <tile gid="53"/>
-   <tile gid="50"/>
-   <tile gid="46"/>
-   <tile gid="55"/>
-   <tile gid="56"/>
-   <tile gid="41"/>
-   <tile gid="30"/>
-   <tile gid="53"/>
-   <tile gid="41"/>
-   <tile gid="55"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="47"/>
-   <tile gid="47"/>
-   <tile gid="45"/>
-   <tile gid="48"/>
-   <tile gid="45"/>
-   <tile gid="45"/>
-   <tile gid="45"/>
-   <tile gid="47"/>
-   <tile gid="45"/>
-   <tile gid="52"/>
-   <tile gid="56"/>
-   <tile gid="61"/>
-   <tile gid="58"/>
-   <tile gid="30"/>
-   <tile gid="61"/>
-   <tile gid="57"/>
-   <tile gid="64"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="49"/>
-   <tile gid="48"/>
-   <tile gid="49"/>
-   <tile gid="50"/>
-   <tile gid="52"/>
-   <tile gid="50"/>
-   <tile gid="48"/>
-   <tile gid="51"/>
-   <tile gid="49"/>
-   <tile gid="62"/>
-   <tile gid="52"/>
-   <tile gid="63"/>
-   <tile gid="30"/>
-   <tile gid="57"/>
-   <tile gid="54"/>
-   <tile gid="58"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="49"/>
-   <tile gid="46"/>
-   <tile gid="52"/>
-   <tile gid="45"/>
-   <tile gid="52"/>
-   <tile gid="61"/>
-   <tile gid="57"/>
-   <tile gid="30"/>
-   <tile gid="60"/>
-   <tile gid="60"/>
-   <tile gid="45"/>
-   <tile gid="29"/>
-   <tile gid="7"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="4"/>
-   <tile gid="29"/>
-   <tile gid="51"/>
-   <tile gid="47"/>
-   <tile gid="46"/>
-   <tile gid="48"/>
-   <tile gid="58"/>
-   <tile gid="57"/>
-   <tile gid="45"/>
-   <tile gid="30"/>
-   <tile gid="41"/>
-   <tile gid="58"/>
-   <tile gid="56"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="46"/>
-   <tile gid="46"/>
-   <tile gid="52"/>
-   <tile gid="48"/>
-   <tile gid="61"/>
-   <tile gid="59"/>
-   <tile gid="56"/>
-   <tile gid="30"/>
-   <tile gid="41"/>
-   <tile gid="61"/>
-   <tile gid="52"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="42"/>
-   <tile gid="42"/>
-   <tile gid="43"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="50"/>
-   <tile gid="45"/>
-   <tile gid="49"/>
-   <tile gid="45"/>
-   <tile gid="56"/>
-   <tile gid="52"/>
-   <tile gid="60"/>
-   <tile gid="30"/>
-   <tile gid="52"/>
-   <tile gid="59"/>
-   <tile gid="48"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="43"/>
-   <tile gid="41"/>
-   <tile gid="41"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="46"/>
-   <tile gid="41"/>
-   <tile gid="50"/>
-   <tile gid="51"/>
-   <tile gid="60"/>
-   <tile gid="53"/>
-   <tile gid="60"/>
-   <tile gid="30"/>
-   <tile gid="52"/>
-   <tile gid="62"/>
-   <tile gid="42"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="42"/>
-   <tile gid="42"/>
-   <tile gid="44"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="50"/>
-   <tile gid="43"/>
-   <tile gid="50"/>
-   <tile gid="49"/>
-   <tile gid="57"/>
-   <tile gid="45"/>
-   <tile gid="54"/>
-   <tile gid="30"/>
-   <tile gid="54"/>
-   <tile gid="52"/>
-   <tile gid="58"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="41"/>
-   <tile gid="43"/>
-   <tile gid="41"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="46"/>
-   <tile gid="44"/>
-   <tile gid="46"/>
-   <tile gid="49"/>
-   <tile gid="52"/>
-   <tile gid="64"/>
-   <tile gid="41"/>
-   <tile gid="30"/>
-   <tile gid="58"/>
-   <tile gid="61"/>
-   <tile gid="43"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="52"/>
-   <tile gid="45"/>
-   <tile gid="48"/>
-   <tile gid="47"/>
-   <tile gid="45"/>
-   <tile gid="50"/>
-   <tile gid="44"/>
-   <tile gid="30"/>
-   <tile gid="63"/>
-   <tile gid="41"/>
-   <tile gid="43"/>
-   <tile gid="29"/>
-   <tile gid="7"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="8"/>
-   <tile gid="29"/>
-   <tile gid="47"/>
-   <tile gid="47"/>
-   <tile gid="47"/>
-   <tile gid="39"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="8"/>
-   <tile gid="49"/>
-   <tile gid="50"/>
-   <tile gid="51"/>
-   <tile gid="29"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="29"/>
-   <tile gid="47"/>
-   <tile gid="45"/>
-   <tile gid="46"/>
-   <tile gid="30"/>
-   <tile gid="41"/>
-   <tile gid="41"/>
-   <tile gid="41"/>
-   <tile gid="43"/>
-   <tile gid="44"/>
-   <tile gid="48"/>
-   <tile gid="49"/>
-   <tile gid="47"/>
-   <tile gid="30"/>
-   <tile gid="45"/>
-   <tile gid="46"/>
-   <tile gid="45"/>
-   <tile gid="46"/>
-   <tile gid="49"/>
-   <tile gid="58"/>
-   <tile gid="49"/>
-   <tile gid="47"/>
-   <tile gid="50"/>
-   <tile gid="49"/>
-   <tile gid="3"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="33"/>
-   <tile gid="4"/>
-   <tile gid="41"/>
-   <tile gid="46"/>
-   <tile gid="48"/>
-   <tile gid="47"/>
-   <tile gid="30"/>
-   <tile gid="56"/>
-   <tile gid="57"/>
-   <tile gid="46"/>
-   <tile gid="48"/>
-   <tile gid="44"/>
-   <tile gid="64"/>
-   <tile gid="48"/>
-   <tile gid="49"/>
-   <tile gid="48"/>
-   <tile gid="45"/>
-   <tile gid="49"/>
-   <tile gid="62"/>
-   <tile gid="41"/>
-   <tile gid="44"/>
-   <tile gid="30"/>
-   <tile gid="42"/>
-   <tile gid="48"/>
-   <tile gid="47"/>
-   <tile gid="48"/>
-   <tile gid="30"/>
-   <tile gid="63"/>
-   <tile gid="58"/>
-   <tile gid="42"/>
-   <tile gid="49"/>
-   <tile gid="42"/>
-   <tile gid="59"/>
-   <tile gid="43"/>
-   <tile gid="49"/>
-   <tile gid="48"/>
-   <tile gid="50"/>
-   <tile gid="46"/>
-   <tile gid="56"/>
-   <tile gid="44"/>
-   <tile gid="44"/>
-   <tile gid="30"/>
-   <tile gid="42"/>
-   <tile gid="47"/>
-   <tile gid="47"/>
-   <tile gid="49"/>
-   <tile gid="30"/>
-   <tile gid="46"/>
-   <tile gid="43"/>
-   <tile gid="41"/>
-   <tile gid="48"/>
-   <tile gid="47"/>
-   <tile gid="47"/>
-   <tile gid="47"/>
-   <tile gid="48"/>
-   <tile gid="47"/>
-   <tile gid="50"/>
-   <tile gid="50"/>
-   <tile gid="56"/>
-   <tile gid="43"/>
-   <tile gid="44"/>
-   <tile gid="30"/>
-   <tile gid="43"/>
-   <tile gid="43"/>
-   <tile gid="41"/>
-   <tile gid="44"/>
-   <tile gid="30"/>
-   <tile gid="29"/>
-   <tile gid="49"/>
-   <tile gid="46"/>
-   <tile gid="49"/>
-   <tile gid="47"/>
-   <tile gid="46"/>
-   <tile gid="48"/>
-   <tile gid="47"/>
-   <tile gid="46"/>
-   <tile gid="50"/>
-   <tile gid="47"/>
-   <tile gid="54"/>
-   <tile gid="41"/>
-   <tile gid="44"/>
    <tile gid="3"/>
    <tile gid="33"/>
    <tile gid="33"/>
    <tile gid="33"/>
    <tile gid="33"/>
-   <tile gid="15"/>
+   <tile gid="4"/>
    <tile gid="29"/>
    <tile gid="46"/>
    <tile gid="45"/>
@@ -813,7 +413,7 @@
    <tile gid="41"/>
    <tile gid="62"/>
    <tile gid="53"/>
-   <tile gid="41"/>
+   <tile gid="29"/>
    <tile gid="55"/>
    <tile gid="29"/>
    <tile gid="30"/>
@@ -833,7 +433,7 @@
    <tile gid="58"/>
    <tile gid="62"/>
    <tile gid="61"/>
-   <tile gid="57"/>
+   <tile gid="44"/>
    <tile gid="64"/>
    <tile gid="29"/>
    <tile gid="30"/>
@@ -939,7 +539,7 @@
    <tile gid="30"/>
    <tile gid="29"/>
    <tile gid="43"/>
-   <tile gid="41"/>
+   <tile gid="42"/>
    <tile gid="41"/>
    <tile gid="29"/>
    <tile gid="30"/>
@@ -1051,66 +651,27 @@
  </layer>
  <objectgroup name="Objects">
   <object id="36" name="SpawnRobot" x="0" y="-64" width="64" height="64"/>
-  <object id="40" name="SpawnDefense" x="640" y="2176" width="64" height="64">
+  <object id="40" name="SpawnDefense" x="640" y="256" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
-    <property name="damage" value="2"/>
+    <property name="damage" value="0"/>
     <property name="element" value="water"/>
-    <property name="life" value="1"/>
-    <property name="range" value="2"/>
-    <property name="terrain" value="1"/>
-   </properties>
-  </object>
-  <object id="44" name="SpawnBase" x="960" y="2432" width="64" height="64"/>
-  <object id="53" name="SpawnDefense1" x="640" y="1984" width="64" height="64">
-   <properties>
-    <property name="attackSpeed" value="2"/>
-    <property name="damage" value="2"/>
-    <property name="element" value="fire"/>
     <property name="life" value="2"/>
-    <property name="range" value="2"/>
+    <property name="range" value="1"/>
     <property name="terrain" value="0"/>
    </properties>
   </object>
-  <object id="54" name="SpawnDefense1" x="512" y="1088" width="64" height="64">
+  <object id="44" name="SpawnBase" x="960" y="1152" width="64" height="64"/>
+  <object id="53" name="SpawnDefense1" x="512" y="384" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>
-    <property name="damage" value="2"/>
-    <property name="element" value="electric"/>
-    <property name="life" value="1"/>
-    <property name="range" value="2"/>
-    <property name="terrain" value="0"/>
-   </properties>
-  </object>
-  <object id="55" name="SpawnDefense1" x="512" y="832" width="64" height="64">
-   <properties>
-    <property name="attackSpeed" value="2"/>
-    <property name="damage" value="2"/>
+    <property name="damage" value="0"/>
     <property name="element" value="fire"/>
-    <property name="life" value="2"/>
-    <property name="range" value="2"/>
+    <property name="life" value="1"/>
+    <property name="range" value="1"/>
     <property name="terrain" value="0"/>
    </properties>
   </object>
-  <object id="56" name="SpawnDefense" x="512" y="640" width="64" height="64">
-   <properties>
-    <property name="attackSpeed" value="2"/>
-    <property name="damage" value="2"/>
-    <property name="element" value="water"/>
-    <property name="life" value="1"/>
-    <property name="range" value="2"/>
-    <property name="terrain" value="1"/>
-   </properties>
-  </object>
-  <object id="57" name="SpawnDefense" x="512" y="960" width="64" height="64">
-   <properties>
-    <property name="attackSpeed" value="2"/>
-    <property name="damage" value="2"/>
-    <property name="element" value="electric"/>
-    <property name="life" value="0"/>
-    <property name="range" value="2"/>
-    <property name="terrain" value="1"/>
-   </properties>
-  </object>
+  <object id="55" name="SpawnCharacter" x="576" y="704" width="64" height="64"/>
  </objectgroup>
 </map>

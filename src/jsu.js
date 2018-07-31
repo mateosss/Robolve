@@ -62,6 +62,18 @@ var _ = {
   },
   pick: (obj, props) => _.objFilter(obj, k => _.in(k, props)), // Returns a copy of obj with only the selected props
   in: (elem, arr) => arr.indexOf(elem) !== -1,
+  swap: (arr, i, j) => {
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+  },
+  itime: (message) => {
+    _.time = new Date().getTime();
+    _.timemsg = message;
+  },
+  time: 0,
+  timemsg: 0,
+  etime: () => console.log(_.format("{}: {}ms", _.timemsg, new Date().getTime() - _.time)),
   test: (func, self, iterations, ...params) => {
     var iTime = new Date().getTime();
     for (var i = 0; i < iterations; i++) {
@@ -109,6 +121,7 @@ var _ = {
     }
     return res;
   },
+  zfill: (num, len) => (Array(len).join("0") + num).slice(-len),
   invert: object => { // from {a: 1, b: 2} to {1: 'a', 2: 'b'}
     let res = {};
     Object.keys(object).forEach((key) => { res[object[key]] = key; });

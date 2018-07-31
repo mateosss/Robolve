@@ -70,15 +70,15 @@ var InventoryView = Dialog.extend({
     this.infoImage = new Badge({bgImage: r.items.gold, padding: "20ph", height: "60ph", scale9: false});
     this.infoImage.addTo(this.infoImageContainer);
     this.infoEquip = new Button({callback: () => {
-      this.selectedStack.item.equip(this.hud.level.character);
+      this.hud.level.character.equipStack(this.selectedStackIndex);
     }, button: "blueRound", scale9: false, icon: "select-inverse", x: "60pw", y: "-40pw", left: "11px", height: "40pw", width: "40pw", scale: 0.5, iconFontSize: 56, bottom: "2px"});
     this.infoEquip.addTo(this.infoContainer);
-    this.infoDrop = new Button({callback: () => {
-      this.hud.level.character.dropStack(this.selectedStackIndex);
-      this.hud.ig.refresh();
+    this.infoSell = new Button({callback: () => {
+      this.hud.ig.addGold(this.getSelectedStackPrice());
+      this.inventory.items.splice(this.selectedStackIndex, 1);
       this.unselectStack();
-    }, button: "pink", icon: "arrow-down-thick", iconFontSize: 64, x: "60pw", y: "-60pw", left: "11px", height: "20pw", width: "40pw", scale: 0.5});
-    this.infoDrop.addTo(this.infoContainer);
+    }, button: "pink", text: "Sell $0", textFontSize: 32, iconFontSize: 64, x: "60pw", y: "-60pw", left: "11px", height: "20pw", width: "40pw", scale: 0.5});
+    this.infoSell.addTo(this.infoContainer);
     this.infoName = new Text({text: "—", x: "center", fontSize: 24, y: (this.infoContainer.height - 160) + "px" , bottom: cc.sys.isNative ? "5px" : "0px"});
     this.infoName.addTo(this.infoContainer);
     this.infoTextContainer = new Panel({bgImage: r.ui.panel_out, y: "-48px + -60pw + -24px + -11px", height: "48px", scale: 0.5});
@@ -103,14 +103,11 @@ var InventoryView = Dialog.extend({
 
     this.infoNoSelection = new Text({text: "Select an item from your inventory grid to watch its properties.", width: "100pw", fontSize: 18, y: "center"});
     this.infoNoSelection.addTo(this.info);
-
-    this.show(); // REMOVE XXX
   },
 
-  show: function() {
+  show: function(noRefresh) {
     this._super();
-    this.unselectStack();
-    this.refresh();
+    if (!noRefresh) this.unselectStack();
   },
 
   refresh: function() {
@@ -118,9 +115,6 @@ var InventoryView = Dialog.extend({
 
     // Check if inv.capacity and inv.items.length are not synced and then sync them
     if (inv.items.length > inv.capacity) this.hud.level.character.setInventoryCapacity(inv.capacity);
-
-    // Save inventory to disk // TODO not very well thought inventory save behaviour
-    SaveLoad.save(inv);
 
     // Update amount of cells with inventory capacity
     let cols = this.COLS;
@@ -141,21 +135,23 @@ var InventoryView = Dialog.extend({
       this.grid.setup({});
     }
 
-
     // Update first inv.length items of grid
     for (var i = 0; i < inv.items.length; i++) {
       let cell = this.grid.cells[i];
 
       let gridItem = cell.item; // Reference
       let gridItemQuantity = cell.quantity; // Value
-      let invItem = inv.items[i].item; // Reference
+      let gridItemEquiped = cell.equiped; // Value
+      let invItem = inv.items[i]; // Reference
       let invItemQuantity = inv.items[i].quantity; // Value
+      let invItemEquiped = i < inv.equiped.length; // Value
 
       if (!cell.item) { // Empty cell, initialize it
-        cell.item = inv.items[i]; // Saves the {item: Item, quantity: Number} pair reference
-        cell.quantity = inv.items[i].quantity; // The quantity *value* to compare later
+        cell.item = invItem; // Saves the {item: Item, quantity: Number} pair reference
+        cell.quantity = invItemQuantity; // The quantity *value* to compare later
+        cell.equiped = invItemEquiped; // Is equiped item?
         let ii = i; // A little hack with scopes
-        cell.itemThumb = new Badge({callback: (thumb) => { // jshint ignore:line
+        cell.itemThumb = new Badge({callback: (thumb, forceRefresh) => { // jshint ignore:line
           if (thumb.getNumberOfRunningActions() === 0) {
             let up = new cc.EaseBackOut(new cc.MoveBy(0.1, cc.p(0, 32)));
             let down = new cc.EaseBounceOut(new cc.MoveBy(0.2, cc.p(0, -32)), 3);
@@ -169,21 +165,32 @@ var InventoryView = Dialog.extend({
             let sequence = new cc.Sequence([up, down, breath]);
             thumb.runAction(sequence);
             this.setSelectedStack(this.inventory.items[ii], cell, ii);
-          }
-        }, bgImage: inv.items[i].item.image, scale9: false, height: "80ph", padding: "10ph",});
+          } else if (forceRefresh) this.refresh();
+        }, bgImage: invItem.item.image, scale9: false, height: "80ph", padding: "10ph",});
         cell.itemThumb.addTo(cell);
-        cell.itemQuantity = new Text({text: inv.items[i].quantity, fontSize: 24, x: "center", top: "5px"});
+        cell.itemQuantity = new Text({text: invItemQuantity === 1 ? "" : invItemQuantity, fontSize: 24, x: "center", top: "5px"});
         cell.itemQuantity.addTo(cell);
-      } else if (gridItem === invItem && gridItemQuantity !== invItemQuantity) { // Same item on filled cell, with different quantity, update it
-        cell.quantity = invItemQuantity;
-        cell.itemQuantity.setup({text: invItemQuantity});
+        cell.itemEquiped = new Badge({visible: invItemEquiped, bgImage: r.ui.greenRound, icon: "check", scale9: false, width: "40ph", height: "40ph", x: "-30ph", y: "-30ph"});
+        cell.itemEquiped.addTo(cell);
+      } else if (gridItem === invItem) { // Same item on filled cell, and check if something else has changed
+        if (gridItemQuantity !== invItemQuantity) {
+          cell.quantity = invItemQuantity;
+          cell.itemQuantity.setup({text: invItemQuantity === 1 ? "" : invItemQuantity});
+        }
+        if (gridItemEquiped !== invItemEquiped) {
+          cell.equiped = invItemEquiped;
+          cell.itemEquiped.setup({visible: invItemEquiped});
+        }
       } else if (gridItem !== invItem) { // New item on filled cell, update cell ui
-        cell.item = inv.items[i];
-        cell.quantity = inv.items[i].quantity;
-        cell.itemThumb.setup({bgImage: inv.items[i].item.image});
-        cell.itemQuantity.setup({text: inv.items[i].quantity});
+        cell.item = invItem;
+        cell.quantity = invItemQuantity;
+        cell.equiped = invItemEquiped;
+        cell.itemThumb.setup({bgImage: invItem.item.image});
+        cell.itemQuantity.setup({text: invItemQuantity === 1 ? "" : invItemQuantity});
+        cell.itemEquiped.setup({visible: invItemEquiped});
       } // else nothing has changed at all
     }
+
 
     // Remove all items outside this for (inv.length)
     if (i < this.grid.cells.length) {
@@ -191,8 +198,10 @@ var InventoryView = Dialog.extend({
       while (cell.item != null && i < this.grid.cells.length) {
         cell.item = null;
         cell.quantity = null;
+        cell.equiped = null;
         cell.itemThumb.removeFromParent();
         cell.itemQuantity.removeFromParent();
+        cell.itemEquiped.removeFromParent();
         if (++i < this.grid.cells.length) cell = this.grid.cells[i];
       }
     }
@@ -210,8 +219,9 @@ var InventoryView = Dialog.extend({
 
       // equipable?
       let equipable = selectedItem.equipable;
-      this.infoDrop.setup({height: equipable ? "20pw" : "40pw", iconFontSize: equipable ? 64 : 96});
-      this.infoEquip.setup({visible: equipable});
+      let isEquiped = this.selectedStackIndex < inv.equiped.length;
+      this.infoSell.setup({visible: !isEquiped && selectedItem.category !== "gold", height: equipable ? "20pw" : "40pw", iconFontSize: equipable ? 64 : 96, text: _.format("Sell ${}", this.getSelectedStackPrice())});
+      this.infoEquip.setup({visible: equipable, callback: isEquiped ? () => this.hud.level.character.unequipStack(this.selectedStackIndex) : () => this.hud.level.character.equipStack(this.selectedStackIndex), icon: isEquiped ? "table-column-remove" : "select-inverse"});
 
       // mods
       let mods = selectedItem.mods;
@@ -245,11 +255,24 @@ var InventoryView = Dialog.extend({
       this.selectedStackGridCell.itemThumb.inhale.release();
       this.selectedStackGridCell.itemThumb.exhale.release();
       this.selectedStackGridCell.itemThumb.stopAllActions();
+      this.selectedStackGridCell.itemThumb.setup({});
     }
     this.selectedStack = stack;
     this.selectedStackGridCell = gridCell;
     this.selectedStackIndex = stackIndex;
     this.refresh();
+  },
+
+  getSelectedStackPrice: function() {
+    let res = 0;
+    if (this.selectedStack.item.category === "coin") { // If it is a  coin calculate its total value
+      let name = this.selectedStack.item.name;
+      let element = name.split("Coin")[0].trim().toLowerCase();
+      let defenses = this.hud.level.defenses;
+      let amountOfThoseDefenses = defenses.reduce((t, d) => t + (d.element === element ? 1 : 0), 0);
+      res = this.selectedStack.quantity * (amountOfThoseDefenses / (defenses.length || 1)) * rb.prices.sellCoinMax;
+    } else res = rb.prices.sellItem;
+    return Number(res.toFixed(0));
   },
 
   unselectStack: function() {

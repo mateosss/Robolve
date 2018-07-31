@@ -2,7 +2,7 @@ var Robot = Computer.extend({
   // TODO definir valores reales // TODO apply fuzzy logic
   STATS: new Map([
     ['turnProb', {0: 0.25, 1: 0.5, 2: 0.9}],
-    ['life', {0: 500, 1: 600, 2: 700}],
+    ['life', {0: 1000, 1: 1500, 2: 2500}],
     ['element', {
       electric: "Electro",
       fire: "Fire",
@@ -11,7 +11,7 @@ var Robot = Computer.extend({
     ['range', {0: 75, 1: 150}],
     ['terrain', {0: 'walk'}],
     ['speed', {0: 0.35, 1: 0.75, 2: 1.0}],
-    ['damage', {0: 5, 1: 15, 2:20}],
+    ['damage', {0: 50, 1: 75, 2: 150}],
     ['attackSpeed', {0: 0.5, 1: 1.0, 2: 2.0}],
   ]),
   PARTS: { // Necessary info for the parts to make a robot
@@ -29,6 +29,7 @@ var Robot = Computer.extend({
     rb.states.robot.die
   ],
 
+  spawnIndex: null, // Tells the order in which it was spawned in the map
   ctor: function(level, dna) {
     //TODO que funcione el balanceo, poder hacer que un robot sea de tipo +1 y eso
     // TODO creo que este hack ya no es necesario por Robot.prototype.STATS, croe que nadie lo usa, quitar
@@ -91,14 +92,48 @@ var Robot = Computer.extend({
     this.debugger.debug();
   },
   drop: function() { // Drops a pickable item to the ground
-    if (Math.random() < 0.5) {
-      new ItemPickup(this.level.map, this.getPosition(), _.randchoiceObj(rb.items), _.rand6intCenter(2));
-    } else {
-      new ItemPickup(this.level.map, this.getPosition(), rb.items.gold, _.rand6intCenter(rb.prices.killRobot));
+    let totalRobotsKilled = this.level.totalRobotsKilled;
+    let dropChunkLength = this.level.dropChunkLength;
+    let dropChunkGiven = this.level.dropChunkGiven;
+
+    let currentChunk = Math.floor(totalRobotsKilled / dropChunkLength);
+    let nextChunk = Math.floor((totalRobotsKilled + 1) / dropChunkLength);
+    let sameChunk = nextChunk === currentChunk;
+    if (dropChunkGiven !== sameChunk) { // if item wasnt given this chunk and we are in the same chunk, or if it was given but we are in a new chunk, roll normally
+      if (!sameChunk) this.level.dropChunkGiven = false;
+      let rand = Math.random();
+      if (rand <= 0.1) this.dropRandomUnique();
+      else if (0.1 < rand && rand <= 0.4) this.dropRandomCoin();
+      else this.dropRandomGold();
+    }
+    else if (!dropChunkGiven && !sameChunk) this.dropRandomUnique();
+    else {
+      if (Math.random() < 0.4) this.dropRandomCoin();
+      else this.dropRandomGold();
     }
   },
+  dropRandomUnique: function() {
+    this.level.dropChunkGiven = true;
+    let item = this.level.popRandomDrop();
+    if (item.length === 0) {
+      console.warn("This shouldn't be happening, trying to drop a unique item but they are depleted");
+      return this.dropRandomCoin();
+    }
+    new ItemPickup(this.level.map, this.getPosition(), item[0], 1);
+  },
+  dropRandomCoin: function() {
+    let coins = Object.values(Item.prototype.getItemsByCategory("coin"));
+    new ItemPickup(this.level.map, this.getPosition(), _.randchoice(coins), 1);
+  },
+  dropRandomGold: function() {
+    new ItemPickup(this.level.map, this.getPosition(), rb.items.gold, _.rand6intCenter(rb.prices.killRobot));
+  },
+
   die: function() {
-    if (!this.sm.isInState('die')) this.drop(); // Check if it is already dying for not dropping many items
+    if (!this.sm.isInState('die')) { // Check if it is already dying for not dropping many items
+      this.drop();
+      this.level.totalRobotsKilled++;
+    }
     this._super();
   },
   destroy: function() {

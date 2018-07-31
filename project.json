@@ -38,6 +38,7 @@
       "src/hud/propertySelector.js",
       "src/hud/statTweak.js",
       "src/hud/defenseDetails.js",
+      "src/hud/equipBar.js",
       "src/hud/inventoryView.js",
       "src/hud/defenseSelector.js",
       "src/hud/basicDefenseSelector.js",

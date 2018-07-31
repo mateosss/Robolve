@@ -1,3 +1,4 @@
+// This example draws a rect on the `this` object: new Debugger(this).debugRect(this, {rect: cc.rect(0,0,containerSize, containerSize)});
 var Debugger = cc.Class.extend({
   object: null,
   methods: [], // Format [{method:function(){},options:{}}]

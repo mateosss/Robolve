@@ -508,7 +508,7 @@ Format (variables between \<\> should be calculated after each day/task)
     - 18:50 - 23:20 | Inventory basic done in html, remains testing in android and linux
 
 
-# (40:00 hs) Julio Semana 15 []
+# (40:00 hs) Julio Semana 15 [26:00 hs]
 
   - 2018-07-15 Do - 01:00 hs
     - 15:30 - 15:50 | Un bug de linux solucionado
@@ -541,15 +541,64 @@ Format (variables between \<\> should be calculated after each day/task)
     - 22:10 - 23:05 | inventory info working on linux and android
     - 23:05 - 00:40 | Inventory info can now drop and equip items
 
-  - 2018-07-21 Sa -
+  - 2018-07-21 Sa - 05:00 hs
     - 10:55 - 12:25 | New panels organization in UI.svg, (waste of time)
+    - 13:00 - 15:15 | UI of equiped items inside view, trabajando cansado
+    - 17:15 - 18:30 | Haciendo que item sean buttons pero me di cuenta que es inutil para la nano eva y borre todo
 
 # (40:00 hs) Julio Semana 22 []
 
-# BUG's
+  - 2018-07-22 Do - 09:30 hs
+    - 11:25 - 12:45 | Equipar basico
+    - 13:00 - 15:10 | Unequip done, working on linux, and solved a bug when dropping last invenory item in linux
+    - 17:50 - 19:50 | Performance boost for inventory, removed a lot of duplicated refreshes and so on
+    - 19:50 - 20:10 | Empezando main menu
+    - 21:20 - 23:40 | Mas main menu
+    - 00:00 - 01:00 | Main menu terminado
+    - 01:00 - 01:20 | Checkeando horas usadas, actualizando horarios y trello
 
-- Boton ok en android esta subido muchos pixeles
-- Cuando voy a atacar un robot con el char, y mientras estoy en camino ese robot muere por una torreta
-  da error de que no existe el native object
+  - 2018-07-23 Lu - 08:30 hs
+    - 16:00 - 19:00 | Diseñando
+    - 19:15 - 23:40 | Diseñando, agregando items nueos, cambiando stats nuevos, programando modificaciones resultantes del diseño, etc
+    - 23:55 - 01:00 | Haciendo unique items drop
+
+  - 2018-07-24 Ma - 03:45 hs
+    - 09:30 - 11:00 | Current wave number showing on hud
+    - 13:15 - 14:00 | En auto tratando de guardar current wave
+    - 16:45 - 18:15 | testeando y cosas, en cabaña
+
+  - 2018-07-25 Mi - 05:00 hs
+    - 10:00 - 13:40 | Modelando y riggeando character
+    - 14:45 - 15:15 | Lo mismo
+    - 20:20 - 21:10 | animando
+
+  - 2018-07-26 Ju - 03:00 hs
+    - 10:00 - 10:30 | Animando
+    - 15:50 - 18:20 | Animando e Implementando, despues me fui a la nano eva
+
+  - 2018-07-27 Vi -
+    - 14:50 - 16:20 | Planificando para la EVA
+
+  - 2018-07-28 Sa -
+    - 12:45 - 13:20  | Planificando
+
+# (30:00 hs) Julio Semana 29 []
+
+  - 2018-07-29 Do -
+    - 12:25 - 13:45 | item.id prop
+
+  - 2018-07-30 Lu - 05:00 hs
+    - 13:40 - 16:00 | Viendo pointing
+    - 17:00 - 18:30 | Pointing mejorado, viendo ok text levantado
+    - 18:50 - 20:00 | character animations speeds are adjusted based on stats, and other polishing stuff
+
+   - 2018-07-31 Ma -
+    - 11:10 - 11:30 | Solved bug native robot targeteando a un robot que muere a medio camino
+
+# BUG's y TODO's
 
 - Cuando hay dos items superpuestos y mi inventario esta casi lleno, al tratarlos de meter, se meten solo los que entran y el resto desaparecen del juego
+
+- La solucion para equiped items esta bastante rancia y poco pensada, deberia estructurarla mejor, pero para eso hay que cambiar muchas cosas, por ejemplo actualmente equipa stacks en vez de items
+
+- quitar timeouts
