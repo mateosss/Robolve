@@ -174,8 +174,8 @@ var Character = cc.Sprite.extend({
   },
   cleanTarget: function() {
     // TODO Clear hud indication made by setTarget
+    if (this.target) this.target.release();
     this.target = null;
-    this.target.release();
   },
 
   move: function() {
