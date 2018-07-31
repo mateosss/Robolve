@@ -98,13 +98,13 @@ var Character = cc.Sprite.extend({
   },
 
   equipStack: function(stackIndex) {
-    if (this.inventory.equiped.length < this.inventory.equipedCapacity) {
+    if (this.inventory.equiped < this.inventory.equipedCapacity) {
       // TODO All the implementation of equiped items is broken, but in particular I am sending all equiped items to the start of the inventory
       // which is a very weird thing
       let newIndex = this.inventory.getFirstNonEquipedStackIndex();
       _.swap(this.inventory.items, newIndex, stackIndex);
       let stack = this.inventory.items[newIndex];
-      this.inventory.equiped.push(stack);
+      this.inventory.equiped++;
       stack.item.equip(this);
 
       this.level.hud.equipbar.refresh();
@@ -119,13 +119,13 @@ var Character = cc.Sprite.extend({
   unequipStack: function(stackIndex) {
     // TODO All the implementation of equiped items is broken, but in particular I am sending all equiped items to the start of the inventory
     // which is a very weird thing
-    _.assert(stackIndex < this.inventory.equiped.length, "This stack doesnt seem to be equiped");
+    _.assert(stackIndex < this.inventory.equiped, "This stack doesnt seem to be equiped");
     let firstNonEquiped = this.inventory.getFirstNonEquipedStackIndex();
     let newIndex = firstNonEquiped < 0 ? 0 : firstNonEquiped - 1;
     _.swap(this.inventory.items, newIndex, stackIndex);
 
     let stack = this.inventory.items[newIndex];
-    this.inventory.equiped.splice(stackIndex, 1);
+    this.inventory.equiped--;
     stack.item.unequip(this);
 
     this.level.hud.equipbar.refresh();

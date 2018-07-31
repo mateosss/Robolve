@@ -1,12 +1,11 @@
 var Inventory = cc.Class.extend({
   items: null, // List of stacks of the form {item: Item, quantity: Number} objects
   capacity: 10, // Max capacity of the inventary // TODO initial capacity hardcoded
-  equiped: null, // Equiped stack list
+  equiped: 0, // Invariant: The first `equiped` items of the inventary are equiped
   equipedCapacity: 3, // Max  amount of items to equip
 
   ctor: function() {
     this.items = [];
-    this.equiped = [];
   },
   setCapacity: function(newCapacity) { // Returns a list of removed items if any
     let res = newCapacity < this.items.length ? this.items.splice(newCapacity) : [];
@@ -70,12 +69,15 @@ var Inventory = cc.Class.extend({
   },
 
   equipedIndex: function(item) {
-    return this.equiped.findIndex(s => s.item.isEqual(item));
+    return this.getEquipedStacks().findIndex(s => s.item.isEqual(item));
   },
 
   getFirstNonEquipedStackIndex: function() {
-    let i = this.items.findIndex(s => !_.in(s, this.equiped));
-    return i === -1 ? 0 : i;
+    return this.equiped;
+  },
+
+  getEquipedStacks: function() {
+    return this.items.slice(0, this.equiped);
   },
 
   toString: () => "Inventory",

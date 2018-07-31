@@ -144,7 +144,7 @@ var InventoryView = Dialog.extend({
       let gridItemEquiped = cell.equiped; // Value
       let invItem = inv.items[i]; // Reference
       let invItemQuantity = inv.items[i].quantity; // Value
-      let invItemEquiped = i < inv.equiped.length; // Value
+      let invItemEquiped = i < inv.equiped; // Value
 
       if (!cell.item) { // Empty cell, initialize it
         cell.item = invItem; // Saves the {item: Item, quantity: Number} pair reference
@@ -219,7 +219,7 @@ var InventoryView = Dialog.extend({
 
       // equipable?
       let equipable = selectedItem.equipable;
-      let isEquiped = this.selectedStackIndex < inv.equiped.length;
+      let isEquiped = this.selectedStackIndex < inv.equiped;
       this.infoSell.setup({visible: !isEquiped && selectedItem.category !== "gold", height: equipable ? "20pw" : "40pw", iconFontSize: equipable ? 64 : 96, text: _.format("Sell ${}", this.getSelectedStackPrice())});
       this.infoEquip.setup({visible: equipable, callback: isEquiped ? () => this.hud.level.character.unequipStack(this.selectedStackIndex) : () => this.hud.level.character.equipStack(this.selectedStackIndex), icon: isEquiped ? "table-column-remove" : "select-inverse"});
 

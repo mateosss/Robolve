@@ -30,7 +30,7 @@ var EquipBar = Panel.extend({
   },
 
   refresh: function() {
-    let stacks = this.inventory.equiped;
+    let stacks = this.inventory.getEquipedStacks();
     for (let i = 0; i < this.slots.length; i++) {
       if (i < stacks.length) {
         this.slots[i].item = stacks[i];
