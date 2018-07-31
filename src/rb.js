@@ -241,7 +241,7 @@ var rb = {
             else {
               state.local.charge = 0.0;
               this.attack(state.local.target);
-              if (state.local.target.sLife == 0) {
+              if (state.local.target.isDead()) {
                 let newTarget = this.getNewTarget();
                 if (newTarget) {
                   this.setTarget(newTarget);

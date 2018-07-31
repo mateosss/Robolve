@@ -78,7 +78,7 @@ var Defense = Computer.extend({
     this.addRepaired(this.getDefaultStat('life'));
   },
   isRepaired: function() {
-    return this.sLife == this.getDefaultStat('life');
+    return this.sLife === this.getDefaultStat('life');
   },
   resetImproved: function() {
     this.improved = 0;

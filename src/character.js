@@ -170,14 +170,19 @@ var Character = cc.Sprite.extend({
     let dir = cc.pSub(target, this);
     this.setPointing(dir.x, dir.y);
     this.target = target;
+    target.retain(); // HACK: Classic cocos2d-j/s hack
   },
   cleanTarget: function() {
     // TODO Clear hud indication made by setTarget
     this.target = null;
+    this.target.release();
   },
 
   move: function() {
-    if (!this.target) this.sm.setDefaultState();
+    if (!this.target || this.target.isDead()) {
+      this.sm.setDefaultState();
+      this.cleanTarget();
+    }
     let dir = cc.pNormalize(cc.pSub(this.target, this));
     this.setPointing(dir.x, dir.y);
     this.x += this.sSpeed * dir.x;

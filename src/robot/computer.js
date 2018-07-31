@@ -301,6 +301,9 @@ var Computer = cc.Sprite.extend({
     }
     return true;
   },
+  isDead: function() {
+    return this.sLife === 0;
+  },
   die: function() {
     // Sets the die state that will reproduce some animations and then kill the computer
     this.sLife = 0;

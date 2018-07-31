@@ -587,15 +587,15 @@ Format (variables between \<\> should be calculated after each day/task)
   - 2018-07-29 Do -
     - 12:25 - 13:45 | item.id prop
 
-  - 2018-07-30 Lu -
+  - 2018-07-30 Lu - 05:00 hs
     - 13:40 - 16:00 | Viendo pointing
     - 17:00 - 18:30 | Pointing mejorado, viendo ok text levantado
-    - 18:40 -
+    - 18:50 - 20:00 | character animations speeds are adjusted based on stats, and other polishing stuff
+
+   - 2018-07-31 Ma -
+    - 11:10 - 11:30 | Solved bug native robot targeteando a un robot que muere a medio camino
 
 # BUG's y TODO's
-
-- Cuando voy a atacar un robot con el char, y mientras estoy en camino ese robot muere por una torreta
-  da error de que no existe el native object
 
 - Cuando hay dos items superpuestos y mi inventario esta casi lleno, al tratarlos de meter, se meten solo los que entran y el resto desaparecen del juego
 
