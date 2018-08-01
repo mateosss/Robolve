@@ -594,6 +594,8 @@ Format (variables between \<\> should be calculated after each day/task)
 
    - 2018-07-31 Ma -
     - 11:10 - 11:30 | Solved bug native robot targeteando a un robot que muere a medio camino
+    - 13:00 - 15:00 | More bugs, including the equipbar one, it seems to be working properly now
+    - 21:50 - 22:00 | Improved a bug? detected some bugs in android, needs investigation
 
 # BUG's y TODO's
 

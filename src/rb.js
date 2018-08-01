@@ -2,6 +2,7 @@
 var rb = {
   global: window, // jshint ignore:line
   dev: { // Helper functions for use when debuggin on the browser
+    resizeView: () => cc.view.setDesignResolutionSize(720, 1280, cc.ResolutionPolicy.SHOW_ALL),
     stop: () => cc.director.getScheduler().unscheduleAll(),
     getLevel: () => cc.director.getRunningScene().children.find(c => c.toString() === "Level"),
     getHud: () => rb.dev.getLevel().hud,

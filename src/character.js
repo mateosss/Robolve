@@ -182,6 +182,7 @@ var Character = cc.Sprite.extend({
     if (!this.target || this.target.isDead()) {
       this.sm.setDefaultState();
       this.cleanTarget();
+      return;
     }
     let dir = cc.pNormalize(cc.pSub(this.target, this));
     this.setPointing(dir.x, dir.y);
