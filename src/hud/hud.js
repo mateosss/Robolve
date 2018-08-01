@@ -35,8 +35,8 @@ var Hud = cc.Layer.extend({
     this.bottombarLayout = new Panel({width: "100pw + -100ph + 11px", padding: "11px"});
     this.bottombarLayout.addTo(this.bottombar, -1);
 
-    this.cancelActions = new Button({button: "purpleRound", callback: () => this.level.character.sm.setDefaultState(), bottom: "20px", left: "16px", height: "65ph", width: "65ph", icon:"cancel", iconFontSize: 72, scale: 0.75});
-    this.cancelActions.addTo(this.bottombarLayout);
+    this.charStatus = new Button({button: "purpleRound", callback: () => this.level.character.sm.setDefaultState(), bottom: "20px", left: "16px", height: "65ph", width: "65ph", icon:"human-child", iconFontSize: 64, scale: 0.75});
+    this.charStatus.addTo(this.bottombarLayout);
 
 
     // TODO debug console
@@ -118,7 +118,7 @@ var Hud = cc.Layer.extend({
     window.gi = this.gi; // jshint ignore:line
     window.goldbar = this.goldbar; // jshint ignore:line
     window.bottombar = this.bottombar; // jshint ignore:line
-    window.cancelActions = this.cancelActions; // jshint ignore:line
+    window.charStatus = this.charStatus; // jshint ignore:line
     window.waveText = this.waveText; // jshint ignore:line
     window.button = this.button; // jshint ignore:line
     window.layout = this.bottombarLayout; // jshint ignore:line

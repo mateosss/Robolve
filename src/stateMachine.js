@@ -17,6 +17,9 @@ var StateMachine = cc.Class.extend({
     }
     this.owner = owner;
   },
+  getMainState: function() {
+    return this.cStates[0];
+  },
   getState: function(state) { // Gets a state from STATES by name
     if (typeof state === 'string') state = this.states.find(aState => aState.name == state);
     return state;

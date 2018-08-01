@@ -171,11 +171,13 @@ var Character = cc.Sprite.extend({
     this.setPointing(dir.x, dir.y);
     this.target = target;
     target.retain(); // HACK: Classic cocos2d-j/s hack
+    this.refreshStatusIcon();
   },
   cleanTarget: function() {
     // TODO Clear hud indication made by setTarget
     if (this.target) this.target.release();
     this.target = null;
+    this.refreshStatusIcon();
   },
 
   move: function() {
@@ -201,6 +203,33 @@ var Character = cc.Sprite.extend({
     }
     else return this.sSpeed; // Default range for reaching a point
   },
+  refreshStatusIcon: function() {
+    let state = this.sm.getMainState().name;
+    let target = this.target;
+    if (state === "still") {
+      this.level.hud.charStatus.setup({button: "purpleRound", icon: "human-child"}); // still
+    } else if (state === "build") {
+      this.level.hud.charStatus.setup({button: "limeRound", icon: "hammer"}); // building
+    } else if (state === "repair") {
+      this.level.hud.charStatus.setup({button: "greenRound", icon: "wrench"}); // repairing
+    } else if (state === "improve") {
+      this.level.hud.charStatus.setup({button: "orangeRound", icon: "arrow-up-bold"}); // improving
+    } else if (state === "attack") {
+      this.level.hud.charStatus.setup({button: "redRound", icon: "sword"}); // attacking
+    } else if (state === "move") {
+      if (target instanceof Defense) {
+        if (target.isBuilt()) {
+          if (target.sm.isInState('improve')) this.level.hud.charStatus.setup({button: "orangeRound", icon: "arrow-up-bold"}); // improving
+          else this.level.hud.charStatus.setup({button: "greenRound", icon: "wrench"}); // repairing
+        } else this.level.hud.charStatus.setup({button: "limeRound", icon: "hammer"}); // building
+      } else if (target instanceof Robot) {
+        this.level.hud.charStatus.setup({button: "redRound", icon: "sword"}); // attacking
+      } else {
+        this.level.hud.charStatus.setup({button: "Round", icon: this.canRun() ? "run" : "walk"}); // move
+      }
+    }
+  },
+  canRun: function() { return this.sSpeed >= 4; },
   isTargetInRange: function() {
     if (!this.target) return false;
     let target = cc.p(this.target.x, this.target.y); // Target may be a point or a node

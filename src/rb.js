@@ -174,7 +174,7 @@ var rb = {
       },
       move: {
         name: 'move',
-        animation: function() { this.setAnimation(this.sSpeed > 4 ? "run" : "walk"); },
+        animation: function() { this.setAnimation(this.canRun() ? "run" : "walk"); },
         everyFrame: function() {
           this.move();
         }
