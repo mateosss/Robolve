@@ -59,10 +59,10 @@ var Hud = cc.Layer.extend({
     this.save = new Button({button: "lightBlue", callback: () => {SaveLoad.save(this.inventory.inventory); this.it.message("Saved");}, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"content-save", iconFontSize: 72, scale: 0.75});
     this.save.addTo(this.bottombarLayout);
 
-    this.openInventory = new Button({button: "amber", callback: () => this.inventory.show(), x: "-125ph", bottom: "20px", right: "30px", height: "65ph", width: "65ph", icon:"treasure-chest", iconFontSize: 72, scale: 0.75});
+    this.openInventory = new Button({button: "amber", callback: () => this.inventory.toggle(), x: "-125ph", bottom: "20px", right: "30px", height: "65ph", width: "65ph", icon:"treasure-chest", iconFontSize: 72, scale: 0.75});
     this.openInventory.addTo(this.bottombarLayout);
 
-    this.openCharSheet = new Button({button: "pink", callback: () => this.cs.show(), x: "-62.5ph", bottom: "20px", right: "20px", height: "65ph", width: "65ph", icon:"robot", iconFontSize: 72, scale: 0.75});
+    this.openCharSheet = new Button({button: "pink", callback: () => this.cs.toggle(), x: "-62.5ph", bottom: "20px", right: "20px", height: "65ph", width: "65ph", icon:"robot", iconFontSize: 72, scale: 0.75});
     this.openCharSheet.addTo(this.bottombarLayout);
 
     // Info Text

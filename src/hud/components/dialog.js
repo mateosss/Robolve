@@ -106,5 +106,9 @@ var Dialog = Panel.extend({
     }
     this.inScreen = false;
   },
+  toggle: function() {
+    if (this.inScreen) this.dismiss();
+    else this.show();
+  },
   toString: () => "Dialog"
 });
