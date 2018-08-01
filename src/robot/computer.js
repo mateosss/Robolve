@@ -271,6 +271,7 @@ var Computer = cc.Sprite.extend({
   hurt: function(attacker) {
     // This function calculates the total damage of the received attack depending
     // on the attacker properties, and does some things in reaction
+    // It must return the total damage applied
     this.hitsReceived += 1;
     let ratio = 1;
     if (this.element && attacker.element) { // Apply difference if elements are present
@@ -320,31 +321,24 @@ var Computer = cc.Sprite.extend({
     return score;
   },
   hitsReceivedScore: function() {
-    // Returns a float, being 0.0 == 0 ms, 1.0 lived more or equal ms to maxTime
-    var maxHits = this.getPossibleStats('life')[2] / (_.props(Defense).STATS.get('damage')[0] * 0.5);
-    var score = 0;
-    var hitsReceived = this.hitsReceived;
-    score =  hitsReceived / maxHits;
+    // Returns a float, being 0 == died with 0 hits, and 1 == died in the amount of hits a weak water tower would kill a strong electric robot
+    let maxHits = this.getPossibleStats('life')[2] / (_.props(Defense).STATS.get('damage')[0] * 0.5);
+    let hitsReceived = this.hitsReceived;
+    let score =  hitsReceived / maxHits;
     return score;
   },
   infligedDamageScore: function() {
-    // Returns a float, being 0.0 == 0 damage, 1.0 == all the base health
-    var maxDamage = this.level.base.sLife;
-    var damage = this.infligedDamage;
-    if (damage >= maxDamage) {
-      return 1;
-    }
-    var score = damage / maxDamage;
+    // Returns a float, being 0.0 == 0 damage, 1.0 == the best life of a turret or more
+    let maxDamage = _.last(Object.values(Defense.prototype.STATS.get("life")));
+    let damage = this.infligedDamage;
+    let score = damage >= maxDamage ? 1 : damage / maxDamage;
     return score;
   },
   distanceToBaseScore: function() {
     // Returns a float, being 0.0 == more than maxDistance, 1.0 == 0 distance
-    var maxDistance = 2000;
-    var distance = Math.floor(this.getDistanceTo(this.level.base));
-    if (distance >= maxDistance) {
-      return 0;
-    }
-    var score = 1 - ((1.0 / maxDistance) * distance);
+    let maxDistance = 2000;
+    let distance = Math.floor(this.getDistanceTo(this.level.base));
+    let score = distance >= maxDistance ? 0 : 1 - ((1.0 / maxDistance) * distance);
     return score;
   },
   getScore: function() {

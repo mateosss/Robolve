@@ -292,10 +292,8 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         this.prevWaveRobots.sort(function(a, b) { return b[1] - a[1]; });
 
         //Debugear avg score
-        var total = 0;
-        var count = 0;
-        this.prevWaveRobots.forEach(function(e) { total += e[1]; count += 1; });
-        console.log("Average fitScore prev wave: " + total/count);
+        console.log("Average fitScore prev wave: " + (this.prevWaveRobots.reduce((t, e) => t + e[1], 0) / this.prevWaveRobots.length));
+
         //crear array dnaWaveQuery con esos agarrados
         var dnaWaveQuery = this.prevWaveRobots.slice(0, Math.ceil((robotsAmount / 4) + 1));
         // bucle agarrando dos al azar de ese cuarto+1 segun su score

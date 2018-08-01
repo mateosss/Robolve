@@ -170,10 +170,12 @@ var Defense = Computer.extend({
     return this.target;
   },
   hurt: function(attacker) {
-    this._super(attacker);
+    let totalDamage = this._super(attacker);
     // Refresh defense view if this defense stats are visible
     let view = this.level.hud.preview;
     if (view.inScreen && view.selectedDefense === this) view.refresh();
+    // Return total damage applied as required by original hurt method
+    return totalDamage;
   },
   attack: function(target) {
     this._super(target);
