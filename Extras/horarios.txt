@@ -597,6 +597,9 @@ Format (variables between \<\> should be calculated after each day/task)
     - 13:00 - 15:00 | More bugs, including the equipbar one, it seems to be working properly now
     - 21:50 - 22:00 | Improved a bug? detected some bugs in android, needs investigation
 
+  - 2018-08-01 Mi -
+    - 12:00 - 13:30 | Solucionando un bug del GA
+
 # BUG's y TODO's
 
 - Cuando hay dos items superpuestos y mi inventario esta casi lleno, al tratarlos de meter, se meten solo los que entran y el resto desaparecen del juego

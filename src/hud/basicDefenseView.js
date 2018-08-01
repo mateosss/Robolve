@@ -92,8 +92,12 @@ var BasicDefenseView = Dialog.extend({
       callback: () => {
         this.dismiss();
         hud.alert("Recycle Defense", _.format("Are you sure you want to delete this defense for {} bucks? You just think about money don't you?", rb.prices.destroyDefense), () => {
-          defense.die();
-          hud.ig.addGold(rb.prices.destroyDefense);
+          if (!defense.isDead()) {
+            defense.die();
+            hud.ig.addGold(rb.prices.destroyDefense);
+          } else {
+            hud.it.message("This defenses has already passed out");
+          }
           hud.dialog.dismiss();
         });
       }
