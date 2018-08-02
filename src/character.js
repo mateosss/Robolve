@@ -190,6 +190,7 @@ var Character = cc.Sprite.extend({
     this.setPointing(dir.x, dir.y);
     this.x += this.sSpeed * dir.x;
     this.y += (this.sSpeed / 2) * dir.y;
+    this.zIndex = this.x + (1280 - this.y) * 128; // Same as this.refreshZOrder, made here for performance // TODO DRY Map.zOrderFromPos
   },
   getDistanceTo: function(to) { return cc.pDistance(this, to); },
   getCurrentRange: function() { // returns a range to use based on the current target

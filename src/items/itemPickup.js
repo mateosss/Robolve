@@ -10,7 +10,7 @@ var ItemPickup = cc.Sprite.extend({
 
     this._super(item.image);
     this.setPosition(position);
-    map.addChild(this, 3000);
+    map.addChild(this);
     this.setScale(72 / this.getTexture().height); // 72 pixles is the sprite  height on the level floor
     this.setTouchEvent();
     this.drop();

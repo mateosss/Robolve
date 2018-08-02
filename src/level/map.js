@@ -1,4 +1,5 @@
 var TiledMap = cc.TMXTiledMap.extend({
+  // zOrders from 0..200000 are reserved from things affected by perspective like robots, defenses, etc.
   level: null,
   CHILD_SCALE: 0.8,
   positionTarget: cc.p(cc.director.getWinSize().width / 2, cc.director.getWinSize().height / 2),
@@ -33,6 +34,12 @@ var TiledMap = cc.TMXTiledMap.extend({
     }, {options: {passEvent: true}});
   },
   toString: () => "Map",
+  zOrderFromPos: pos => pos.x + (1280 - pos.y) * 128,
+  addChild: function(child, localZOrder, tag) {
+    // Dont change zOrder of the TMX background
+    if (child instanceof cc.TMXLayer) this._super(child, localZOrder, tag);
+    else this._super(child, localZOrder || this.zOrderFromPos(child), tag);
+  },
   placeOnTile: function(sprite, tile) {
     var mapLayer = this.getLayer("Background");
     // var p = mapLayer.getPositionAt(tile);
@@ -87,10 +94,10 @@ var TiledMap = cc.TMXTiledMap.extend({
     // int z = (TILEMAP_WIDTH - tmpCastle->getPositionX()) + (TILEMAP_HEIGHT
     // - tmpCastle->getPositionY());
     // tmpCastle->setZOrder(z);
-    this.addChild(child, layer, tag);
     child.scale = this.CHILD_SCALE;//TODO escalado? asi se hace?
     var p = position || this.getSpawnPoint(child);
     child.setPosition(p);
+    this.addChild(child, layer, tag);
   },
   getSpawnPoint: function(child){
     var spawnPoint = this.getObjectGroup("Objects").getObject(

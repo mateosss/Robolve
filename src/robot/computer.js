@@ -267,6 +267,10 @@ var Computer = cc.Sprite.extend({
     }
     this.x += this.sSpeed * xDirection;
     this.y += (this.sSpeed / 2) * yDirection;
+    this.zIndex = this.x + (1280 - this.y) * 128; // Same as this.refreshZOrder, made here for performance // TODO DRY Map.zOrderFromPos
+  },
+  refreshZOrder: function() {
+    this.zIndex = TiledMap.prototype.zOrderFromPos(this);
   },
   hurt: function(attacker) {
     // This function calculates the total damage of the received attack depending

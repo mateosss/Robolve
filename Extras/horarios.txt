@@ -602,6 +602,11 @@ Format (variables between \<\> should be calculated after each day/task)
     - 16:15 - 17:30 | Char status icon
     - 20:05 - 21:30 | Arreglando bugs de inventory mods list
     - 22:00 - 22:40 | Mas bugs de texto parcheados
+    - 22:40 | 00:00 | Bugs de placement resueltos
+
+  - 2018-08-02 Ju -
+    - 10:00 - 12:00 | Viendo lo del zOrder
+    - 13:00 - 14:00 | Terminado lo de zOrder por ahora
 
 # BUG's y TODO's
 
