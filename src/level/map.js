@@ -36,6 +36,7 @@ var TiledMap = cc.TMXTiledMap.extend({
   toString: () => "Map",
   zOrderFromPos: pos => pos.x + (1280 - pos.y) * 128,
   addChild: function(child, localZOrder, tag) {
+    // WARNING: For some reason this function overrides the cocos `name` or `getName()` property, be sure to set name after addChild
     // Dont change zOrder of the TMX background
     if (child instanceof cc.TMXLayer) this._super(child, localZOrder, tag);
     else this._super(child, localZOrder || this.zOrderFromPos(child), tag);
