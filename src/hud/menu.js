@@ -118,12 +118,18 @@ var Menu = cc.LayerGradient.extend({
     this.storeContainer.setup({visible: false});
     if (!cc.sys.isNative || !this.mainContainer.textCorrected) {
       this.mainContainer.textCorrected = true;
-      // TODO yes, i know, there is a timeout for setting a text label position...
-      setTimeout(() => { // jshint ignore:line
+      if (cc.sys.isNative) {
         this.buttonPlay.text.x += 32;
         this.buttonMaps.text.x += 28;
         this.buttonStore.text.x += 28;
-      });
+      } else {
+        // TODO yes, i know, there is a timeout for setting a text label position...
+        setTimeout(() => { // jshint ignore:line
+          this.buttonPlay.text.x += 32;
+          this.buttonMaps.text.x += 28;
+          this.buttonStore.text.x += 28;
+        });
+      }
     }
   },
   showMaps: function() {
