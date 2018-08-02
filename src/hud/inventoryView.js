@@ -77,7 +77,7 @@ var InventoryView = Dialog.extend({
       this.hud.ig.addGold(this.getSelectedStackPrice());
       this.inventory.items.splice(this.selectedStackIndex, 1);
       this.unselectStack();
-    }, button: "pink", text: "Sell $0", textFontSize: 32, iconFontSize: 64, x: "60pw", y: "-60pw", left: "11px", height: "20pw", width: "40pw", scale: 0.5});
+    }, textCorrect: 2, button: "pink", text: "Sell $0", textFontSize: 32, iconFontSize: 64, x: "60pw", y: "-60pw", left: "11px", height: "20pw", width: "40pw", scale: 0.5});
     this.infoSell.addTo(this.infoContainer);
     this.infoName = new Text({text: "—", x: "center", fontSize: 24, y: (this.infoContainer.height - 160) + "px" , bottom: cc.sys.isNative ? "5px" : "0px"});
     this.infoName.addTo(this.infoContainer);
@@ -97,7 +97,7 @@ var InventoryView = Dialog.extend({
     for (let i = 0; i < stats.length; i++) {
       this["infoStats[" + stats[i] + "]Label"] = new Text({text: rb.characterStats[stats[i]].name, width: "100pw", hAlign: cc.TEXT_ALIGNMENT_LEFT, fontSize: 18});
       this["infoStats[" + stats[i] + "]Label"].addTo(this.infoStatsScroll);
-      this["infoStats[" + stats[i] + "]Value"] = new Badge({bgImage: r.ui.panel_in_soft, text: "—", scale: 0.3, width: "64px", height: "32px", x: "-64px + -11px", textFontSize: 56});
+      this["infoStats[" + stats[i] + "]Value"] = new Badge({textCorrect: 1, bgImage: r.ui.panel_in_soft, text: "—", scale: 0.3, width: "64px", height: "32px", x: "-64px + -11px", textFontSize: 56});
       this["infoStats[" + stats[i] + "]Value"].addTo(this.infoStatsScroll);
     }
 

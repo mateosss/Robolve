@@ -66,7 +66,7 @@ var CharacterSheet = Dialog.extend({
       this["stats" + Stat + "Label"].addTo(this.statsMain);
       this["stats" + Stat + "Description"] = new Text({text: this.STATS[i].description, width: "100pw", y: ypos + "px", bottom: "7px", hAlign: cc.TEXT_ALIGNMENT_LEFT, paddingHorizontal: "22px", fontSize: 18});
       this["stats" + Stat + "Description"].addTo(this.statsMain);
-      this["stats" + Stat + "Value"] = new Badge({bgImage: r.ui.panel_in_soft, text: "—", scale: 0.3, width: "128px", paddingVertical: "2px", height: "48px", x: "-128px + -22px", y: ypos + "px", bottom: "16px", textFontSize: 80});
+      this["stats" + Stat + "Value"] = new Badge({bgImage: r.ui.panel_in_soft, text: "—", scale: 0.3, width: "128px", paddingVertical: "2px", height: "48px", x: "-128px + -22px", y: ypos + "px", bottom: "16px", textFontSize: 80, textCorrect: 1});
       this["stats" + Stat + "Value"].addTo(this.statsMain);
     }
   },

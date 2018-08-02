@@ -4,6 +4,7 @@ var Button = ccui.Button.extend({
   text: null, // the button title
   icon: null, // the button icon
   pressed: false, // Says wether the button is pressed, used in the eventlistener of the ctor
+  textCorrected: 0, // HACK: How many times has the text been corrected
   ctor: function(options) {
     this.button = this.button || {
       button: "green", // color, colorRound
@@ -17,6 +18,7 @@ var Button = ccui.Button.extend({
       iconAlign: "left", // left, right, only works if there is text // TODO right option
       iconColor: cc.color(255, 255, 255),
       scale9: true,
+      textCorrect: Infinity, // HACK: Pump up the button text up to `textCorrect` times
     };
     this._super();
     this.setAnchorPoint(0, 0);
@@ -51,6 +53,7 @@ var Button = ccui.Button.extend({
     this.button.iconAlign = options.iconAlign || this.button.iconAlign;
     this.button.iconColor = options.iconColor || this.button.iconColor;
     this.button.scale9 = options.scale9 !== undefined ? options.scale9 : this.button.scale9;
+    this.button.textCorrect = options.textCorrect !== undefined ? options.textCorrect : this.button.textCorrect;
 
     this.setScale9Enabled(this.button.scale9);
     if (!this.button.scale9) options.scale = this.displayManager.calc(options.height || this.displayManager.height ) / new cc.Sprite(r.ui[this.button.button]).width;
@@ -66,7 +69,10 @@ var Button = ccui.Button.extend({
       this.setTitleColor(this.button.textColor);
 
       if (!this.text) this.text = this.getTitleRenderer();
-      this.text.y += 5; // TODO Doesn't correct the text in the levelCenter button of DefenseView
+      if (this.textCorrected < this.button.textCorrect) {
+        this.text.y += 5;
+        this.textCorrected++;
+      }
     }
 
 

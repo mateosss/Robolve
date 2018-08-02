@@ -81,9 +81,11 @@ var Hud = cc.Layer.extend({
     let text = this.waveText.getTitleRenderer();
     text.setLineHeight(48);
     text.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
-    this.waveText.refresh = () => this.waveText.setup({text: _.format("Wave\n{}/{}", this.level.cWave + 1, this.level.wavesCounts.length)});
+    this.waveText.refresh = () => {
+      this.waveText.setup({text: _.format("Wave\n{}/{}", this.level.cWave + 1, this.level.wavesCounts.length)});
+      if (cc.sys.isNative) text.y += 11;
+    };
     this.waveText.refresh();
-    if (cc.sys.isNative) text.y += 11;
 
     // this.preview = new DefenseView({});
     // this.preview.addTo(this);

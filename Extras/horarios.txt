@@ -599,6 +599,9 @@ Format (variables between \<\> should be calculated after each day/task)
 
   - 2018-08-01 Mi -
     - 12:00 - 13:30 | Solucionando un bug del GA
+    - 16:15 - 17:30 | Char status icon
+    - 20:05 - 21:30 | Arreglando bugs de inventory mods list
+    - 22:00 - 22:40 | Mas bugs de texto parcheados
 
 # BUG's y TODO's
 
