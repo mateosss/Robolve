@@ -39,12 +39,31 @@ var ItemPickup = cc.Sprite.extend({
   },
 
   pickup: function() {
-    let character = this.map.level.character;
     if (this.getNumberOfRunningActions() === 0) {
+      let character = this.map.level.character;
       let canPick = character.inventory.canAdd(this.item, this.quantity);
       let inventoryButton = this.map.level.hud.openInventory;
 
-      if (!canPick) {
+      if (canPick) {
+        if (this.item.isEqual(rb.items.gold)) this.map.level.hud.ig.addGold(this.quantity);
+        else character.inventory.addItem(this.item, this.quantity);
+
+        let fly = new cc.EaseBackIn(new cc.MoveTo(0.2, this.map.convertToNodeSpace(inventoryButton.getPosition())), 3);
+        let shrink = new cc.EaseBackIn(new cc.ScaleBy(0.2, 0.5), 3);
+        let destroy = new cc.RemoveSelf();
+        let refreshInventory = new cc.CallFunc(() => {if (this.map.level.hud.inventory.inScreen) this.map.level.hud.inventory.refresh();});
+        let inventoryButtonReact = new cc.CallFunc(() => {
+          if (inventoryButton.getNumberOfRunningActions() < 3) {
+            let up = new cc.EaseBackOut(new cc.MoveBy(0.2, cc.p(0, 128)));
+            let down = new cc.EaseBounceOut(new cc.MoveBy(0.2, cc.p(0, -128)), 3);
+            inventoryButton.runAction(new cc.Sequence(up, down));
+          }
+        });
+
+        let actArray = [new cc.Spawn([fly, shrink]), destroy, refreshInventory, inventoryButtonReact];
+        this.runAction(new cc.Sequence(actArray));
+
+      } else {
         let burn = new cc.TintTo(0.1, 255, 160, 130);
         let shake = cc.Sequence.create(
           new cc.MoveBy(0.1, cc.p(10, 0)),
@@ -58,27 +77,7 @@ var ItemPickup = cc.Sprite.extend({
         inventoryButton.runAction(actArray);
         this.runAction(actArray.clone());
         this.map.level.hud.it.message("There's no room for that in your bag");
-        return;
       }
-
-      let fly = new cc.EaseBackIn(new cc.MoveTo(0.2, this.map.convertToNodeSpace(inventoryButton.getPosition())), 3);
-      let shrink = new cc.EaseBackIn(new cc.ScaleBy(0.2, 0.5), 3);
-      let destroy = new cc.RemoveSelf();
-      let addItem;
-      if (this.item.isEqual(rb.items.gold)) addItem = new cc.CallFunc(() => this.map.level.hud.ig.addGold(this.quantity));
-      else addItem = new cc.CallFunc(() => character.inventory.addItem(this.item, this.quantity));
-      let refreshInventory = new cc.CallFunc(() => {if (this.map.level.hud.inventory.inScreen) this.map.level.hud.inventory.refresh();});
-
-      let inventoryButtonReact = new cc.CallFunc(() => {
-        if (inventoryButton.getNumberOfRunningActions() < 3) {
-          let up = new cc.EaseBackOut(new cc.MoveBy(0.2, cc.p(0, 128)));
-          let down = new cc.EaseBounceOut(new cc.MoveBy(0.2, cc.p(0, -128)), 3);
-          inventoryButton.runAction(new cc.Sequence(up, down));
-        }
-      });
-
-      let actArray = [new cc.Spawn([fly, shrink]), destroy, addItem, refreshInventory, inventoryButtonReact];
-      this.runAction(new cc.Sequence(actArray));
     }
   },
 

@@ -597,23 +597,18 @@ Format (variables between \<\> should be calculated after each day/task)
     - 13:00 - 15:00 | More bugs, including the equipbar one, it seems to be working properly now
     - 21:50 - 22:00 | Improved a bug? detected some bugs in android, needs investigation
 
-  - 2018-08-01 Mi -
+  - 2018-08-01 Mi - 06:10 hs
     - 12:00 - 13:30 | Solucionando un bug del GA
     - 16:15 - 17:30 | Char status icon
     - 20:05 - 21:30 | Arreglando bugs de inventory mods list
     - 22:00 - 22:40 | Mas bugs de texto parcheados
     - 22:40 | 00:00 | Bugs de placement resueltos
 
-  - 2018-08-02 Ju -
+  - 2018-08-02 Ju - 04:35 hs
     - 10:00 - 12:00 | Viendo lo del zOrder
     - 13:00 - 14:00 | Terminado lo de zOrder por ahora
     - 14:00 - 14:25 | zOrder solving bugs nativo
     - 18:30 - 19:40 | Blocking unique touches
 
-# BUG's y TODO's
-
-- Cuando hay dos items superpuestos y mi inventario esta casi lleno, al tratarlos de meter, se meten solo los que entran y el resto desaparecen del juego
-
-- La solucion para equiped items esta bastante rancia y poco pensada, deberia estructurarla mejor, pero para eso hay que cambiar muchas cosas, por ejemplo actualmente equipa stacks en vez de items
-
-- quitar timeouts
+  - 2018-08-03 Vi -
+    - 12:10 - 12:35 | Solucionado bug donde desaparecian items al pickear con inventario casi lleno
