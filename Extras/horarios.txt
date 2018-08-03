@@ -608,7 +608,8 @@ Format (variables between \<\> should be calculated after each day/task)
     - 10:00 - 12:00 | Viendo lo del zOrder
     - 13:00 - 14:00 | Terminado lo de zOrder por ahora
     - 14:00 - 14:25 | zOrder solving bugs nativo
-    
+    - 18:30 - 19:40 | Blocking unique touches
+
 # BUG's y TODO's
 
 - Cuando hay dos items superpuestos y mi inventario esta casi lleno, al tratarlos de meter, se meten solo los que entran y el resto desaparecen del juego

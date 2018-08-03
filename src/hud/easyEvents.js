@@ -1,3 +1,11 @@
+var ee = {
+  EE_NONE: 0, // Allow any touch after this one
+  EE_ITEM: 1, // Allow only touches equal to this after this one
+  EE_INDIVIDUAL: 2, // Disallow all touches after this one
+};
+
+var easyEventsCurrentPriority = ee.EE_NONE;
+
 var easyTouchEnded = function(pressObj, exec) {
   /* HOWTO: easyTouchEnded(node, function, ..params, {options:{}});
   - node: a cc.node or any object that contains getBoundingBoxToWorld() function, it is called pressObj
@@ -19,6 +27,7 @@ var easyTouchEnded = function(pressObj, exec) {
   var options = optionsPos > -1 ? arguments[optionsPos].options : {};
   var invertedArea = options.invertedArea || false;
   var passEvent = options.passEvent || false;
+  var priority = options.priority || ee.EE_NONE;
   var params = Array.prototype.slice.call(arguments, 2);
   var reaction = function (event){
     var location = event.getLocation();
@@ -26,13 +35,17 @@ var easyTouchEnded = function(pressObj, exec) {
     if (touchInArea == invertedArea){
       return false;
     } else {
-      var context = pressObj;
-      var parameters = [pressObj];
-      if (passEvent) {
-        parameters.push(event);
+      if (easyEventsCurrentPriority === ee.EE_NONE || (easyEventsCurrentPriority === ee.EE_ITEM && priority === ee.EE_ITEM)) {
+        easyEventsCurrentPriority = priority;
+        setTimeout(() => easyEventsCurrentPriority = ee.EE_NONE, 16);
+        var context = pressObj;
+        var parameters = [pressObj];
+        if (passEvent) {
+          parameters.push(event);
+        }
+        parameters = parameters.concat(params);
+        exec.apply(context, parameters);
       }
-      parameters = parameters.concat(params);
-      exec.apply(context, parameters);
       return true;
     }
   };

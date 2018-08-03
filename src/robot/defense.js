@@ -140,7 +140,7 @@ var Defense = Computer.extend({
           }
         }
       }
-    });
+    }, { options: { priority: ee.EE_INDIVIDUAL } });
   },
   getTarget: function(){
     // This function returns the robot to which this defense has to attack

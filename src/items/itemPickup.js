@@ -10,7 +10,7 @@ var ItemPickup = cc.Sprite.extend({
 
     this._super(item.image);
     this.setPosition(position);
-    map.addChild(this);
+    map.addChild(this, 200000);
     this.setScale(72 / this.getTexture().height); // 72 pixles is the sprite  height on the level floor
     this.setTouchEvent();
     this.drop();
@@ -83,7 +83,7 @@ var ItemPickup = cc.Sprite.extend({
   },
 
   setTouchEvent: function() {
-    easyTouchEnded(this, (pick) => pick.pickup());
+    easyTouchEnded(this, (pick) => pick.pickup(), { options: { priority: ee.EE_ITEM } });
   },
 
   toString: () => "ItemPickup",

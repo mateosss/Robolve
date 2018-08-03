@@ -8,6 +8,7 @@
     "_": true,
     "Debugger": true,
 
+    "ee": false,
     "easyTouchEnded": true,
     "easyTouchButton": true,
     "g_resources": true,

@@ -70,8 +70,8 @@ var Hud = cc.Layer.extend({
     this.addChild(this.it, 10);
 
     // Defense Details
-    this.dd = new DefenseDetails(this);
-    this.addChild(this.dd);
+    // this.dd = new DefenseDetails(this);
+    // this.addChild(this.dd);
 
     this.dialog = new Dialog(this, {type:"confirm", width: "80vw", height: "35vh", x: "center", y: "center"});
     this.dialog.addTo(this);
