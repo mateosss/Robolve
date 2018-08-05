@@ -97,7 +97,7 @@ var Robot = Computer.extend({
       level.willDrop--;
       this.dropRandomUnique();
     } else {
-      if (Math.random() < 0.4) this.dropRandomCoin();
+      if (Math.random() < 0.4) this.dropRandomWeightedCoin();
       else this.dropRandomGold();
     }
   },
@@ -105,13 +105,41 @@ var Robot = Computer.extend({
     let item = this.level.popRandomDrop();
     if (item.length === 0) {
       console.warn("This shouldn't be happening, trying to drop a unique item but they are depleted");
-      return this.dropRandomCoin();
+      return this.dropRandomWeightedCoin();
     }
     new ItemPickup(this.level.map, this.getPosition(), item[0], 1);
   },
   dropRandomCoin: function() {
     let coins = Object.values(Item.prototype.getItemsByCategory("coin"));
     new ItemPickup(this.level.map, this.getPosition(), _.randchoice(coins), 1);
+  },
+  dropRandomWeightedCoin: function() {
+    let coins = Object.values(Item.prototype.getItemsByCategory("coin"));
+
+    let rand = Math.random();
+    if (rand <= 0.4) { // 40% weighted coin
+      rand = rand * (10 / 4); // 0..0.4 to 0..1, save the use of Math.random again
+      let defenses = this.level.defenses;
+      let dcount = {electric: 0, fire: 0, water: 0}; // Amount of defenses per element
+      let tcount = defenses.length;
+      defenses.forEach(d => dcount[d.element]++);
+      // percentages of probability based on amount of defenses of that element
+      // if you have only water defenses the you will get just water coins,
+      // 1 fire 1 water, 50/50 probability, and so on
+      if (rand <= dcount.electric / tcount) {
+        new ItemPickup(this.level.map, this.getPosition(), coins[0], 1);
+      } else if (rand > dcount.electric / tcount && rand <= dcount.fire / tcount) {
+        new ItemPickup(this.level.map, this.getPosition(), coins[1], 1);
+      } else if (rand > (dcount.electric + dcount.fire) / tcount && rand <= dcount.water / tcount) {
+        new ItemPickup(this.level.map, this.getPosition(), coins[2], 1);
+      }
+    } else if (rand <= 0.6) { // 20% electric
+      new ItemPickup(this.level.map, this.getPosition(), coins[0], 1);
+    } else if (rand <= 0.8) { // 20% fire
+      new ItemPickup(this.level.map, this.getPosition(), coins[1], 1);
+    } else if (rand <= 1.0) { // 20% water
+      new ItemPickup(this.level.map, this.getPosition(), coins[2], 1);
+    }
   },
   dropRandomGold: function() {
     new ItemPickup(this.level.map, this.getPosition(), rb.items.gold, _.rand6intCenter(rb.prices.killRobot));
