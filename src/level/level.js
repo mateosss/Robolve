@@ -117,16 +117,17 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         event: cc.EventListener.TOUCH_ALL_AT_ONCE,
         onTouchesMoved: function (touches, event) {
           this.map = event.getCurrentTarget().map;
-          var touch = touches[0];
-          var delta = touch.getDelta();
-          this.map.moveMap(delta.x, delta.y);
+          let delta;
           if (touches.length > 1) {
-            //TODO make a good zoom method for gods sake
-            var initialDistance = cc.pDistance(touches[0].getStartLocation(), touches[1].getStartLocation());
-            var currentDistance = cc.pDistance(touches[0].getLocation(), touches[1].getLocation());
-            var zoomDelta = (currentDistance - initialDistance) * 0.0001;
+            delta = cc.pMidpoint(touches[0].getDelta(), touches[1].getDelta());
+            let initialDistance = cc.pDistance(touches[0].getPreviousLocation(), touches[1].getPreviousLocation());
+            let currentDistance = cc.pDistance(touches[0].getLocation(), touches[1].getLocation());
+            let zoomDelta = (currentDistance - initialDistance) * 0.001;
             this.map.zoomMap(zoomDelta);
+          } else {
+            delta = touches[0].getDelta();
           }
+          this.map.moveMap(delta.x, delta.y);
         }
       }, this);
     } else if ('mouse' in cc.sys.capabilities) {

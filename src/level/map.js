@@ -198,7 +198,7 @@ var TiledMap = cc.TMXTiledMap.extend({
   },
   zoomMap: function(zoomDelta) {
     var zoom = this.scale + zoomDelta;
-    if (zoom >= 0.15 && zoom <= 2.0) {
+    if (zoom >= 0.15 && zoom <= 1.0) {
       this.scale = zoom;
       // mapCenter = this.map.convertToWorldSpaceAR(this.map.getAnchorPoint());
       // difference = cc.pSub(mapCenter, this.clickLocation);
