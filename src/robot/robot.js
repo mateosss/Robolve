@@ -92,28 +92,16 @@ var Robot = Computer.extend({
     this.debugger.debug();
   },
   drop: function() { // Drops a pickable item to the ground
-    let totalRobotsKilled = this.level.totalRobotsKilled;
-    let dropChunkLength = this.level.dropChunkLength;
-    let dropChunkGiven = this.level.dropChunkGiven;
-
-    let currentChunk = Math.floor(totalRobotsKilled / dropChunkLength);
-    let nextChunk = Math.floor((totalRobotsKilled + 1) / dropChunkLength);
-    let sameChunk = nextChunk === currentChunk;
-    if (dropChunkGiven !== sameChunk) { // if item wasnt given this chunk and we are in the same chunk, or if it was given but we are in a new chunk, roll normally
-      if (!sameChunk) this.level.dropChunkGiven = false;
-      let rand = Math.random();
-      if (rand <= 0.1) this.dropRandomUnique();
-      else if (0.1 < rand && rand <= 0.4) this.dropRandomCoin();
-      else this.dropRandomGold();
-    }
-    else if (!dropChunkGiven && !sameChunk) this.dropRandomUnique();
-    else {
+    let level = this.level;
+    if (level.willDrop > 1 && level.remainingItemsToDrop.length > 0 && Math.random() < 0.25) {
+      level.willDrop--;
+      this.dropRandomUnique();
+    } else {
       if (Math.random() < 0.4) this.dropRandomCoin();
       else this.dropRandomGold();
     }
   },
   dropRandomUnique: function() {
-    this.level.dropChunkGiven = true;
     let item = this.level.popRandomDrop();
     if (item.length === 0) {
       console.warn("This shouldn't be happening, trying to drop a unique item but they are depleted");
