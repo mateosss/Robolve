@@ -6,7 +6,7 @@ var InfoText = cc.LabelTTF.extend({
     this.hud = hud;
 
     let s = cc.winSize;
-    this.setString("Defense Selector");
+    this.setString("Press the plus button to build something");
     this.setFontName(r.getDefaultFont());
     this.setFontSize(32);
     let d = this.hud.bottombarLayout.getSize();
@@ -19,6 +19,7 @@ var InfoText = cc.LabelTTF.extend({
   },
   toString: () => "InfoText",
   message: function(message, duration) {
+    this.stopAllActions();
     duration = duration || 3;
     this.setOpacity(0);
     var changeText = new cc.CallFunc((it, msg) => it.setString(msg), this, message);

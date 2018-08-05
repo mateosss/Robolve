@@ -205,30 +205,39 @@ var Character = cc.Sprite.extend({
     else return this.sSpeed; // Default range for reaching a point
   },
   refreshStatusIcon: function() {
+    let status = this.getStatus();
+    if (status === "still") {
+      this.level.hud.charStatus.setup({button: "purpleRound", icon: "human-child"}); // still
+    } else if (status === "build") {
+      this.level.hud.charStatus.setup({button: "limeRound", icon: "hammer"}); // building
+    } else if (status === "repair") {
+      this.level.hud.charStatus.setup({button: "greenRound", icon: "wrench"}); // repairing
+    } else if (status === "improve") {
+      this.level.hud.charStatus.setup({button: "orangeRound", icon: "arrow-up-bold"}); // improving
+    } else if (status === "attack") {
+      this.level.hud.charStatus.setup({button: "redRound", icon: "sword"}); // attacking
+    } else if (status === "move") {
+      this.level.hud.charStatus.setup({button: "Round", icon: this.canRun() ? "run" : "walk"}); // move
+    }
+  },
+  getStatus: function() {
+    // HACK: The concept of status is a hack for what states should be really doing, but
+    // for example if the character goBuild, the state setted is "move" not "build", even though
+    // what the character is doing in general terms is building
+    if (!this.sm.getMainState()) return "still"; // HACK I don't set a default state to the character at the beginning
     let state = this.sm.getMainState().name;
     let target = this.target;
-    if (state === "still") {
-      this.level.hud.charStatus.setup({button: "purpleRound", icon: "human-child"}); // still
-    } else if (state === "build") {
-      this.level.hud.charStatus.setup({button: "limeRound", icon: "hammer"}); // building
-    } else if (state === "repair") {
-      this.level.hud.charStatus.setup({button: "greenRound", icon: "wrench"}); // repairing
-    } else if (state === "improve") {
-      this.level.hud.charStatus.setup({button: "orangeRound", icon: "arrow-up-bold"}); // improving
-    } else if (state === "attack") {
-      this.level.hud.charStatus.setup({button: "redRound", icon: "sword"}); // attacking
-    } else if (state === "move") {
+
+    if (state === "move") {
       if (target instanceof Defense) {
         if (target.isBuilt()) {
-          if (target.sm.isInState('improve')) this.level.hud.charStatus.setup({button: "orangeRound", icon: "arrow-up-bold"}); // improving
-          else this.level.hud.charStatus.setup({button: "greenRound", icon: "wrench"}); // repairing
-        } else this.level.hud.charStatus.setup({button: "limeRound", icon: "hammer"}); // building
-      } else if (target instanceof Robot) {
-        this.level.hud.charStatus.setup({button: "redRound", icon: "sword"}); // attacking
-      } else {
-        this.level.hud.charStatus.setup({button: "Round", icon: this.canRun() ? "run" : "walk"}); // move
+          if (target.sm.isInState('improve')) return "improve";
+          else return "repair";
+        } else return "build";
       }
-    }
+      else if (target instanceof Robot) return "attack";
+      else return "move";
+    } else return state;
   },
   canRun: function() { return this.sSpeed >= 4; },
   isTargetInRange: function() {

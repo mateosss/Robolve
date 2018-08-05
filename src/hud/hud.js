@@ -35,7 +35,18 @@ var Hud = cc.Layer.extend({
     this.bottombarLayout = new Panel({width: "100pw + -100ph + 11px", padding: "11px"});
     this.bottombarLayout.addTo(this.bottombar, -1);
 
-    this.charStatus = new Button({button: "purpleRound", callback: () => this.level.character.sm.setDefaultState(), bottom: "20px", left: "16px", height: "65ph", width: "65ph", icon:"human-child", iconFontSize: 64, scale: 0.75});
+    // Info Text
+    this.it = new InfoText(this);
+    this.addChild(this.it, 10);
+
+    this.charStatus = new Button({button: "purpleRound", callback: () => {
+      let char = this.level.character;
+      let status = char.getStatus();
+      if (status === "still") {
+        this.it.message("Cancels an ongoing action if any");
+      } else this.it.message(_.capitalize(status) + " canceled");
+      char.sm.setDefaultState();
+    }, bottom: "20px", left: "16px", height: "65ph", width: "65ph", icon:"human-child", iconFontSize: 64, scale: 0.75});
     this.charStatus.addTo(this.bottombarLayout);
 
 
@@ -46,7 +57,7 @@ var Hud = cc.Layer.extend({
     this.console.addTo(this);
     this.console.background = new Panel({scale: 0.75, width: "100pw + -100ph + -11px"});
     this.console.background.addTo(this.console);
-    this.console.textField = new TextField({placeholder: "Insert command", width: "100pw", x: "center", y: "28px", fontSize: 32});
+    this.console.textField = new TextField({placeholder: "Insert cheat code", width: "100pw", x: "center", y: "28px", fontSize: 32});
     this.console.textField.addTo(this.console.background);
     this.console.submit = new Button({callback: () => {
       let cmd = this.console.textField.getString();
@@ -56,7 +67,7 @@ var Hud = cc.Layer.extend({
     this.console.submit.addTo(this.console);
     this.console.visible = false;
 
-    this.save = new Button({button: "lightBlue", callback: () => {SaveLoad.save(this.inventory.inventory); this.it.message("Saved");}, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"content-save", iconFontSize: 72, scale: 0.75});
+    this.save = new Button({button: "lightBlue", callback: () => {SaveLoad.save(this.inventory.inventory); this.it.message("Saved (not really :)");}, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"content-save", iconFontSize: 72, scale: 0.75});
     this.save.addTo(this.bottombarLayout);
 
     this.openInventory = new Button({button: "amber", callback: () => this.inventory.toggle(), x: "-125ph", bottom: "20px", right: "30px", height: "65ph", width: "65ph", icon:"treasure-chest", iconFontSize: 72, scale: 0.75});
@@ -64,10 +75,6 @@ var Hud = cc.Layer.extend({
 
     this.openCharSheet = new Button({button: "pink", callback: () => this.cs.toggle(), x: "-62.5ph", bottom: "20px", right: "20px", height: "65ph", width: "65ph", icon:"robot", iconFontSize: 72, scale: 0.75});
     this.openCharSheet.addTo(this.bottombarLayout);
-
-    // Info Text
-    this.it = new InfoText(this);
-    this.addChild(this.it, 10);
 
     // Defense Details
     // this.dd = new DefenseDetails(this);
