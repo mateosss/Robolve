@@ -16,11 +16,11 @@ var Robot = Computer.extend({
   ]),
   PARTS: { // Necessary info for the parts to make a robot
     head: {plural: "heads", z: 2, partName: robot => robot.element + ["Weak", "Normal", "Strong"][robot.damage]},
-    middle: {plural: "middles", z: 1, partName: robot => ["weak", "normal", "strong"][robot.life]},
+    middle: {plural: "middles", z: 1, partName: robot => robot.element + ["Weak", "Normal", "Strong"][robot.life]},
     arml: {plural: "armsl", z: 3, partName: robot => robot.element + ["Mele", "Range"][robot.range] + "L"},
     armr: {plural: "armsr", z: 0, partName: robot => robot.element + ["Mele", "Range"][robot.range] + "R"},
-    legl: {plural: "legsl", z: 0, partName: robot => ["walk", "fly"][robot.terrain] + "L"},
-    legr: {plural: "legsr", z: 0, partName: robot => ["walk", "fly"][robot.terrain] + "R"},
+    legl: {plural: "legsl", z: 0, partName: robot => robot.element + "L"},
+    legr: {plural: "legsr", z: 0, partName: robot => robot.element + "R"},
   },
   STATES: [ // Possible states for this robot
     rb.states.robot.walk, // The first is the state executed on startup
