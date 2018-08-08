@@ -584,8 +584,8 @@ Format (variables between \<\> should be calculated after each day/task)
 
 # (30:00 hs) Julio Semana 29 []
 
-  - 2018-07-29 Do -
-    - 12:25 - 13:45 | item.id prop
+  - 2018-07-29 Do - 01:30 hs
+    - 12:20 - 13:50 | item.id prop
 
   - 2018-07-30 Lu - 05:00 hs
     - 13:40 - 16:00 | Viendo pointing
@@ -597,18 +597,45 @@ Format (variables between \<\> should be calculated after each day/task)
     - 13:00 - 15:00 | More bugs, including the equipbar one, it seems to be working properly now
     - 21:50 - 22:00 | Improved a bug? detected some bugs in android, needs investigation
 
-  - 2018-08-01 Mi - 06:10 hs
+  - 2018-08-01 Mi - 06:00 hs
     - 12:00 - 13:30 | Solucionando un bug del GA
-    - 16:15 - 17:30 | Char status icon
+    - 16:25 - 17:30 | Char status icon
     - 20:05 - 21:30 | Arreglando bugs de inventory mods list
     - 22:00 - 22:40 | Mas bugs de texto parcheados
     - 22:40 | 00:00 | Bugs de placement resueltos
 
-  - 2018-08-02 Ju - 04:35 hs
+  - 2018-08-02 Ju - 04:30 hs
     - 10:00 - 12:00 | Viendo lo del zOrder
     - 13:00 - 14:00 | Terminado lo de zOrder por ahora
-    - 14:00 - 14:25 | zOrder solving bugs nativo
+    - 14:00 - 14:20 | zOrder solving bugs nativo
     - 18:30 - 19:40 | Blocking unique touches
 
-  - 2018-08-03 Vi -
+  - 2018-08-03 Vi - 01:00 hs
     - 12:10 - 12:35 | Solucionado bug donde desaparecian items al pickear con inventario casi lleno
+    - 12:35 - 13:10 | Viendo que hacer
+
+  - 2018-08-04 Sa - 02:00 hs
+    - 22:00 - 00:00 | Bug de zoom debugeando
+
+# (30:00 hs) Agosto Semana 6 []
+
+  - 2018-08-05 Do - 09:30 hs
+    - 11:00 - 12:50 | Sigo debugeando bug de zoom
+    - 13:10 - 15:50 | Mas debug, no pude arreglarlo, lo mejore creo, y muchos cambios chicos antes de mandarlo a beers
+    - 15:50 - 18:00 | Varios cambios antes de mandar a beers y mandado para testing
+    - 18:30 - 19:40 | Skype con andres + feedback de beers, a full con el QA
+    - 22:40 - 00:20 | Repriorizando cosas para la última semana antes de empezar las clases
+
+  - 2018-08-06 Lu -
+    - 22:00 - 02:30 | Empezados y terminados modelos de robots
+    
+  - 2018-07-07 Ma -
+    - 16:30 - 21:00 | Arreglando los renders de los robots
+
+# BUG's & TODO's
+- Screen freezes sometimes, both the event listener of level and map stops working for some reason, it happens in this transition of commits
+  bb8bd91 (it definitely frozes)
+  9d5a631 (? one time it froze)
+  --Above this line the commits freeze
+  3e69267
+  1521b88
