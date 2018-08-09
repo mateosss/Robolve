@@ -634,7 +634,8 @@ Format (variables between \<\> should be calculated after each day/task)
 
   - 2018-08-08 Mi -
     - 11:00 - 13:00 | Viendo como arreglar "gradiente" en el render de cilindro
-
+    - 17:10 - 19:20 |
+    - 20:20 - 21:20 | Gameplay adjustmenets y pensando en el tutorail
 # BUG's & TODO's
 - Screen freezes sometimes, both the event listener of level and map stops working for some reason, it happens in this transition of commits
   bb8bd91 (it definitely frozes)

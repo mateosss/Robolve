@@ -16,7 +16,7 @@ var Character = cc.Sprite.extend({
   sBuildRange: 75, // Range for starting to build/repair/improve in units
   sBuildTime: 10.0, // Amount of seconds that it takes to build an new defense
   sImproveTime: 5.0, // Amount of seconds that it takes to improve a defense's stat
-  sRepairAmount: 50, // Amount of life healed (repaired) to a defense in one second
+  sRepairAmount: 100, // Amount of life healed (repaired) to a defense in one second
   sAttackRange: 75, // Attack range in units, it is used half of this for reaching a target, and then this one is used
   sAttackSpeed: 1.0, // Amount of hits per seconds to a robot
   sDamage: 50, // Amount of damage per hit

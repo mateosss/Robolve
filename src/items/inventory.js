@@ -64,11 +64,11 @@ var Inventory = cc.Class.extend({
     }
   },
 
-  getItemQuantity: function(item) {
+  getItemQuantity: function(item) { // Returns the `item` in the inventary
     return this.items.reduce((t, i) => t + (i.item.isEqual(item) ? i.quantity : 0), 0);
   },
 
-  equipedIndex: function(item) {
+  equipedIndex: function(item) { // Finds the first stack index of `item` items
     return this.getEquipedStacks().findIndex(s => s.item.isEqual(item));
   },
 
@@ -76,8 +76,16 @@ var Inventory = cc.Class.extend({
     return this.equiped;
   },
 
-  getEquipedStacks: function() {
+  getEquipedStacks: function() { // List of equiped stacks
     return this.items.slice(0, this.equiped);
+  },
+
+  isFull: function() { // Is the inventory full?
+    return this.items.length >= this.capacity;
+  },
+
+  isFullEquiped: function() { // Is equiped capacity reached?
+    return this.equiped >= this.equipedCapacity;
   },
 
   toString: () => "Inventory",
