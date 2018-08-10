@@ -626,19 +626,24 @@ Format (variables between \<\> should be calculated after each day/task)
     - 18:30 - 19:40 | Skype con andres + feedback de beers, a full con el QA
     - 22:40 - 00:20 | Repriorizando cosas para la última semana antes de empezar las clases
 
-  - 2018-08-06 Lu -
+  - 2018-08-06 Lu - 04:30 hs
     - 22:00 - 02:30 | Empezados y terminados modelos de robots
 
-  - 2018-08-07 Ma -
+  - 2018-08-07 Ma - 04:30 hs
     - 16:30 - 21:00 | Arreglando los renders de los robots
 
-  - 2018-08-08 Mi -
+  - 2018-08-08 Mi - 05:00 hs
     - 11:00 - 13:00 | Viendo como arreglar "gradiente" en el render de cilindro
-    - 17:10 - 19:20 |
+    - 17:10 - 18:40 | Render settings y tiles
+    - 19:00 - 19:30 | Jugando con gradientes de fondo
     - 20:20 - 21:20 | Gameplay adjustmenets y pensando en el tutorail
 
-  - 2018-08-09 Ju -
-    - 16:30 - 22:50 | Screen freeze bug and stuff
+  - 2018-08-09 Ju - 06:30 hs
+    - 16:30 - 23:00 | Screen freeze bug and stuff
+
+  - 2018-08-10 Vi -
+    - 16:00 - 18:00 | Nuevos colores de tiles mas chillones
+
 # BUG's & TODO's
 
 - Screen freezes sometimes, both the event listener of level and map stops working for some reason, it happens in this transition of commits

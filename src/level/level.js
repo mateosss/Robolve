@@ -26,7 +26,8 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   remainingItemsToDrop: null, // The remaining unique items to drop
   willDrop: 0, // Counter that if it is greater than 1, it is  very likely to drop a unique item from remainingItemsToDrop
   ctor:function (mapRes) {
-    this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
+    // this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
+    this._super(cc.hexToColor("#4FC3F7"), cc.hexToColor("#0288D1"));
     this.map = new TiledMap(this, mapRes);
     this.addChild(this.map, 1);
 
@@ -159,7 +160,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         },
         onMouseScroll: function(event) {
           this.map = event.getCurrentTarget().map;
-          var zoomDelta = event.getScrollY() * (cc.sys.isNative ? 0.02 : 0.0001);
+          var zoomDelta = event.getScrollY() * (cc.sys.isNative ? 0.04 : 0.0001);
           this.map.zoomMap(zoomDelta);
         },
       }, this);

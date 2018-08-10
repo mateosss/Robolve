@@ -15,6 +15,8 @@ This folder contains automated blend files and other assets that helps with the 
 
 General Rules:
 
+  - The lamp emission is 6.59 and has a strategic position, because it makes the color of the
+    top face material be the same as the diffuse color (got by try and error)
   - Distance of multiples of 8
   - Put an asterisk in a object name if it is a meta object, like a lamp or
     an empty, that way it will be always i
