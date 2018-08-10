@@ -399,7 +399,7 @@ var rb = {
       stackLimit: 1,
       equipable: true,
       mods: {
-        "sRepairAmount": +400,
+        "sRepairAmount": +200,
       }
     }),
     runner: new Item({
@@ -486,7 +486,7 @@ var rb = {
       stackLimit: 1,
       equipable: true,
       mods: {
-        "sRepairAmount": +200,
+        "sRepairAmount": +100,
         "sImproveTime": -2,
         "sBuildTime": -3,
       }
@@ -500,7 +500,7 @@ var rb = {
       stackLimit: 1,
       equipable: true,
       mods: {
-        "sRepairAmount": +300,
+        "sRepairAmount": +125,
         "sSpeed": +5,
       }
     }),
