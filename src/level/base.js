@@ -30,7 +30,7 @@ var Base = Defense.extend({
   assembleParts: function() { // TODO Hack for getting Part to work with Base, should be removed when there are real bases sprites
     if (!this.part) {
       this.part = new cc.Sprite(r.base);
-      this.part.setAnchorPoint(0.5, 0.1);
+      this.part.setAnchorPoint(0.5, 0.15625);
       this.addChild(this.part);
     }
   },

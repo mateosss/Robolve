@@ -216,6 +216,8 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   setBase: function(base) {
     this.map.spawn(base, null, 7);
     this.base = base;
+    this.base.x += 64; // HACK
+    this.base.y += 32; // HACK
   },
   setCharacter: function(character) {
     this.map.spawn(character, null, 7);
