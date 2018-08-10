@@ -628,7 +628,7 @@ Format (variables between \<\> should be calculated after each day/task)
 
   - 2018-08-06 Lu -
     - 22:00 - 02:30 | Empezados y terminados modelos de robots
-    
+
   - 2018-08-07 Ma -
     - 16:30 - 21:00 | Arreglando los renders de los robots
 
@@ -636,10 +636,13 @@ Format (variables between \<\> should be calculated after each day/task)
     - 11:00 - 13:00 | Viendo como arreglar "gradiente" en el render de cilindro
     - 17:10 - 19:20 |
     - 20:20 - 21:20 | Gameplay adjustmenets y pensando en el tutorail
+
+  - 2018-08-09 Ju -
+    - 16:30 - 22:50 | Screen freeze bug and stuff
 # BUG's & TODO's
+
 - Screen freezes sometimes, both the event listener of level and map stops working for some reason, it happens in this transition of commits
-  bb8bd91 (it definitely frozes)
-  9d5a631 (? one time it froze)
-  --Above this line the commits freeze
-  3e69267
-  1521b88
+  Advances: replace the positionTarget property in map for a direct replacement of x and y for seeing better what happens
+  It seems that when the map reaches a certain Y position near the bottom of the screen, it freezes, it can be repaired by reseting
+  the map position, doesnt seem to happen on linux, just android. TLDR; it is related to map Y position, not zoom.
+  More advances: Parece que tiene que ver con el origin de la Base, por que? no se, pero cuando llevas el origin ese bien al borde inferior de la pantalla, se tilda

@@ -2,13 +2,16 @@ var TiledMap = cc.TMXTiledMap.extend({
   // zOrders from 0..200000 are reserved from things affected by perspective like robots, defenses, etc.
   level: null,
   CHILD_SCALE: 0.8,
-  positionTarget: cc.p(cc.director.getWinSize().width / 2, cc.director.getWinSize().height / 2),
+  positionTarget: null, // The map tries to follow this point with a smooth delay
   ctor: function(level, tmxMap){
     this.level = level;
     this._super(tmxMap);
-    this.scale = 0.15;
+    this.scale = 0.05;
     this.setAnchorPoint(0.5, 0.5);
     this.scheduleUpdate();
+    this.setPosition(cc.p(cc.winSize.width / 2, cc.winSize.height / 2));
+    this.positionTarget = this.getPosition();
+    this.runAction(new cc.Sequence(new cc.DelayTime(0.5), new cc.EaseBackOut(new cc.ScaleTo(1, 0.25))));
 
     easyTouchEnded(this, function(map, event) {
       var btnRect = map.level.hud.ds.confirm.getBoundingBoxToWorld();
@@ -32,6 +35,10 @@ var TiledMap = cc.TMXTiledMap.extend({
         map.selectTile(tile, color);
       }
     }, {options: {passEvent: true}});
+  },
+  zoomFit: function() {
+    this.runAction(new cc.EaseBackOut(new cc.ScaleTo(0.4, 0.25)));
+    this.positionTarget = cc.p(cc.winSize.width / 2, cc.winSize.height / 2);
   },
   toString: () => "Map",
   zOrderFromPos: pos => pos.x + (1280 - pos.y) * 128,
@@ -198,7 +205,7 @@ var TiledMap = cc.TMXTiledMap.extend({
   },
   zoomMap: function(zoomDelta) {
     var zoom = this.scale + zoomDelta;
-    if (zoom >= 0.15 && zoom <= 1.0) {
+    if (zoom >= 0.15 && zoom <= 2.0) {
       this.scale = zoom;
       // mapCenter = this.map.convertToWorldSpaceAR(this.map.getAnchorPoint());
       // difference = cc.pSub(mapCenter, this.clickLocation);
@@ -211,7 +218,7 @@ var TiledMap = cc.TMXTiledMap.extend({
     }
   },
   moveMap: function(x, y) {
-    let winSize = cc.director.getWinSize();
+    let winSize = cc.winSize;
     let mapHalfWidth = (this.width * this.scale) / 2;
     let mapHalfHeight = (this.height * this.scale) / 2;
 
@@ -223,25 +230,16 @@ var TiledMap = cc.TMXTiledMap.extend({
     let newX = this.positionTarget.x + x;
     let newY = this.positionTarget.y + y;
 
-    if (newX < maxLeft) {
-      newX = maxLeft;
-    }
-    if (newX > maxRight) {
-      newX = maxRight;
-    }
-
-    if (newY < maxDown) {
-      newY = maxDown;
-    }
-    if (newY > maxUp) {
-      newY = maxUp;
-    }
+    if (newX < maxLeft) newX = maxLeft;
+    if (newX > maxRight) newX = maxRight;
+    if (newY < maxDown) newY = maxDown;
+    if (newY > maxUp) newY = maxUp;
 
     this.positionTarget.x = newX;
     this.positionTarget.y = newY;
   },
   update: function(deltaTime){
-    this.x = (this.positionTarget.x - this.x) * deltaTime * 16 + this.x;
-    this.y = (this.positionTarget.y - this.y) * deltaTime * 16 + this.y;
+    this.x = (this.positionTarget.x - this.x) * 0.033 * 16 + this.x;
+    this.y = (this.positionTarget.y - this.y) * 0.033 * 16 + this.y;
   },
 });

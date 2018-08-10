@@ -15,7 +15,6 @@ var Base = Defense.extend({
     this._super(level, baseDna);
     this.setBuilt();
     this.scale = 1.5;
-    this.setColor(cc.color(0, 150, 255));
   },
 
   debug: function(){

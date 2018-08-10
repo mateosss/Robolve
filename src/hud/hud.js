@@ -69,6 +69,8 @@ var Hud = cc.Layer.extend({
 
     this.save = new Button({button: "lightBlue", callback: () => {SaveLoad.save(this.inventory.inventory); this.it.message("Saved (not really :)");}, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"content-save", iconFontSize: 72, scale: 0.75});
     this.save.addTo(this.bottombarLayout);
+    this.centerMap = new Button({button: "lightBlue", callback: () => this.level.map.zoomFit(), x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"image-filter-center-focus", iconFontSize: 72, scale: 0.75});
+    this.centerMap.addTo(this.bottombarLayout);
 
     this.openInventory = new Button({button: "amber", callback: () => this.inventory.toggle(), x: "-125ph", bottom: "20px", right: "30px", height: "65ph", width: "65ph", icon:"treasure-chest", iconFontSize: 72, scale: 0.75});
     this.openInventory.addTo(this.bottombarLayout);
@@ -83,14 +85,14 @@ var Hud = cc.Layer.extend({
     this.dialog = new Dialog(this, {type:"confirm", width: "80vw", height: "35vh", x: "center", y: "center"});
     this.dialog.addTo(this);
 
-    this.waveText = new Badge({bgImage: r.ui.panel_out, text: _.format("Wave\n{}/{}", 1, this.level.cWave + 1, this.level.wavesCounts.length), textFontSize: 48, bottom: "20px", left: "16px + 5px + 65ph", height: "50ph", width: "100ph", y: "11px", scale: 0.5});
+    this.waveText = new Badge({bgImage: r.ui.panel_out, text: _.format("Wave\n{}/{}", 1, this.level.cWave + 1, this.level.wavesCounts.length), textFontSize: 72, bottom: "20px", left: "16px + 5px + 65ph", height: "50ph", width: "100ph", y: "11px", scale: 0.35});
     this.waveText.addTo(this.bottombarLayout);
     let text = this.waveText.getTitleRenderer();
-    text.setLineHeight(48);
+    text.setLineHeight(72);
     text.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
     this.waveText.refresh = () => {
       this.waveText.setup({text: _.format("Wave\n{}/{}", this.level.cWave + 1, this.level.wavesCounts.length)});
-      if (cc.sys.isNative) text.y += 11;
+      if (cc.sys.isNative) text.y += 16.5;
     };
     this.waveText.refresh();
 
