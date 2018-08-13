@@ -73,7 +73,7 @@ var rb = {
       },
       idle: {
         name: 'idle',
-        animation: function() { this.setAnimation('idle', 1 / (8 * this.sAttackSpeed)); }
+        animation: function() { this.setAnimation('idle', 1 / (16 * this.sAttackSpeed)); }
       },
       attack: {
         name: 'attack',

@@ -21,7 +21,7 @@ var Defense = Computer.extend({
   PARTS: { // Necessary info for the parts to make a defense
     head: {plural: "heads", z: 2, partName: defense => defense.element + ["Weak", "Normal", "Strong"][defense.damage]},
     middle: {plural: "middles", z: 1, partName: defense => defense.element + ["Weak", "Normal", "Strong"][defense.life]},
-    base: {plural: "bases", z: 0, partName: defense => defense.element + ["Walk", "Fly"][defense.terrain]}
+    base: {plural: "bases", z: 0, partName: defense => defense.element + ["Weak", "Normal", "Strong"][defense.range]}
   },
   STATES: [ // Possible states for this defense
     rb.states.defense.build,

@@ -70,12 +70,16 @@ var r = { // resources variable
     campingEssentials: "res/sprites/items/campingEssentials.png",
     coffee: "res/sprites/items/coffee.png",
   },
-  parts_png_0: "res/sprites/parts_0.png",
-  parts_plist_0: "res/sprites/parts_0.plist",
-  parts_png_1: "res/sprites/parts_1.png",
-  parts_plist_1: "res/sprites/parts_1.plist",
+  // parts_png_0: "res/sprites/parts_0.png",
+  // parts_plist_0: "res/sprites/parts_0.plist",
+  // parts_png_1: "res/sprites/parts_1.png",
+  // parts_plist_1: "res/sprites/parts_1.plist",
   character_png: "res/sprites/character.png",
   character_plist: "res/sprites/character.plist",
+  robots_png: "res/sprites/robots.png",
+  robots_plist: "res/sprites/robots.plist",
+  defenses_png: "res/sprites/defenses.png",
+  defenses_plist: "res/sprites/defenses.plist",
 };
 
 var g_resources = [];

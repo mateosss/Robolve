@@ -643,6 +643,16 @@ Format (variables between \<\> should be calculated after each day/task)
 
   - 2018-08-10 Vi -
     - 16:00 - 18:00 | Nuevos colores de tiles mas chillones
+    - 18:00 - 19:10 |
+
+  - 2018-08-11 Sa -
+    - 11:00 - 12:00 | Viendo tema de defensas nuevas
+    - 15:25 - 21:25 | Parts de nuevas defenss de fuego hechas, animadas y renderizadas
+
+  - 2018-08-12 Do -
+    - 13:00 - 14:30 | Electric defense model done
+    - 16:50 - 18:30 | Water model done with bugs in animations
+	  - 18:45 - 23:00 | Gameplay video for superbatata retro, redenring things, loadingscreen, tutorial screenplay, planning the last week.
 
 # BUG's & TODO's
 
