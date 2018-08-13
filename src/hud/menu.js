@@ -103,19 +103,38 @@ var Menu = cc.LayerGradient.extend({
     this.storeGoBack = new Button({callback: () => this.showMain(), button: "blueGray", text: "Go Back", width: "60pw", height: "17.5pw", x: "center", y: "32px"});
     this.storeGoBack.addTo(this.storeBottomHalf);
 
+    // Loading screen
+    this.loadingContainer = new Layout({visible: false});
+    this.loadingContainer.addTo(this);
+    this.loadingContainer.setBackGroundColorType(ccui.Layout.BG_COLOR_SOLID);
+    this.loadingContainer.setBackGroundColor(new cc.Color(156, 39, 176, 255));
+
+    this.loadingIcon = new Icon({icon: "timer-sand", x: "center", fontSize: 256, y: "75ph + -128px"});
+    this.loadingIcon.addTo(this.loadingContainer);
+
+    this.loadingText = new Text({text: "Loading...", x: "center", y: "center", fontSize: 64});
+    this.loadingText.addTo(this.loadingContainer);
+
+    this.loadingHint = new Text({x: "center", y: "64px", fontSize: 24});
+    this.loadingHint.addTo(this.loadingContainer);
+
     this.showMain();
     return true;
   },
   startGame: function(level) {
-    cc.spriteFrameCache.addSpriteFrames(r.parts_plist_0);
-    cc.spriteFrameCache.addSpriteFrames(r.parts_plist_1);
-    cc.spriteFrameCache.addSpriteFrames(r.character_plist);
-    cc.director.runScene(new cc.TransitionFade(1, new GameLevel(r.maps['map' + (level + 1)])));
+    this.showLoading();
+    setTimeout(() => {
+      cc.spriteFrameCache.addSpriteFrames(r.robots_plist);
+      cc.spriteFrameCache.addSpriteFrames(r.defenses_plist);
+      cc.spriteFrameCache.addSpriteFrames(r.character_plist);
+      cc.director.runScene(new cc.TransitionFade(1, new GameLevel(r.maps['map' + (level + 1)])));
+    });
   },
   showMain: function() {
     this.mainContainer.setup({visible: true});
     this.mapsContainer.setup({visible: false});
     this.storeContainer.setup({visible: false});
+    this.loadingContainer.setup({visible: false});
     if (!cc.sys.isNative || !this.mainContainer.textCorrected) {
       this.mainContainer.textCorrected = true;
       if (cc.sys.isNative) {
@@ -136,10 +155,28 @@ var Menu = cc.LayerGradient.extend({
     this.mainContainer.setup({visible: false});
     this.mapsContainer.setup({visible: true});
     this.storeContainer.setup({visible: false});
+    this.loadingContainer.setup({visible: false});
   },
   showStore: function() {
     this.mainContainer.setup({visible: false});
     this.mapsContainer.setup({visible: false});
     this.storeContainer.setup({visible: true});
+    this.loadingContainer.setup({visible: false});
+  },
+  showLoading: function() {
+    this.mainContainer.setup({visible: false});
+    this.mapsContainer.setup({visible: false});
+    this.storeContainer.setup({visible: false});
+    this.loadingContainer.setup({visible: true});
+    let hint = _.randchoice([
+      "Deadlines can force you to skip some obvious details.",
+      "There are more than 50% chance that 2 of 23 people\nhave their birthdays on the same day",
+      "Metahumor is not seen as true comedy by some people.",
+      "No body really reads these hints.",
+      "I spent more than 400 hundred hours of\nmy life in making this. You better like it",
+      "Almost nobody read these tips, so you must\nbe one in many, good for you.",
+      "The average time it takes to load the game\nmakes this tips completely unreadable",
+    ]);
+    this.loadingHint.setup({text: "Did you know?\n" + hint});
   },
 });
