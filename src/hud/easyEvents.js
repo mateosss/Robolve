@@ -17,6 +17,7 @@ var easyTouchEnded = function(pressObj, exec) {
   - {options:{}}: it has to be the last parameter, and inside options:{}, you put the next options
   - invertedArea: boolean, true if you want to detect the touch when anything is touched except the pressObj
   - passEvent: boolean, true if you want the touch event to be passed as the second argument of the function
+  - rectFunction: If you want to use a different function from getBoundingBoxToWorld, will be called with pressObj as its context
   */
   // TODO hay muchisimos event listeners no se si esta bien eso, osea el hecho de que se crea uno nuevo cada vez que ejecuto easyTouchEnded
   var optionsPos = Array.prototype.findIndex.call(arguments, function(arg){
@@ -29,9 +30,10 @@ var easyTouchEnded = function(pressObj, exec) {
   var passEvent = options.passEvent || false;
   var priority = options.priority || ee.EE_NONE;
   var params = Array.prototype.slice.call(arguments, 2);
+  var rectFunction = options.rectFunction || pressObj.getBoundingBoxToWorld;
   var reaction = function (event){
     var location = event.getLocation();
-    var touchInArea = cc.rectContainsPoint(pressObj.getBoundingBoxToWorld(), cc.p(location.x, location.y));
+    var touchInArea = cc.rectContainsPoint(rectFunction.call(pressObj), cc.p(location.x, location.y));
     if (touchInArea == invertedArea){
       return false;
     } else {

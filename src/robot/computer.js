@@ -272,6 +272,18 @@ var Computer = cc.Sprite.extend({
   refreshZOrder: function() {
     this.zIndex = TiledMap.prototype.zOrderFromPos(this);
   },
+  getCustomBoundingBoxToWorld: function() {
+    let rect = this.getBoundingBoxToWorld();
+    let scaleh = 0.75;
+    let scalew = 0.4;
+    let w = rect.width;
+    let h = rect.height;
+    rect.width *= scalew;
+    rect.height *= scaleh;
+    rect.x += w * (1 - scalew) / 2;
+    rect.y += h * (1 - scaleh) / 2;
+    return rect;
+  },
   hurt: function(attacker) {
     // This function calculates the total damage of the received attack depending
     // on the attacker properties, and does some things in reaction

@@ -66,9 +66,16 @@ var Base = Defense.extend({
         var increase = new cc.ScaleBy(0.05, 1.2);
         var decrease = new cc.ScaleBy(0.15, 1 / 1.2);
         base.runAction(new cc.Sequence(increase, decrease));
-        base.level.hud.it.message("Don't let those pieces of trash destroy my base");
+        base.level.hud.it.message(_.randchoice([
+          "Don't let those pieces of trash destroy me",
+          "What are you looking at?",
+          "Come on, your eyes on the game",
+          "I will not move until you win",
+          "Hey, be careful where you put your finger",
+          "Hey! that hurts",
+        ]));
       }
-    });
+    }, { options: { priority: ee.EE_INDIVIDUAL, rectFunction: this.getCustomBoundingBoxToWorld } });
   },
 
   die: function() {

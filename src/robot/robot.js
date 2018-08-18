@@ -47,7 +47,7 @@ var Robot = Computer.extend({
         robot.runAction(new cc.Sequence(increase, decrease));
         robot.level.character.goAttack(robot);
       }
-    }, { options: { priority: ee.EE_INDIVIDUAL } });
+    }, { options: { priority: ee.EE_INDIVIDUAL, rectFunction: this.getCustomBoundingBoxToWorld } });
   },
   getTarget: function() {
     // This function returns the defense to which this robot has to attack
