@@ -35,7 +35,7 @@ var Defense = Computer.extend({
   ctor:function(level, life, element, range, terrain, damage, attackSpeed, isDummy) {
     if (arguments.length === 0) return;
     this._super.apply(this, arguments);
-    this.setAnchorPoint(0.5, 0.15625); // TODO quirk because of the bad tiles proportions
+    this.setAnchorPoint(0.5, 0.2); // TODO quirk because of the bad tiles proportions
     if (!isDummy) this.realDefenseInit();
     this.isDummy = isDummy;
   },

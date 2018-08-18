@@ -18,7 +18,7 @@ var Part = cc.Sprite.extend({
       this[prop] = computer.PARTS[type][prop];
     }
     this._super(cc.spriteFrameCache.getSpriteFrame(this.getDefaultSprite()));
-    this.setAnchorPoint(0.5, 0.15625);
+    this.setAnchorPoint(0.5, 0.2);
   },
   toString: () => "Part",
   getPartName: function() { // Returns the name of the sprite based on parent computer dna. e.g: electricRangeL

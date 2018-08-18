@@ -73,7 +73,8 @@
 
     </style>
 </head>
-<body style="padding:0; margin: 0; background: #263238;">
+<body id="canvasContainerOnFull" style="padding:0; margin: 0; background: #263238;">
+  <div id="pageContainer" style="">
   <aside class="mdc-dialog" id="subscribe-alert">
     <div class="mdc-dialog__surface" style="height: 156px; width: 164px">
       <p class="mdc-typography--body1" style="padding: 2rem">You were correctly subscribed!</p>
@@ -149,7 +150,7 @@
 
     </div>
 
-    <div class="mdc-layout-grid__cell">
+    <div id="canvasContainerOnDesktop" class="mdc-layout-grid__cell">
       <canvas id="gameCanvas" class="mdc-elevation--z16"></canvas>
     </div>
 
@@ -181,9 +182,29 @@
   </div>
 </div>
 
+</div>
 </body>
-<script src="res/loading.js"></script>
 <script>
+
+// Initial sizes
+function fullCanvas() {
+  let container = document.querySelector("#canvasContainerOnFull");
+  let canvas = document.querySelector("#gameCanvas");
+  let pageContainer = document.querySelector("#pageContainer");
+  container.prepend(canvas);
+  pageContainer.style.display = "none";
+}
+
+function desktopCanvas() {
+  let container = document.querySelector("#canvasContainerOnDesktop");
+  let canvas = document.querySelector("#gameCanvas");
+  let pageContainer = document.querySelector("#pageContainer");
+  pageContainer.style.display = "initial";
+  container.prepend(canvas);
+}
+
+if (window.innerHeight > window.innerWidth) fullCanvas()
+else desktopCanvas();
 
 // MDC Initialization
 mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button'));
@@ -217,6 +238,7 @@ function subscribe() {
 }
 
 </script>
+<script src="res/loading.js"></script>
 <script src="frameworks/cocos2d-html5/CCBoot.js"></script>
 <script cocos src="main.js"></script>
 </html>
