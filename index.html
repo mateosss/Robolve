@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <title>Robolve</title>
     <link rel="icon" type="image/PNG" href="res/favicon.png"/>
+    <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
     <meta name="viewport" content="width=480, initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="full-screen" content="yes"/>
@@ -12,6 +14,7 @@
     <meta name="360-fullscreen" content="true"/>
     <style>
         body, canvas, div {
+            --mdc-theme-primary: #E91E63;
             -moz-user-select: none;
             -webkit-user-select: none;
             -ms-user-select: none;
@@ -30,17 +33,190 @@
           font-weight: normal;
           font-style: normal;
         }
+
+        * {
+          font-family: baloo !important;
+        }
+
+        .white {
+          color: white !important;
+        }
+
+        .white-border {
+          border-color: white !important;
+        }
+
+        .pink {
+          color: #E91E63;
+        }
+
+        .blue {
+          color: #2196F3;
+        }
+
+        #Cocos2dGameContainer {
+          padding: 0px !important;
+          margin: auto !important;
+        }
+
+        #gameCanvas {
+          border-radius: 11px;
+        }
+
+        .subscribe {
+          display:grid
+        }
+
+        ::-webkit-scrollbar {
+          display: none;
+        }
+
     </style>
 </head>
-<body style="padding:0; margin: 0; background: #039;">
+<body style="padding:0; margin: 0; background: #263238;">
+  <aside class="mdc-dialog" id="subscribe-alert">
+    <div class="mdc-dialog__surface" style="height: 156px; width: 164px">
+      <p class="mdc-typography--body1" style="padding: 2rem">You were correctly subscribed!</p>
+      <footer class="mdc-dialog__footer">
+        <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept mdc-dialog__action">Accept</button>
+      </footer>
+    </div>
+  </aside>
+
+  <div class="mdc-layout-grid">
+  <div class="mdc-layout-grid__inner mdc-layout-grid__cell--span-3" style="height: calc(100vh - 3rem)">
+    <div class="mdc-layout-grid__cell">
+
+
+      <div class="presentation" style="max-height: calc(100vh - 3rem); overflow-y: scroll">
+        <h1 class="mdc-typography--headline4 blue">Robolve</h1>
+        <p class="mdc-typography--body1 white">Robolve is a tower defense RPG with colorful and friendly visuals.</p>
+
+        <h2 class="mdc-typography--headline5 pink">Tutorial</h2>
+        <p class="mdc-typography--body1 white">
+          You must defense Orb from the guardians <br>
+          For wining a game you must survive all the level waves <br>
+        </p>
+
+        <h2 class="mdc-typography--headline5 pink">How to do it?</h2>
+        <p class="mdc-typography--body1 white">
+          You can attack directly a robot by tapping it<br>
+          You can create defenses to help you kill robots <br>
+          Orb is itself a defense <br>
+        </p>
+
+        <h2 class="mdc-typography--headline5 pink">Defenses</h2>
+        <p class="mdc-typography--body1 white">
+          You can create a defense of a certain element with the plus button for $700 <br>
+          You can improve that defense for $100 <br>
+          You can restore a defense's life by repairing it for free <br>
+          <br>
+          Defenses will be destroyed by robots if they reach them <br>
+        </p>
+
+        <h2 class="mdc-typography--headline5 pink">Robots</h2>
+        <p class="mdc-typography--body1 white">
+          Besides destroying everything they can, after killing them <br>
+          Robots drop three types of items: GOLD, UNIQUE ITEMS, or ELEMENTAL COINS <br>
+        </p>
+
+        <h2 class="mdc-typography--headline5 pink">Unique Items</h2>
+        <p class="mdc-typography--body1 white">
+          Unique items can be equiped or sold from the inventory to KY3 <br>
+          The can improve your different stats substantially. <br>
+        </p>
+
+        <h2 class="mdc-typography--headline5 pink">Elemental Coins</h2>
+        <p class="mdc-typography--body1 white">
+          Elemental coins are special coins that can be sold, and <br>
+          Based on the proportion of your defenses of the same element <br>
+          They increase its price, and its droprate. <br>
+          <br>
+          Be careful though, having too many defenses of one element <br>
+          can alert robots and they will evolve to crush you. <br>
+        </p>
+
+        <h2 class="mdc-typography--headline5 pink">Elemental Relationships</h2>
+        <p class="mdc-typography--body1 white">
+          As we all know, fire is better than electric, which in turn <br>
+          is better than water, which in turn is better than fire, and so on. <br>
+          <br>
+          When both robot and defenses have a target with a worse element, <br>
+          they inflict duplicated damage. <br>
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="mdc-layout-grid__cell">
+      <canvas id="gameCanvas" class="mdc-elevation--z16"></canvas>
+    </div>
+
+    <div class="mdc-layout-grid__cell">
+      <div class="subscribe">
+        <div class="">
+          <h1 class="mdc-typography--headline5 white">Subscribe to Robolve's Mailing List</h1>
+          <i class="mdc-typography--caption white">Receive updates about Robolve's development</i>
+        </div>
+        <div class="mdc-text-field mdc-text-field--outlined">
+          <input type="text" id="subscribe-email" class="mdc-text-field__input white">
+          <label for="tf-outlined" class="mdc-floating-label white">Your email address</label>
+          <div class="mdc-notched-outline">
+            <svg>
+              <path class="mdc-notched-outline__path"/>
+            </svg>
+          </div>
+          <div class="mdc-notched-outline__idle white-border"></div>
+        </div>
+        <button onclick="subscribe()" id="subscribe-button" class="mdc-button mdc-button--outlined" style="height:48px">Subscribe</button>
+      </div>
+
+      <div style="position:absolute; bottom: 1.5rem; right: 2rem; text-align: right; opacity: 0.2">
+        <h1 class="mdc-typography--headline5 white">Or contact me at</h1>
+        <h1 class="mdc-typography--headline5 white">mateodemayo@gmail.com</h1>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
 <script src="res/loading.js"></script>
-<canvas id="gameCanvas" width="480" height="720"></canvas>
 <script>
-  var canvas = document.getElementById('gameCanvas');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+
+// MDC Initialization
+mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button'));
+mdc.ripple.MDCRipple.attachTo(document.querySelector('#subscribe-button'));
+mdc.textField.MDCTextField.attachTo(document.querySelector('.mdc-text-field'));
+mdc.floatingLabel.MDCFloatingLabel.attachTo(document.querySelector('.mdc-floating-label'));
+var subscribeDialog = mdc.dialog.MDCDialog.attachTo(document.querySelector('#subscribe-alert'));
+
+// Resize logic
+var resizeId;
+window.onresize = function() {
+    clearTimeout(resizeId);
+    resizeId = setTimeout(rb.dev.resizeView, 200);
+};
+
+
+// Subscribe logic
+function post(path, params) {
+  var request = new XMLHttpRequest();
+  var data = JSON.stringify(params);
+  request.open('POST', path, true);
+  request.onreadystatechange = function() {if (request.readyState==4) {
+    subscribeDialog.show();
+  }};
+  request.setRequestHeader('Content-type','application/json; charset=utf-8');
+  request.send(data);
+}
+
+function subscribe() {
+  post('https://mateosss.pythonanywhere.com/api/mails', { mail: document.querySelector("#subscribe-email").value, content: "Pre EVA"});
+}
+
 </script>
 <script src="frameworks/cocos2d-html5/CCBoot.js"></script>
 <script cocos src="main.js"></script>
-</body>
 </html>
