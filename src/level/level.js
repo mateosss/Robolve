@@ -400,44 +400,22 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.endGame();
     cc.director.runScene(new cc.TransitionFade(1.5, new MainMenu("You Win")));
   },
-  pauseGame: function() { // TODO weird implementation because states logic is not that well done
-    this.robots.forEach(r => {
-      r.pausedState = r.sm.getMainState().name;
-      r.sm.setState("still");
-      r.unscheduleUpdate();
-    });
-    this.defenses.forEach(d => {
-      d.pausedState = d.sm.getMainState().name;
-      if (d.pausedState === "repair") d.pausedState = "idle";
-      d.sm.setState("still");
-      d.unscheduleUpdate();
-    });
-
-    this.base.sm.setState("still");
-    this.base.unscheduleUpdate();
-    this.character.sm.setState("still");
-    this.character.unscheduleUpdate();
-
-    rb.dev.allItems(i => i.unscheduleAllCallbacks()); // TODO: Is not being resumed, items don't disappear after pause
-    this.unscheduleUpdate();
+  pauseGame: function() {
+    let recursivePause = (node) => {
+      node.pause();
+      let children = node.children;
+      for (var child of children) recursivePause(child);
+    };
+    recursivePause(this);
     this.isPaused = true;
   },
   resumeGame: function() {
-    this.robots.forEach(r => {
-      r.sm.setState(r.pausedState);
-      r.scheduleUpdate();
-    });
-    this.defenses.forEach(d => {
-      d.sm.setState(d.pausedState);
-      d.scheduleUpdate();
-    });
-
-    this.base.sm.setState("idle");
-    this.base.scheduleUpdate();
-    this.character.sm.setDefaultState();
-    this.character.scheduleUpdate();
-
-    this.scheduleUpdate();
+    let recursiveResume = (node) => {
+      node.resume();
+      let children = node.children;
+      for (var child of children) recursiveResume(child);
+    };
+    recursiveResume(this);
     this.isPaused = false;
   },
   counter:0,

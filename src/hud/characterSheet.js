@@ -47,7 +47,7 @@ var CharacterSheet = Dialog.extend({
     this.titleContainer.addTo(this);
     this.titleElement = new Button({left: "11px", top:"11px", button: "pink", width: "100ph", icon: "robot", scale:0.75});
     this.titleElement.addTo(this.titleContainer);
-    this.titleText = new Text({text: "Characater", hAlign:cc.TEXT_ALIGNMENT_CENTER, width:"100pw", y: "center", top: cc.sys.isNative ? "8px" : "13px", fontSize: 32});
+    this.titleText = new Text({text: "Character", hAlign:cc.TEXT_ALIGNMENT_CENTER, width:"100pw", y: "center", top: cc.sys.isNative ? "8px" : "13px", fontSize: 32});
     this.titleText.addTo(this.titleContainer);
     this.titleClose = new Button({callback: () => this.dismiss(), width: "78.4px", height: "78.4px", padding: "11px", button: "red", icon: "close", y: "-78.4px", x: "-78.4px", scale: 0.5});
     this.titleClose.addTo(this.titleContainer);
