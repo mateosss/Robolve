@@ -90,7 +90,8 @@ var BasicDefenseSelector = cc.Node.extend({
     /// TODO ALL THIS CODE IS REPEATED FROM GAME.JS and MAP.JS
     let hud = this.hud;
     let level = hud.level;
-    let pos = level.map.tileCoordFromChild(level.dummyDefense);
+    if (!level.dummyDefense || level.dummyDefense.getNumberOfRunningActions() !== 0) return;
+    let pos = level.map.tileCoordFromChild(cc.pCompOp(level.dummyDefense.getPosition(), Math.round));
     let canBePlaced = level.dummyDefense.canBePlacedOn(pos);
     if (canBePlaced.result && level.character.getGold() >= rb.prices.createDefense) {
       level.character.goBuild(level.dummyDefense);

@@ -17,8 +17,9 @@ var TiledMap = cc.TMXTiledMap.extend({
       var btnRect = map.level.hud.ds.confirm.getBoundingBoxToWorld();
       var isNotABtn = !cc.rectContainsPoint(btnRect, event.getLocation());//TODO pretty unclean
       if (map.level.dummyDefense && map.level.dummyDefense.visible === true && isNotABtn) {
-        var tile = map.tileCoordFromLocation(event.getLocation());
-        map.moveToTile(map.level.dummyDefense, tile);
+        var tile = map.tileCoordFromChild(cc.pAdd(this.convertToNodeSpace(event.getLocation()), cc.p(0, -32)));
+
+        map.moveToTile(map.level.dummyDefense, tile, true, 0.2);
 
         ///////TODO ALL THIS CODE IS REPEATED FROM GAME.JS
         var color;
@@ -32,7 +33,7 @@ var TiledMap = cc.TMXTiledMap.extend({
         tint = new cc.TintTo(0.2, color.r, color.g, color.b);
         map.level.dummyDefense.runAction(tint);
         /////////////
-        map.selectTile(tile, color);
+        // map.selectTile(tile, color);
       }
     }, {options: {passEvent: true}});
   },
@@ -86,8 +87,9 @@ var TiledMap = cc.TMXTiledMap.extend({
     if (!withAnimations) {
       sprite.setPosition(p);
     } else {
-      animDuration = animDuration || 1;
-      var move = new cc.MoveTo(animDuration, p);
+      sprite.stopAllActions();
+      animDuration = animDuration || 0.2;
+      var move = new cc.EaseBackOut(new cc.MoveTo(animDuration, p));
       sprite.runAction(move);
     }
   },
@@ -141,6 +143,7 @@ var TiledMap = cc.TMXTiledMap.extend({
     return cc.p(objTileX, objTileY);
   },
   tileCoordFromChild: function(child){
+    // Be careful with rounding errors
     //Retruns the tile coordinates from a child of the map
     //Source: Learn iPhone and iPad cocos2d Game Development - Book
     var mapWidth = this.getMapSize().width;

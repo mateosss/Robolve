@@ -256,14 +256,14 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     }
     tint = new cc.TintTo(0.2, color.r, color.g, color.b);
     this.dummyDefense.runAction(tint);
-    this.map.selectTile(pos, color);
+    // this.map.selectTile(pos, color);
   },
   removeDummyDefense: function() {
     if (this.dummyDefense) {
       this.dummyDefense.removeFromParent();
       this.dummyDefense.release();
       this.dummyDefense = null;
-      this.map.debugger.debugTile(this.map, {stop: true});
+      // this.map.debugger.debugTile(this.map, {stop: true});
     }
   },
   dummyToDefense: function() {

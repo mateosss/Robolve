@@ -204,8 +204,8 @@ var Defense = Computer.extend({
   canBePlacedOn: function(tilePos) {
     var tile = this.level.map.getLayer("Background").getTileGIDAt(tilePos);
     var tileProps = this.level.map.getPropertiesForGID(tile) || {};
-    var isRoad = tileProps.hasOwnProperty('road');
-    if (isRoad && tileProps.road == "1") {
+    var isPlace = tileProps.hasOwnProperty('place');
+    if (!isPlace) {
       return {result: false, cause: "My art ain't gonna be lying there"};
     } else {
       for (var i = 0; i < this.level.defenses.length; i++) {
