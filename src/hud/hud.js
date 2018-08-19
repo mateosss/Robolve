@@ -83,7 +83,7 @@ var Hud = cc.Layer.extend({
     // this.addChild(this.dd);
 
     this.dialog = new Dialog(this, {type:"confirm", width: "80vw", height: "35vh", x: "center", y: "center"});
-    this.dialog.addTo(this);
+    this.dialog.addTo(this, 25);
 
     this.waveText = new Badge({bgImage: r.ui.panel_out, text: _.format("Wave\n{}/{}", 1, this.level.cWave + 1, this.level.wavesCounts.length), textFontSize: 72, bottom: "20px", left: "16px + 5px + 65ph", height: "50ph", width: "100ph", y: "11px", scale: 0.35});
     this.waveText.addTo(this.bottombarLayout);
@@ -117,19 +117,20 @@ var Hud = cc.Layer.extend({
     this.equipbar = new EquipBar(this, this.level.character.inventory);
     this.equipbar.addTo(this);
 
-    this.pause = new Button({button: "orange", callback: () => {
-      if (this.level.isPaused) {
-        this.level.resumeGame();
-        this.pause.setup({icon: "pause", button: "orange"});
-      } else {
-        this.level.pauseGame();
-        this.pause.setup({icon: "play", button: "blue"});
-      }
-    }, y: "-72px", x: "-72px", top: "11px", right: "33px + 72px", height: "72px", width: "72px", icon:"pause", iconFontSize: 96, scale: 0.5});
-    this.pause.addTo(this);
+    this.pauseBackdrop = new cc.LayerColor(cc.color(38, 50, 56, 127));
+    this.pauseBackdrop.visible = false;
+    this.pauseBackdrop.opacity = 0;
+    this.addChild(this.pauseBackdrop, 20);
+
+    this.pauseMenu = new PauseMenu(this, {});
+    this.pauseMenu.addTo(this, 21);
+
+    this.pauseButton = new Button({button: "orange", callback: () => this.togglePause(), y: "-72px", x: "-72px", top: "11px", right: "33px + 72px", height: "72px", width: "72px", icon:"pause", iconFontSize: 96, scale: 0.5});
+    this.pauseButton.addTo(this, 21);
 
     // TODO XXX Remove
-    window.pause = this.pause; // jshint ignore:line
+    window.pauseMenu = this.pauseMenu; // jshint ignore:line
+    window.pauseButton = this.pauseButton; // jshint ignore:line
     window.inv = this.inventory; // jshint ignore:line
     window.ds = this.ds; // jshint ignore:line
     window.cs = this.cs; // jshint ignore:line
@@ -150,8 +151,25 @@ var Hud = cc.Layer.extend({
 
     return true;
   },
-  alert: function(title, text, confirm) {
-    this.dialog.setup({title: title, text: text, okCallback: confirm});
+  togglePause: function() {
+    if (this.level.isPaused) {
+      this.pauseMenu.dismiss();
+      this.level.resumeGame();
+      this.pauseButton.setup({icon: "pause", button: "orange"});
+      let fadeout = new cc.FadeTo(0.1, 0);
+      let hide = new cc.Hide();
+      this.pauseBackdrop.runAction(new cc.Sequence([fadeout, hide]));
+    } else {
+      this.pauseMenu.show();
+      this.level.pauseGame();
+      this.pauseButton.setup({icon: "play", button: "blue"});
+      let show = new cc.Show();
+      let fadein = new cc.FadeTo(0.1, 127);
+      this.pauseBackdrop.runAction(new cc.Sequence([show, fadein]));
+    }
+  },
+  alert: function(title, text, confirm, cancel) {
+    this.dialog.setup({title: title, text: text, okCallback: confirm, cancelCallback: cancel});
     this.dialog.show();
   },
   toString: function() {

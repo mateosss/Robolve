@@ -128,7 +128,7 @@ var Menu = cc.LayerGradient.extend({
       cc.spriteFrameCache.addSpriteFrames(r.defenses_plist);
       cc.spriteFrameCache.addSpriteFrames(r.character_plist);
       cc.director.runScene(new cc.TransitionFade(1, new GameLevel(r.maps['map' + (level + 1)])));
-    });
+    }, 32); // HACK: 32 is a hack over a timeout hack
   },
   showMain: function() {
     this.mainContainer.setup({visible: true});

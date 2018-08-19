@@ -48,6 +48,7 @@
       "src/hud/basicDefenseView.js",
       "src/hud/defenseView.js",
       "src/hud/characterSheet.js",
+      "src/hud/pauseMenu.js",
       "src/level/game.js",
       "src/level/level.js",
       "src/level/map.js",

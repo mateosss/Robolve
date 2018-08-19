@@ -66,10 +66,12 @@ var Dialog = Panel.extend({
     this.dialog.title = options.title !== undefined ? options.title : this.dialog.title;
     this.dialog.text = options.text !== undefined ? options.text : this.dialog.text;
     this.dialog.okCallback = options.okCallback !== undefined ? options.okCallback : this.dialog.okCallback;
+    this.dialog.cancelCallback = options.cancelCallback !== undefined ? options.cancelCallback : this.dialog.cancelCallback;
     if (this.title) this.title.setup({text: this.dialog.title});
     if (this.text) this.text.setup({text: this.dialog.text});
     // if (this.ok) this.ok.setup({callback: this.dialog.okCallback}); // TODO this should be the line used instead, but it moves up de button text every time the dialog setup is executed
     if (this.ok) this.ok.addClickEventListener(this.dialog.okCallback);
+    if (this.cancel) this.cancel.addClickEventListener(this.dialog.cancelCallback);
     this._super(options);
   },
   show: function(instant) {
