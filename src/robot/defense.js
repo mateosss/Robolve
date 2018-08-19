@@ -114,12 +114,14 @@ var Defense = Computer.extend({
   showBuildBar: function(text, initialPercentage) {
     this.buildBar.changePercent(Math.floor(initialPercentage) || 0);
     this.buildBar.title.setup({text: text});
+    let show = new cc.Show();
     let scaleUp = new cc.EaseBackOut(new cc.ScaleTo(0.5, 0.5, 0.5));
-    this.buildBar.runAction(scaleUp);
+    this.buildBar.runAction(new cc.Sequence([show, scaleUp]));
   },
   hideBuildBar: function() {
-    let scaleDown = new cc.EaseBackIn(new cc.ScaleTo(0.5, 0, 0));
-    this.buildBar.runAction(scaleDown);
+    let scaleDown = new cc.EaseBackIn(new cc.ScaleTo(0.5, 0.1, 0.1));
+    let hide = new cc.Hide();
+    this.buildBar.runAction(new cc.Sequence([scaleDown, hide]));
   },
 
   toString: () => "Defense",
