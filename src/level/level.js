@@ -6,6 +6,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   speed: 1, // Keep speed on 1 for normal speed, modify it with setSpeed for accelerate
   crossoverRate: 0.7, //the influence of the strongest parent to let its genes
   mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox. TODO, make the 8 not hardcoded
+  isPaused: false,
 
   robots: [], // Current robots in map
   defenses: [], // Current defenses in map
@@ -398,6 +399,46 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   winGame: function() {
     this.endGame();
     cc.director.runScene(new cc.TransitionFade(1.5, new MainMenu("You Win")));
+  },
+  pauseGame: function() { // TODO weird implementation because states logic is not that well done
+    this.robots.forEach(r => {
+      r.pausedState = r.sm.getMainState().name;
+      r.sm.setState("still");
+      r.unscheduleUpdate();
+    });
+    this.defenses.forEach(d => {
+      d.pausedState = d.sm.getMainState().name;
+      if (d.pausedState === "repair") d.pausedState = "idle";
+      d.sm.setState("still");
+      d.unscheduleUpdate();
+    });
+
+    this.base.sm.setState("still");
+    this.base.unscheduleUpdate();
+    this.character.sm.setState("still");
+    this.character.unscheduleUpdate();
+
+    rb.dev.allItems(i => i.unscheduleAllCallbacks()); // TODO: Is not being resumed, items don't disappear after pause
+    this.unscheduleUpdate();
+    this.isPaused = true;
+  },
+  resumeGame: function() {
+    this.robots.forEach(r => {
+      r.sm.setState(r.pausedState);
+      r.scheduleUpdate();
+    });
+    this.defenses.forEach(d => {
+      d.sm.setState(d.pausedState);
+      d.scheduleUpdate();
+    });
+
+    this.base.sm.setState("idle");
+    this.base.scheduleUpdate();
+    this.character.sm.setDefaultState();
+    this.character.scheduleUpdate();
+
+    this.scheduleUpdate();
+    this.isPaused = false;
   },
   counter:0,
   update: function(delta) {// TODO buscar todos los updates del juego y tratar de simplificarlos al maximo, fijarse de usar custom schedulers

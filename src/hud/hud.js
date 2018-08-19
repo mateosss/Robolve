@@ -67,8 +67,8 @@ var Hud = cc.Layer.extend({
     this.console.submit.addTo(this.console);
     this.console.visible = false;
 
-    this.save = new Button({button: "lightBlue", callback: () => {SaveLoad.save(this.inventory.inventory); this.it.message("Saved (not really :)");}, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"content-save", iconFontSize: 72, scale: 0.75});
-    this.save.addTo(this.bottombarLayout);
+    // this.save = new Button({button: "lightBlue", callback: () => {SaveLoad.save(this.inventory.inventory); this.it.message("Saved (not really :)");}, x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"content-save", iconFontSize: 72, scale: 0.75});
+    // this.save.addTo(this.bottombarLayout);
     this.centerMap = new Button({button: "lightBlue", callback: () => this.level.map.zoomFit(), x: "-187.5ph", bottom: "20px", right: "40px", height: "65ph", width: "65ph", icon:"image-filter-center-focus", iconFontSize: 72, scale: 0.75});
     this.centerMap.addTo(this.bottombarLayout);
 
@@ -117,7 +117,19 @@ var Hud = cc.Layer.extend({
     this.equipbar = new EquipBar(this, this.level.character.inventory);
     this.equipbar.addTo(this);
 
+    this.pause = new Button({button: "orange", callback: () => {
+      if (this.level.isPaused) {
+        this.level.resumeGame();
+        this.pause.setup({icon: "pause", button: "orange"});
+      } else {
+        this.level.pauseGame();
+        this.pause.setup({icon: "play", button: "blue"});
+      }
+    }, y: "-72px", x: "-72px", top: "11px", right: "33px + 72px", height: "72px", width: "72px", icon:"pause", iconFontSize: 96, scale: 0.5});
+    this.pause.addTo(this);
+
     // TODO XXX Remove
+    window.pause = this.pause; // jshint ignore:line
     window.inv = this.inventory; // jshint ignore:line
     window.ds = this.ds; // jshint ignore:line
     window.cs = this.cs; // jshint ignore:line

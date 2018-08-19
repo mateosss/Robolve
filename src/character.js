@@ -72,18 +72,22 @@ var Character = cc.Sprite.extend({
 
   // Action Triggers
   goBuild: function(defense) {
+    if (this.level.isPaused) return;
     this.sm.setState('move');
     this.setTarget(defense);
   },
   goRepair: function(defense) {
+    if (this.level.isPaused) return;
     this.sm.setState('move');
     this.setTarget(defense);
   },
   goImprove: function(defense) {
+    if (this.level.isPaused) return;
     this.sm.setState('move');
     this.setTarget(defense);
   },
   goAttack: function(robot) {
+    if (this.level.isPaused) return;
     this.sm.setState('move');
     this.setTarget(robot);
   },

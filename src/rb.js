@@ -8,6 +8,7 @@ var rb = {
     getHud: () => rb.dev.getLevel().hud,
     getRobots: () => rb.dev.getLevel().robots,
     getDefenses: () => rb.dev.getLevel().defenses,
+    getItems: () => rb.dev.getLevel().map.children.filter(i => i.toString() === "ItemPickup"),
     getCharacter: () => rb.dev.getLevel().character,
     spawnAll: () => {
       let level = rb.dev.getLevel();
@@ -16,8 +17,10 @@ var rb = {
     getBase: () => rb.dev.getLevel().base,
     getRobot: () => rb.dev.getRobots()[0],
     getDefense: () => rb.dev.getDefenses()[0],
+    getItem: () => rb.dev.getItems()[0],
     allRobots: (func) => rb.dev.getRobots().forEach(func),
     allDefenses: (func) => rb.dev.getDefenses().forEach(func),
+    allItems: (func) => rb.dev.getItems().forEach(func),
     killRobots: (notKill) => rb.dev.getRobots().slice(notKill).forEach((r) => r.die()),
     killDefenses: (notKill) => rb.dev.getDefenses().slice(notKill).forEach((d) => d.die()),
     stateRobots: (state) => rb.dev.allRobots((r) => r.sm.setState(state)),
@@ -120,8 +123,10 @@ var rb = {
         name: 'improve',
         animation: function() { this.setAnimation('still'); },
         postStart: function() {
-          this.resetImproved();
-          this.showBuildBar("Improving");
+          if (!this.level.isPaused) {
+            this.resetImproved();
+            this.showBuildBar("Improving");
+          }
         }
       },
     },
