@@ -125,10 +125,14 @@ var Hud = cc.Layer.extend({
     this.pauseMenu = new PauseMenu(this, {});
     this.pauseMenu.addTo(this, 21);
 
+    this.tutorialDialog = new TutorialDialog(this, {});
+    this.tutorialDialog.addTo(this, 22);
+
     this.pauseButton = new Button({button: "orange", callback: () => this.togglePause(), y: "-72px", x: "-72px", top: "11px", right: "33px + 72px", height: "72px", width: "72px", icon:"pause", iconFontSize: 96, scale: 0.5});
     this.pauseButton.addTo(this, 21);
 
     // TODO XXX Remove
+    window.tutorialDialog = this.tutorialDialog; // jshint ignore:line
     window.pauseMenu = this.pauseMenu; // jshint ignore:line
     window.pauseButton = this.pauseButton; // jshint ignore:line
     window.inv = this.inventory; // jshint ignore:line

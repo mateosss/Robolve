@@ -53,6 +53,7 @@
     "BasicDefenseView": true,
     "DefenseView": true,
     "CharacterSheet": true,
+    "TutorialDialog": true,
     "PauseMenu": true,
     "Item": true,
     "ItemPickup": true,

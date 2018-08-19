@@ -42,7 +42,7 @@ var PauseMenu = Dialog.extend({
     this.buttonResume.addTo(this.main);
     this.buttonResume.icon = new Icon({fontSize: 96, icon: "play", y: "center", bottom: "5px", left: "24px"});
     this.buttonResume.icon.addTo(this.buttonResume);
-    this.buttonHelp = new Button({callback: () => console.log("SHOULD SHOW HELP!"), y: "17.5pw", x: "center", button: "green", text: "How to Play", width: "70pw", height: "17.5pw", bottom: "44px", scale: 0.75});
+    this.buttonHelp = new Button({callback: () => this.hud.tutorialDialog.show(), y: "17.5pw", x: "center", button: "green", text: "How to Play", width: "70pw", height: "17.5pw", bottom: "44px", scale: 0.75});
     this.buttonHelp.addTo(this.main);
     this.buttonHelp.icon = new Icon({fontSize: 84, icon: "help-circle-outline", y: "center", bottom: "5px", left: "21px"});
     this.buttonHelp.icon.addTo(this.buttonHelp);
