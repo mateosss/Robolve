@@ -2,6 +2,7 @@ var Character = cc.Sprite.extend({
   level: null, // Level where this character is placed
   sm: null, // Character StateMachine
   inventory: null,
+  mapHeight: null,
   STATES: [ // Possible states for this robot
     rb.states.character.still, // default state
     rb.states.character.move,
@@ -30,6 +31,7 @@ var Character = cc.Sprite.extend({
     this.level = level;
     this.setAnchorPoint(0.5, 0.0);
     this.sm = new StateMachine(this);
+    this.mapHeight = level.map.height;
 
     this.inventory = new Inventory();
     SaveLoad.load(this.inventory);
@@ -194,7 +196,7 @@ var Character = cc.Sprite.extend({
     this.setPointing(dir.x, dir.y);
     this.x += this.sSpeed * dir.x;
     this.y += (this.sSpeed / 2) * dir.y;
-    this.zIndex = this.x + (1280 - this.y) * 128; // Same as this.refreshZOrder, made here for performance // TODO DRY Map.zOrderFromPos
+    this.zIndex = this.x + (this.mapHeight - this.y) * 128; // Same as this.refreshZOrder, made here for performance // TODO DRY Map.zOrderFromPos
   },
   getDistanceTo: function(to) { return cc.pDistance(this, to); },
   getCurrentRange: function() { // returns a range to use based on the current target

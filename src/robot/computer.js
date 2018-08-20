@@ -14,6 +14,7 @@ var Computer = cc.Sprite.extend({
   creationTime: null,
   hitsReceived: 0,
   infligedDamage: 0,
+  mapHeght: 0, // Used in zIndex calculation
   DEBUG: false, // Set to true for executing the debug function
   // STATS constant defines the structure of this Robot based class
   // Take into account that if for example turnProb is in STATS, the properties
@@ -36,6 +37,7 @@ var Computer = cc.Sprite.extend({
     this.setCascadeOpacityEnabled(true);
     this.level = level;
     this.creationTime = new Date().getTime();
+    this.mapHeight = level.map.height;
 
     dna = typeof dna === 'object' ? dna : Array.prototype.slice.call(arguments, 1);
     for (let i = 0; i < this.STATS.size; i++) {
@@ -267,7 +269,7 @@ var Computer = cc.Sprite.extend({
     }
     this.x += this.sSpeed * xDirection;
     this.y += (this.sSpeed / 2) * yDirection;
-    this.zIndex = this.x + (1280 - this.y) * 128; // Same as this.refreshZOrder, made here for performance // TODO DRY Map.zOrderFromPos
+    this.zIndex = this.x + (this.mapHeight - this.y) * 128; // Same as this.refreshZOrder, made here for performance // TODO DRY Map.zOrderFromPos
   },
   refreshZOrder: function() {
     this.zIndex = TiledMap.prototype.zOrderFromPos(this);

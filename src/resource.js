@@ -12,11 +12,8 @@ var r = { // resources variable
     tilesheet: "res/map/tilesheet.png",
     tileset: "res/map/tileset.png",
     map1: "res/map/demo.tmx",
-    map2: "res/map/neighborhood.tmx",
-    map3: "res/map/emission.tmx",
-    map4: "res/map/showoff.tmx",
-    map5: "res/map/straightened.tmx",
-    map6: "res/map/oldie.tmx",
+    map2: "res/map/zigZag.tmx",
+    map3: "res/map/inferno.tmx",
   },
   ui: {
     panel: "res/sprites/ui/panel.png",
