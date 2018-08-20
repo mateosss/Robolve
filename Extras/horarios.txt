@@ -661,3 +661,4 @@ Format (variables between \<\> should be calculated after each day/task)
   It seems that when the map reaches a certain Y position near the bottom of the screen, it freezes, it can be repaired by reseting
   the map position, doesnt seem to happen on linux, just android. TLDR; it is related to map Y position, not zoom.
   More advances: Parece que tiene que ver con el origin de la Base, por que? no se, pero cuando llevas el origin ese bien al borde inferior de la pantalla, se tilda
+- Player se clavo reparando si matan a la defensa que estaba por reparar (cuando se trabo fue por que la mataron casi en un frame de la cantidad de daño)

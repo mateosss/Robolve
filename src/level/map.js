@@ -6,6 +6,7 @@ var TiledMap = cc.TMXTiledMap.extend({
   ctor: function(level, tmxMap){
     this.level = level;
     this._super(tmxMap);
+    this.tmxLayersInitialization();
     this.scale = 0.05;
     this.setAnchorPoint(0.5, 0.5);
     this.scheduleUpdate();
@@ -36,6 +37,14 @@ var TiledMap = cc.TMXTiledMap.extend({
         // map.selectTile(tile, color);
       }
     }, {options: {passEvent: true}});
+  },
+  tmxLayersInitialization: function() {
+    this.getLayer("Background").visible = false;
+    // let mapHeight = this.getProperties().mapHeight; // Use this for implementing map height
+    // for (var i = 0; i < mapHeight; i++) {
+    //   this.getLayer("Layer " + i).y = i * 32;
+    //   this.getLayer("Decoration " + i).y = i * 32;
+    // }
   },
   zoomFit: function() {
     this.runAction(new cc.EaseBackOut(new cc.ScaleTo(0.4, 0.25)));

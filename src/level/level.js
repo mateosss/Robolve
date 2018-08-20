@@ -28,7 +28,8 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   willDrop: 0, // Counter that if it is greater than 1, it is  very likely to drop a unique item from remainingItemsToDrop
   ctor:function (mapRes) {
     // this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
-    this._super(cc.hexToColor("#4FC3F7"), cc.hexToColor("#0288D1"));
+    // this._super(cc.hexToColor("#4FC3F7"), cc.hexToColor("#0288D1"));
+    this._super(cc.hexToColor("#005ca8"), cc.hexToColor("#619ce0"));
     this.map = new TiledMap(this, mapRes);
     this.addChild(this.map, 1);
 

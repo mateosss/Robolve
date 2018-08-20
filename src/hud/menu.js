@@ -176,6 +176,7 @@ var Menu = cc.LayerGradient.extend({
       "I spent more than 400 hundred hours of\nmy life in making this. You better like it",
       "Almost nobody read these tips, so you must\nbe one in many, good for you.",
       "The average time it takes to load the game\nmakes this tips completely unreadable",
+      "This game has in fact music, it is a loop of the song 4' 33\" by John Cage",
     ]);
     this.loadingHint.setup({text: "Did you know?\n" + hint});
   },
