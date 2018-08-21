@@ -62,7 +62,7 @@ var Character = cc.Sprite.extend({
     this.setFlippedX(dir % 2 === 1);
     let frames = [];
     for (let i = 1; i <= rb.animations.character[name]; i++) {
-      let newFrame = name + "_" + (isBack ? "back_" : "") + _.zfill(i, 4) + ".png";
+      let newFrame = "character/" + name + "_" + (isBack ? "back_" : "") + _.zfill(i, 4) + ".png";
       frames.push(cc.spriteFrameCache.getSpriteFrame(newFrame));
     }
     let animation = new cc.Animation(frames, speed || 1 / 16);
