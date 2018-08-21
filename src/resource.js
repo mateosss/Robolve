@@ -14,7 +14,8 @@ var r = { // resources variable
     map1: "res/map/demo.tmx",
     map2: "res/map/tiny.tmx",
     map3: "res/map/zigZag.tmx",
-    map4: "res/map/inferno.tmx",
+    map4: "res/map/islands.tmx",
+    map5: "res/map/inferno.tmx",
   },
   ui: {
     panel: "res/sprites/ui/panel.png",

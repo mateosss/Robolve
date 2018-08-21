@@ -405,7 +405,11 @@
   </data>
  </layer>
  <objectgroup name="Objects">
-  <object id="36" name="SpawnRobot" x="0" y="0" width="64" height="64"/>
+  <object id="36" name="SpawnRobot" x="0" y="0" width="64" height="64">
+   <properties>
+    <property name="pointing" type="int" value="2"/>
+   </properties>
+  </object>
   <object id="55" name="SpawnCharacter" x="576" y="448" width="64" height="64"/>
   <object id="56" name="SpawnBase" x="576" y="576" width="64" height="64"/>
  </objectgroup>

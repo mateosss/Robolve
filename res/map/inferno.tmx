@@ -12525,7 +12525,11 @@
     <property name="terrain" value="0"/>
    </properties>
   </object>
-  <object id="67" name="SpawnRobot" x="192" y="0" width="64" height="64"/>
+  <object id="67" name="SpawnRobot" x="192" y="0" width="64" height="64">
+   <properties>
+    <property name="pointing" type="int" value="2"/>
+   </properties>
+  </object>
   <object id="68" name="SpawnDefense14" x="2176" y="3456" width="64" height="64">
    <properties>
     <property name="attackSpeed" value="2"/>

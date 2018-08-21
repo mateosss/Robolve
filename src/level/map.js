@@ -117,6 +117,10 @@ var TiledMap = cc.TMXTiledMap.extend({
     var p = position || this.getSpawnPoint(child);
     child.setPosition(p);
     this.addChild(child, layer, tag);
+    if (child.toString() === "Robot") { // TODO too specific
+      child.pointing = this.getSpawnRobotPointing();
+      child.allParts(function(part) { part.setFlippedX(this.pointing % 2); });
+    }
   },
   getSpawnPoint: function(child){
     var spawnPoint = this.getObjectGroup("Objects").getObject(
@@ -137,6 +141,9 @@ var TiledMap = cc.TMXTiledMap.extend({
     // debug.debugText(this, {text: "Robots Count: " + this.level.robots.length});
     p.y += tileSize.height / 2;
     return p;
+  },
+  getSpawnRobotPointing: function() { // TODO too specific
+    return parseInt(this.getObjectGroup("Objects").getObject("SpawnRobot").pointing);
   },
   tileCoordFromObject: function(obj){
     //Returns the tile coordinates from a tiled map object dont use this for sprites, use the FromChild instead
