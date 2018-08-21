@@ -2,42 +2,129 @@ var Defense = Computer.extend({
   target: null,// Target robot to fire
   animAttackSpeed: 1.0,// Attack speed animation
   isDummy: false, // If it is a dummy defense, (a.k.a. a defense preview in the map)
+  built: 0, // Built percentage of the defense
+  improved: 0, // Improved percentage of the defense, used for improving a stat of the defense with delay
+  buildBar: null, // The progress bar showing defense build progress
   DEBUG: true,
   STATS: new Map([
-    ['life', {0: 500, 1: 600, 2: 700}],
+    ['life', {0: 1000, 1: 1500, 2: 2500}],
     ['element', {
       electric: "Electro",
       fire: "Fire",
       water: "Water",
     }],
-    ['range', {0: 200, 1: 300, 2: 500}],
-    ['terrain', {0: 'walk', 1: 'fly'}],
-    ['damage', {0: 25, 1: 50, 2:75}],
+    ['range', {0: 200, 1: 300, 2: 400}],
+    ['terrain', {0: 'walk'}],
+    ['damage', {0: 100, 1: 150, 2: 250}],
     ['attackSpeed', {0: 0.5, 1: 1.0, 2: 2.0}],
   ]),
   PARTS: { // Necessary info for the parts to make a defense
     head: {plural: "heads", z: 2, partName: defense => defense.element + ["Weak", "Normal", "Strong"][defense.damage]},
     middle: {plural: "middles", z: 1, partName: defense => defense.element + ["Weak", "Normal", "Strong"][defense.life]},
-    base: {plural: "bases", z: 0, partName: defense => defense.element + ["Walk", "Fly"][defense.terrain]}
+    base: {plural: "bases", z: 0, partName: defense => defense.element + ["Weak", "Normal", "Strong"][defense.range]}
   },
   STATES: [ // Possible states for this defense
+    rb.states.defense.build,
+    rb.states.defense.repair,
+    rb.states.defense.improve,
     rb.states.defense.idle,
     rb.states.defense.still,
     rb.states.defense.attack,
-    rb.states.defense.die
+    rb.states.defense.die,
   ],
-  ctor:function(level, life, element, range, terrain, damage, attackSpeed) {
+  ctor:function(level, life, element, range, terrain, damage, attackSpeed, isDummy) {
     if (arguments.length === 0) return;
     this._super.apply(this, arguments);
-    this.setAnchorPoint(0.5, 0.1); // TODO quirk because of the bad tiles proportions
-    if (!this.isDummy) {
-      this.setTouchEvent();
-      this.scheduleUpdate();
+    this.setAnchorPoint(0.5, 0.2); // TODO quirk because of the bad tiles proportions
+    if (!isDummy) this.realDefenseInit();
+    this.isDummy = isDummy;
+  },
+  realDefenseInit: function() { // Things that dummy defenses should not execute
+    this.setTouchEvent();
+    this.scheduleUpdate();
+    if (!this.isBuilt()) this.createBuildBar();
+  },
+  // Build and Repair related things
+  getLifePercentage: function() {
+    return this.sLife / this.getDefaultStat('life') * 100;
+  },
+  addBuilt: function(amount) {
+    this.built += amount;
+    if (this.built >= 100) {
+      this.built = 100;
+      this.sm.setState('idle');
+      this.hideBuildBar();
     }
+    this.buildBar.changePercent(Math.floor(this.built));
   },
-  toString: function() {
-    return "Defense";
+  setBuilt: function() {
+    this.addBuilt(100);
   },
+  isBuilt: function() {
+    return this.built == 100;
+  },
+  addRepaired: function(amount) {
+    this.sLife += amount;
+    let fullLife = this.getDefaultStat('life');
+    if (this.sLife >= fullLife) {
+      this.sLife = fullLife;
+      this.sm.setState('idle');
+      this.hideBuildBar();
+    }
+    this.buildBar.changePercent(Math.floor(this.sLife / fullLife * 100));
+    this.updateHealthBar();
+  },
+  setRepaired: function() {
+    this.addRepaired(this.getDefaultStat('life'));
+  },
+  isRepaired: function() {
+    return this.sLife === this.getDefaultStat('life');
+  },
+  resetImproved: function() {
+    this.improved = 0;
+  },
+  addImproved: function(amount) {
+    this.improved += amount;
+    if (this.improved >= 100) {
+      this.improved = 100;
+      this.sm.setState('idle');
+      this.hideBuildBar();
+    }
+    this.buildBar.changePercent(Math.floor(this.improved));
+  },
+  setImproved: function() {
+    this.addImproved(100);
+  },
+  isImproved: function() {
+    return this.improved == 100;
+  },
+  createBuildBar: function() {
+    let color = {fire: "deepOrange", electric: "yellow", water: "blue"}[this.element];
+    this.buildBar = new Progress({swallow: false, text: "{}%", color: color, x: "0px", y:"64px", scale: 0.5, height:"32px", width:"128px", fontSize: 56});
+    this.buildBar.setAnchorPoint(0.5, 0.5);
+    this.buildBar.addTo(this, 10);
+    this.buildBar.titleContainer = new Panel({swallow: false, x: "center", width: "150pw", top: "48px", height: "350ph", bgImage: r.ui.panel, scale: 2});
+    this.buildBar.titleContainer.addTo(this.buildBar, -1);
+    this.buildBar.title = new Text({text: "Building", x: "center", y: "64px", top: cc.sys.isNative ? "0px" : "5px", fontSize: 56});
+    this.buildBar.title.addTo(this.buildBar);
+
+    this.buildBar.scale = 0;
+    this.showBuildBar("Building");
+  },
+  showBuildBar: function(text, initialPercentage) {
+    this.buildBar.changePercent(Math.floor(initialPercentage) || 0);
+    this.buildBar.title.setup({text: text});
+    let show = new cc.Show();
+    let scaleUp = new cc.EaseBackOut(new cc.ScaleTo(0.5, 0.5, 0.5));
+    this.buildBar.runAction(new cc.Sequence([show, scaleUp]));
+  },
+  hideBuildBar: function() {
+    let scaleDown = new cc.EaseBackIn(new cc.ScaleTo(0.5, 0.1, 0.1));
+    let hide = new cc.Hide();
+    this.buildBar.runAction(new cc.Sequence([scaleDown, hide]));
+  },
+
+  toString: () => "Defense",
   setTouchEvent: function() {
     easyTouchEnded(this, function(defense) {
       if (defense.getNumberOfRunningActions() === 0) {
@@ -45,22 +132,29 @@ var Defense = Computer.extend({
           var increase = new cc.ScaleBy(0.1, 1.2);
           var decrease = new cc.ScaleBy(0.1, 1 / 1.2);
           defense.runAction(new cc.Sequence(increase, decrease));
-          defense.level.hud.dd.show(defense);
+          if (defense.sm.isInState('build')) {
+            defense.level.character.goBuild(defense);
+          } else if (defense.sm.isInState('improve')) {
+            defense.level.character.goImprove(defense);
+          } else {
+            // defense.level.hud.dd.show(defense);
+            defense.level.hud.preview.show(defense);
+          }
         }
       }
-    });
+    }, { options: { priority: ee.EE_INDIVIDUAL, rectFunction: this.getCustomBoundingBoxToWorld } });
   },
   getTarget: function(){
     // This function returns the robot to which this defense has to attack
 
     //Looks for robots in tower range
     var inRange = this.level.robots.filter(function(robot) {
-      return this.getDistanceTo(robot) <= this.sRange && robot.terrain == this.terrain;
+      return this.getDistanceTo(robot) <= this.sRange && robot.terrain == this.terrain && robot.sLife > 0;
     }, this);
     //if no robot in range return null
     if (inRange.length === 0) {
       this.target = null;
-      if (this.isInState('attack')) this.setState('idle');
+      if (this.sm.isInState('attack')) this.sm.setState('idle');
       return null;
     }
     //If there are robots in range proceed to detect which of them is closest
@@ -76,6 +170,14 @@ var Defense = Computer.extend({
     }, this);
     this.target = closestRobot;
     return this.target;
+  },
+  hurt: function(attacker) {
+    let totalDamage = this._super(attacker);
+    // Refresh defense view if this defense stats are visible
+    let view = this.level.hud.preview;
+    if (view.inScreen && view.selectedDefense === this) view.refresh();
+    // Return total damage applied as required by original hurt method
+    return totalDamage;
   },
   attack: function(target) {
     this._super(target);
@@ -104,28 +206,28 @@ var Defense = Computer.extend({
   canBePlacedOn: function(tilePos) {
     var tile = this.level.map.getLayer("Background").getTileGIDAt(tilePos);
     var tileProps = this.level.map.getPropertiesForGID(tile) || {};
-    var isRoad = tileProps.hasOwnProperty('road');
-    if (isRoad && tileProps.road == "1") {
-      return {result: false, cause: "Can't place on here"};
+    var isPlace = tileProps.hasOwnProperty('place');
+    if (!isPlace) {
+      return {result: false, cause: "My art ain't gonna be lying there"};
     } else {
       for (var i = 0; i < this.level.defenses.length; i++) {
         if (cc.pointEqualToPoint(
           this.level.map.tileCoordFromChild(this.level.defenses[i]),
           tilePos
         )) {
-          return {result: false, cause: "There is already a tower there"};
+          return {result: false, cause: "Ain't no tetris wiz"};
         }
       }
-      return {result: true, cause: "Placed - $300"}; // TODO estos mensajes no estan muy bien aca
+      return {result: true, cause: _.format("It'll came out hella lit")}; // TODO estos mensajes no estan muy bien aca
     }
   },
-  counter: 0.0, // TODO counter is being used in the attack state but it is not clear if it is here
   update: function(delta) {
+    if (this.isDummy) return;
     var target = this.getTarget();
     this.debugger.debugLine(this, {stop: true});
-    this.debugger.debugLine(this, {target: target, offset: cc.p(0, 128), color: rb.palette[this.element]});
-    if (!this.isDummy && target) {
-      this.setState('attack', {target: target});
+    if (target && !this.sm.isInState('build') && !this.sm.isInState('repair') && !this.sm.isInState('improve')) {
+      this.debugger.debugLine(this, {target: target, offset: cc.p(0, 128), color: rb.palette[this.element]});
+      this.sm.setState('attack', {target: target});
     }
   }
 });

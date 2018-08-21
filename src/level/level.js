@@ -1,10 +1,12 @@
 var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   hud: null,
   map: null,
+  character: null,
   base: null,
   speed: 1, // Keep speed on 1 for normal speed, modify it with setSpeed for accelerate
   crossoverRate: 0.7, //the influence of the strongest parent to let its genes
   mutationRate: 1 / 8, // 8 gens in a robot, one mutation per subject aprox. TODO, make the 8 not hardcoded
+  isPaused: false,
 
   robots: [], // Current robots in map
   defenses: [], // Current defenses in map
@@ -15,24 +17,41 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   wavesIntervals: [], // Defined by the map, amount of time between waves
   waveQuery: [], // Robots in this array, has to spawn in this wave
   waveDelay: null, // Delay before a new wave is spawned
-  spawn_time: 0.8, // Seconds between spawns
+  spawn_time: 2, // Seconds between spawns
   lastWave: false, // True if the game is on the last wave
   cWave: null, // Current wave position
-  ctor:function (mapRes, firstTime) {
-    this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
+
+  totalRobotsSpawned: 0,
+  totalRobotsKilled: 0, // Increased from Robot
+  totalItems: 0, // Saves the total items to drop in a level
+  remainingItemsToDrop: null, // The remaining unique items to drop
+  willDrop: 0, // Counter that if it is greater than 1, it is  very likely to drop a unique item from remainingItemsToDrop
+  ctor:function (mapRes) {
+    // this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
+    // this._super(cc.hexToColor("#4FC3F7"), cc.hexToColor("#0288D1"));
+    this._super(cc.hexToColor("#005ca8"), cc.hexToColor("#619ce0"));
     this.map = new TiledMap(this, mapRes);
     this.addChild(this.map, 1);
 
     this.setSpeed(this.speed);
+
+    // Drop Chunk Setup
+    this.remainingItemsToDrop = Object.values(Item.prototype.getItemsByCategory("unique"));
+    this.totalItems = this.remainingItemsToDrop.length;
 
     //Prepare wave info
     this.wavesCounts =  this.map.getProperties().wavesCounts.split(",").map(Number);
     this.wavesIntervals = this.map.getProperties().wavesIntervals.split(",").map(Number);
     this.prepareNextWave();
 
+
     // Set base
     var base = new Base(this);
     this.setBase(base);
+
+    // Character initialization
+    let character = new Character(this);
+    this.setCharacter(character);
 
     // Add Robot
     // turnProb = 1; //0,1,2
@@ -102,16 +121,17 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         event: cc.EventListener.TOUCH_ALL_AT_ONCE,
         onTouchesMoved: function (touches, event) {
           this.map = event.getCurrentTarget().map;
-          var touch = touches[0];
-          var delta = touch.getDelta();
-          this.map.moveMap(delta.x, delta.y);
+          let delta;
           if (touches.length > 1) {
-            //TODO make a good zoom method for gods sake
-            var initialDistance = cc.pDistance(touches[0].getStartLocation(), touches[1].getStartLocation());
-            var currentDistance = cc.pDistance(touches[0].getLocation(), touches[1].getLocation());
-            var zoomDelta = (currentDistance - initialDistance) * 0.0001;
+            delta = cc.pMidpoint(touches[0].getDelta(), touches[1].getDelta());
+            let initialDistance = cc.pDistance(touches[0].getPreviousLocation(), touches[1].getPreviousLocation());
+            let currentDistance = cc.pDistance(touches[0].getLocation(), touches[1].getLocation());
+            let zoomDelta = (currentDistance - initialDistance) * 0.001;
             this.map.zoomMap(zoomDelta);
+          } else {
+            delta = touches[0].getDelta();
           }
+          this.map.moveMap(delta.x, delta.y);
         }
       }, this);
     } else if ('mouse' in cc.sys.capabilities) {
@@ -142,13 +162,17 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         },
         onMouseScroll: function(event) {
           this.map = event.getCurrentTarget().map;
-          var zoomDelta = event.getScrollY() * 0.0001;
+          var zoomDelta = event.getScrollY() * (cc.sys.isNative ? 0.04 : 0.0001);
           this.map.zoomMap(zoomDelta);
         },
       }, this);
     }
     this.scheduleUpdate();
     return true;
+  },
+  popRandomDrop: function() {
+    let pop = _.randint(0, this.remainingItemsToDrop.length - 1);
+    return this.remainingItemsToDrop.splice(pop, 1);
   },
   toString: function() {
     return "Level";
@@ -177,34 +201,34 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     for (i in def.get('attackSpeed')) {
       def.get('attackSpeed')[i] *= this.speed;
     }
-    this.robots.forEach(r=>r.refreshStats());
-    this.defenses.forEach(d=>d.refreshStats());
+    this.robots.forEach(r=>r.resetStats());
+    this.defenses.forEach(d=>d.resetStats());
   },
   getRandomRobot: function() {
     //Add Robot
-    var turnProb = Math.floor((Math.random() * 3)); //0,1,2
-    var life = Math.floor((Math.random() * 3)); //0,1,2
-    var elements = ['electric', 'water', 'fire'];
-    var range = Math.floor((Math.random() * 2));//0,1
-    var element = elements[Math.floor((Math.random() * 3))];//water,fire,electric
-    var terrain = Math.floor((Math.random() * 2));
-    var speed = Math.floor((Math.random() * 3));
-    var damage = Math.floor((Math.random() * 3));
-    var attackSpeed = Math.floor((Math.random() * 3));
-    var customRobot = new Robot(this, turnProb, life, element, range, terrain, speed, damage, attackSpeed);
-    return customRobot;
+    let dna = [];
+    Robot.prototype.STATS.forEach(p => dna.push(_.randchoice(_.mapNumbers(Object.keys(p)))));
+    return new Robot(this, dna);
   },
   getRandomDefense: function() {
-    //TODO las defensas van a ser por partes?
+    let dna = [];
+    Defense.prototype.STATS.forEach(p => dna.push(_.randchoice(_.mapNumbers(Object.keys(p)))));
+    return new Defense(this, dna);
   },
   setBase: function(base) {
     this.map.spawn(base, null, 7);
     this.base = base;
+    this.base.x += 64; // HACK
+    this.base.y += 32; // HACK
+  },
+  setCharacter: function(character) {
+    this.map.spawn(character, null, 7);
+    this.character = character;
   },
   addRobot: function(robot) {
+    robot.spawnIndex = ++this.totalRobotsSpawned;
     this.map.spawn(robot, null, 6);
     this.robots.push(robot);
-
     // debug = new Debugger();//TODO sacar despues las cosas de debug
     // debug.debugText(this, {text: "Robots Count: " + this.robots.length});
   },
@@ -219,11 +243,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     this.defenses.push(defense);
   },
   showDummyDefense: function(defense) { // TODO when the map doesn't fill all the space, there are problems when selecting a tile that is outside the map
-    if (this.dummyDefense) {
-      this.dummyDefense.removeFromParent();
-      this.dummyDefense.release();
-      this.dummyDefense = null;
-    }
+    this.removeDummyDefense();
     this.dummyDefense = defense;
     var ms = this.map.getMapSize();
     var pos = cc.p(ms.width / 2, ms.height / 2);
@@ -231,16 +251,37 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
     var color;
     var tint;
 
-    if (this.dummyDefense.canBePlacedOn(pos).result && this.base.gold >= 300) { //TODO 300 defense price hardcoded TODO
+    if (this.dummyDefense.canBePlacedOn(pos).result && this.character.getGold() >= rb.prices.createDefense) {
       color = cc.color(0, 255, 100, 50);
     } else {
       color = cc.color(255, 50, 50, 50);
     }
     tint = new cc.TintTo(0.2, color.r, color.g, color.b);
     this.dummyDefense.runAction(tint);
-    this.map.selectTile(pos, color);
+    // this.map.selectTile(pos, color);
+  },
+  removeDummyDefense: function() {
+    if (this.dummyDefense) {
+      this.dummyDefense.removeFromParent();
+      this.dummyDefense.release();
+      this.dummyDefense = null;
+      // this.map.debugger.debugTile(this.map, {stop: true});
+    }
+  },
+  dummyToDefense: function() {
+    let newDefense = this.dummyDefense;
+    newDefense.setColor(cc.color(255, 255, 255));
+    this.defenses.push(newDefense);
+    newDefense.retain(); // Retain is needed I don't remeber why
+    newDefense.isDummy = false;
+    this.removeDummyDefense();
+    this.map.addChild(newDefense);
+    newDefense.factoryReset(); // This makes possible to the idle animation to execute the idle animation
+    newDefense.realDefenseInit();
+    return newDefense;
   },
   prepareNextWave: function() {// TODO no estoy teniendo en cuenta el orden en el que salen
+    this.willDrop += this.totalItems / this.wavesCounts.length;
     var robotsAmount;
     if (this.cWave === null) { // First random wave
       this.cWave = 0;
@@ -259,10 +300,8 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
         this.prevWaveRobots.sort(function(a, b) { return b[1] - a[1]; });
 
         //Debugear avg score
-        var total = 0;
-        var count = 0;
-        this.prevWaveRobots.forEach(function(e) { total += e[1]; count += 1; });
-        console.log("Average fitScore prev wave: " + total/count);
+        console.log("Average fitScore prev wave: " + (this.prevWaveRobots.reduce((t, e) => t + e[1], 0) / this.prevWaveRobots.length));
+
         //crear array dnaWaveQuery con esos agarrados
         var dnaWaveQuery = this.prevWaveRobots.slice(0, Math.ceil((robotsAmount / 4) + 1));
         // bucle agarrando dos al azar de ese cuarto+1 segun su score
@@ -294,13 +333,14 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
       }
     }
     this.waveDelay = this.wavesIntervals[this.cWave];
+    if (this.hud) this.hud.waveText.refresh();
   },
   crossover: function(p1, p2, sonsCount) { //TODO GA que el robot sea equilibrado
     // Crossovers two DNAs from robot.getDNA(), p1 is the strongest parent
     sonsCount = sonsCount || 2;
     var possible = [];
     _.props(Robot).STATS.forEach(oPossibles => possible.push(
-      Object.keys(oPossibles).map((p) => isNaN(p) ? p : parseInt(p))
+      _.mapNumbers(Object.keys(oPossibles))
     ));
     var sons = [];
     for (var j = 0; j < sonsCount; j++) {
@@ -342,7 +382,7 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   },
   mutate: function(gen, possibles) {
     // Mutates a gen within the possibles array
-    var leftPossibles = possibles.filter(function(a) { return a != gen; });
+    var leftPossibles = possibles.length > 1 ? possibles.filter(function(a) { return a != gen; }) : possibles;
     var mutatedGen = leftPossibles[Math.floor((Math.random() * leftPossibles.length))];
     return mutatedGen;
   },
@@ -360,6 +400,24 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   winGame: function() {
     this.endGame();
     cc.director.runScene(new cc.TransitionFade(1.5, new MainMenu("You Win")));
+  },
+  pauseGame: function() {
+    let recursivePause = (node) => {
+      node.pause();
+      let children = node.children;
+      for (var child of children) recursivePause(child);
+    };
+    recursivePause(this);
+    this.isPaused = true;
+  },
+  resumeGame: function() {
+    let recursiveResume = (node) => {
+      node.resume();
+      let children = node.children;
+      for (var child of children) recursiveResume(child);
+    };
+    recursiveResume(this);
+    this.isPaused = false;
   },
   counter:0,
   update: function(delta) {// TODO buscar todos los updates del juego y tratar de simplificarlos al maximo, fijarse de usar custom schedulers

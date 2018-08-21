@@ -6,16 +6,20 @@ var InfoText = cc.LabelTTF.extend({
     this.hud = hud;
 
     let s = cc.winSize;
-    this.setString("Defense Selector");
+    this.setString("Press the plus button to build something");
     this.setFontName(r.getDefaultFont());
     this.setFontSize(32);
-    this.setDimensions(cc.size(s.width, 48));
+    let d = this.hud.bottombarLayout.getSize();
+    if (!cc.sys.isNative) this.setLineHeight(32); // TODO Hack
+    this.setDimensions(s.width, d.height / 2); // TODO Hardcoded dimensions
     this.setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+    this.setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER);
     this.setAnchorPoint(0, 0);
-    this.setPosition(cc.p(0, this.hud.ds.height + this.hud.ds.y));
+    this.setPosition(0, d.height); // TODO Hardcoded
   },
   toString: () => "InfoText",
   message: function(message, duration) {
+    this.stopAllActions();
     duration = duration || 3;
     this.setOpacity(0);
     var changeText = new cc.CallFunc((it, msg) => it.setString(msg), this, message);

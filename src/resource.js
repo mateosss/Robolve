@@ -4,38 +4,89 @@ var r = { // resources variable
     icons: {type: "font", name: cc.sys.isNative ? "res/fonts/icons.ttf" : "icons", srcs: ["res/fonts/icons.ttf"]},
   },
   getDefaultFont: () => r.fonts.baloo.name,
-  panel: "res/sprites/ui/panel.png", // TODO r.panel? This probably should have a hud sub object
   empty: "res/sprites/empty.png",
   point: "res/sprites/point.png",
   invalidPart: "res/sprites/invalidPart.png",
   base: "res/sprites/base.png",
   maps:{
     tilesheet: "res/map/tilesheet.png",
-    map1: "res/map/map1.tmx",
-    map2: "res/map/map2.tmx",
-    map3: "res/map/map3.tmx",
-    map4: "res/map/map4.tmx",
-    map5: "res/map/map5.tmx",
+    tileset: "res/map/tileset.png",
+    map1: "res/map/demo.tmx",
+    map2: "res/map/tiny.tmx",
+    map3: "res/map/zigZag.tmx",
+    map4: "res/map/islands.tmx",
+    map5: "res/map/inferno.tmx",
   },
-  ui:{
+  ui: {
+    panel: "res/sprites/ui/panel.png",
+    panel_out: "res/sprites/ui/panel_out.png",
+    panel_in: "res/sprites/ui/panel_in.png",
+    panel_in_soft: "res/sprites/ui/panel_in_soft.png",
+    panel_in_nuts: "res/sprites/ui/panel_in_nuts.png",
+    panel_in_soft_light: "res/sprites/ui/panel_in_soft_light.png",
     buttons: [
-      "blue",
-      "green",
       "red",
+      "pink",
+      "purple",
+      "deepPurple",
+      "indigo",
+      "blue",
+      "lightBlue",
+      "cyan",
+      "teal",
+      "green",
+      "lightGreen",
+      "lime",
       "yellow",
-      "cancel",
-      "ok",
-      "minus",
-      "plus",
+      "amber",
+      "orange",
+      "deepOrange",
+      "brown",
+      "gray",
+      "blueGray",
+      "white",
+      "black",
     ],
   },
-  parts_png_0: "res/sprites/parts_0.png",
-  parts_plist_0: "res/sprites/parts_0.plist",
-  parts_png_1: "res/sprites/parts_1.png",
-  parts_plist_1: "res/sprites/parts_1.plist",
+  items: {
+    default: "res/sprites/items/default.png",
+    gold: "res/sprites/items/gold.png",
+    electricCoin: "res/sprites/items/electricCoin.png",
+    fireCoin: "res/sprites/items/fireCoin.png",
+    waterCoin: "res/sprites/items/waterCoin.png",
+
+    sword: "res/sprites/items/sword.png",
+    hammer: "res/sprites/items/hammer.png",
+    screwdriver: "res/sprites/items/screwdriver.png",
+    runner: "res/sprites/items/runner.png",
+    towerExpert: "res/sprites/items/towerExpert.png",
+    speedometer: "res/sprites/items/speedometer.png",
+    briefcase: "res/sprites/items/briefcase.png",
+    twoSwords: "res/sprites/items/twoSwords.png",
+    bullseye: "res/sprites/items/bullseye.png",
+    toolbox: "res/sprites/items/toolbox.png",
+    medicalBag: "res/sprites/items/medicalBag.png",
+    campingEssentials: "res/sprites/items/campingEssentials.png",
+    coffee: "res/sprites/items/coffee.png",
+  },
+  // parts_png_0: "res/sprites/parts_0.png",
+  // parts_plist_0: "res/sprites/parts_0.plist",
+  // parts_png_1: "res/sprites/parts_1.png",
+  // parts_plist_1: "res/sprites/parts_1.plist",
+  character_png: "res/sprites/character.png",
+  character_plist: "res/sprites/character.plist",
+  robots_png: "res/sprites/robots.png",
+  robots_plist: "res/sprites/robots.plist",
+  defenses_png: "res/sprites/defenses.png",
+  defenses_plist: "res/sprites/defenses.plist",
 };
 
 var g_resources = [];
+
+// Charge main files
+for (var i in r) {
+  if (typeof r[i] === "string") g_resources.push(r[i]);
+}
 
 // Charge maps sheets and tmx
 for (var map in r.maps){
@@ -47,27 +98,23 @@ for (var ui in r.ui){
   if (typeof r.ui[ui] === 'string') {
     g_resources.push(r.ui[ui]);
   }
-  if (ui == 'buttons') {
+  if (ui === 'buttons') {
+    let  form = "res/sprites/ui/buttons/{}.png";
     for (var btn in r.ui.buttons) {
-      r.ui[r.ui.buttons[btn] + "BtnL"] = "res/sprites/ui/largeButtons/" + r.ui.buttons[btn] + "BtnL.png";
-      r.ui[r.ui.buttons[btn] + "BtnDL"] = "res/sprites/ui/largeButtons/" + r.ui.buttons[btn] + "BtnDL.png";
-      r.ui[r.ui.buttons[btn] + "BtnM"] = "res/sprites/ui/mediumButtons/" + r.ui.buttons[btn] + "BtnM.png";
-      r.ui[r.ui.buttons[btn] + "BtnDM"] = "res/sprites/ui/mediumButtons/" + r.ui.buttons[btn] + "BtnDM.png";
-      r.ui[r.ui.buttons[btn] + "BtnS"] = "res/sprites/ui/smallButtons/" + r.ui.buttons[btn] + "BtnS.png";
-      r.ui[r.ui.buttons[btn] + "BtnDS"] = "res/sprites/ui/smallButtons/" + r.ui.buttons[btn] + "BtnDS.png";
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnL"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDL"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnM"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDM"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnS"]);
-      g_resources.push(r.ui[r.ui.buttons[btn] + "BtnDS"]);
+      r.ui[r.ui.buttons[btn]] = _.format(form, r.ui.buttons[btn]);
+      r.ui[r.ui.buttons[btn] + "P"] = _.format(form, r.ui.buttons[btn] + "P");
+      r.ui[r.ui.buttons[btn] + "Round"] = _.format(form, r.ui.buttons[btn] + "Round");
+      r.ui[r.ui.buttons[btn] + "RoundP"] = _.format(form, r.ui.buttons[btn] + "RoundP");
+      g_resources.push(r.ui[r.ui.buttons[btn]]);
+      g_resources.push(r.ui[r.ui.buttons[btn] + "P"]);
+      g_resources.push(r.ui[r.ui.buttons[btn] + "Round"]);
+      g_resources.push(r.ui[r.ui.buttons[btn] + "RoundP"]);
     }
   }
+
 }
 
-// Charge everything else
-for (var i in r) {
-  if (typeof r[i] == "string") {
-    g_resources.push(r[i]);
-  }
+// Charge item sprites
+for (let item in r.items){
+  g_resources.push(r.items[item]);
 }

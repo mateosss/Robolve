@@ -1,3 +1,5 @@
+// TODO Not in use
+
 var DefenseDetails = ccui.ListView.extend({
   hud: null, // hud parent to which the defensedetails are appended
   inScreen: false, // true when the component is on screen
@@ -57,21 +59,17 @@ var DefenseDetails = ccui.ListView.extend({
     this.pushBackCustomItem(this.damage);
     this.attackSpeed = new PropertySelector(this, 'attackSpeed');
     this.pushBackCustomItem(this.attackSpeed);
-    this.destroy = new ccui.Button(r.ui.cancelBtnM, r.ui.cancelBtnDM);
+    this.destroy = new Button({
+      callback: () => {
+        this.hud.alert("Recycle Defense", _.format("Are you sure you want to delete this defense for {} bucks? You just think about money don't you?", rb.prices.destroyDefense), () => {
+          this.defense.die();
+          this.hud.ig.addGold(rb.prices.destroyDefense);
+          this.hud.dialog.dismiss();
+        });
+      }, button: "red", icon: "close", width: "96px", height: "96px"
+    });
     this.destroy.setTouchEnabled(true);
     this.pushBackCustomItem(this.destroy);
-    easyTouchButton(this.destroy, function(btn){
-      let dd = btn.getParent().getParent();
-      let hud = dd.hud;
-      if (dd.destroySure) {
-        dd.defense.die();
-        hud.ig.addGold(50);
-        dd.destroySure = false;
-      } else {
-        hud.it.message("Press again to destroy (+$50)");
-        dd.destroySure = true;
-      }
-    });
   },
   toString: () => "DefenseDetails",
   refresh: function() {

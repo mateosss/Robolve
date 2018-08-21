@@ -1,26 +1,32 @@
 var TiledMap = cc.TMXTiledMap.extend({
+  // zOrders from 0..200000 are reserved from things affected by perspective like robots, defenses, etc.
   level: null,
   CHILD_SCALE: 0.8,
-  positionTarget: cc.p(cc.director.getWinSize().width / 2, cc.director.getWinSize().height / 2),
+  positionTarget: null, // The map tries to follow this point with a smooth delay
   ctor: function(level, tmxMap){
     this.level = level;
     this._super(tmxMap);
-    this.scale = 0.15;
+    this.tmxLayersInitialization();
+    this.scale = 0.05;
     this.setAnchorPoint(0.5, 0.5);
     this.scheduleUpdate();
+    this.setPosition(cc.p(cc.winSize.width / 2, cc.winSize.height / 2));
+    this.positionTarget = this.getPosition();
+    this.runAction(new cc.Sequence(new cc.DelayTime(0.5), new cc.EaseBackOut(new cc.ScaleTo(1, 0.25))));
 
     easyTouchEnded(this, function(map, event) {
-      var btnRect = map.level.hud.ds.ok.getBoundingBoxToWorld();
+      var btnRect = map.level.hud.ds.confirm.getBoundingBoxToWorld();
       var isNotABtn = !cc.rectContainsPoint(btnRect, event.getLocation());//TODO pretty unclean
       if (map.level.dummyDefense && map.level.dummyDefense.visible === true && isNotABtn) {
-        var tile = map.tileCoordFromLocation(event.getLocation());
-        map.moveToTile(map.level.dummyDefense, tile);
+        var tile = map.tileCoordFromChild(cc.pAdd(this.convertToNodeSpace(event.getLocation()), cc.p(0, -32)));
+
+        map.moveToTile(map.level.dummyDefense, tile, true, 0.2);
 
         ///////TODO ALL THIS CODE IS REPEATED FROM GAME.JS
         var color;
         var tint;
 
-        if (map.level.dummyDefense.canBePlacedOn(tile).result && map.level.base.gold >= 300) { //TODO 300 defense price hardcoded TODO
+        if (map.level.dummyDefense.canBePlacedOn(tile).result && map.level.character.getGold() >= rb.prices.createDefense) {
           color = cc.color(0, 255, 100, 50);
         } else {
           color = cc.color(255, 50, 50, 50);
@@ -28,12 +34,29 @@ var TiledMap = cc.TMXTiledMap.extend({
         tint = new cc.TintTo(0.2, color.r, color.g, color.b);
         map.level.dummyDefense.runAction(tint);
         /////////////
-        map.selectTile(tile, color);
+        // map.selectTile(tile, color);
       }
     }, {options: {passEvent: true}});
   },
-  toString: function(){
-    return "Map";
+  tmxLayersInitialization: function() {
+    this.getLayer("Background").visible = false;
+    // let mapHeight = this.getProperties().mapHeight; // Use this for implementing map height
+    // for (var i = 0; i < mapHeight; i++) {
+    //   this.getLayer("Layer " + i).y = i * 32;
+    //   this.getLayer("Decoration " + i).y = i * 32;
+    // }
+  },
+  zoomFit: function() {
+    this.runAction(new cc.EaseBackOut(new cc.ScaleTo(0.4, 0.25)));
+    this.positionTarget = cc.p(cc.winSize.width / 2, cc.winSize.height / 2);
+  },
+  toString: () => "Map",
+  zOrderFromPos: function(pos) { return pos.x + (this.height - pos.y) * 128; },
+  addChild: function(child, localZOrder, tag) {
+    // WARNING: For some reason this function overrides the cocos `name` or `getName()` property, be sure to set name after addChild
+    // Dont change zOrder of the TMX background
+    if (child instanceof cc.TMXLayer) this._super(child, localZOrder, tag);
+    else this._super(child, localZOrder || this.zOrderFromPos(child), tag);
   },
   placeOnTile: function(sprite, tile) {
     var mapLayer = this.getLayer("Background");
@@ -45,23 +68,19 @@ var TiledMap = cc.TMXTiledMap.extend({
   },
   getMapDefenses: function() {
     // customRobot.retain();
-    var allObjects = this.getObjectGroup("Objects").getObjects();
-    var defenses = [];
-    for (var i = 0; i < allObjects.length; i++) {
+    let allObjects = this.getObjectGroup("Objects").getObjects();
+    let defenses = [];
+    for (let i = 0; i < allObjects.length; i++) {
       if (allObjects[i].name.startsWith("SpawnDefense")) {
         // Creates the new defense
-        var defense = new Defense(
-          this.level,
-          parseInt(allObjects[i].life),
-          allObjects[i].element,
-          parseInt(allObjects[i].range),
-          parseInt(allObjects[i].terrain),
-          parseInt(allObjects[i].damage),
-          parseInt(allObjects[i].attackSpeed)
-        );
+        let dna = [];
+        // TODO ignoring jshint warning, for jshint bug: https://github.com/jshint/jshint/issues/3100
+        Defense.prototype.STATS.forEach((__, stat) => dna.push(_.tryParseInt(allObjects[i][stat]))); // jshint ignore:line
+        let defense = new Defense(this.level, dna);
         defense.retain();
+        defense.setBuilt();
         // Calculates the new defense position
-        var p = this.tileCoordFromObject(allObjects[i]);
+        let p = this.tileCoordFromObject(allObjects[i]);
         // Push the defense and location
         defenses.push({defense: defense, position: p});
       }
@@ -77,8 +96,9 @@ var TiledMap = cc.TMXTiledMap.extend({
     if (!withAnimations) {
       sprite.setPosition(p);
     } else {
-      animDuration = animDuration || 1;
-      var move = new cc.MoveTo(animDuration, p);
+      sprite.stopAllActions();
+      animDuration = animDuration || 0.2;
+      var move = new cc.EaseBackOut(new cc.MoveTo(animDuration, p));
       sprite.runAction(move);
     }
   },
@@ -93,10 +113,14 @@ var TiledMap = cc.TMXTiledMap.extend({
     // int z = (TILEMAP_WIDTH - tmpCastle->getPositionX()) + (TILEMAP_HEIGHT
     // - tmpCastle->getPositionY());
     // tmpCastle->setZOrder(z);
-    this.addChild(child, layer, tag);
     child.scale = this.CHILD_SCALE;//TODO escalado? asi se hace?
     var p = position || this.getSpawnPoint(child);
     child.setPosition(p);
+    this.addChild(child, layer, tag);
+    if (child.toString() === "Robot") { // TODO too specific
+      child.pointing = this.getSpawnRobotPointing();
+      child.allParts(function(part) { part.setFlippedX(this.pointing % 2); });
+    }
   },
   getSpawnPoint: function(child){
     var spawnPoint = this.getObjectGroup("Objects").getObject(
@@ -118,6 +142,9 @@ var TiledMap = cc.TMXTiledMap.extend({
     p.y += tileSize.height / 2;
     return p;
   },
+  getSpawnRobotPointing: function() { // TODO too specific
+    return parseInt(this.getObjectGroup("Objects").getObject("SpawnRobot").pointing);
+  },
   tileCoordFromObject: function(obj){
     //Returns the tile coordinates from a tiled map object dont use this for sprites, use the FromChild instead
     //Source: http://discuss.cocos2d-x.org/t/isometric-map-is-returning-wrong-position-for-object/27100/7
@@ -132,6 +159,7 @@ var TiledMap = cc.TMXTiledMap.extend({
     return cc.p(objTileX, objTileY);
   },
   tileCoordFromChild: function(child){
+    // Be careful with rounding errors
     //Retruns the tile coordinates from a child of the map
     //Source: Learn iPhone and iPad cocos2d Game Development - Book
     var mapWidth = this.getMapSize().width;
@@ -196,7 +224,7 @@ var TiledMap = cc.TMXTiledMap.extend({
   },
   zoomMap: function(zoomDelta) {
     var zoom = this.scale + zoomDelta;
-    if (zoom >= 0.15 && zoom <= 1.0) {
+    if (zoom >= 0.15 && zoom <= 2.0) {
       this.scale = zoom;
       // mapCenter = this.map.convertToWorldSpaceAR(this.map.getAnchorPoint());
       // difference = cc.pSub(mapCenter, this.clickLocation);
@@ -209,37 +237,28 @@ var TiledMap = cc.TMXTiledMap.extend({
     }
   },
   moveMap: function(x, y) {
-    var winSize = cc.director.getWinSize();
-    var mapHalfWidth = (this.width * this.scale)/2;
-    var mapHalfHeight = (this.height)/2;
+    let winSize = cc.winSize;
+    let mapHalfWidth = (this.width * this.scale) / 2;
+    let mapHalfHeight = (this.height * this.scale) / 2;
 
-    var maxLeft = winSize.width - 50 - mapHalfWidth;
-    var maxRight = 0 + 50 + mapHalfWidth;
-    var maxDown = winSize.height + 50 - mapHalfHeight;
-    var maxUp = 0 - 50 + mapHalfHeight;
+    let maxLeft = winSize.width - 500 - mapHalfWidth;
+    let maxRight = 500 + mapHalfWidth;
+    let maxDown = winSize.height - 500 - mapHalfHeight;
+    let maxUp = 500 + mapHalfHeight;
 
-    var newX = this.positionTarget.x + x;
-    var newY = this.positionTarget.y + y;
+    let newX = this.positionTarget.x + x;
+    let newY = this.positionTarget.y + y;
 
-    if (newX < maxLeft) {
-      newX = maxLeft;
-    }
-    if (newX > maxRight) {
-      newX = maxRight;
-    }
-
-    if (newY < maxDown) {
-      newY = maxDown;
-    }
-    if (newY > maxUp) {
-      newY = maxUp;
-    }
+    if (newX < maxLeft) newX = maxLeft;
+    if (newX > maxRight) newX = maxRight;
+    if (newY < maxDown) newY = maxDown;
+    if (newY > maxUp) newY = maxUp;
 
     this.positionTarget.x = newX;
     this.positionTarget.y = newY;
   },
   update: function(deltaTime){
-    this.x = (this.positionTarget.x - this.x) * deltaTime * 16 + this.x;
-    this.y = (this.positionTarget.y - this.y) * deltaTime * 16 + this.y;
+    this.x = (this.positionTarget.x - this.x) * 0.033 * 16 + this.x;
+    this.y = (this.positionTarget.y - this.y) * 0.033 * 16 + this.y;
   },
 });

@@ -12,18 +12,15 @@ var Part = cc.Sprite.extend({
   z: null, // the zIndex at which the part spawns
   partName: null, // a function to get  the sprite name to locate the textures
   ctor:function(computer, type) {
-    if (arguments.length === 0) return; // Hack for getting only the properties defined above
     this.computer = computer;
     this.type = type;
     for (var prop in computer.PARTS[type]) {
       this[prop] = computer.PARTS[type][prop];
     }
     this._super(cc.spriteFrameCache.getSpriteFrame(this.getDefaultSprite()));
-    this.setAnchorPoint(0.5, 0.1);
+    this.setAnchorPoint(0.5, 0.2);
   },
-  toString: function() {
-    return "Part";
-  },
+  toString: () => "Part",
   getPartName: function() { // Returns the name of the sprite based on parent computer dna. e.g: electricRangeL
     return this.partName(this.computer);
   },

@@ -1,3 +1,4 @@
+// This example draws a rect on the `this` object: new Debugger(this).debugRect(this, {rect: cc.rect(0,0,containerSize, containerSize)});
 var Debugger = cc.Class.extend({
   object: null,
   methods: [], // Format [{method:function(){},options:{}}]
@@ -30,9 +31,9 @@ var Debugger = cc.Class.extend({
         var position = options.position || object.getAnchorPointInPoints();
         var label = new cc.LabelTTF(text, fontName, fontSize, dimensions, hAlignment, vAlignment);
         label.fillStyle = options.fillStyle || cc.color(255, 255, 255, 255);
-        label.setName(debugName);
         label.setPosition(position);
         object.addChild(label, 10000);
+        label.setName(debugName);
       }
     }
   },
@@ -50,8 +51,8 @@ var Debugger = cc.Class.extend({
       var offset = options.offset || cc.p(0, 0);
       var line = new cc.DrawNode();
       line.drawSegment(cc.pAdd(pos, offset), cc.pAdd(target, offset), width, color);
-      line.setName(debugName);
       object.addChild(line, 1000);//TODO hacer nivel z opcional tambien
+      line.setName(debugName);
       return line;
     }
   },
@@ -66,8 +67,8 @@ var Debugger = cc.Class.extend({
       var color = options.color || cc.color(1, 179, 255, 20);
       var circle = new cc.DrawNode();
       circle.drawDot(pos, radius, color);
-      circle.setName(debugName);
       object.addChild(circle, -1);
+      circle.setName(debugName);
       return circle;
     }
   },
@@ -82,8 +83,8 @@ var Debugger = cc.Class.extend({
       var color = options.color || cc.color(200, 0, 200, 255);
       var circle = new cc.DrawNode();
       circle.drawDot(pos, radius, color);
-      circle.setName(debugName);
       object.addChild(circle, 999);
+      circle.setName(debugName);
       return circle;
     }
   },
@@ -98,8 +99,8 @@ var Debugger = cc.Class.extend({
       var radius = options.radius || 5;
       var circle = new cc.DrawNode();
       circle.drawDot(pos, radius, color);
-      circle.setName(debugName);
       object.addChild(circle, 1000);//TODO hacer nivel z opcional tambien
+      circle.setName(debugName);
       return circle;
     }
   },
@@ -112,7 +113,7 @@ var Debugger = cc.Class.extend({
       var square = new cc.DrawNode();
       var z = options.z || 100;
       var rect = options.rect ||
-      cc.rect(object.x, object.y, object.width, object.height);
+      cc.rect(0, 0, object.width, object.height);
       var origin = options.origin || cc.p(rect.x, rect.y);
       var destination = options.destination ||
       cc.p(rect.x + rect.width, rect.y + rect.height);
@@ -120,8 +121,8 @@ var Debugger = cc.Class.extend({
       var lineWidth = options.lineWidth || 1;
       var lineColor = options.lineColor || cc.color(0, 0, 0, 255);
       square.drawRect(origin, destination, fillColor, lineWidth, lineColor);
-      square.setName(debugName);
       object.addChild(square, z);//TODO poner niveles z diferentes
+      square.setName(debugName);
       return square;
     }
   },
@@ -143,8 +144,8 @@ var Debugger = cc.Class.extend({
       var lineWidth = options.lineWidth || 1;
       var lineColor = options.lineColor || cc.color(0, 0, 0, 255);
       polygon.drawPoly(verts, fillColor, lineWidth, lineColor);
-      polygon.setName(debugName);
       object.addChild(polygon, z);
+      polygon.setName(debugName);
       return polygon;
     }
   },

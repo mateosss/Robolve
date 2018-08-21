@@ -1,21 +1,22 @@
-var Base = cc.Sprite.extend({
-  level: null, // Level where this object is placed
-  gold: 4000, // Player gold
-  sLife: 2000, // Initial life
-  cLife: null, // Current life
-  cTilePos: null, // Current Tile Position
-  killed: false, // Sets wheter the base is already killed
+var Base = Defense.extend({
+  part: null, // TODO Hack, for not using Parts, and using a single part, see assembleParts in this file, should be fixed when sprites for Base are generated
+
+  STATS: new Map([ // TODO this should be different combinations that can be purchased
+    ['life', {0: 15000}],
+    ['element', { electric: "Electro" }],
+    ['range', {0: 500}],
+    ['terrain', {0: 'walk'}],
+    ['damage', {0: 30}],
+    ['attackSpeed', {0: 15.0}],
+  ]),
+
   ctor: function(level){
-    this._super(r.base);
-    this.level = level;
-    this.cLife = this.sLife;
-    this.setAnchorPoint(0.5, 0.1);
-    this.createHealthBar();
-    this.debug();
+    let baseDna = [0, "electric", 0, 0, 0, 0]; // TODO DNA of the base hardcoded
+    this._super(level, baseDna);
+    this.setBuilt();
+    this.scale = 1.5;
   },
-  toString: function(){
-    return "Base";
-  },
+
   debug: function(){
     // Creates a debugger for verbose information directly on the canvas
     this.debugger = new Debugger(this);
@@ -25,8 +26,17 @@ var Base = cc.Sprite.extend({
     ];
     this.debugger.debug();
   },
+
+  assembleParts: function() { // TODO Hack for getting Part to work with Base, should be removed when there are real bases sprites
+    if (!this.part) {
+      this.part = new cc.Sprite(r.base);
+      this.part.setAnchorPoint(0.5, 0.15625);
+      this.addChild(this.part);
+    }
+  },
+
   createHealthBar: function(){
-    //TODO Repeating from robot, maybe has to go in debugger
+    // TODO Repeating from robot, maybe has to go in debugger
     //Creates two rectangles for representing the healtbar
     var originB = cc.p(-60, 0);
     var originF = cc.p(-56, 4);
@@ -50,27 +60,27 @@ var Base = cc.Sprite.extend({
     this.addChild(back, 10);
     this.addChild(front, 11);
   },
-  updateHealthBar: function(){
-    //updates the healthbar length with the sLife stat
-    var hpbar = this.getChildByName("hpbar");
-    hpbar.setScaleX(this.cLife / this.sLife);
-  },
-  hurt: function(robot){
-    //This function calculates the total damage of the bullet depending on the
-    //Robot, and do some things in reaction
-    if (!this.killed) {
-      var totalDamage = robot.sDamage;
-      this.cLife -= totalDamage;
-      this.updateHealthBar();
-      if (this.cLife <= 0) {
-        this.life = 0;
-        this.kill();
+  setTouchEvent: function() {
+    easyTouchEnded(this, function(base) {
+      if (base.getNumberOfRunningActions() === 0) {
+        var increase = new cc.ScaleBy(0.05, 1.2);
+        var decrease = new cc.ScaleBy(0.15, 1 / 1.2);
+        base.runAction(new cc.Sequence(increase, decrease));
+        base.level.hud.it.message(_.randchoice([
+          "Don't let those pieces of trash destroy me",
+          "What are you looking at?",
+          "Come on, your eyes on the game",
+          "I will not move until you win",
+          "Hey, be careful where you put your finger",
+          "Hey! that hurts",
+        ]));
       }
-      return totalDamage;
-    }
+    }, { options: { priority: ee.EE_INDIVIDUAL, rectFunction: this.getCustomBoundingBoxToWorld } });
   },
-  kill: function(){
-    this.killed = true;
+
+  die: function() {
+    this._super();
     this.level.gameOver();
   },
+  toString: () => "Base",
 });

@@ -5,26 +5,21 @@
 // maybe there could be other sprites with parts that doesn't necessarily battle
 // the solution would be to make a new class called BattleComputer that requires those two states and the hurt/die/attack/etc methods
 
-// TODO IF NEEDED - The concept of states is very powerfull, we need one more level of abstraction
-// from it, It can be used for gui elements, tutorials, etc. So making a class called
-// something like StateNode would be really useful, so that we could create sprites,
-// buttons, and so on with states already working on them without special initialization
-
 var Computer = cc.Sprite.extend({
   level: null, // Level where this object is placed
   pointing: 2, // Looking direction 0:North, 1:East, 2:South, 3:West
   cAnimation: null, // Current cc.Action being played
   cTilePos: cc.p(0, 0), // Current tile Position of the robot // TODO estoy hardcodeando esto
-  cStates: null, // [] array with applied states, from older to newer
-  states: null, // [] Automatically generated array, with all the STATES instances
+  sm: null, // The computer state machine
   creationTime: null,
   hitsReceived: 0,
   infligedDamage: 0,
+  mapHeght: 0, // Used in zIndex calculation
   DEBUG: false, // Set to true for executing the debug function
   // STATS constant defines the structure of this Robot based class
   // Take into account that if for example turnProb is in STATS, the properties
   // turnProb and sTurnProb will be created directly on the object, with
-  // turnProb having the gene, and sTinfligedDamageurnProb the current real stat the robot
+  // turnProb having the gene, and sTurnProb the current real stat the robot
   // is having that can be modified and resetted by setDefaultStat
   STATS: null, // Map that contains the stats of this computer and its possibilities, see Robot class
   PARTS: null, // Object that contains the parts, and part options of this computer, see Robot class
@@ -42,23 +37,20 @@ var Computer = cc.Sprite.extend({
     this.setCascadeOpacityEnabled(true);
     this.level = level;
     this.creationTime = new Date().getTime();
+    this.mapHeight = level.map.height;
 
     dna = typeof dna === 'object' ? dna : Array.prototype.slice.call(arguments, 1);
     for (let i = 0; i < this.STATS.size; i++) {
       this[this.STATS.getki(i)] = dna[i];
     }
 
-    this.states = [];
-    this.cStates = [];
-    for (let i = 0; i < this.STATES.length; i++) {
-      this.states.push(new State(this, this.STATES[i]));
-    }
+    this.sm = new StateMachine(this);
 
     this.factoryReset();
   },
 
   // Stat section
-  refreshStats: function() { // sets the initial value to all stats in sStats
+  resetStats: function() { // sets the initial value to all stats in sStats
     this.STATS.forEach((possibles, stat) => {this.setDefaultStat(stat);});
   },
   getStat: function(stat) {
@@ -67,11 +59,13 @@ var Computer = cc.Sprite.extend({
   setStat: function(stat, value) {
     this['s' + _.capitalize(stat)] = value;
   },
-  changeStat: function(stat, newValue) { // sets a new stat maintaining the proportion that existed between the sStat and the default stat before the change
+  changeStat: function(stat, newValue) { // sets a new stat maintaining the proportion that existed between the sStat and the default stat before the change, also updates the sprite parts
     var sProportion = (this.getStat(stat) / this.getDefaultStat(stat));
     this[stat] = newValue;
     var newStatValueProportioned = sProportion * this.getDefaultStat(stat);
     this.setStat(stat, newStatValueProportioned);
+    this.assembleParts();
+    this.sm.reanimateAllStates();
     return newStatValueProportioned;
   },
   getDefaultStat: function(stat) { // Returns the original stat
@@ -116,41 +110,19 @@ var Computer = cc.Sprite.extend({
     this.allParts(function(part) { part.setAnimation(animation, speed); });
   },
 
-  // State section
-  getState: function(state) { // Gets a state from STATES by name
-    if (typeof state === 'string') state = this.states.find(aState => aState.name == state);
-    return state;
-  },
-  addState: function(state, extra) { // adds a state to cStates and starts it, expects a state or a string with its name, extra is an {}, adds everything that is in extra to state.local
-    state = this.getState(state);
-    if (!state) return cc.log("addState: State " + state + " doesn't exists for a " + this.toString());
-    _.concat(state.local, extra);
-    state.start();
-    return state;
-  },
-  removeState: function(state) { // removes a state from cStates and ends it, expects a state or a string with its name
-    this.getState(state).end();
-  },
-  removeAllStates: function() {
-    this.cStates.forEach((state) => state.end());
-  },
-  setState: function(state, extra) { // stops all states and add the provided one
-    var preserve = this.getState(state);
-    if (!preserve) return cc.log("setState: State " + state + " doesn't exists for a " + this.toString());
-    for (var i = this.cStates.length - 1; i >= 0; i--) {
-      if (this.cStates[i] !== preserve) this.removeState(this.cStates[i]);
-    }
-    this.addState(preserve, extra);
-  },
-  isInState: function(state) {
-    return this.getState(state).active;
-  },
   // General section
   factoryReset: function(soft) {
     this.assembleParts();
-    if (!soft) this.refreshStats();
-    this.removeAllStates();
-    this.setState(this.states[0]);
+    if (!soft) {
+      this.resetStats();
+    }
+    // TODO this two lines will bring problems because we are using factoryReset when changing stats,
+    // and changing stats should not clean all states, removeAllStates and setState
+    // should be inside the if (!soft) statement, and changing stats should PAUSE all
+    // states and resume them, for that there should be a way of pausing states
+    this.sm.removeAllStates();
+    this.sm.setDefaultState();
+
     this.createHealthBar();
     if (this.DEBUG) this.debug();
   },
@@ -297,28 +269,37 @@ var Computer = cc.Sprite.extend({
     }
     this.x += this.sSpeed * xDirection;
     this.y += (this.sSpeed / 2) * yDirection;
+    this.zIndex = this.x + (this.mapHeight - this.y) * 128; // Same as this.refreshZOrder, made here for performance // TODO DRY Map.zOrderFromPos
+  },
+  refreshZOrder: function() {
+    this.zIndex = TiledMap.prototype.zOrderFromPos(this);
+  },
+  getCustomBoundingBoxToWorld: function() {
+    let rect = this.getBoundingBoxToWorld();
+    let scaleh = 0.75;
+    let scalew = 0.4;
+    let w = rect.width;
+    let h = rect.height;
+    rect.width *= scalew;
+    rect.height *= scaleh;
+    rect.x += w * (1 - scalew) / 2;
+    rect.y += h * (1 - scaleh) / 2;
+    return rect;
   },
   hurt: function(attacker) {
     // This function calculates the total damage of the received attack depending
     // on the attacker properties, and does some things in reaction
+    // It must return the total damage applied
     this.hitsReceived += 1;
-    var mod;
-    if (this.element == "electric") {
-      if (attacker.element == "electric") mod = 1;
-      else if (attacker.element == "fire") mod = 2;
-      else if (attacker.element == "water") mod = 0.5;
+    let ratio = 1;
+    if (this.element && attacker.element) { // Apply difference if elements are present
+      let mod = (a, m) => a < 0 ? m + a % m : a % m;
+      let elements = ["electric", "fire", "water"];
+      // ratios = [attacker == this, atacker > this, atacker < this]
+      let ratios = [1, 2, 0.5];
+      ratio = ratios[mod(elements.indexOf(attacker.element) - elements.indexOf(this.element), elements.length)];
     }
-    else if (this.element == "fire") {
-      if (attacker.element == "electric") mod = 0.5;
-      else if (attacker.element == "fire") mod = 1;
-      else if (attacker.element == "water") mod = 2;
-    }
-    else if (this.element == "water") {
-      if (attacker.element == "electric") mod = 2;
-      else if (attacker.element == "fire") mod = 0.5;
-      else if (attacker.element == "water") mod = 1;
-    }
-    var totalDamage = attacker.sDamage * mod;
+    var totalDamage = attacker.sDamage * ratio;
     this.sLife -= totalDamage;
     if (this.sLife <= 0) {
       this.sLife = 0;
@@ -332,16 +313,20 @@ var Computer = cc.Sprite.extend({
     var computers = this.level[this.toStringP()];
     var i = computers.indexOf(this);
     if (i != -1) {
-      this.states.forEach((s) => s.destroy());
+      this.sm.destroy();
       this.removeFromParent();
       this.release();
       computers.splice(i, 1);
     }
     return true;
   },
+  isDead: function() {
+    return this.sLife === 0;
+  },
   die: function() {
     // Sets the die state that will reproduce some animations and then kill the computer
-    this.setState('die');
+    this.sLife = 0;
+    this.sm.setState('die');
   },
   livedTimeScore: function() {
     // Returns a float, being 0.0 == 0 ms, 1.0 lived more or equal ms to maxTime
@@ -354,31 +339,24 @@ var Computer = cc.Sprite.extend({
     return score;
   },
   hitsReceivedScore: function() {
-    // Returns a float, being 0.0 == 0 ms, 1.0 lived more or equal ms to maxTime
-    var maxHits = this.getPossibleStats('life')[2] / (_.props(Defense).STATS.get('damage')[0] * 0.5);
-    var score = 0;
-    var hitsReceived = this.hitsReceived;
-    score =  hitsReceived / maxHits;
+    // Returns a float, being 0 == died with 0 hits, and 1 == died in the amount of hits a weak water tower would kill a strong electric robot
+    let maxHits = this.getPossibleStats('life')[2] / (_.props(Defense).STATS.get('damage')[0] * 0.5);
+    let hitsReceived = this.hitsReceived;
+    let score =  hitsReceived / maxHits;
     return score;
   },
   infligedDamageScore: function() {
-    // Returns a float, being 0.0 == 0 damage, 1.0 == all the base health
-    var maxDamage = this.level.base.sLife;
-    var damage = this.infligedDamage;
-    if (damage >= maxDamage) {
-      return 1;
-    }
-    var score = damage / maxDamage;
+    // Returns a float, being 0.0 == 0 damage, 1.0 == the best life of a turret or more
+    let maxDamage = _.last(Object.values(Defense.prototype.STATS.get("life")));
+    let damage = this.infligedDamage;
+    let score = damage >= maxDamage ? 1 : damage / maxDamage;
     return score;
   },
   distanceToBaseScore: function() {
     // Returns a float, being 0.0 == more than maxDistance, 1.0 == 0 distance
-    var maxDistance = 2000;
-    var distance = Math.floor(this.getDistanceTo(this.level.base));
-    if (distance >= maxDistance) {
-      return 0;
-    }
-    var score = 1 - ((1.0 / maxDistance) * distance);
+    let maxDistance = 2000;
+    let distance = Math.floor(this.getDistanceTo(this.level.base));
+    let score = distance >= maxDistance ? 0 : 1 - ((1.0 / maxDistance) * distance);
     return score;
   },
   getScore: function() {
