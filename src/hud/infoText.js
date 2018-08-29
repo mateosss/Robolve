@@ -19,6 +19,7 @@ var InfoText = cc.LabelTTF.extend({
   },
   toString: () => "InfoText",
   message: function(message, duration) {
+    console.log(message);
     this.stopAllActions();
     duration = duration || 3;
     this.setOpacity(0);

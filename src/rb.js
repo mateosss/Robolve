@@ -5,10 +5,11 @@ var rb = {
     resizeView: () => cc.view.setDesignResolutionSize(720, 1280, cc.ResolutionPolicy.SHOW_ALL),
     stop: () => cc.director.getScheduler().unscheduleAll(),
     getLevel: () => cc.director.getRunningScene().children.find(c => c.toString() === "Level"),
+    getTutorial: () => rb.dev.getLevel().tutorial,
     getHud: () => rb.dev.getLevel().hud,
     getRobots: () => rb.dev.getLevel().robots,
     getDefenses: () => rb.dev.getLevel().defenses,
-    getItems: () => rb.dev.getLevel().map.children.filter(i => i.toString() === "ItemPickup"),
+    getDropedItems: () => rb.dev.getLevel().map.children.filter(i => i.toString() === "ItemPickup"),
     getCharacter: () => rb.dev.getLevel().character,
     spawnAll: () => {
       let level = rb.dev.getLevel();
@@ -17,7 +18,7 @@ var rb = {
     getBase: () => rb.dev.getLevel().base,
     getRobot: () => rb.dev.getRobots()[0],
     getDefense: () => rb.dev.getDefenses()[0],
-    getItem: () => rb.dev.getItems()[0],
+    getDropedItem: () => rb.dev.getDropedItems()[0],
     allRobots: (func) => rb.dev.getRobots().forEach(func),
     allDefenses: (func) => rb.dev.getDefenses().forEach(func),
     allItems: (func) => rb.dev.getItems().forEach(func),

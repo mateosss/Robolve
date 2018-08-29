@@ -12,8 +12,9 @@ var TiledMap = cc.TMXTiledMap.extend({
     this.scheduleUpdate();
     this.setPosition(cc.p(cc.winSize.width / 2, cc.winSize.height / 2));
     this.positionTarget = this.getPosition();
-    this.runAction(new cc.Sequence(new cc.DelayTime(0.5), new cc.EaseBackOut(new cc.ScaleTo(1, 0.25))));
+    this.runAction(new cc.Sequence(new cc.DelayTime(0.5), new cc.EaseBackOut(new cc.ScaleTo(1, this.level.isTutorial ? 1 : 0.25))));
 
+    if (level.isTutorial) return;
     easyTouchEnded(this, function(map, event) {
       var btnRect = map.level.hud.ds.confirm.getBoundingBoxToWorld();
       var isNotABtn = !cc.rectContainsPoint(btnRect, event.getLocation());//TODO pretty unclean
@@ -46,8 +47,8 @@ var TiledMap = cc.TMXTiledMap.extend({
     //   this.getLayer("Decoration " + i).y = i * 32;
     // }
   },
-  zoomFit: function() {
-    this.runAction(new cc.EaseBackOut(new cc.ScaleTo(0.4, 0.25)));
+  zoomFit: function(newZoom) {
+    this.runAction(new cc.EaseBackOut(new cc.ScaleTo(0.4, newZoom || 0.25)));
     this.positionTarget = cc.p(cc.winSize.width / 2, cc.winSize.height / 2);
   },
   toString: () => "Map",

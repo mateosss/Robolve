@@ -52,18 +52,20 @@ var Menu = cc.LayerGradient.extend({
     this.buttonStore.addTo(this.bottomHalf);
     this.buttonStore.icon = new Icon({fontSize: 84, icon: "store", y: "center", bottom: "5px", left: "21px"});
     this.buttonStore.icon.addTo(this.buttonStore);
-
-    if (cc.sys.isMobile && window.navigator.userAgent.toLowerCase().indexOf("android") !== -1) {
-      this.buttonApk = new Button({callback: () => cc.sys.openURL("http://robolve.ga/"), y: "center", x: "center", button: "amber", text: "GET APK", width: "70pw", height: "17.5pw", bottom: "-17.5pw + -33px"});
-      this.buttonApk.addTo(this.bottomHalf);
-      this.buttonApk.icon = new Icon({fontSize: 84, icon: "download", y: "center", bottom: "5px", left: "21px"});
-      this.buttonApk.icon.addTo(this.buttonApk);
+    if (!cc.sys.isNative) {
+      if (window.navigator.userAgent.toLowerCase().indexOf("android") !== -1) {
+        this.buttonApk = new Button({callback: () => cc.sys.openURL("http://robolve.ga/"), y: "center", x: "center", button: "amber", text: "GET APK", width: "70pw", height: "17.5pw", bottom: "-17.5pw + -33px"});
+        this.buttonApk.addTo(this.bottomHalf);
+        this.buttonApk.icon = new Icon({fontSize: 84, icon: "download", y: "center", bottom: "5px", left: "21px"});
+        this.buttonApk.icon.addTo(this.buttonApk);
+      }
+      if (cc.winSize.height > cc.winSize.width) {
+        this.buttonFullscreen = new Button({callback: () => cc.screen.requestFullScreen(), y: "0px", x: "-15pw", button: "indigoRound", icon: "fullscreen", width: "15pw", height: "15pw", bottom: "11px", right: "11px", scale9: false});
+        this.buttonFullscreen.addTo(this.mainContainer);
+      }
     }
 
-    if (!cc.sys.isNative && cc.winSize.height > cc.winSize.width) {
-      this.buttonFullscreen = new Button({callback: () => cc.screen.requestFullScreen(), y: "0px", x: "-15pw", button: "indigoRound", icon: "fullscreen", width: "15pw", height: "15pw", bottom: "11px", right: "11px", scale9: false});
-      this.buttonFullscreen.addTo(this.mainContainer);
-    }
+
 
     // Maps screen
     this.mapsContainer = new Layout({visible: false});
