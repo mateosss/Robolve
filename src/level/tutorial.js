@@ -1,5 +1,8 @@
-// agregar boton para salir del tutorial
-// agregar boton para desbuguear zoom
+// The tutorial was made, as every tutorial ever made for every game, made
+// in a rush, pardon the weird bits. Have that in mind when reading this class.
+
+// TODO: Add button to get out of the tutorial
+// TODO: Add button to fix zoom bug
 
 // This class is used for scripting sequencial events of the tutorial
 var Tutorial = cc.Class.extend({
