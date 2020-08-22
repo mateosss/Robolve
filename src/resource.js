@@ -16,6 +16,7 @@ var r = { // resources variable
     map3: "res/map/zigZag.tmx",
     map4: "res/map/islands.tmx",
     map5: "res/map/inferno.tmx",
+    map6: "res/map/tutorial.tmx",
   },
   ui: {
     panel: "res/sprites/ui/panel.png",
@@ -24,6 +25,7 @@ var r = { // resources variable
     panel_in_soft: "res/sprites/ui/panel_in_soft.png",
     panel_in_nuts: "res/sprites/ui/panel_in_nuts.png",
     panel_in_soft_light: "res/sprites/ui/panel_in_soft_light.png",
+    highlight: "res/sprites/ui/highlight.png",
     buttons: [
       "red",
       "pink",

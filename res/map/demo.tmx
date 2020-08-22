@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="20" height="20" tilewidth="128" tileheight="64" infinite="0" nextobjectid="56">
  <properties>
-  <property name="wavesCounts" value="5,10,15,20,25,30,35,40,45,50"/>
+  <property name="wavesCounts" value="5,5,10,15,20,25,30,35,40,50"/>
   <property name="wavesIntervals" value="5,5,5,5,5,5,5,5,5,5"/>
  </properties>
  <tileset firstgid="1" name="tileset" tilewidth="128" tileheight="128" tilecount="48" columns="8">

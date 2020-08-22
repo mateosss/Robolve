@@ -26,7 +26,13 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   totalItems: 0, // Saves the total items to drop in a level
   remainingItemsToDrop: null, // The remaining unique items to drop
   willDrop: 0, // Counter that if it is greater than 1, it is  very likely to drop a unique item from remainingItemsToDrop
+
+  isTutorial: false, // If is tutorial freeze the robot generation
   ctor:function (mapRes) {
+    if (mapRes.indexOf("tutorial") !== -1) {
+      this.isTutorial = true;
+      this.tutorial = new Tutorial(this);
+    }
     // this._super(cc.color(25, 25, 50), cc.color(50, 50, 100));
     // this._super(cc.hexToColor("#4FC3F7"), cc.hexToColor("#0288D1"));
     this._super(cc.hexToColor("#005ca8"), cc.hexToColor("#619ce0"));
@@ -422,18 +428,20 @@ var Level = cc.LayerGradient.extend({ // TODO Ir archivando historial de oleadas
   counter:0,
   update: function(delta) {// TODO buscar todos los updates del juego y tratar de simplificarlos al maximo, fijarse de usar custom schedulers
     // Controls the delay between spawns
-    if (this.counter >= this.waveDelay) {
-      if (this.waveDelay != this.spawn_time) {
-        this.waveDelay = this.spawn_time;
+    if (!this.isTutorial) {
+      if (this.counter >= this.waveDelay) {
+        if (this.waveDelay != this.spawn_time) {
+          this.waveDelay = this.spawn_time;
+        }
+        this.counter = 0;
+        if (this.waveQuery.length > 0) {
+          this.addRobot(this.waveQuery.pop());
+        } else if (!this.lastWave && this.robots.length === 0) {
+          this.prepareNextWave();
+        }
+      } else {
+        this.counter += delta;
       }
-      this.counter = 0;
-      if (this.waveQuery.length > 0) {
-        this.addRobot(this.waveQuery.pop());
-      } else if (!this.lastWave && this.robots.length === 0) {
-        this.prepareNextWave();
-      }
-    } else {
-      this.counter += delta;
     }
 
     if (this.lastWave && this.robots.length === 0) {

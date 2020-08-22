@@ -39,6 +39,7 @@ var Hud = cc.Layer.extend({
     this.it = new InfoText(this);
     this.addChild(this.it, 10);
 
+    // Char status
     this.charStatus = new Button({button: "purpleRound", callback: () => {
       let char = this.level.character;
       let status = char.getStatus();
@@ -130,6 +131,38 @@ var Hud = cc.Layer.extend({
 
     this.pauseButton = new Button({button: "orange", callback: () => this.togglePause(), y: "-72px", x: "-72px", top: "11px", right: "33px + 72px", height: "72px", width: "72px", icon:"pause", iconFontSize: 96, scale: 0.5});
     this.pauseButton.addTo(this, 21);
+
+    // Tutorial things
+    this.focus = new Focus(this);
+    this.focus.retain(); // TODO Memory leak, made for keeping it after itempickup in tutorial.js
+    this.addChild(this.focus, 400000);
+
+    // Orb
+    this.orb = new Panel({x: "11px", height: "140px", y: "100ph + -280px", width: "100pw + -116px"});
+    this.orb.addTo(this);
+    this.orb.image = new Badge({bgImage: r.items.default, scale9: false, width: "96px", height: "96px", y: "center", left: "22px"});
+    this.orb.image.addTo(this.orb);
+    this.orb.text = new Text({x: "128px", text: "—", fontSize: 24, lineHeight: 24, width: "100pw + -146px", hAlign: cc.TEXT_ALIGNMENT_LEFT, vAlign: cc.VERTICAL_TEXT_ALIGNMENT_CENTER, bottom: cc.sys.isNative ? "16px" : "0px"});
+    this.orb.text.setTextAreaSize(cc.size(this.orb.width - 11, this.orb.height));
+    this.orb.text.addTo(this.orb);
+    this.orb.button = new Button({button: "pink", x: "0px", top: "96px + 11px", height: "96px", width: "256px", text: "Ok", scale: 0.5});
+    this.orb.button.addTo(this.orb);
+    this.orb.button.getTitleRenderer().setLineHeight(48);
+    this.orb.button.getTitleRenderer().setHorizontalAlignment(cc.TEXT_ALIGNMENT_CENTER);
+    this.orb.speak = (string, afterwards, answer) => {
+      answer = answer || _.randchoice(["Ok", "Gotcha", "Understood", "Good to know", "Yep", "Nice", "Very Nice", "Received", "Okay", "Okidoki"]);
+      this.orb.text.setString(string);
+      this.orb.button.setup({visible: true, text: answer});
+      this.orb.button.setup({callback: () => {
+        this.orb.button.setup({visible: false});
+        afterwards();
+      }});
+    };
+    this.orb.visible = false;
+
+
+
+
 
     // TODO XXX Remove
     window.tutorialDialog = this.tutorialDialog; // jshint ignore:line
