@@ -1,3 +1,4 @@
+#!/bin/bash
 robolve_root=$(xdg-user-dir DOCUMENTS)
 sh Extras/copyfiles.sh
 cd $robolve_root/projects/Robolve/
